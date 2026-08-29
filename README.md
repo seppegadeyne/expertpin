@@ -168,6 +168,22 @@ locally, the test binary also supports:
   288
 ```
 
+## Example launch script
+
+[`scripts/run-qwen38-flash-next.sh`](scripts/run-qwen38-flash-next.sh) wraps a
+guarded `llama-server` run for large MoE models:
+
+- Pre-flight RAM/VRAM/busy-GPU guards (`FORCE=1` overrides, `DRY=1` prints the plan).
+- Runs the server inside a `systemd-run --user --scope` cgroup with
+  `MemoryHigh`/`MemoryMax`, so an over-budget run dies alone instead of
+  triggering a system-wide `systemd-oomd` kill.
+- Sets `GGML_CUDA_NO_PINNED=1` by default to avoid the pinned-host-allocation
+  failure mode, and bounds `--cache-ram`.
+- `MANIFEST=… RESIDENT=288` adds `--expert-manifest`/`--resident-experts 288
+  --prefetch-experts`; `DRAFT=1` adds an MTP draft model.
+
+See the script header for a worked 262K-context example configuration.
+
 ## Credits
 
 This project exists because of work by several upstream communities:
