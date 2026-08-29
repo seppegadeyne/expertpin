@@ -48,6 +48,8 @@ add_library(llama
             llama-grammar.cpp
             llama-sampling.cpp
             llama-mmap.cpp
+            llama-expert-manifest.h
+            llama-expert-manifest.cpp
             llama-model-loader.cpp
             llama-load-tensors.cpp
             llama-build-context.h
@@ -138,7 +140,7 @@ add_library(llama
             )
 
 target_include_directories(llama PUBLIC . ../include)
-target_include_directories(llama PRIVATE ../ggml/src)
+target_include_directories(llama PRIVATE ../ggml/src ../vendor)
 target_compile_features   (llama PUBLIC cxx_std_17)
 
 target_link_libraries(llama PUBLIC ggml)

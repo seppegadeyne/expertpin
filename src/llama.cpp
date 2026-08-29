@@ -5020,6 +5020,22 @@ static int llama_model_load(const std::string & fname, llama_model & model, llam
         } catch(const std::exception & e) {
             throw std::runtime_error("error loading model hyperparameters: " + std::string(e.what()));
         }
+        if (params.resident_experts < 0) {
+            throw std::runtime_error("resident expert count must be >= 0");
+        }
+        model.resident_experts = params.resident_experts;
+        if (params.expert_manifest != nullptr && params.expert_manifest[0] != '\0') {
+            model.expert_manifest = llama_expert_manifest_load(params.expert_manifest);
+            llama_expert_manifest_validate(
+                    model.expert_manifest,
+                    model.hparams.n_layer,
+                    model.hparams.n_expert,
+                    model.resident_experts);
+            LLAMA_LOG_INFO("%s: loaded expert manifest '%s' (%zu layers, resident K=%d)\n",
+                    __func__, params.expert_manifest, model.expert_manifest.layers.size(), model.resident_experts);
+        } else if (model.resident_experts > 0) {
+            throw std::runtime_error("resident expert count requires an expert manifest");
+        }
         if (model.arch == LLM_ARCH_OPENPANGU) {
             std::string error_msg;
             if (!llama_openpangu_validate_latent_cache_types(params.type_k, params.type_v, &error_msg)) {
@@ -7871,6 +7887,8 @@ struct llama_model_params llama_model_default_params() {
         /*.tensor_split                =*/ nullptr,
         /*.fit_margin_array            =*/ nullptr,
         /*.rpc_servers                 =*/ nullptr,
+        /*.expert_manifest             =*/ nullptr,
+        /*.resident_experts            =*/ 0,
         /*.progress_callback           =*/ nullptr,
         /*.progress_callback_user_data =*/ nullptr,
         /*.kv_overrides                =*/ nullptr,
@@ -8287,6 +8305,47 @@ static void llama_repack_up_gate_exps(llama_context & lctx) {
             }
         }
     }
+}
+
+static std::pair<size_t, size_t> llama_prefetch_manifest_residents(llama_model & model) {
+    size_t tensors_populated = 0;
+    size_t expert_slices_populated = 0;
+    std::unordered_set<const ggml_tensor *> seen;
+
+    for (const auto & entry : model.expert_manifest.layers) {
+        const uint32_t layer_id = entry.first;
+        if (layer_id >= model.layers.size()) {
+            continue; // model validation rejects this; keep the helper defensive
+        }
+
+        const auto selected = llama_expert_manifest_select(
+                model.expert_manifest, layer_id, static_cast<size_t>(model.resident_experts));
+        if (selected.empty()) {
+            continue;
+        }
+
+        const llama_layer & layer = model.layers[layer_id];
+        const ggml_tensor * expert_tensors[] = {
+            layer.ffn_norm_exps,
+            layer.ffn_gate_exps,
+            layer.ffn_down_exps,
+            layer.ffn_up_exps,
+            layer.ffn_up_gate_exps,
+            layer.ffn_exp_probs_b,
+        };
+
+        for (const ggml_tensor * tensor : expert_tensors) {
+            if (tensor == nullptr || !seen.insert(tensor).second) {
+                continue;
+            }
+            if (ggml_backend_prefetch_experts(tensor, selected.data(), selected.size())) {
+                ++tensors_populated;
+                expert_slices_populated += selected.size();
+            }
+        }
+    }
+
+    return {tensors_populated, expert_slices_populated};
 }
 
 struct llama_context * llama_init_from_model(
@@ -9041,6 +9100,16 @@ struct llama_context * llama_init_from_model(
                 ggml_backend_prefetch_init(params.prefetch_experts_threads) ? "threaded populate engine" : "madvise fallback");
         for (const auto & mapping : model->mappings) {
             ggml_backend_prefetch_register_mapping(mapping->addr(), mapping->size());
+        }
+        if (model->resident_experts > 0) {
+            const auto populated = llama_prefetch_manifest_residents(*model);
+            if (populated.first == 0) {
+                LLAMA_LOG_WARN("%s: expert manifest selected K=%d, but no selected expert tensor was mmap-backed\n",
+                        __func__, model->resident_experts);
+            } else {
+                LLAMA_LOG_INFO("%s: manifest residency populated %zu expert slices across %zu tensors before access-order streaming\n",
+                        __func__, populated.second, populated.first);
+            }
         }
     }
     if (model->split_mode == LLAMA_SPLIT_MODE_GRAPH && (!model->has_tensor_overrides() || cparams.split_mode_graph_scheduling)) {

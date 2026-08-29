@@ -458,6 +458,8 @@ struct gpt_params {
     bool defer_experts     = false; // if true, defer expert mmap residency to speed up model loading (Linux only)
     bool prefetch_experts  = false; // if true, stream mmap'd MoE expert weights into the page cache (Linux only)
     int  prefetch_experts_threads = 0; // number of expert prefetch workers (<=0 = auto)
+    std::string expert_manifest;   // ordered layer -> expert-id residency manifest
+    int  resident_experts = 0;     // top-K manifest experts to prioritize per layer (0 = disabled)
     bool k_cache_hadamard  = false; // if true, use Hadamard transform for the K-cache (only makes sense with quantized cache)
     bool v_cache_hadamard  = false; // if true, use Hadamard transform for the V-cache (only makes sense with quantized cache, which requires FA)
     bool split_mode_graph_scheduling = false; // if true, force split mode graph scheduling

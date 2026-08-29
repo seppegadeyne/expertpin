@@ -406,6 +406,10 @@ extern "C" {
         // comma separated list of RPC servers to use for offloading
         const char * rpc_servers;
 
+        // ordered layer -> expert-id manifest and top-K residency count
+        const char * expert_manifest;
+        int32_t resident_experts;
+
         // Called with a progress value between 0.0 and 1.0. Pass NULL to disable.
         // If the provided progress_callback returns true, model loading continues.
         // If it returns false, model loading is immediately aborted.

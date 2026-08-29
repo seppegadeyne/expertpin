@@ -1,5 +1,7 @@
 #pragma once
 
+#include "llama-expert-manifest.h"
+
 #include "llama-impl.h"
 #include "llama-arch.h"
 #include "llama-mmap.h"
@@ -496,6 +498,9 @@ struct llama_model {
 
     llama_hparams hparams = {};
     llama_vocab   vocab;
+
+    llama_expert_manifest expert_manifest;
+    int32_t resident_experts = 0;
 
     struct ggml_tensor * tok_embd;
     struct ggml_tensor * type_embd;
