@@ -169,6 +169,9 @@ struct prefetch_pool {
 struct prefetch_state {
     std::mutex                 reg_mtx;
     std::vector<mapping_entry> mappings;
+    // Expert slices populated from a manifest. Full-tensor lookahead skips
+    // these ranges so its later MADV_COLD pass only targets the mmap'd tail.
+    std::unordered_map<const void *, std::vector<std::pair<size_t, size_t>>> resident_ranges;
 
     std::atomic<uint64_t> epoch{1};
 
@@ -190,6 +193,55 @@ static bool is_mapped(const void * p, size_t len) {
         if (a >= m.base && a + len <= m.base + m.size) return true;
     }
     return false;
+}
+
+static void register_resident_ranges(const ggml_tensor * w,
+        const std::vector<std::pair<size_t, size_t>> & ranges) {
+    auto sorted = ranges;
+    std::sort(sorted.begin(), sorted.end());
+
+    std::vector<std::pair<size_t, size_t>> merged;
+    for (const auto & range : sorted) {
+        if (merged.empty() || merged.back().first + merged.back().second < range.first) {
+            merged.push_back(range);
+        } else {
+            const size_t end = std::max(
+                    merged.back().first + merged.back().second,
+                    range.first + range.second);
+            merged.back().second = end - merged.back().first;
+        }
+    }
+
+    auto & s = state();
+    std::lock_guard<std::mutex> lock(s.reg_mtx);
+    s.resident_ranges[w->data] = std::move(merged);
+}
+
+static void collect_nonresident_ranges(const ggml_tensor * w,
+        std::vector<std::pair<size_t, size_t>> & ranges) {
+    std::vector<std::pair<size_t, size_t>> resident;
+    {
+        auto & s = state();
+        std::lock_guard<std::mutex> lock(s.reg_mtx);
+        const auto it = s.resident_ranges.find(w->data);
+        if (it != s.resident_ranges.end()) {
+            resident = it->second;
+        }
+    }
+
+    const size_t wbytes = ggml_nbytes(w);
+    size_t cursor = 0;
+    for (const auto & range : resident) {
+        const size_t start = std::min(range.first, wbytes);
+        const size_t end = std::min(range.first + range.second, wbytes);
+        if (cursor < start) {
+            ranges.emplace_back(cursor, start - cursor);
+        }
+        cursor = std::max(cursor, end);
+    }
+    if (cursor < wbytes) {
+        ranges.emplace_back(cursor, wbytes - cursor);
+    }
 }
 
 // collect [offset, offset+len) ranges of the selected experts of weight tensor w
@@ -225,6 +277,30 @@ static void collect_selected_ranges(const ggml_tensor * w, const ggml_tensor * i
             ranges.emplace_back(off, len);
         }
     }
+}
+
+// Collect one range per manifest expert without sorting or coalescing. Queue
+// insertion therefore retains descending saliency order exactly as supplied.
+static bool collect_ordered_expert_ranges(const ggml_tensor * w, const uint32_t * expert_ids,
+        size_t n_expert_ids, std::vector<std::pair<size_t, size_t>> & ranges) {
+    if (!w || !w->data || !expert_ids || n_expert_ids == 0) return false;
+
+    const int64_t n_experts = w->ne[2];
+    const size_t stride = w->nb[2];
+    const size_t wbytes = ggml_nbytes(w);
+    if (n_experts <= 1 || stride == 0) return false;
+
+    ranges.reserve(n_expert_ids);
+    for (size_t index = 0; index < n_expert_ids; ++index) {
+        const uint32_t id = expert_ids[index];
+        if (id >= static_cast<uint64_t>(n_experts)) return false;
+        const size_t offset = static_cast<size_t>(id)*stride;
+        if (offset >= wbytes) return false;
+        const size_t length = std::min(stride, wbytes - offset);
+        if (length == 0) return false;
+        ranges.emplace_back(offset, length);
+    }
+    return true;
 }
 
 // enqueue ranges of tensor w; returns false when the engine is off or w is not mmap-registered
@@ -303,6 +379,19 @@ static void legacy_madvise(const ggml_tensor * w, const ggml_tensor * ids) {
     }
 }
 
+static bool legacy_madvise_ranges(const ggml_tensor * w,
+        const std::vector<std::pair<size_t, size_t>> & ranges) {
+    if (!is_mapped(w->data, ggml_nbytes(w))) return false;
+    const uintptr_t page_mask = (uintptr_t)sysconf(_SC_PAGESIZE) - 1;
+    const char * base = (const char *)w->data;
+    for (const auto & r : ranges) {
+        const uintptr_t start = (uintptr_t)(base + r.first);
+        const uintptr_t aligned_start = start & ~page_mask;
+        (void) madvise((void *)aligned_start, (size_t)(start + r.second - aligned_start), MADV_WILLNEED);
+    }
+    return true;
+}
+
 } // namespace
 
 void ggml_moe_prefetch_register_mapping(const void * base, size_t size) {
@@ -320,9 +409,27 @@ void ggml_moe_prefetch_unregister_mapping(const void * base) {
     std::lock_guard<std::mutex> lock(s.reg_mtx);
     // a queued job may still point into this range; its madvise then fails
     // (ENOMEM once unmapped) and the worker skips the chunk
+    size_t mapping_size = 0;
+    for (const auto & mapping : s.mappings) {
+        if (mapping.base == (uintptr_t)base) {
+            mapping_size = mapping.size;
+            break;
+        }
+    }
     s.mappings.erase(std::remove_if(s.mappings.begin(), s.mappings.end(),
                 [base](const mapping_entry & m) { return m.base == (uintptr_t)base; }),
             s.mappings.end());
+    if (mapping_size > 0) {
+        const uintptr_t mapping_end = (uintptr_t)base + mapping_size;
+        for (auto it = s.resident_ranges.begin(); it != s.resident_ranges.end();) {
+            const uintptr_t tensor_addr = (uintptr_t)it->first;
+            if (tensor_addr >= (uintptr_t)base && tensor_addr < mapping_end) {
+                it = s.resident_ranges.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
 }
 
 static bool populate_read_supported() {
@@ -382,7 +489,7 @@ void ggml_moe_prefetch_node(const struct ggml_tensor * node) {
 void ggml_moe_prefetch_tensor(const struct ggml_tensor * w) {
     if (!w || !w->data) return;
     std::vector<std::pair<size_t, size_t>> ranges;
-    ranges.emplace_back(0, ggml_nbytes(w));
+    collect_nonresident_ranges(w, ranges);
     enqueue_ranges(w, ranges, /*urgent =*/ false, /*track_reads =*/ true);
 }
 
@@ -435,6 +542,18 @@ void ggml_moe_prefetch_wait(const struct ggml_tensor * w) {
     });
 }
 
+bool ggml_moe_prefetch_experts(const struct ggml_tensor * w, const uint32_t * expert_ids, size_t n_expert_ids) {
+    std::vector<std::pair<size_t, size_t>> ranges;
+    if (!collect_ordered_expert_ranges(w, expert_ids, n_expert_ids, ranges)) return false;
+    register_resident_ranges(w, ranges);
+
+    if (enqueue_ranges(w, ranges, /*urgent =*/ false, /*track_reads =*/ false)) {
+        ggml_moe_prefetch_wait(w);
+        return true;
+    }
+    return legacy_madvise_ranges(w, ranges);
+}
+
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith) {
     if (ith != 0) return;
     const ggml_tensor * w0; const ggml_tensor * w1; const ggml_tensor * ids;
@@ -463,6 +582,7 @@ bool ggml_moe_prefetch_enabled(void) { return false; }
 void ggml_moe_prefetch_new_epoch(void) {}
 void ggml_moe_prefetch_node(const struct ggml_tensor *) {}
 void ggml_moe_prefetch_tensor(const struct ggml_tensor *) {}
+bool ggml_moe_prefetch_experts(const struct ggml_tensor *, const uint32_t *, size_t) { return false; }
 void ggml_moe_prefetch_wait(const struct ggml_tensor *) {}
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor *, int) {}
 void ggml_moe_prefetch_cold(const struct ggml_tensor *) {}

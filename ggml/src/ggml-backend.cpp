@@ -1256,6 +1256,10 @@ void ggml_backend_prefetch_unregister_mapping(const void * addr) {
     ggml_moe_prefetch_unregister_mapping(addr);
 }
 
+bool ggml_backend_prefetch_experts(const struct ggml_tensor * tensor, const uint32_t * expert_ids, size_t n_expert_ids) {
+    return ggml_moe_prefetch_experts(tensor, expert_ids, n_expert_ids);
+}
+
 static inline bool ggml_backend_sched_offload_enabled(ggml_backend_sched_t sched, enum ggml_op op) {
     int int_op = (int)op;
     if (!sched || op < 0 || op >= GGML_OP_COUNT) return false;

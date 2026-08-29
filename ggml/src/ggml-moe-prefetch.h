@@ -4,6 +4,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,6 +31,11 @@ void ggml_moe_prefetch_node(const struct ggml_tensor * node);
 // full-tensor lookahead enqueue (low priority), e.g. for prompt processing
 // where the next layer's experts are needed in bulk.
 void ggml_moe_prefetch_tensor(const struct ggml_tensor * w);
+
+// Synchronously populate explicit expert slices in the supplied priority order.
+// The slices remain excluded from full-tensor lookahead/cold reclamation so the
+// mmap'd tail can continue to stream without demoting the resident prefix.
+bool ggml_moe_prefetch_experts(const struct ggml_tensor * w, const uint32_t * expert_ids, size_t n_expert_ids);
 
 // block until all pending prefetch jobs for tensor w are complete.
 // Returns immediately when nothing is pending.

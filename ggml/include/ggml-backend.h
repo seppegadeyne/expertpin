@@ -220,6 +220,12 @@ extern "C" {
     GGML_API bool                 ggml_backend_prefetch_init(int n_threads);
     GGML_API void                 ggml_backend_prefetch_register_mapping(const void * addr, size_t size);
     GGML_API void                 ggml_backend_prefetch_unregister_mapping(const void * addr);
+    // Populate explicit expert slices in caller-provided order, keep them out
+    // of full-tensor lookahead reclamation, and wait for completion.
+    // Returns false when the tensor is not backed by a registered mmap or ids are invalid.
+    GGML_API bool                 ggml_backend_prefetch_experts(const struct ggml_tensor * tensor,
+                                                               const uint32_t * expert_ids,
+                                                               size_t n_expert_ids);
 
     //
     // Utils
