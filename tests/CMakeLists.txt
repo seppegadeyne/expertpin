@@ -207,6 +207,9 @@ target_include_directories(test-expert-manifest PRIVATE ${PROJECT_SOURCE_DIR}/sr
 target_compile_definitions(test-expert-manifest PRIVATE
     EXPERTPIN_TEST_FIXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/fixtures")
 
+llama_build_and_test(test-expert-stats.cpp WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(test-expert-stats PRIVATE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/vendor)
+
 llama_build_and_test(test-iq4-ks-kt-decode.cpp)
 target_include_directories(test-iq4-ks-kt-decode PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
 

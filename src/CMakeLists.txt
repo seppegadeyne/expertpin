@@ -49,7 +49,9 @@ add_library(llama
             llama-sampling.cpp
             llama-mmap.cpp
             llama-expert-manifest.h
+            llama-expert-stats.h
             llama-expert-manifest.cpp
+            llama-expert-stats.cpp
             llama-model-loader.cpp
             llama-load-tensors.cpp
             llama-build-context.h
