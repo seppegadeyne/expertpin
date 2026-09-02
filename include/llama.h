@@ -442,6 +442,18 @@ extern "C" {
 
     // NOTE: changing the default values of parameters marked as [EXPERIMENTAL] may cause crashes or incorrect results in certain configurations
     //       https://github.com/ggerganov/llama.cpp/pull/7544
+    // MoE expert-store stats snapshot (ggml prefetch-engine counters, issue #1)
+    struct llama_expert_store_stats_lg {
+        uint64_t requests;       // one per distinct expert id at kernel entry
+        uint64_t hits;           // slice already resident at kernel entry
+        uint64_t misses;         // slice not resident (demand fault ahead)
+        uint64_t prefetched;     // expert-slice ranges covered by enqueues
+        uint64_t prefetch_hits;  // prefetched ranges that arrived before use
+        uint64_t defer_wait_ns;  // time drained inside prefetch waits
+        uint64_t resident_bytes; // latest mincore-resident weight bytes
+        uint64_t capacity_bytes; // mapped weight bytes
+    };
+
     struct llama_context_params {
         uint32_t seed;              // RNG seed, -1 for random
         uint32_t n_ctx;             // text context, 0 = from model
@@ -506,6 +518,8 @@ extern "C" {
         bool only_active_experts;
         bool prefetch_experts;  // if true, stream mmap'd MoE expert weights into the page cache (Linux only)
         int  prefetch_experts_threads; // number of expert prefetch workers (<=0 = auto)
+
+        const char * expert_stats_file; // if set, dump MoE expert-store stats as JSON when the context is freed
         bool k_cache_hadamard;  // if true, apply Hadamard transform to K-cache
         bool v_cache_hadamard;  // if true, apply Hadamard transform to V-cache (needs FA)
         bool split_mode_graph_scheduling; // if true, force split mode graph scheduling
@@ -615,6 +629,13 @@ extern "C" {
 
     // Frees all allocated memory
     LLAMA_API void llama_free(struct llama_context * ctx);
+
+    // MoE expert-store telemetry (issue #1): cumulative counters collected in
+    // the ggml prefetch engine. Snapshot is copied into *stats; returns true
+    // when the engine has collected anything.
+    // Advisory-only: collecting these counters never gates execution, so
+    // --resident-experts 0 behavior stays bit-identical to upstream.
+    LLAMA_API bool llama_get_expert_store_stats(struct llama_expert_store_stats_lg * stats);
 
     LLAMA_API int64_t llama_time_us(void);
 

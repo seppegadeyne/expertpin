@@ -2196,6 +2196,15 @@ bool gpt_params_find_arg(int argc, char ** argv, const std::string & arg, gpt_pa
         params.prefetch_experts_threads = std::stoi(argv[i]);
         return true;
     }
+    if (arg == "--expert-stats-file") {
+        CHECK_ARG;
+        params.expert_stats_file = argv[i];
+        if (params.expert_stats_file.empty()) {
+            fprintf(stderr, "error: --expert-stats-file requires a non-empty file path\n");
+            invalid_param = true;
+        }
+        return true;
+    }
     if (arg == "--expert-manifest") {
         CHECK_ARG;
         params.expert_manifest = argv[i];
@@ -4403,6 +4412,7 @@ struct llama_context_params common_context_params_to_llama(const gpt_params & pa
     cparams.only_active_experts = params.only_active_exps;
     cparams.prefetch_experts  = params.prefetch_experts;
     cparams.prefetch_experts_threads = params.prefetch_experts_threads;
+    cparams.expert_stats_file = params.expert_stats_file.empty() ? nullptr : params.expert_stats_file.c_str();
     cparams.max_extra_alloc   = params.max_extra_alloc_MiB;
     cparams.mtp               = params.has_mtp || params.speculative.has_stage_type(COMMON_SPECULATIVE_TYPE_MTP);
     cparams.mtp_op_type      = MTP_OP_NONE;
@@ -5402,6 +5412,7 @@ void yaml_dump_non_result_info(FILE * stream, const gpt_params & params, const l
     fprintf(stream, "defer_experts: %s # default: false\n", params.defer_experts ? "true" : "false");
     fprintf(stream, "prefetch_experts: %s # default: false\n", params.prefetch_experts ? "true" : "false");
     fprintf(stream, "prefetch_experts_threads: %d # default: 0 (auto)\n", params.prefetch_experts_threads);
+    fprintf(stream, "expert_stats_file: %s # default: empty (disabled)\n", params.expert_stats_file.c_str());
     fprintf(stream, "expert_manifest: %s # default: empty\n", params.expert_manifest.c_str());
     fprintf(stream, "resident_experts: %d # default: 0\n", params.resident_experts);
     fprintf(stream, "max_extra_alloc: %d # default: 256\n", params.max_extra_alloc_MiB);

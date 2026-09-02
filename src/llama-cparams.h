@@ -40,6 +40,7 @@ struct llama_cparams {
     bool rope_cache;
     bool graph_reuse;
     bool prefetch_experts;
+    std::string expert_stats_file; // dump MoE expert-store stats as JSON at teardown
     bool k_cache_hadamard;
     bool v_cache_hadamard;
     bool dsa_indexer_hadamard = true; // apply Walsh-Hadamard rotation to DSA indexer q/k (precision)

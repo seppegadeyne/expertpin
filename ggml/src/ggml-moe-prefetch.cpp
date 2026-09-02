@@ -1,4 +1,5 @@
 #include "ggml-moe-prefetch.h"
+#include "ggml-moe-stats.h"
 
 #if defined(__linux__)
 
@@ -7,9 +8,11 @@
 
 #include <algorithm>
 #include <atomic>
+#include <chrono>
 #include <condition_variable>
 #include <cstdlib>
 #include <cstdio>
+#include <cstring>
 #include <deque>
 #include <memory>
 #include <mutex>
@@ -47,6 +50,11 @@ struct ticket {
     // that were cold before the sweep); guarded by prefetch_pool::mtx.
     // Used by ggml_moe_prefetch_cold() to deactivate streaming traffic.
     std::vector<std::pair<uintptr_t, uint32_t>> read_chunks;
+
+    // (addr, len) of expert slices enqueued this epoch; guarded by pool mtx.
+    // Used at kernel entry to attribute prefetch_hits when the range is
+    // already resident (arrival before first use = in-time prefetch).
+    std::vector<std::pair<uintptr_t, size_t>> prefetched_ranges;
 };
 
 struct job {
@@ -166,6 +174,20 @@ struct prefetch_pool {
     }
 };
 
+// Cumulative advisory counters for the expert prefetch engine (issue #1).
+// Plain uint64_t relaxed atomics: incremented on hot paths from worker
+// threads, read only via ggml_moe_prefetch_get_stats().
+struct engine_stats {
+    std::atomic<uint64_t> requests{0};
+    std::atomic<uint64_t> hits{0};
+    std::atomic<uint64_t> misses{0};
+    std::atomic<uint64_t> prefetched{0};
+    std::atomic<uint64_t> prefetch_hits{0};
+    std::atomic<uint64_t> defer_wait_ns{0};
+    std::atomic<uint64_t> resident_bytes{0};
+    std::atomic<uint64_t> capacity_bytes{0};
+};
+
 struct prefetch_state {
     std::mutex                 reg_mtx;
     std::vector<mapping_entry> mappings;
@@ -175,6 +197,8 @@ struct prefetch_state {
 
     std::atomic<uint64_t> epoch{1};
 
+    engine_stats stats;
+
     std::mutex                     pool_mtx;
     std::shared_ptr<prefetch_pool> pool;
 };
@@ -182,6 +206,53 @@ struct prefetch_state {
 static prefetch_state & state() {
     static prefetch_state s;
     return s;
+}
+
+// mincore-based residency probe for [addr, addr+len); false on any error.
+static bool range_resident(uintptr_t addr, size_t len) {
+    const long page = sysconf(_SC_PAGESIZE);
+    if (len == 0) return true;
+    const uintptr_t astart = addr & ~(uintptr_t)(page - 1);
+    const size_t    alen   = (addr + len) - astart;
+    const size_t    npages = (alen + page - 1)/page;
+    std::vector<unsigned char> vec(npages);
+    if (mincore((void *)astart, alen, vec.data()) != 0) {
+        return false;
+    }
+    for (size_t i = 0; i < npages; ++i) {
+        if (!(vec[i] & 1)) return false;
+    }
+    return true;
+}
+
+// Count populated pages of a tensor's registered mapping via mincore.
+static void account_tensor_residency(const ggml_tensor * w) {
+    if (!w || !w->data) return;
+    auto & s = state();
+    std::lock_guard<std::mutex> lock(s.reg_mtx);
+    size_t resident = 0, capacity = 0;
+    for (const auto & m : s.mappings) {
+        const uintptr_t astart = std::max((uintptr_t)m.base, (uintptr_t)w->data);
+        const uintptr_t aend   = std::min((uintptr_t)m.base + m.size,
+                                          (uintptr_t)w->data + ggml_nbytes(w));
+        if (aend <= astart) continue;
+        capacity += aend - astart;
+        const long page = sysconf(_SC_PAGESIZE);
+        const uintptr_t pstart = astart & ~(uintptr_t)(page - 1);
+        const size_t    plen   = aend - pstart;
+        const size_t    npages = (plen + page - 1)/page;
+        std::vector<unsigned char> vec(npages);
+        if (mincore((void *)pstart, plen, vec.data()) != 0) continue;
+        for (size_t i = 0; i < npages; ++i) {
+            if (vec[i] & 1) resident += page;
+        }
+    }
+    if (capacity > 0) {
+        // latest-observation semantics: the dump reports the most recent
+        // residency probe, not a sum over probes
+        s.stats.resident_bytes.exchange(resident, std::memory_order_relaxed);
+        s.stats.capacity_bytes.exchange(capacity, std::memory_order_relaxed);
+    }
 }
 
 // true when [p, p+len) lies inside a registered mmap
@@ -332,6 +403,13 @@ static bool enqueue_ranges(const ggml_tensor * w, const std::vector<std::pair<si
     tk->epoch = cur_epoch;
     tk->track_reads = track_reads;
     tk->read_chunks.clear();
+    tk->prefetched_ranges.clear();
+
+    auto & s_stats = state().stats;
+    for (const auto & r : ranges) {
+        s_stats.prefetched.fetch_add(1, std::memory_order_relaxed);
+        tk->prefetched_ranges.emplace_back((uintptr_t)w->data + r.first, r.second);
+    }
 
     std::vector<job> jobs;
     for (const auto & r : ranges) {
@@ -527,6 +605,7 @@ void ggml_moe_prefetch_wait(const struct ggml_tensor * w) {
         pool = s.pool;
     }
     if (!pool) return;
+    const auto wait_start = std::chrono::steady_clock::now();
     std::shared_ptr<ticket> tk;
     {
         std::lock_guard<std::mutex> lock(pool->mtx);
@@ -540,6 +619,10 @@ void ggml_moe_prefetch_wait(const struct ggml_tensor * w) {
     pool->cv_done.wait(lock, [&] {
         return pool->shutdown || tk->pending.load(std::memory_order_acquire) <= 0;
     });
+    const auto wait_end = std::chrono::steady_clock::now();
+    s.stats.defer_wait_ns.fetch_add(
+            std::chrono::duration_cast<std::chrono::nanoseconds>(wait_end - wait_start).count(),
+            std::memory_order_relaxed);
 }
 
 bool ggml_moe_prefetch_experts(const struct ggml_tensor * w, const uint32_t * expert_ids, size_t n_expert_ids) {
@@ -549,9 +632,109 @@ bool ggml_moe_prefetch_experts(const struct ggml_tensor * w, const uint32_t * ex
 
     if (enqueue_ranges(w, ranges, /*urgent =*/ false, /*track_reads =*/ false)) {
         ggml_moe_prefetch_wait(w);
+        account_tensor_residency(w); // after the workers finished populating
         return true;
     }
-    return legacy_madvise_ranges(w, ranges);
+    const bool ok = legacy_madvise_ranges(w, ranges);
+    if (ok) account_tensor_residency(w); // readahead is async; best-effort probe
+    return ok;
+}
+
+// Per-expert access attribution at MoE kernel entry (issue #1 telemetry).
+//
+// For every distinct expert id the kernel is about to multiply with:
+//   request          - one per distinct expert id in this entry
+//   hit              - the id's slice is already resident (pinned by an
+//                      earlier manifest populate, or populated by a prior
+//                      selective enqueue whose workers finished in time)
+//   miss             - the slice is not resident -> demand fault ahead
+//   prefetch_hit     - the slice was covered by a prefetched range (ticket
+//                      ranges of this tensor) AND is resident: the prefetch
+//                      arrived before first use
+// Probe order is cheap-first: overlap with pinned resident_ranges (no
+// syscall), then ticket prefetched_ranges (no syscall), then mincore only
+// for slices not covered by either bookkeeping structure.
+// Telemetry kill switch (GGML_MOE_STATS=0): disables per-expert attribution
+// entirely so throughput can be A/B-compared against the instrumented run.
+static bool stats_enabled() {
+    static const bool enabled = [] {
+        const char * env = getenv("GGML_MOE_STATS");
+        return env ? atoi(env) != 0 : true;
+    }();
+    return enabled;
+}
+
+static void attribute_kernel_entry(const ggml_tensor * w, const ggml_tensor * ids) {
+    if (!stats_enabled()) return;
+    if (!w || !w->data || !ids || !ids->data) return;
+    const int64_t n_as = w->ne[2];
+    if (n_as <= 1) return; // dense fallback path; no expert granularity here
+
+    auto & s = state();
+
+    // distinct expert ids of this kernel entry (ids may hold -1 sentinels)
+    std::vector<char> seen(n_as, 0);
+    for (int64_t i1 = 0; i1 < ids->ne[1]; ++i1) {
+        for (int64_t i0 = 0; i0 < ids->ne[0]; ++i0) {
+            const int32_t id = *(const int32_t *)((const char *)ids->data + i1*ids->nb[1] + i0*ids->nb[0]);
+            if (id < 0 || id >= n_as) continue;
+            seen[id] = 1;
+        }
+    }
+
+    // snapshot bookkeeping ranges once per kernel entry
+    std::vector<std::pair<size_t, size_t>> pinned;
+    {
+        std::lock_guard<std::mutex> lock(s.reg_mtx);
+        const auto it = s.resident_ranges.find(w->data);
+        if (it != s.resident_ranges.end()) pinned = it->second;
+    }
+    std::vector<std::pair<uintptr_t, size_t>> prefetched_ranges;
+    {
+        std::shared_ptr<prefetch_pool> pool_sp;
+        {
+            std::lock_guard<std::mutex> plock(s.pool_mtx);
+            pool_sp = s.pool;
+        }
+        if (pool_sp) {
+            std::lock_guard<std::mutex> lock(pool_sp->mtx);
+            const auto it = pool_sp->tickets.find(w);
+            if (it != pool_sp->tickets.end()) {
+                prefetched_ranges = it->second->prefetched_ranges;
+            }
+        }
+    }
+
+    const size_t stride = w->nb[2];
+    const uintptr_t base = (uintptr_t) w->data;
+    for (int64_t id = 0; id < n_as; ++id) {
+        if (!seen[id]) continue;
+        s.stats.requests.fetch_add(1, std::memory_order_relaxed);
+
+        const size_t off = (size_t) id * stride;
+        bool resident = false;
+        bool prefetched_cover = false;
+        for (const auto & r : pinned) {
+            if (off >= r.first && off < r.first + r.second) { resident = true; break; }
+        }
+        for (const auto & r : prefetched_ranges) {
+            if (off >= (size_t)(r.first - base) && off < (size_t)(r.first - base) + r.second) {
+                prefetched_cover = true;
+                break;
+            }
+        }
+        if (!resident) {
+            resident = range_resident(base + off, stride);
+        }
+        if (resident) {
+            s.stats.hits.fetch_add(1, std::memory_order_relaxed);
+            if (prefetched_cover) {
+                s.stats.prefetch_hits.fetch_add(1, std::memory_order_relaxed);
+            }
+        } else {
+            s.stats.misses.fetch_add(1, std::memory_order_relaxed);
+        }
+    }
 }
 
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith) {
@@ -563,14 +746,44 @@ void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith) {
     if (!ggml_moe_prefetch_enabled()) {
         legacy_madvise(w0, ids);
         if (w1) legacy_madvise(w1, ids);
+        attribute_kernel_entry(w0, ids);
         return;
     }
+
+    attribute_kernel_entry(w0, ids);
+    if (w1) attribute_kernel_entry(w1, ids);
+
     // fire-and-forget enqueue, idempotent within the current epoch; a no-op
     // when the scheduler hook already covered this node (the self-enqueue
     // handles pure-CPU graphs). We deliberately do not wait; the compute
     // threads' demand faults overlap with the workers' populates, which run ahead
     // in the same expert-index order.
     ggml_moe_prefetch_node(node);
+}
+
+void ggml_moe_prefetch_get_stats(struct ggml_moe_prefetch_stats * out) {
+    if (!out) return;
+    auto & s = state().stats;
+    out->requests       = s.requests.load(std::memory_order_relaxed);
+    out->hits           = s.hits.load(std::memory_order_relaxed);
+    out->misses         = s.misses.load(std::memory_order_relaxed);
+    out->prefetched     = s.prefetched.load(std::memory_order_relaxed);
+    out->prefetch_hits  = s.prefetch_hits.load(std::memory_order_relaxed);
+    out->defer_wait_ns  = s.defer_wait_ns.load(std::memory_order_relaxed);
+    out->resident_bytes = s.resident_bytes.load(std::memory_order_relaxed);
+    out->capacity_bytes = s.capacity_bytes.load(std::memory_order_relaxed);
+}
+
+void ggml_moe_prefetch_reset_stats(void) {
+    auto & s = state().stats;
+    s.requests.store(0, std::memory_order_relaxed);
+    s.hits.store(0, std::memory_order_relaxed);
+    s.misses.store(0, std::memory_order_relaxed);
+    s.prefetched.store(0, std::memory_order_relaxed);
+    s.prefetch_hits.store(0, std::memory_order_relaxed);
+    s.defer_wait_ns.store(0, std::memory_order_relaxed);
+    s.resident_bytes.store(0, std::memory_order_relaxed);
+    s.capacity_bytes.store(0, std::memory_order_relaxed);
 }
 
 #else // !__linux__
@@ -586,5 +799,7 @@ bool ggml_moe_prefetch_experts(const struct ggml_tensor *, const uint32_t *, siz
 void ggml_moe_prefetch_wait(const struct ggml_tensor *) {}
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor *, int) {}
 void ggml_moe_prefetch_cold(const struct ggml_tensor *) {}
+void ggml_moe_prefetch_get_stats(struct ggml_moe_prefetch_stats *) {}
+void ggml_moe_prefetch_reset_stats(void) {}
 
 #endif

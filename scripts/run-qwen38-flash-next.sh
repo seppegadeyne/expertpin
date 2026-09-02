@@ -93,6 +93,8 @@ if [ -n "$MANIFEST" ]; then
   [ -f "$MANIFEST" ] || { echo "Manifest not found: $MANIFEST"; exit 1; }
   RESIDENCY_ARGS=(--expert-manifest "$MANIFEST")
   [ "$RESIDENT" != "0" ] && RESIDENCY_ARGS+=(--resident-experts "$RESIDENT" --prefetch-experts)
+  # issue #1 telemetry: per-expert hit/miss counters dumped at teardown
+  [ -n "${EXPERT_STATS_FILE:-}" ] && RESIDENCY_ARGS+=(--expert-stats-file "$EXPERT_STATS_FILE")
 fi
 
 # --- disable pinned host allocations by default (OOM hardening) ---

@@ -6,6 +6,8 @@
 //
 
 #include "llama-impl.h"
+
+#include "ggml-moe-stats.h"
 #include "llama-vocab.h"
 #include "llama-grammar.h"
 #include "llama-sampling.h"
@@ -7975,6 +7977,7 @@ struct llama_context_params llama_context_default_params() {
         /*.only_active_experts         =*/ false,
         /*.prefetch_experts            =*/ false,
         /*.prefetch_experts_threads    =*/ 0,
+        /*.expert_stats_file           =*/ nullptr,
         /*.k_cache_hadamard            =*/ false,
         /*.v_cache_hadamard            =*/ false,
         /*.split_mode_graph_scheduling =*/ false,
@@ -8516,6 +8519,7 @@ struct llama_context * llama_init_from_model(
         LLAMA_LOG_WARN("%s: --dsa is not active under -sm graph/attn (tensor-parallel attention has no indexer); running dense MLA\n", __func__);
     }
     cparams.prefetch_experts = params.prefetch_experts;
+    cparams.expert_stats_file = params.expert_stats_file ? params.expert_stats_file : "";
     cparams.k_cache_hadamard = params.k_cache_hadamard;
     cparams.v_cache_hadamard = params.v_cache_hadamard;
     // Folding H into wv_b/wk_b_pp permanently mutates the model; a later context
@@ -9150,13 +9154,69 @@ struct llama_context * llama_init_from_model(
             if (ctx->buf_output == nullptr) {
                 LLAMA_LOG_ERROR("%s: failed to allocate output buffer of size %.2f MiB\n", __func__, new_size / (1024.0 * 1024.0));
             }
-        }
+      
+  }
     }
 
     return ctx;
 }
 
+bool llama_get_expert_store_stats(struct llama_expert_store_stats_lg * stats) {
+    if (!stats) return false;
+    struct ggml_moe_prefetch_stats g;
+    ggml_moe_prefetch_get_stats(&g);
+    stats->requests       = g.requests;
+    stats->hits           = g.hits;
+    stats->misses         = g.misses;
+    stats->prefetched     = g.prefetched;
+    stats->prefetch_hits  = g.prefetch_hits;
+    stats->defer_wait_ns  = g.defer_wait_ns;
+    stats->resident_bytes = g.resident_bytes;
+    stats->capacity_bytes = g.capacity_bytes;
+    return g.requests > 0;
+}
+
+
+// Issue #1 telemetry: write the ggml MoE prefetch-engine counters to a JSON
+// file at context teardown. Best-effort: failures log a warning and never
+// affect the run (advisory-only, --resident-experts 0 stays bit-identical).
+static void llama_dump_expert_stats(const std::string & path) {
+    if (path.empty()) return;
+
+    struct ggml_moe_prefetch_stats g;
+    ggml_moe_prefetch_get_stats(&g);
+
+    std::ostringstream oss;
+    oss << "{\n"
+        << "  \"requests\": " << g.requests << ",\n"
+        << "  \"hits\": " << g.hits << ",\n"
+        << "  \"misses\": " << g.misses << ",\n"
+        << "  \"prefetched\": " << g.prefetched << ",\n"
+        << "  \"prefetch_hits\": " << g.prefetch_hits << ",\n"
+        << "  \"defer_wait_ns\": " << g.defer_wait_ns << ",\n"
+        << "  \"resident_bytes\": " << g.resident_bytes << ",\n"
+        << "  \"capacity_bytes\": " << g.capacity_bytes << ",\n"
+        << "  \"hit_rate\": " << (g.requests ? (double) g.hits / g.requests : 0.0) << ",\n"
+        << "  \"prefetch_hit_rate\": " << (g.prefetched ? (double) g.prefetch_hits / g.prefetched : 0.0) << ",\n"
+        << "  \"defer_wait_ratio\": " << (g.resident_bytes ? (double) g.defer_wait_ns / 1e9 : 0.0) << "\n"
+        << "}\n";
+
+    std::ofstream out(path, std::ios::binary);
+    if (!out) {
+        LLAMA_LOG_WARN("%s: failed to open %s for the expert-stats dump\n", __func__, path.c_str());
+        return;
+    }
+    out << oss.str();
+    LLAMA_LOG_INFO("%s: wrote expert stats to %s (requests=%llu hits=%llu misses=%llu)\n",
+            __func__, path.c_str(),
+            (unsigned long long) g.requests, (unsigned long long) g.hits,
+            (unsigned long long) g.misses);
+}
+
 void llama_free(struct llama_context * ctx) {
+    if (ctx != nullptr) {
+        llama_dump_expert_stats(ctx->cparams.expert_stats_file);
+    }
     delete ctx;
 }
 
