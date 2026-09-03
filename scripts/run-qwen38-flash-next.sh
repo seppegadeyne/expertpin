@@ -18,7 +18,7 @@
 # Usage:
 #   scripts/run-qwen38-flash-next.sh                     (defaults: 32K ctx)
 #   CTX=262144 NCMOE=44 RAM_BUDGET_GIB=38 scripts/run-qwen38-flash-next.sh
-#   DRAFT=1 ...                                           (add an MTP draft model)
+#   DRAFT=1 DRAFT_NMAX=3 ...                              (add MTP draft, n_max tokens)
 #   MANIFEST=~/*saliency_pinned.json RESIDENT=288 ...     (expertpin residency)
 #   DRY=1 ...                                             (print plan, start nothing)
 #   FORCE=1 ...                                           (skip guards)
@@ -34,7 +34,8 @@ set -euo pipefail
 # --- defaults (all overridable via environment) ---
 MODEL_DIR="${MODEL_DIR:-$HOME/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64}"
 MODEL="$MODEL_DIR/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf"
-DRAFT_MODEL="${DRAFT_MODEL:-$HOME/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-Q4_K_M.gguf}"
+DRAFT_MODEL="${DRAFT_MODEL:-$HOME/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf}"
+DRAFT_NMAX="${DRAFT_NMAX:-4}"
 MANIFEST="${MANIFEST:-}"
 RESIDENT="${RESIDENT:-0}"
 
@@ -84,7 +85,7 @@ fi
 # --- optional MTP draft model ---
 DRAFT_ARGS=()
 if [ "${DRAFT:-0}" = "1" ] && [ -f "$DRAFT_MODEL" ]; then
-  DRAFT_ARGS=(-md "$DRAFT_MODEL" -ngld 99 --draft-max 8 --draft-n 4)
+  DRAFT_ARGS=(-md "$DRAFT_MODEL" -ngld 99 --spec-type "mtp:n_max=${DRAFT_NMAX}")
 fi
 
 # --- optional expertpin residency ---
