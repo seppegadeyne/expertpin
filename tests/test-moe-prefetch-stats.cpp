@@ -15,6 +15,7 @@
 // deterministic without touching page-cache state.
 #include "ggml-moe-stats.h"
 #include "ggml-moe-prefetch.h"
+#include "ggml-backend.h"
 #include "ggml.h"
 #include "llama.h"
 
@@ -195,11 +196,241 @@ void test_llama_level_getter() {
             "getter handles a zeroed engine consistently");
 }
 
+void test_shadow_lru_budget() {
+#ifdef __linux__
+    ggml_moe_prefetch_reset_stats();
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+
+    test_weights tw(4, 128);
+    require(tw.mapping != nullptr, "shadow LRU: anonymous mmap for weights");
+    ids_ctx ic(tw.w);
+    ggml_moe_prefetch_set_n_threads(0);
+
+    // Disabled shadow mode must remain silent, not report a zero-budget miss.
+    ic.set_ids({0});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0);
+    auto disabled = snapshot();
+    require(disabled.cache_sim_capacity_bytes == 0 && disabled.cache_sim_requests == 0,
+            "shadow LRU: zero capacity disables simulation");
+
+    ggml_moe_prefetch_reset_stats();
+    ggml_moe_prefetch_set_cache_sim_capacity(2 * tw.slice);
+
+    ic.set_ids({0});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0); // miss: [0]
+    ggml_moe_prefetch_new_epoch();
+    ic.set_ids({1});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0); // miss: [1,0]
+    ggml_moe_prefetch_new_epoch();
+    ic.set_ids({0});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0); // hit/promote: [0,1]
+    ggml_moe_prefetch_new_epoch();
+    ic.set_ids({2});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0); // miss/evict 1: [2,0]
+
+    const auto simulated = snapshot();
+    require(simulated.cache_sim_capacity_bytes == 2 * tw.slice,
+            "shadow LRU: configured byte capacity is reported");
+    require(simulated.cache_sim_resident_bytes == 2 * tw.slice,
+            "shadow LRU: residency stays at capacity");
+    require(simulated.cache_sim_requests == 4 && simulated.cache_sim_hits == 1 &&
+            simulated.cache_sim_misses == 3,
+            "shadow LRU: access counters follow the trace");
+    require(simulated.cache_sim_evictions == 1 &&
+            simulated.cache_sim_evicted_bytes == tw.slice,
+            "shadow LRU: one least-recent expert slice is evicted");
+    require(simulated.cache_sim_bypasses == 0,
+            "shadow LRU: fitting expert slices are never bypassed");
+
+    llama_expert_store_stats_lg public_stats = {};
+    require(llama_get_expert_store_stats(&public_stats),
+            "shadow LRU: public getter reports collected expert data");
+    require(public_stats.cache_sim_capacity_bytes == simulated.cache_sim_capacity_bytes &&
+            public_stats.cache_sim_resident_bytes == simulated.cache_sim_resident_bytes,
+            "shadow LRU: public getter mirrors cache budget and residency");
+    require(public_stats.cache_sim_requests == simulated.cache_sim_requests &&
+            public_stats.cache_sim_hits == simulated.cache_sim_hits &&
+            public_stats.cache_sim_misses == simulated.cache_sim_misses &&
+            public_stats.cache_sim_evictions == simulated.cache_sim_evictions &&
+            public_stats.cache_sim_evicted_bytes == simulated.cache_sim_evicted_bytes &&
+            public_stats.cache_sim_bypasses == simulated.cache_sim_bypasses,
+            "shadow LRU: public getter mirrors all cache counters");
+
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+#endif
+}
+
+void test_cpu_cplan_routes_shadow_without_prefetch() {
+#ifdef __linux__
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+
+    ggml_context * ctx = ggml_init({1024 * 1024, nullptr, false});
+    require(ctx != nullptr, "cplan shadow: context allocation");
+    if (!ctx) return;
+
+    ggml_tensor * weights = ggml_new_tensor_3d(ctx, GGML_TYPE_F32, 4, 4, 2);
+    ggml_tensor * input = ggml_new_tensor_3d(ctx, GGML_TYPE_F32, 4, 1, 1);
+    ggml_tensor * ids = ggml_new_tensor_2d(ctx, GGML_TYPE_I32, 1, 1);
+    *(int32_t *) ids->data = 0;
+    ggml_tensor * output = ggml_mul_mat_id(ctx, weights, input, ids);
+    ggml_cgraph * graph = ggml_new_graph(ctx);
+    ggml_build_forward_expand(graph, output);
+
+    ggml_backend_t backend = ggml_backend_cpu_init();
+    require(backend != nullptr, "cplan shadow: CPU backend allocation");
+    if (!backend) {
+        ggml_free(ctx);
+        return;
+    }
+    ggml_backend_cpu_set_n_threads(backend, 1);
+    ggml_backend_cpu_set_moe_expert_prefetch(backend, false);
+    ggml_moe_prefetch_set_cache_sim_capacity(2 * weights->nb[2]);
+
+    ggml_backend_cpu_set_moe_expert_cache_sim(backend, false);
+    require(ggml_backend_graph_compute(backend, graph) == GGML_STATUS_SUCCESS,
+            "cplan shadow: baseline graph compute");
+    require(snapshot().cache_sim_requests == 0,
+            "cplan shadow: disabled plan bit stays silent");
+
+    ggml_backend_cpu_set_moe_expert_cache_sim(backend, true);
+    require(ggml_backend_graph_compute(backend, graph) == GGML_STATUS_SUCCESS,
+            "cplan shadow: instrumented graph compute");
+    const auto observed = snapshot();
+    require(observed.cache_sim_requests == 1 && observed.cache_sim_misses == 1,
+            "cplan shadow: enabled plan bit routes one expert slice");
+    require(observed.requests == 0 && observed.prefetched == 0,
+            "cplan shadow: graph route does not enable residency or prefetch lane");
+
+    ggml_backend_free(backend);
+    ggml_free(ctx);
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+#endif
+}
+
+void test_shadow_has_single_explicit_owner() {
+#ifdef __linux__
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+
+    test_weights tw(4, 128);
+    require(tw.mapping != nullptr, "shadow owner: mmap failed");
+    ids_ctx ic(tw.w);
+
+    require(ggml_moe_cache_sim_try_acquire(2 * tw.slice),
+            "shadow owner: first context acquires the simulator");
+    ic.set_ids({0});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0);
+    require(!ggml_moe_cache_sim_try_acquire(3 * tw.slice),
+            "shadow owner: second context is rejected");
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+
+    const auto retained = snapshot();
+    require(retained.cache_sim_capacity_bytes == 2 * tw.slice &&
+            retained.cache_sim_requests == 1,
+            "shadow owner: rejected acquire does not reset owner trace");
+
+    ggml_moe_cache_sim_release();
+    const auto released = snapshot();
+    require(released.cache_sim_capacity_bytes == 0 && released.cache_sim_requests == 0,
+            "shadow owner: release clears capacity and trace");
+    require(ggml_moe_cache_sim_try_acquire(3 * tw.slice),
+            "shadow owner: another context can acquire after release");
+    ggml_moe_cache_sim_release();
+    ggml_moe_prefetch_reset_stats();
+#endif
+}
+
+void test_shadow_accounts_exact_last_slice_bytes() {
+#ifdef __linux__
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+
+    test_weights tw(2, 128);
+    require(tw.mapping != nullptr, "shadow bytes: mmap failed");
+    const size_t padded_stride = tw.slice + 4096;
+    tw.w->nb[2] = padded_stride;
+    ids_ctx ic(tw.w);
+    ggml_moe_prefetch_set_cache_sim_capacity(2 * padded_stride);
+
+    ic.set_ids({1});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0);
+    const auto observed = snapshot();
+    require(observed.cache_sim_resident_bytes == tw.slice,
+            "shadow bytes: last expert uses the truncated tensor tail, not full stride");
+
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+#endif
+}
+
+void test_prefetch_hook_does_not_implicitly_feed_shadow() {
+#ifdef __linux__
+    ggml_moe_prefetch_set_n_threads(0);
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+
+    test_weights tw(4, 128);
+    require(tw.mapping != nullptr, "prefetch isolation: mmap failed");
+    ids_ctx ic(tw.w);
+    ggml_moe_prefetch_set_cache_sim_capacity(2 * tw.slice);
+
+    ic.set_ids({0});
+    ggml_moe_prefetch_kernel_hook(ic.node, 0);
+    const auto observed = snapshot();
+    require(observed.cache_sim_requests == 0,
+            "prefetch isolation: only the cache-sim plan hook may feed the shadow");
+
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+#endif
+}
+
+void test_shadow_only_hook_does_not_prefetch_or_touch_residency_stats() {
+#ifdef __linux__
+    ggml_moe_prefetch_set_n_threads(0);
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+
+    test_weights tw(4, 128);
+    require(tw.mapping != nullptr, "shadow-only: mmap failed");
+    ids_ctx ic(tw.w);
+    const size_t stride = tw.w->nb[2];
+    ggml_moe_prefetch_set_cache_sim_capacity(2 * stride);
+
+    ic.set_ids({0});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0);
+    const auto observed = snapshot();
+
+    require(observed.cache_sim_requests == 1,
+            "shadow-only: one expert slice is observed");
+    require(observed.cache_sim_misses == 1,
+            "shadow-only: first access is a simulated miss");
+    require(observed.requests == 0,
+            "shadow-only: mmap residency requests remain untouched");
+    require(observed.prefetched == 0,
+            "shadow-only: no prefetch is recorded");
+
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+#else
+    std::cout << "test-moe-prefetch-stats: shadow-only test skipped (non-Linux)\n";
+#endif
+}
+
 int main() {
-    // GGML_MOE_STATS=0 (checked once in the engine) disables attribution;
-    // the per-expert assertions below assume the default-on configuration.
+    // GGML_MOE_STATS=0 disables mmap-residency attribution; the explicitly
+    // configured shadow test below remains independent of that kill switch.
     test_per_expert_counters();
     test_llama_level_getter();
+    test_shadow_lru_budget();
+    test_cpu_cplan_routes_shadow_without_prefetch();
+    test_shadow_has_single_explicit_owner();
+    test_shadow_accounts_exact_last_slice_bytes();
+    test_prefetch_hook_does_not_implicitly_feed_shadow();
+    test_shadow_only_hook_does_not_prefetch_or_touch_residency_stats();
     if (failures == 0) {
         printf("test-moe-prefetch-stats: OK\n");
         return 0;

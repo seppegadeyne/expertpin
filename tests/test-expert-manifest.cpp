@@ -146,6 +146,7 @@ void test_cli_contract() {
         "--expert-manifest", fixture,
         "--resident-experts", "3",
         "--prefetch-experts",
+        "--expert-cache-sim-mib", "32768",
     };
     std::vector<char *> valid_argv;
     for (auto & arg : valid_args) {
@@ -157,6 +158,11 @@ void test_cli_contract() {
             "valid expert residency CLI arguments should parse");
     require(params.expert_manifest == fixture, "--expert-manifest path was not preserved");
     require(params.resident_experts == 3, "--resident-experts value was not preserved");
+    require(params.expert_cache_sim_mib == 32768,
+            "--expert-cache-sim-mib value was not preserved");
+    const auto cparams = common_context_params_to_llama(params);
+    require(cparams.expert_cache_sim_bytes == 32768ULL * 1024 * 1024,
+            "expert cache simulation budget was not converted from MiB to bytes");
 
     require_error([] {
         std::vector<std::string> args = {"test-expert-manifest", "--resident-experts", "1"};
@@ -184,12 +190,24 @@ void test_cli_contract() {
         gpt_params_parse_ex(static_cast<int>(argv.size()), argv.data(), invalid);
     }, "requires --prefetch-experts");
 
+    require_error([] {
+        std::vector<std::string> args = {"test-expert-manifest", "--expert-cache-sim-mib", "-1"};
+        std::vector<char *> argv;
+        for (auto & arg : args) argv.push_back(arg.data());
+        gpt_params invalid;
+        gpt_params_parse_ex(static_cast<int>(argv.size()), argv.data(), invalid);
+    }, "must be >= 0");
+
     std::vector<std::string> zero_args = {"test-expert-manifest", "--resident-experts", "0"};
     std::vector<char *> zero_argv;
     for (auto & arg : zero_args) zero_argv.push_back(arg.data());
     gpt_params zero;
     require(gpt_params_parse_ex(static_cast<int>(zero_argv.size()), zero_argv.data(), zero),
             "K=0 must preserve the manifest-free default behavior");
+    require(zero.expert_cache_sim_mib == 0,
+            "expert cache simulation must default to disabled");
+    require(common_context_params_to_llama(zero).expert_cache_sim_bytes == 0,
+            "disabled simulation must translate to a zero-byte budget");
 }
 
 void verify_real_prefix(const std::string & saliency_path, const std::string & kept_path, size_t k, bool compare_sets) {

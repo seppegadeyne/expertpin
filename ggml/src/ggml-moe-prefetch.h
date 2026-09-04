@@ -47,8 +47,21 @@ void ggml_moe_prefetch_wait(const struct ggml_tensor * w);
 // Only applies to tensors enqueued via ggml_moe_prefetch_tensor.
 void ggml_moe_prefetch_cold(const struct ggml_tensor * w);
 
-// kernel-entry hook, called at MoE matmul start (gated by
-// cplan->moe_expert_prefetch). Thread 0 fire-and-forget enqueues when the
+// Acquire the process-global shadow for one context. A second owner is
+// rejected without modifying the active trace. The owner must release it.
+bool ggml_moe_cache_sim_try_acquire(size_t capacity_bytes);
+void ggml_moe_cache_sim_release(void);
+
+// Configure the advisory byte-bounded host-cache shadow directly. This
+// low-level reset hook is used by tests; contexts must use acquire/release.
+void ggml_moe_prefetch_set_cache_sim_capacity(size_t capacity_bytes);
+
+// Shadow-only kernel-entry hook. It updates only the byte-bounded LRU
+// simulator and never invokes mmap residency probes or read-ahead.
+void ggml_moe_cache_sim_kernel_hook(const struct ggml_tensor * node, int ith);
+
+// kernel-entry hook, called at MoE matmul start when
+// cplan->moe_expert_prefetch is enabled. Thread 0 fire-and-forget enqueues when the
 // scheduler hook did not run for this epoch (pure-CPU graphs); falls back to
 // madvise(MADV_WILLNEED) when the engine is off.
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith);

@@ -453,6 +453,14 @@ extern "C" {
         uint64_t defer_wait_ns;  // time drained inside prefetch waits
         uint64_t resident_bytes; // latest mincore-resident weight bytes
         uint64_t capacity_bytes; // mapped weight bytes
+        uint64_t cache_sim_requests;       // accesses observed by bounded-LRU shadow
+        uint64_t cache_sim_hits;           // accesses found in simulated host cache
+        uint64_t cache_sim_misses;         // accesses absent from simulated host cache
+        uint64_t cache_sim_evictions;      // simulated LRU entries evicted
+        uint64_t cache_sim_evicted_bytes;  // simulated bytes evicted
+        uint64_t cache_sim_bypasses;       // slices larger than/disabled by budget
+        uint64_t cache_sim_resident_bytes; // current simulated cache occupancy
+        uint64_t cache_sim_capacity_bytes; // configured shadow byte budget
     };
 
     struct llama_context_params {
@@ -519,6 +527,7 @@ extern "C" {
         bool only_active_experts;
         bool prefetch_experts;  // if true, stream mmap'd MoE expert weights into the page cache (Linux only)
         int  prefetch_experts_threads; // number of expert prefetch workers (<=0 = auto)
+        uint64_t expert_cache_sim_bytes; // advisory bounded host-LRU shadow budget (0 = disabled)
 
         const char * expert_stats_file; // if set, dump MoE expert-store stats as JSON when the context is freed
         bool k_cache_hadamard;  // if true, apply Hadamard transform to K-cache

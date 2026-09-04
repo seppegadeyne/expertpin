@@ -6,7 +6,9 @@
 //
 
 #include "llama-impl.h"
+#include "llama-expert-stats.h"
 
+#include "ggml-moe-prefetch.h"
 #include "ggml-moe-stats.h"
 #include "llama-vocab.h"
 #include "llama-grammar.h"
@@ -6426,6 +6428,7 @@ static void llama_graph_compute(
         ggml_backend_cpu_set_n_threads(lctx.backend_cpu, n_threads);
         ggml_backend_cpu_set_abort_callback(lctx.backend_cpu, lctx.abort_callback, lctx.abort_callback_data);
         ggml_backend_cpu_set_moe_expert_prefetch(lctx.backend_cpu, lctx.cparams.prefetch_experts);
+        ggml_backend_cpu_set_moe_expert_cache_sim(lctx.backend_cpu, lctx.cparams.expert_cache_sim_bytes > 0);
     }
 
     ggml_backend_sched_graph_compute_async(lctx.sched, gf);
@@ -6448,6 +6451,7 @@ static void llama_graph_compute_sched(
         ggml_backend_cpu_set_n_threads(lctx.backend_cpu, n_threads);
         ggml_backend_cpu_set_abort_callback(lctx.backend_cpu, lctx.abort_callback, lctx.abort_callback_data);
         ggml_backend_cpu_set_moe_expert_prefetch(lctx.backend_cpu, lctx.cparams.prefetch_experts);
+        ggml_backend_cpu_set_moe_expert_cache_sim(lctx.backend_cpu, lctx.cparams.expert_cache_sim_bytes > 0);
     }
 
     ggml_backend_sched_graph_compute_async(sched, gf);
@@ -8062,6 +8066,7 @@ struct llama_context_params llama_context_default_params() {
         /*.only_active_experts         =*/ false,
         /*.prefetch_experts            =*/ false,
         /*.prefetch_experts_threads    =*/ 0,
+        /*.expert_cache_sim_bytes      =*/ 0,
         /*.expert_stats_file           =*/ nullptr,
         /*.k_cache_hadamard            =*/ false,
         /*.v_cache_hadamard            =*/ false,
@@ -8604,6 +8609,7 @@ struct llama_context * llama_init_from_model(
         LLAMA_LOG_WARN("%s: --dsa is not active under -sm graph/attn (tensor-parallel attention has no indexer); running dense MLA\n", __func__);
     }
     cparams.prefetch_experts = params.prefetch_experts;
+    cparams.expert_cache_sim_bytes = params.expert_cache_sim_bytes;
     cparams.expert_stats_file = params.expert_stats_file ? params.expert_stats_file : "";
     cparams.k_cache_hadamard = params.k_cache_hadamard;
     cparams.v_cache_hadamard = params.v_cache_hadamard;
@@ -9244,6 +9250,17 @@ struct llama_context * llama_init_from_model(
   }
     }
 
+    if (cparams.expert_cache_sim_bytes > 0) {
+        if (!ggml_moe_cache_sim_try_acquire(cparams.expert_cache_sim_bytes)) {
+            LLAMA_LOG_ERROR("%s: expert host-cache LRU shadow is already owned by another context\n", __func__);
+            llama_free(ctx);
+            return nullptr;
+        }
+        ctx->expert_cache_sim_owner = true;
+        LLAMA_LOG_INFO("%s: expert host-cache LRU shadow enabled (budget %.2f GiB; telemetry only)\n",
+                __func__, cparams.expert_cache_sim_bytes / (1024.0 * 1024.0 * 1024.0));
+    }
+
     return ctx;
 }
 
@@ -9259,7 +9276,15 @@ bool llama_get_expert_store_stats(struct llama_expert_store_stats_lg * stats) {
     stats->defer_wait_ns  = g.defer_wait_ns;
     stats->resident_bytes = g.resident_bytes;
     stats->capacity_bytes = g.capacity_bytes;
-    return g.requests > 0;
+    stats->cache_sim_requests       = g.cache_sim_requests;
+    stats->cache_sim_hits           = g.cache_sim_hits;
+    stats->cache_sim_misses         = g.cache_sim_misses;
+    stats->cache_sim_evictions      = g.cache_sim_evictions;
+    stats->cache_sim_evicted_bytes  = g.cache_sim_evicted_bytes;
+    stats->cache_sim_bypasses       = g.cache_sim_bypasses;
+    stats->cache_sim_resident_bytes = g.cache_sim_resident_bytes;
+    stats->cache_sim_capacity_bytes = g.cache_sim_capacity_bytes;
+    return g.requests > 0 || g.cache_sim_requests > 0;
 }
 
 
@@ -9272,27 +9297,14 @@ static void llama_dump_expert_stats(const std::string & path) {
     struct ggml_moe_prefetch_stats g;
     ggml_moe_prefetch_get_stats(&g);
 
-    std::ostringstream oss;
-    oss << "{\n"
-        << "  \"requests\": " << g.requests << ",\n"
-        << "  \"hits\": " << g.hits << ",\n"
-        << "  \"misses\": " << g.misses << ",\n"
-        << "  \"prefetched\": " << g.prefetched << ",\n"
-        << "  \"prefetch_hits\": " << g.prefetch_hits << ",\n"
-        << "  \"defer_wait_ns\": " << g.defer_wait_ns << ",\n"
-        << "  \"resident_bytes\": " << g.resident_bytes << ",\n"
-        << "  \"capacity_bytes\": " << g.capacity_bytes << ",\n"
-        << "  \"hit_rate\": " << (g.requests ? (double) g.hits / g.requests : 0.0) << ",\n"
-        << "  \"prefetch_hit_rate\": " << (g.prefetched ? (double) g.prefetch_hits / g.prefetched : 0.0) << ",\n"
-        << "  \"defer_wait_ratio\": " << (g.resident_bytes ? (double) g.defer_wait_ns / 1e9 : 0.0) << "\n"
-        << "}\n";
+    const std::string text = llama_moe_prefetch_stats_to_json(g);
 
     std::ofstream out(path, std::ios::binary);
     if (!out) {
         LLAMA_LOG_WARN("%s: failed to open %s for the expert-stats dump\n", __func__, path.c_str());
         return;
     }
-    out << oss.str();
+    out << text;
     LLAMA_LOG_INFO("%s: wrote expert stats to %s (requests=%llu hits=%llu misses=%llu)\n",
             __func__, path.c_str(),
             (unsigned long long) g.requests, (unsigned long long) g.hits,
@@ -9301,7 +9313,13 @@ static void llama_dump_expert_stats(const std::string & path) {
 
 void llama_free(struct llama_context * ctx) {
     if (ctx != nullptr) {
-        llama_dump_expert_stats(ctx->cparams.expert_stats_file);
+        if (ctx->cparams.expert_cache_sim_bytes == 0 || ctx->expert_cache_sim_owner) {
+            llama_dump_expert_stats(ctx->cparams.expert_stats_file);
+        }
+        if (ctx->expert_cache_sim_owner) {
+            ggml_moe_cache_sim_release();
+            ctx->expert_cache_sim_owner = false;
+        }
     }
     delete ctx;
 }

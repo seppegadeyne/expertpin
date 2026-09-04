@@ -1,32 +1,30 @@
 # expertpin
 
-**Saliency-pinned MoE expert residency for CUDA inference.**
+**Bounded MoE expert residency research for CUDA inference.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-`expertpin` is an experimental, CUDA-focused fork of
-[`ik_llama.cpp`](https://github.com/ikawrakow/ik_llama.cpp). It consumes an
-ordered REAP saliency manifest and pre-populates the top-K experts of each layer
-before the existing mmap expert streamer begins access-order prefetching. The
-remaining experts stay mmap-backed and can continue to stream from disk.
+`expertpin` is a standalone CUDA-focused inference runtime for serving large
+Mixture-of-Experts models inside strict host-RAM and VRAM budgets. Its current
+path keeps expert tensors mmap-backed on NVMe, prefetches selected slices,
+tracks real residency and I/O stalls, and can shadow-simulate a byte-bounded
+host LRU before that policy is allowed to evict production pages.
 
-The change is intentionally narrow: it integrates with
-`--defer-experts`, `--prefetch-experts`, and `--prefetch-experts-threads`; it
-does not rewrite CUDA kernels, prune a GGUF, or remap router IDs.
+The Aorus development target is Qwen3.8-Flash-Next at at least 20 decode tok/s
+within a 40 GiB process-RAM cap and 28 GiB VRAM. Other public runtimes are
+read-only research inputs, not compatibility targets or development upstreams.
 
 > [!WARNING]
-> This is an early experiment. It has no quality, latency, throughput, or memory
-> reduction claims. Validate it on your own model and workload. The residency
-> path is currently Linux-specific because it builds on the existing mmap and
-> `madvise` prefetch implementation.
+> This is an experimental runtime. Reported results apply only to the measured
+> model, hardware and workload. The expert paging path is currently
+> Linux-specific because it uses mmap, mincore and madvise.
 
 ## Why
 
-REAP ranks MoE experts by measured router saliency. Those rankings and kept
-expert manifests are runtime-independent, but the initial Qwen3.8-Flash-Next
-work targeted MLX. `expertpin` provides a small bridge for CUDA users: keep the
-original stock expert IDs, load an ordered manifest at runtime, and give its
-salient prefix priority in the existing `ik_llama.cpp` expert paging path.
+Router-saliency manifests give expertpin a reproducible initial hotset while
+runtime telemetry records the actual access stream. The remaining experts stay
+mmap-backed on NVMe. This lets us evaluate and then enforce bounded cache
+policies without pruning experts or remapping router IDs.
 
 For each manifest layer, `--resident-experts K`:
 
@@ -36,7 +34,7 @@ For each manifest layer, `--resident-experts K`:
 4. excludes those ranges from full-tensor lookahead reclamation, leaving the
    non-resident tail available for mmap-backed streaming.
 
-`K=0` is the default and leaves the upstream execution path unchanged. A
+`K=0` is the default and leaves the normal execution path unchanged. A
 positive `K` requires both `--expert-manifest` and `--prefetch-experts`.
 
 ## Manifest format
@@ -107,7 +105,8 @@ cmake -S . -B build -G Ninja \
   -DLLAMA_BUILD_TESTS=ON \
   -DLLAMA_CURL=OFF
 
-cmake --build build --target llama-server llama-cli test-expert-manifest -j
+cmake --build build --target llama-server llama-cli test-expert-manifest \
+  test-expert-cache-lru test-moe-prefetch-stats -j
 ```
 
 Use the CUDA architecture appropriate for your GPU when it is not `sm_120`.
@@ -149,6 +148,27 @@ eligible tensors can use CUDA. Adjust offload and prefetch settings for your
 hardware. If no selected expert tensor is mmap-backed, `expertpin` emits a
 warning rather than claiming residency was established.
 
+### Bounded host-LRU shadow
+
+Before enabling destructive page eviction, measure the exact router trace against
+a proposed host-cache budget:
+
+```bash
+EXPERT_CACHE_SIM_MIB=32768 \
+EXPERT_STATS_FILE=/path/to/cache-shadow.json \
+scripts/run-qwen38-flash-next.sh
+```
+
+The equivalent direct flag is `--expert-cache-sim-mib 32768`. It is disabled by
+default and currently observes Linux CPU-MoE kernels only (non-Linux builds
+accept the option but expose no shadow samples). It is telemetry-only: it does
+not allocate 32 GiB, change mmap residency, evict pages, reorder experts, or
+alter model output. A process permits one sim-enabled context at a time; a
+second is rejected without resetting the active trace. The teardown JSON
+adds `cache_sim` counters for requests, hits, misses, evictions, bypasses, current
+resident bytes, capacity and hit rate. This trace is the acceptance gate for the
+next step: applying the same tested LRU decisions to real NVMe-backed pages.
+
 ## Tests
 
 The unit test covers bare and wrapped manifests, malformed input, duplicate and
@@ -184,9 +204,11 @@ guarded `llama-server` run for large MoE models:
 
 See the script header for a worked 262K-context example configuration.
 
-## Credits
+## Provenance
 
-This project exists because of work by several upstream communities:
+The repository retains copyright notices and history from the open-source code
+it started from. These are attribution records, not active upstream relationships
+or compatibility commitments:
 
 - **Eyal Toledano / Hamster Research** (`sh0wie`) developed and published the
   Qwen3.8-Flash-Next REAP saliency/pruning work and expert disk-streaming ideas.
@@ -198,9 +220,9 @@ This project exists because of work by several upstream communities:
   [expert disk-streaming post](https://x.com/EyalToledano/status/2093429897188299113).
   `expertpin` is an independent CUDA runtime integration and is not presented as
   an official Hamster Research implementation.
-- **ikawrakow and the `ik_llama.cpp` contributors** provide the CUDA/CPU runtime,
-  MoE mmap streaming path, quantization work, and the upstream history this fork
-  retains: <https://github.com/ikawrakow/ik_llama.cpp>.
+- **ikawrakow and the historical `ik_llama.cpp` contributors** authored parts
+  of the inherited CUDA/CPU runtime, MoE mmap streaming and quantization code.
+  expertpin now develops independently and has no repository relationship.
 - **The `llama.cpp` and ggml contributors** built the original inference stack:
   <https://github.com/ggml-org/llama.cpp> and
   <https://github.com/ggml-org/ggml>.

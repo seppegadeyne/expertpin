@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+struct ggml_moe_prefetch_stats;
+
 // Per-layer counters following the colibri `ColiExpertStoreStats` contract
 // (requests / hits / misses / prefetched / prefetch_hits per layer), plus the
 // residency budget and defer/decode timing used by the advisory thresholds.
@@ -66,3 +68,7 @@ llama_expert_stats_advisory llama_expert_stats_evaluate(const llama_expert_store
 std::string llama_expert_stats_to_json(
         const llama_expert_store_stats & stats,
         const llama_expert_stats_advisory & advisory);
+
+// Serialize the live ggml prefetch counters, including the advisory bounded-LRU
+// shadow, for --expert-stats-file.
+std::string llama_moe_prefetch_stats_to_json(const ggml_moe_prefetch_stats & stats);

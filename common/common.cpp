@@ -2200,6 +2200,14 @@ bool gpt_params_find_arg(int argc, char ** argv, const std::string & arg, gpt_pa
         params.prefetch_experts_threads = std::stoi(argv[i]);
         return true;
     }
+    if (arg == "--expert-cache-sim-mib") {
+        CHECK_ARG;
+        params.expert_cache_sim_mib = std::stoi(argv[i]);
+        if (params.expert_cache_sim_mib < 0) {
+            throw std::invalid_argument("error: --expert-cache-sim-mib must be >= 0");
+        }
+        return true;
+    }
     if (arg == "--expert-stats-file") {
         CHECK_ARG;
         params.expert_stats_file = argv[i];
@@ -3347,6 +3355,8 @@ void gpt_params_print_usage(int /*argc*/, char ** argv, const gpt_params & param
     options.push_back({ "*",           "       --prefetch-experts",     "stream mmap'd MoE expert weights into the page cache on Linux"});
     options.push_back({ "*",           "       --prefetch-experts-threads N",
                                                                         "number of expert prefetch workers, tune to drive speed/type (default: auto)"});
+    options.push_back({ "*",           "       --expert-cache-sim-mib N",
+                                                                        "shadow-simulate a byte-bounded host expert LRU on Linux CPU MoE; telemetry only, no eviction (default: 0)"});
     options.push_back({ "*",           "       --expert-manifest FILE", "ordered layer-to-expert JSON manifest (bare map or layers/pinned_experts/kept_experts wrapper)"});
     options.push_back({ "*",           "       --resident-experts K",  "prefetch the first K manifest experts per layer before access-order streaming (default: 0; requires --expert-manifest and --prefetch-experts)"});
     options.push_back({ "*",           "       --fit-margin N",         "safety margin in MiB when auto-fitting model offloading"});
@@ -4418,6 +4428,7 @@ struct llama_context_params common_context_params_to_llama(const gpt_params & pa
     cparams.only_active_experts = params.only_active_exps;
     cparams.prefetch_experts  = params.prefetch_experts;
     cparams.prefetch_experts_threads = params.prefetch_experts_threads;
+    cparams.expert_cache_sim_bytes = static_cast<uint64_t>(params.expert_cache_sim_mib) * 1024 * 1024;
     cparams.expert_stats_file = params.expert_stats_file.empty() ? nullptr : params.expert_stats_file.c_str();
     cparams.max_extra_alloc   = params.max_extra_alloc_MiB;
     cparams.mtp               = params.has_mtp || params.speculative.has_stage_type(COMMON_SPECULATIVE_TYPE_MTP);
@@ -5419,6 +5430,7 @@ void yaml_dump_non_result_info(FILE * stream, const gpt_params & params, const l
     fprintf(stream, "defer_ple: %s # default: false\n", params.defer_ple ? "true" : "false");
     fprintf(stream, "prefetch_experts: %s # default: false\n", params.prefetch_experts ? "true" : "false");
     fprintf(stream, "prefetch_experts_threads: %d # default: 0 (auto)\n", params.prefetch_experts_threads);
+    fprintf(stream, "expert_cache_sim_mib: %d # default: 0 (disabled, telemetry only)\n", params.expert_cache_sim_mib);
     fprintf(stream, "expert_stats_file: %s # default: empty (disabled)\n", params.expert_stats_file.c_str());
     fprintf(stream, "expert_manifest: %s # default: empty\n", params.expert_manifest.c_str());
     fprintf(stream, "resident_experts: %d # default: 0\n", params.resident_experts);

@@ -40,6 +40,7 @@ struct llama_cparams {
     bool rope_cache;
     bool graph_reuse;
     bool prefetch_experts;
+    uint64_t expert_cache_sim_bytes = 0; // advisory bounded host-LRU shadow budget
     std::string expert_stats_file; // dump MoE expert-store stats as JSON at teardown
     bool k_cache_hadamard;
     bool v_cache_hadamard;

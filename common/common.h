@@ -459,6 +459,7 @@ struct gpt_params {
     bool defer_ple         = false; // if true, keep the per-layer token embedding on the file (Linux only)
     bool prefetch_experts  = false; // if true, stream mmap'd MoE expert weights into the page cache (Linux only)
     int  prefetch_experts_threads = 0; // number of expert prefetch workers (<=0 = auto)
+    int  expert_cache_sim_mib = 0; // advisory bounded host-LRU shadow budget (0 = disabled)
     std::string expert_stats_file = ""; // dump MoE expert-store stats as JSON at context teardown
     std::string expert_manifest;   // ordered layer -> expert-id residency manifest
     int  resident_experts = 0;     // top-K manifest experts to prioritize per layer (0 = disabled)

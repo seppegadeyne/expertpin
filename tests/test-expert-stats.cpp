@@ -1,4 +1,5 @@
 #include "llama-expert-stats.h"
+#include "ggml-moe-stats.h"
 
 #include <nlohmann/json.hpp>
 
@@ -236,6 +237,37 @@ void test_json_dump() {
     require(bad_root.at("advisories").at(0) == "thrashing", "json: advisory name");
 }
 
+// Runtime teardown JSON includes the bounded-LRU shadow as a nested, clearly
+// advisory object and remains valid JSON.
+void test_runtime_json_dump() {
+    ggml_moe_prefetch_stats stats = {};
+    stats.requests = 10;
+    stats.hits = 7;
+    stats.misses = 3;
+    stats.cache_sim_requests = 8;
+    stats.cache_sim_hits = 6;
+    stats.cache_sim_misses = 2;
+    stats.cache_sim_evictions = 4;
+    stats.cache_sim_evicted_bytes = 8192;
+    stats.cache_sim_bypasses = 1;
+    stats.cache_sim_resident_bytes = 32768;
+    stats.cache_sim_capacity_bytes = 65536;
+
+    const auto root = nlohmann::json::parse(llama_moe_prefetch_stats_to_json(stats));
+    require(root.at("requests") == 10 && root.at("hit_rate") == 0.7,
+            "runtime json: existing counters remain present");
+    const auto & sim = root.at("cache_sim");
+    require(sim.at("requests") == 8 && sim.at("hits") == 6 && sim.at("misses") == 2,
+            "runtime json: shadow access counters");
+    require(sim.at("evictions") == 4 && sim.at("evicted_bytes") == 8192,
+            "runtime json: shadow eviction counters");
+    require(sim.at("bypasses") == 1 && sim.at("resident_bytes") == 32768 &&
+            sim.at("capacity_bytes") == 65536,
+            "runtime json: shadow budget counters");
+    require(sim.at("hit_rate") == 0.75,
+            "runtime json: shadow hit rate");
+}
+
 // reset() returns the store to a pristine state (used between benchmark runs).
 void test_reset() {
     llama_expert_store_stats stats;
@@ -268,6 +300,7 @@ int main() {
         test_totals_and_rates();
         test_empty();
         test_json_dump();
+        test_runtime_json_dump();
         test_reset();
         std::cout << "expert stats tests passed\n";
         return 0;

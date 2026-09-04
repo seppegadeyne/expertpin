@@ -344,6 +344,7 @@ struct llama_context {
     ggml_backend_t backend_cpu = nullptr;
 
     bool has_evaluated_once = false;
+    bool expert_cache_sim_owner = false;
 
     int64_t t_start_us;
     int64_t t_load_us;

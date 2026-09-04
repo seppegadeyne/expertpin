@@ -18243,6 +18243,9 @@ static void ggml_compute_forward_mul_mat_id(
     const int n_as  = ne02;       // n_expert
 
     // kick off read-ahead of the selected experts before src1 quantization, so storage reads overlap that work
+    if (params->shared->cplan && params->shared->cplan->moe_expert_cache_sim) {
+        ggml_moe_cache_sim_kernel_hook(dst, ith);
+    }
     if (params->shared->cplan && params->shared->cplan->moe_expert_prefetch) {
         ggml_moe_prefetch_kernel_hook(dst, ith);
     }
@@ -18569,6 +18572,9 @@ static void ggml_compute_forward_mul_mat_id_up_gate(
 
     // read-ahead of the selected experts for both the up and gate weight tensors
     // (gate is null when up/gate are merged into a single tensor)
+    if (params->shared->cplan && params->shared->cplan->moe_expert_cache_sim) {
+        ggml_moe_cache_sim_kernel_hook(dst, ith);
+    }
     if (params->shared->cplan && params->shared->cplan->moe_expert_prefetch) {
         ggml_moe_prefetch_kernel_hook(dst, ith);
     }

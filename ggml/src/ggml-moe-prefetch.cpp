@@ -1,4 +1,5 @@
 #include "ggml-moe-prefetch.h"
+#include "ggml-moe-cache-lru.h"
 #include "ggml-moe-stats.h"
 
 #if defined(__linux__)
@@ -198,6 +199,12 @@ struct prefetch_state {
     std::atomic<uint64_t> epoch{1};
 
     engine_stats stats;
+
+    // Advisory-only byte-bounded LRU shadow. It observes the exact expert
+    // access stream but never populates or evicts pages.
+    std::mutex cache_sim_mtx;
+    ggml_moe_cache_lru cache_sim;
+    bool cache_sim_owned = false;
 
     std::mutex                     pool_mtx;
     std::shared_ptr<prefetch_pool> pool;
@@ -545,6 +552,31 @@ bool ggml_moe_prefetch_enabled(void) {
     return s.pool != nullptr;
 }
 
+bool ggml_moe_cache_sim_try_acquire(size_t capacity_bytes) {
+    if (capacity_bytes == 0) return false;
+    auto & s = state();
+    std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
+    if (s.cache_sim_owned) return false;
+    s.cache_sim.reset(capacity_bytes);
+    s.cache_sim_owned = true;
+    return true;
+}
+
+void ggml_moe_cache_sim_release(void) {
+    auto & s = state();
+    std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
+    if (!s.cache_sim_owned) return;
+    s.cache_sim_owned = false;
+    s.cache_sim.reset(0);
+}
+
+void ggml_moe_prefetch_set_cache_sim_capacity(size_t capacity_bytes) {
+    auto & s = state();
+    std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
+    if (s.cache_sim_owned) return;
+    s.cache_sim.reset(capacity_bytes);
+}
+
 void ggml_moe_prefetch_new_epoch(void) {
     state().epoch.fetch_add(1, std::memory_order_relaxed);
 }
@@ -654,8 +686,9 @@ bool ggml_moe_prefetch_experts(const struct ggml_tensor * w, const uint32_t * ex
 // Probe order is cheap-first: overlap with pinned resident_ranges (no
 // syscall), then ticket prefetched_ranges (no syscall), then mincore only
 // for slices not covered by either bookkeeping structure.
-// Telemetry kill switch (GGML_MOE_STATS=0): disables per-expert attribution
-// entirely so throughput can be A/B-compared against the instrumented run.
+// Residency-telemetry kill switch (GGML_MOE_STATS=0): disables mincore-based
+// per-expert attribution so throughput can be A/B-compared. An explicitly
+// configured cache shadow remains active and does not perform those probes.
 static bool stats_enabled() {
     static const bool enabled = [] {
         const char * env = getenv("GGML_MOE_STATS");
@@ -664,8 +697,9 @@ static bool stats_enabled() {
     return enabled;
 }
 
-static void attribute_kernel_entry(const ggml_tensor * w, const ggml_tensor * ids) {
-    if (!stats_enabled()) return;
+static void attribute_kernel_entry(
+        const ggml_tensor * w, const ggml_tensor * ids,
+        bool include_cache_sim, bool include_residency) {
     if (!w || !w->data || !ids || !ids->data) return;
     const int64_t n_as = w->ne[2];
     if (n_as <= 1) return; // dense fallback path; no expert granularity here
@@ -681,6 +715,25 @@ static void attribute_kernel_entry(const ggml_tensor * w, const ggml_tensor * id
             seen[id] = 1;
         }
     }
+
+    // Feed the exact distinct expert stream into the advisory byte-bounded
+    // LRU. This is shadow accounting only: no residency syscall is made.
+    if (include_cache_sim) {
+        std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
+        if (s.cache_sim.stats().capacity_bytes > 0) {
+            const size_t stride = w->nb[2];
+            const size_t wbytes = ggml_nbytes(w);
+            for (int64_t id = 0; id < n_as; ++id) {
+                if (!seen[id] || stride == 0 || static_cast<size_t>(id) > SIZE_MAX / stride) continue;
+                const size_t off = static_cast<size_t>(id) * stride;
+                if (off >= wbytes) continue;
+                const size_t bytes = std::min(stride, wbytes - off);
+                s.cache_sim.access({w->data, stride, static_cast<uint32_t>(id)}, bytes);
+            }
+        }
+    }
+
+    if (!include_residency || !stats_enabled()) return;
 
     // snapshot bookkeeping ranges once per kernel entry
     std::vector<std::pair<size_t, size_t>> pinned;
@@ -737,6 +790,16 @@ static void attribute_kernel_entry(const ggml_tensor * w, const ggml_tensor * id
     }
 }
 
+void ggml_moe_cache_sim_kernel_hook(const struct ggml_tensor * node, int ith) {
+    if (ith != 0) return;
+    const ggml_tensor * w0; const ggml_tensor * w1; const ggml_tensor * ids;
+    node_weights_and_ids(node, w0, w1, ids);
+    if (!w0 || !ids || !ids->data) return;
+
+    attribute_kernel_entry(w0, ids, true, false);
+    if (w1) attribute_kernel_entry(w1, ids, true, false);
+}
+
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith) {
     if (ith != 0) return;
     const ggml_tensor * w0; const ggml_tensor * w1; const ggml_tensor * ids;
@@ -746,12 +809,13 @@ void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith) {
     if (!ggml_moe_prefetch_enabled()) {
         legacy_madvise(w0, ids);
         if (w1) legacy_madvise(w1, ids);
-        attribute_kernel_entry(w0, ids);
+        attribute_kernel_entry(w0, ids, false, true);
+        if (w1) attribute_kernel_entry(w1, ids, false, true);
         return;
     }
 
-    attribute_kernel_entry(w0, ids);
-    if (w1) attribute_kernel_entry(w1, ids);
+    attribute_kernel_entry(w0, ids, false, true);
+    if (w1) attribute_kernel_entry(w1, ids, false, true);
 
     // fire-and-forget enqueue, idempotent within the current epoch; a no-op
     // when the scheduler hook already covered this node (the self-enqueue
@@ -772,6 +836,18 @@ void ggml_moe_prefetch_get_stats(struct ggml_moe_prefetch_stats * out) {
     out->defer_wait_ns  = s.defer_wait_ns.load(std::memory_order_relaxed);
     out->resident_bytes = s.resident_bytes.load(std::memory_order_relaxed);
     out->capacity_bytes = s.capacity_bytes.load(std::memory_order_relaxed);
+
+    auto & global = state();
+    std::lock_guard<std::mutex> lock(global.cache_sim_mtx);
+    const auto & sim = global.cache_sim.stats();
+    out->cache_sim_requests       = sim.requests;
+    out->cache_sim_hits           = sim.hits;
+    out->cache_sim_misses         = sim.misses;
+    out->cache_sim_evictions      = sim.evictions;
+    out->cache_sim_evicted_bytes  = sim.evicted_bytes;
+    out->cache_sim_bypasses       = sim.bypasses;
+    out->cache_sim_resident_bytes = sim.resident_bytes;
+    out->cache_sim_capacity_bytes = sim.capacity_bytes;
 }
 
 void ggml_moe_prefetch_reset_stats(void) {
@@ -784,6 +860,10 @@ void ggml_moe_prefetch_reset_stats(void) {
     s.defer_wait_ns.store(0, std::memory_order_relaxed);
     s.resident_bytes.store(0, std::memory_order_relaxed);
     s.capacity_bytes.store(0, std::memory_order_relaxed);
+
+    auto & global = state();
+    std::lock_guard<std::mutex> lock(global.cache_sim_mtx);
+    global.cache_sim.reset(global.cache_sim.stats().capacity_bytes);
 }
 
 #else // !__linux__
@@ -792,14 +872,18 @@ void ggml_moe_prefetch_register_mapping(const void *, size_t) {}
 void ggml_moe_prefetch_unregister_mapping(const void *) {}
 void ggml_moe_prefetch_set_n_threads(int) {}
 bool ggml_moe_prefetch_enabled(void) { return false; }
+bool ggml_moe_cache_sim_try_acquire(size_t capacity_bytes) { return capacity_bytes > 0; }
+void ggml_moe_cache_sim_release(void) {}
+void ggml_moe_prefetch_set_cache_sim_capacity(size_t) {}
 void ggml_moe_prefetch_new_epoch(void) {}
 void ggml_moe_prefetch_node(const struct ggml_tensor *) {}
 void ggml_moe_prefetch_tensor(const struct ggml_tensor *) {}
 bool ggml_moe_prefetch_experts(const struct ggml_tensor *, const uint32_t *, size_t) { return false; }
 void ggml_moe_prefetch_wait(const struct ggml_tensor *) {}
+void ggml_moe_cache_sim_kernel_hook(const struct ggml_tensor *, int) {}
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor *, int) {}
 void ggml_moe_prefetch_cold(const struct ggml_tensor *) {}
-void ggml_moe_prefetch_get_stats(struct ggml_moe_prefetch_stats *) {}
+void ggml_moe_prefetch_get_stats(struct ggml_moe_prefetch_stats * out) { if (out) *out = {}; }
 void ggml_moe_prefetch_reset_stats(void) {}
 
 #endif

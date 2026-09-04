@@ -844,6 +844,8 @@ extern "C" {
 
         // read-ahead selected MoE expert weights in the CPU matmul-id kernels
         bool moe_expert_prefetch;
+        // observe selected expert slices without residency probes or read-ahead
+        bool moe_expert_cache_sim;
     };
 
     enum ggml_cgraph_eval_order {

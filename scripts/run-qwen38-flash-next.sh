@@ -20,6 +20,8 @@
 #   CTX=262144 NCMOE=44 RAM_BUDGET_GIB=38 scripts/run-qwen38-flash-next.sh
 #   DRAFT=1 DRAFT_NMAX=3 ...                              (add MTP draft, n_max tokens)
 #   MANIFEST=~/*saliency_pinned.json RESIDENT=288 ...     (expertpin residency)
+#   EXPERT_CACHE_SIM_MIB=32768 EXPERT_STATS_FILE=/path/cache-shadow.json DRY=1 ...
+#                                                         (shadow bounded host-LRU; no eviction)
 #   DRY=1 ...                                             (print plan, start nothing)
 #   FORCE=1 ...                                           (skip guards)
 #
@@ -38,6 +40,8 @@ DRAFT_MODEL="${DRAFT_MODEL:-$HOME/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen
 DRAFT_NMAX="${DRAFT_NMAX:-4}"
 MANIFEST="${MANIFEST:-}"
 RESIDENT="${RESIDENT:-0}"
+EXPERT_CACHE_SIM_MIB="${EXPERT_CACHE_SIM_MIB:-0}"
+EXPERT_STATS_FILE="${EXPERT_STATS_FILE:-}"
 
 CTX="${CTX:-32768}"
 NCMOE="${NCMOE:-36}"
@@ -88,15 +92,15 @@ if [ "${DRAFT:-0}" = "1" ] && [ -f "$DRAFT_MODEL" ]; then
   DRAFT_ARGS=(-md "$DRAFT_MODEL" -ngld 99 --spec-type "mtp:n_max=${DRAFT_NMAX}")
 fi
 
-# --- optional expertpin residency ---
-RESIDENCY_ARGS=()
+# --- optional expertpin residency and bounded-cache shadow ---
+EXPERT_ARGS=()
 if [ -n "$MANIFEST" ]; then
   [ -f "$MANIFEST" ] || { echo "Manifest not found: $MANIFEST"; exit 1; }
-  RESIDENCY_ARGS=(--expert-manifest "$MANIFEST")
-  [ "$RESIDENT" != "0" ] && RESIDENCY_ARGS+=(--resident-experts "$RESIDENT" --prefetch-experts)
-  # issue #1 telemetry: per-expert hit/miss counters dumped at teardown
-  [ -n "${EXPERT_STATS_FILE:-}" ] && RESIDENCY_ARGS+=(--expert-stats-file "$EXPERT_STATS_FILE")
+  EXPERT_ARGS+=(--expert-manifest "$MANIFEST")
+  [ "$RESIDENT" != "0" ] && EXPERT_ARGS+=(--resident-experts "$RESIDENT" --prefetch-experts)
 fi
+[ "$EXPERT_CACHE_SIM_MIB" != "0" ] && EXPERT_ARGS+=(--expert-cache-sim-mib "$EXPERT_CACHE_SIM_MIB")
+[ -n "$EXPERT_STATS_FILE" ] && EXPERT_ARGS+=(--expert-stats-file "$EXPERT_STATS_FILE")
 
 # --- disable pinned host allocations by default (OOM hardening) ---
 if [ "${PINNED:-0}" != "1" ]; then
@@ -114,6 +118,8 @@ if [ "$DRY" = "1" ]; then
   echo "  ctx=$CTX ncmoe=$NCMOE ngl=$NGL kv=$KVT threads=$THREADS port=$PORT"
   echo "  draft       : ${DRAFT:-0}"
   echo "  manifest    : ${MANIFEST:-none} (resident=$RESIDENT)"
+  echo "  cache-shadow: ${EXPERT_CACHE_SIM_MIB} MiB (telemetry only; no eviction)"
+  echo "  stats-file  : ${EXPERT_STATS_FILE:-none}"
   echo "  pinned      : $([ "${PINNED:-0}" = "1" ] && echo on || echo off)"
   echo "  cache-ram   : ${CACHE_RAM_MIB} MiB"
   echo "  RAM-budget  : ${RAM_BUDGET_GIB} GiB (cgroup MemoryMax; High ${MEM_HIGH} MiB)"
@@ -137,5 +143,5 @@ exec systemd-run --user --scope --unit="expertpin-test-$(date +%s)" \
   --cache-ram "$CACHE_RAM_MIB" \
   --host 127.0.0.1 --port "$PORT" \
   "${DRAFT_ARGS[@]+"${DRAFT_ARGS[@]}"}" \
-  "${RESIDENCY_ARGS[@]+"${RESIDENCY_ARGS[@]}"}" \
+  "${EXPERT_ARGS[@]+"${EXPERT_ARGS[@]}"}" \
   "$@"

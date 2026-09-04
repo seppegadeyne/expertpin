@@ -1333,6 +1333,8 @@ add_library(ggml
             ggml.c
             ggml-alloc.c
             ggml-backend.cpp
+            ggml-moe-cache-lru.cpp
+            ggml-moe-cache-lru.h
             ggml-moe-prefetch.cpp
             ggml-moe-prefetch.h
             ../include/ggml-moe-stats.h

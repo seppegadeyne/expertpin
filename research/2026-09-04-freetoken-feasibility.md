@@ -74,10 +74,21 @@ the *target* model's expert store in every public checkpoint is far larger
 
 - 2x RTX 5090 EP2 FP8: 74.9-83 tok/s decode @262k (Enigmatic331 repo, pinned
   stack, custom P2P driver) — different hardware class, not transferable.
-- Single RTX 5090 + 63 GB host: 68.3 tok/s (NVFP4, PLE streamed) — this is
-  the config class FreeToken was validated on; note 63 GB host RAM reports
-  suggest total RAM above ours (60 GiB) OR pageable config, unclear.
-- RTX 4090 + 64 GB: ~40 tok/s with PLE on disk.
+- Single RTX 5090: 68.3 tok/s (RadixArk NVFP4, geen speculative decode,
+  PLE op NVMe). CORRECTIE na volledige X-thread 2026-09-04: de auteur claimt
+  NIET dat zijn desktop 64 GB totaal RAM heeft; "63GB host RAM" is het
+  modelverbruik. In reply 2095596389254508868: "checkpoint will take 63GB out
+  of your ram"; hij zoekt daarom een production checkpoint ~5 GB kleiner.
+  De gepubliceerde demo mist commandline, contextlengte, concurrency,
+  cachegrootte en peak-VRAM; X alleen is dus geen reproduceerbare benchmark.
+  De onderliggende FreeToken PR #311 vult dit aan: bs=1, AIME, 12K tokens;
+  disk-PLE 68.3 tok/s versus pinned-PLE 68.7; resident memory 74 GB versus
+  120 GB; load 28 s versus 68 s. De oorspronkelijke PR #257-config is
+  `--moe-backend offload --moe-cache-auto --max-running-requests 1
+  --kv-reserve-tokens 50000`. Dit bewijst definitief dat de demo NIET op een
+  64-GB-totaal host draaide: zelfs disk-PLE had 74 GB resident footprint.
+- RTX 4090: auteur meldt ~40 tok/s op Linux; Windows kan slechts circa de helft
+  van host-RAM pinnen. Ook hier geen volledige benchmarkconfig gepubliceerd.
 - 2x RTX 3090 + 64 GB llama.cpp banded offload: 35-36 tok/s.
 - Whamp server60 (4x3090, vLLM fork): 89.7 tok/s C1 with MTP K2 INT4 draft
   experts; acceptance 63.5%, mean length 2.27 — INT4-quantized draft experts
@@ -85,9 +96,24 @@ the *target* model's expert store in every public checkpoint is far larger
 
 ## Verdict
 
-Stock FreeToken on Aorus: **not feasible without a smaller expert store**.
-The 68.3 tok/s single-5090 reports remain valuable as proof that the
-GPU+PCIe+NVMe hierarchy can serve this model fast, but replicating them
-here requires either (a) a checkpoint with <= ~35 GiB experts, or (b) an
-engine whose expert path is pageable (Whamp VMM hypothesis). Both are
-research threads, not config changes.
+Stock FreeToken + RadixArk NVFP4 op Aorus: **niet haalbaar** binnen onze
+harde 40 GiB systeemRAM / 28 GiB VRAM-budgetten (en de 63.32 GiB pinned
+expertbank past zelfs niet in onze 60 GiB fysieke host-RAM). De volledige
+X-thread bevestigt de architectuur maar niet Seppe's initiële premisse van een
+64-GB-totaal demo-host: 63 GB is expliciet RAM-*verbruik*. Het PLE-diskpad is
+wél direct bruikbare inspiratie: 47.7 GiB blijft op NVMe, slechts 16 rijen per
+token gaan via kleine pinned staging naar GPU. De expertbank heeft stock geen
+disk-/host-LRU-pad: alle expertlagen worden gevuld in process-lifetime mmaps en
+pinned (of voor CPU-lagen resident/locked).
+
+De 68.3 tok/s bewijst dat onze 5090/PCIe/NVMe-klasse ruim snel genoeg kan zijn
+als de expert-hotset uit RAM/GPU wordt bediend, maar stock verbruikte 74 GB
+resident RAM (~68.9 GiB), 28.9 GiB boven ons 40-GiB-budget. Eigen
+expertpin-route: bouw een drie-laags expertcache (NVMe bron -> begrensde 28-34
+GiB host-LRU -> GPU-LRU) in plaats van FreeToken's volledige 63.3 GiB hostbank,
+combineer met MTP. Voor max 40 GiB run-footprint moet een volledig residente
+expertbank inclusief runtime-overhead naar ongeveer 32-36 GiB (effectief
+~2.0-2.3 bit vanaf NVFP4), of cold experts moeten echt disk-backed blijven.
+We hoeven slechts 29.3% van FreeToken's 68.3 tok/s te behouden (max 3.42x
+slowdown) om 20 tok/s te halen; vanaf onze 10.87 tok/s is 1.84x versnelling
+nodig.

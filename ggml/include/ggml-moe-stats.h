@@ -36,6 +36,17 @@ struct ggml_moe_prefetch_stats {
     uint64_t defer_wait_ns;
     uint64_t resident_bytes;
     uint64_t capacity_bytes;
+
+    // Advisory LRU shadow for a future hard-bounded host expert cache. These
+    // counters do not affect execution or OS page residency.
+    uint64_t cache_sim_requests;
+    uint64_t cache_sim_hits;
+    uint64_t cache_sim_misses;
+    uint64_t cache_sim_evictions;
+    uint64_t cache_sim_evicted_bytes;
+    uint64_t cache_sim_bypasses;
+    uint64_t cache_sim_resident_bytes;
+    uint64_t cache_sim_capacity_bytes;
 };
 
 // Copy out a consistent snapshot of the counters (atomically read, zeroed

@@ -1,4 +1,5 @@
 #include "llama-expert-stats.h"
+#include "ggml-moe-stats.h"
 
 #include <nlohmann/json.hpp>
 
@@ -160,4 +161,36 @@ std::string llama_expert_stats_to_json(
     root["layers"] = layers;
 
     return root.dump();
+}
+
+std::string llama_moe_prefetch_stats_to_json(const ggml_moe_prefetch_stats & stats) {
+    using json = nlohmann::json;
+
+    json root = {
+        {"requests", stats.requests},
+        {"hits", stats.hits},
+        {"misses", stats.misses},
+        {"prefetched", stats.prefetched},
+        {"prefetch_hits", stats.prefetch_hits},
+        {"defer_wait_ns", stats.defer_wait_ns},
+        {"resident_bytes", stats.resident_bytes},
+        {"capacity_bytes", stats.capacity_bytes},
+        {"hit_rate", stats.requests ? static_cast<double>(stats.hits) / stats.requests : 0.0},
+        {"prefetch_hit_rate", stats.prefetched ? static_cast<double>(stats.prefetch_hits) / stats.prefetched : 0.0},
+        {"defer_wait_ratio", stats.resident_bytes ? static_cast<double>(stats.defer_wait_ns) / 1e9 : 0.0},
+    };
+    root["cache_sim"] = {
+        {"requests", stats.cache_sim_requests},
+        {"hits", stats.cache_sim_hits},
+        {"misses", stats.cache_sim_misses},
+        {"evictions", stats.cache_sim_evictions},
+        {"evicted_bytes", stats.cache_sim_evicted_bytes},
+        {"bypasses", stats.cache_sim_bypasses},
+        {"resident_bytes", stats.cache_sim_resident_bytes},
+        {"capacity_bytes", stats.cache_sim_capacity_bytes},
+        {"hit_rate", stats.cache_sim_requests
+                ? static_cast<double>(stats.cache_sim_hits) / stats.cache_sim_requests
+                : 0.0},
+    };
+    return root.dump(2) + "\n";
 }
