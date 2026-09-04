@@ -3,7 +3,7 @@
 ## Repo-identiteit (LEES EERST)
 
 - Dit is **seppegadeyne/expertpin**: https://github.com/seppegadeyne/expertpin — een VOLLEDIG ZELFSTANDIG project (Seppe-mandaat 2026-09-04).
-- Geen upstream-relatie meer: de `upstream`-remote is verwijderd. Er is géén ander publiek repo waar we aan bijdragen, PR's opvolgen of discussiëren. Alle gh-activiteit (issues, commits, pushes) uitsluitend op seppegadeyne/expertpin.
+- Geen upstream-relatie meer: alle externe remotes (`upstream`, `fork`) zijn verwijderd; alleen `origin` rest. Er is géén ander publiek repo waar we aan bijdragen, PR's opvolgen of discussiëren. Alle gh-activiteit (issues, commits, pushes) uitsluitend op seppegadeyne/expertpin.
 - **`gh` default repo is vastgezet met `gh repo set-default seppegadeyne/expertpin`.** Controleer bij twijfel met `gh repo set-default --view`.
 - De codebase (oorsprong ik_llama.cpp-fork) is volledig eigendom van dit project: vrij breken, hernoemen, herschrijven. Compatibiliteit met andere forks/upstreams is GEEN criterium.
 - Andere repo's (club-3090, Whamp/vLLM, FreeToken, buun, EXL3, ...) alléén READ-ONLY als inspiratie (klonen naar `third-party/`, buiten git, mag); eigen implementaties schrijven; nooit contribueren of posten.
