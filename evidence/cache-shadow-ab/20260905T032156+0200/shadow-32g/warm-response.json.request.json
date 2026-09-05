@@ -1,0 +1,1 @@
+{"prompt":"Explain in detail how a bounded multi-tier expert cache can accelerate mixture-of-experts inference while preserving exact model output. Cover host RAM, NVMe misses, GPU residency, and bandwidth-aware routing.","n_predict":32,"temperature":0.0,"seed":42,"stream":false,"cache_prompt":false}

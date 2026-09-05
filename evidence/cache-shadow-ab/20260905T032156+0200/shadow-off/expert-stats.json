@@ -1,0 +1,24 @@
+{
+  "cache_sim": {
+    "bypasses": 0,
+    "capacity_bytes": 0,
+    "evicted_bytes": 0,
+    "evictions": 0,
+    "hit_rate": 0.0,
+    "hits": 0,
+    "misses": 0,
+    "requests": 0,
+    "resident_bytes": 0
+  },
+  "capacity_bytes": 0,
+  "defer_wait_ns": 0,
+  "defer_wait_ratio": 0.0,
+  "hit_rate": 0.0,
+  "hits": 0,
+  "misses": 0,
+  "prefetch_hit_rate": 0.0,
+  "prefetch_hits": 0,
+  "prefetched": 0,
+  "requests": 0,
+  "resident_bytes": 0
+}
