@@ -23,6 +23,14 @@ request = None
 prepared = False
 server_log = None
 samples = []
+launching = False
+pending_signal = None
+RAM_BUDGET_GIB = 36  # Measurement cap; launcher still requires budget + 4 GiB.
+
+
+def host_guard(util, mem):
+    """Tier A host gate; independent of the stricter launcher headroom gate."""
+    return 0 <= util < 5 and mem >= 34 * 1024**3
 
 
 def command(args, name, check=True):
@@ -58,11 +66,11 @@ def sample():
         base = Path('/sys/fs/cgroup') / cg.lstrip('/')
         for key in ('memory.current', 'memory.peak', 'memory.max', 'memory.swap.current', 'memory.events'):
             point[key] = (base / key).read_text().strip()
-        if int(point['memory.max']) != 40 * 1024**3:
+        if int(point['memory.max']) != RAM_BUDGET_GIB * 1024**3:
             raise RuntimeError('unexpected cgroup MemoryMax')
     samples.append(point)
     (OUT / 'samples.json').write_text(json.dumps(samples, indent=2) + '\n')
-    if used > 28 * 1024:
+    if used >= 28 * 1024:
         raise RuntimeError('VRAM cap exceeded')
     if time.monotonic() - start > 900:
         raise TimeoutError('15 minute run limit')
@@ -71,6 +79,10 @@ def sample():
 
 
 def interrupt(signum, frame):
+    global pending_signal
+    if launching:
+        pending_signal = signum
+        return
     raise TimeoutError(f'signal {signum}')
 
 
@@ -95,13 +107,15 @@ try:
     util, used, free = gpu()
     mem = available()
     summary['guard'] = {'gpu_util_pct': util, 'mem_available_bytes': mem,
-                        'required_mem_available': '>45 GiB (developer rule; stricter than Tier A)'}
-    if util >= 5 or mem <= 45 * 1024**3:
+                        'required_mem_available': '>=34 GiB (Tier A)',
+                        'ram_budget_gib': RAM_BUDGET_GIB,
+                        'launcher_headroom_gib': 4}
+    if not host_guard(util, mem):
         raise RuntimeError('host guard blocked; no model load')
     env = dict(os.environ, GGML_CUDA_NO_PINNED='1', DRAFT='1', DRAFT_NMAX='4',
                DRAFT_MODEL='/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf',
                MODEL_DIR='/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64',
-               CTX='8192', NCMOE='36', NGL='99', RAM_BUDGET_GIB='40', CACHE_RAM_MIB='512',
+               CTX='8192', NCMOE='36', NGL='99', RAM_BUDGET_GIB=str(RAM_BUDGET_GIB), CACHE_RAM_MIB='512',
                PORT='8102', BIN_DIR=str(ROOT / 'build-sm120/bin'), FORCE='0', PINNED='0',
                EXPERT_CACHE_SIM_MIB='8192', EXPERT_STATS_FILE=str(OUT / 'expert-stats.json'),
                GGML_MOE_TRACE_FILE=str(OUT / 'trace.csv'))
@@ -114,8 +128,16 @@ try:
     if dry.returncode or 'WOULD BLOCK' in dry.stdout:
         raise RuntimeError('launcher dry guard blocked')
     server_log = (OUT / 'server.log').open('w')
-    proc = subprocess.Popen(launch, env=dict(env, DRY='0'), stdout=server_log, stderr=subprocess.STDOUT)
     scope_launched = True
+    # Register ownership before spawn and defer handled signals until the child
+    # handle is stored; cleanup can then reap the launcher and its exact scope.
+    launching = True
+    try:
+        proc = subprocess.Popen(launch, env=dict(env, DRY='0'), stdout=server_log, stderr=subprocess.STDOUT)
+    finally:
+        launching = False
+    if pending_signal is not None:
+        interrupt(pending_signal, None)
     # Bounded readiness check for this exact unit; never infer ownership from wildcards.
     for _ in range(20):
         result = subprocess.run(['systemctl', '--user', 'is-active', scope], capture_output=True, text=True, timeout=5)
@@ -189,6 +211,19 @@ finally:
             attempt('scope-kill', lambda: command(['systemctl', '--user', 'kill', '--signal=KILL', scope], 'scope-kill'))
             cleanup_errors.append('scope-stop not verified inactive')
     attempt('launcher-stop', lambda: terminate(proc))
+    if scope_launched:
+        # Recheck after reaping the launcher, which can no longer create a late
+        # scope. A successful kill request alone is not proof of termination.
+        def verify_scope_stopped():
+            for retry in range(3):
+                state = command(['systemctl', '--user', 'is-active', scope], 'scope-final-state', check=False)
+                if state in ('inactive', 'failed', 'unknown'):
+                    summary['scope_stopped_verified'] = True
+                    return
+                command(['systemctl', '--user', 'kill', '--signal=KILL', scope], 'scope-final-kill', check=False)
+                time.sleep(0.25)
+            raise RuntimeError('own scope still active or unverified before mandatory qli restart')
+        attempt('scope-final-verification', verify_scope_stopped)
     if server_log:
         attempt('log-close', server_log.close)
     summary['qli_start_requested'] = datetime.now().astimezone().isoformat()
