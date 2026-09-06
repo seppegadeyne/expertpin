@@ -1,0 +1,12 @@
+[1/11] Generating build details from Git
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[2/11] Building CXX object common/CMakeFiles/build_info.dir/build-info.cpp.o
+[3/11] Building CXX object ggml/src/CMakeFiles/ggml.dir/ggml-moe-prefetch.cpp.o
+[4/11] Building CXX object src/CMakeFiles/llama.dir/llama-expert-stats.cpp.o
+[5/11] Linking CXX shared library ggml/src/libggml.so
+[6/11] Building CXX object src/CMakeFiles/llama.dir/llama.cpp.o
+[7/11] Linking CXX shared library src/libllama.so
+[8/11] Linking CXX shared library examples/mtmd/libmtmd.so
+[9/11] Linking CXX static library common/libcommon.a
+[10/11] Building CXX object examples/server/CMakeFiles/llama-server.dir/server-context.cpp.o
+[11/11] Linking CXX executable bin/llama-server

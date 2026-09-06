@@ -1,0 +1,176 @@
+{
+  "run": "run-20260906T131516",
+  "commit": "d26a2b23ee94335f2d8710a943a8ea2c62802a31",
+  "tok_s": 16.268900522282546,
+  "target_tok_s": 20,
+  "target_gap_tok_s": 3.7310994777174535,
+  "prompt_tokens": 68,
+  "generated_tokens": 32,
+  "mtp_accepted": 21,
+  "mtp_generated": 22,
+  "mtp_acceptance": 0.9545454545454546,
+  "host_mem_available_gib": 44.332725524902344,
+  "cgroup_memory_max_gib": [
+    36.0
+  ],
+  "highest_read_memory_peak_gib": 32.40419006347656,
+  "vram_device_sample_peak_gib": 22.65234375,
+  "swap_current_sample_peak_gib": 1.4808616638183594,
+  "ram_plus_swap_current_sample_peak_gib": 33.87876892089844,
+  "sample_count": 43,
+  "last_memory_events": "low 0\nhigh 232430\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 1",
+  "trace_rows": 45015,
+  "trace_phases": {
+    "prefill": 20940,
+    "decode": 24075
+  },
+  "request_sequences": [
+    [
+      "27",
+      "0"
+    ]
+  ],
+  "phase_positions": {
+    "prefill": [
+      [
+        0,
+        62
+      ],
+      [
+        63,
+        67
+      ]
+    ],
+    "decode": [
+      [
+        68,
+        71
+      ],
+      [
+        72,
+        76
+      ],
+      [
+        77,
+        81
+      ],
+      [
+        82,
+        86
+      ],
+      [
+        87,
+        90
+      ],
+      [
+        91,
+        92
+      ],
+      [
+        93,
+        94
+      ],
+      [
+        95,
+        96
+      ],
+      [
+        96,
+        97
+      ],
+      [
+        98,
+        98
+      ]
+    ]
+  },
+  "trace_dropped": 0,
+  "trace_error": 0,
+  "joined_rows": 45015,
+  "independent_header_spotchecks": [
+    {
+      "seq": "372",
+      "tensor": "blk.12.ffn_down_exps.weight",
+      "type": 20,
+      "expert": 9,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00011-of-00033.gguf",
+      "data_start": 2112,
+      "tensor_offset": 0,
+      "absolute_offset": 8296512,
+      "bytes": 921600
+    },
+    {
+      "seq": "45014",
+      "tensor": "blk.47.ffn_down_exps.weight",
+      "type": 20,
+      "expert": 425,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00033-of-00033.gguf",
+      "data_start": 1440,
+      "tensor_offset": 0,
+      "absolute_offset": 391681440,
+      "bytes": 921600
+    },
+    {
+      "seq": "13713",
+      "tensor": "blk.40.ffn_up_exps.weight",
+      "type": 21,
+      "expert": 4,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00028-of-00033.gguf",
+      "data_start": 1984,
+      "tensor_offset": 367441920,
+      "absolute_offset": 370259904,
+      "bytes": 704000
+    },
+    {
+      "seq": "45004",
+      "tensor": "blk.47.ffn_gate_exps.weight",
+      "type": 21,
+      "expert": 425,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00033-of-00033.gguf",
+      "data_start": 1440,
+      "tensor_offset": 473600000,
+      "absolute_offset": 772801440,
+      "bytes": 704000
+    },
+    {
+      "seq": "0",
+      "tensor": "blk.12.ffn_up_exps.weight",
+      "type": 22,
+      "expert": 9,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00011-of-00033.gguf",
+      "data_start": 2112,
+      "tensor_offset": 749291520,
+      "absolute_offset": 754016832,
+      "bytes": 524800
+    },
+    {
+      "seq": "44764",
+      "tensor": "blk.39.ffn_gate_exps.weight",
+      "type": 22,
+      "expert": 496,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00027-of-00033.gguf",
+      "data_start": 3104,
+      "tensor_offset": 828193664,
+      "absolute_offset": 1088497568,
+      "bytes": 524800
+    }
+  ],
+  "trace_sha256": "346cdf3934c4768f676c7f0e045d699d932fd65cf7ec781a338c77d8f3b69931",
+  "joined_sha256": "2714c0604b643e28cf21d9638c7361891325f5adfcd9ab50be7ccdce8a9da584",
+  "binary_sha256": "fc6a33919e85d25430d51d66bdda9ef91c1aaa57bc5179df496611b418dfdae9",
+  "qli_stop_requested": "2026-09-06T13:15:18.446093+02:00",
+  "qli_start_requested": "2026-09-06T13:16:33.214336+02:00",
+  "qli_stopped_interval_s": 74.768243,
+  "qli_active": true,
+  "chromium_active": true,
+  "tune_ok": true,
+  "cleanup_errors": [],
+  "scope_stopped_verified": true,
+  "limitations": [
+    "single short chat probe, only 68 input tokens; CTX8192 is capacity",
+    "extra trace synchronization; no matched AB speedup or long-context/quality evidence",
+    "logical CPU target kernel-distinct observations only; GPU/draft and other decode paths excluded",
+    "absolute file layout compatible and header spotchecked, not runtime payload identity or physical IO",
+    "sampled device VRAM maximum is not a continuous peak; memory.peak highest read before scope exit"
+  ]
+}
