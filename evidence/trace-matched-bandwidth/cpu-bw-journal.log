@@ -1,0 +1,2 @@
+Sep 06 13:44:39 aorus systemd[1523]: Started [systemd-run] /usr/sbin/timeout --signal=TERM --kill-after=10 180 python3 scripts/bench-trace-bandwidth.py --model-root /home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64 --sample-mib 512 --seed 17 --json evidence/trace-matched-bandwidth/bandwidth-cpu.json.
+Sep 06 13:44:41 aorus systemd[1523]: expertpin-trace-bw-20260906T1345.scope: Consumed 1.720s CPU time over 1.971s wall clock time, 602.6M memory peak.

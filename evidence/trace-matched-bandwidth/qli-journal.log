@@ -1,0 +1,30 @@
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.476 [INFO]  [CPU] Trainer: Waiting for local server
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.476 [INFO]  [CPU] Trainer: Waiting for mining thread
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.476 [INFO]  [CPU] Trainer: shutting down...
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.700 [INFO]  [25bccf8d-f071-48bd-9b03-a42c6d6882fe] qli-worker-AVX512 not running or has exited. Starting the process...
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: [133B blob data]
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.726 [INFO]  [CPU] Trainer: Algo: bpp9000
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.726 [INFO]  [CPU] Trainer: pplns cpu 229.0 is starting.
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.726 [INFO]  [CPU] Trainer: Version: AVX512
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.726 [INFO]  [CPU] Trainer: Author: mundus
+Sep 06 13:44:05 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:05.726 [INFO]  [CPU] Trainer: Waiting for updinf/updpar from qli-client...
+Sep 06 13:44:06 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:06.603 [INFO]  [GPU] Trainer: GPU #0: 710 it/s
+Sep 06 13:44:06 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:06.992 [INFO]  [GPU] Trainer: Received exit signal. Waiting for GPU threads to finish current tasks...
+Sep 06 13:44:06 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:06.992 [INFO]  [GPU] Trainer: GPU#0 finished
+Sep 06 13:44:06 aorus qli-runner.sh[3724738]: 2026-09-06 11:44:06.992 [INFO]  [GPU] Trainer: shutting down.
+Sep 06 13:44:07 aorus systemd[1523]: Stopped Qubic QLI CPU+CUDA miner (auto-update).
+Sep 06 13:44:07 aorus systemd[1523]: qli.service: Consumed 11h 53min 16.536s CPU time over 27min 34.324s wall clock time, 917.5M memory peak.
+Sep 06 13:44:07 aorus systemd[1523]: Starting Qubic QLI CPU+CUDA miner (auto-update)...
+Sep 06 13:44:07 aorus sudo[3759947]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -pl 550
+Sep 06 13:44:07 aorus sudo[3759947]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)
+Sep 06 13:44:07 aorus sudo[3759947]: pam_unix(sudo:session): session closed for user root
+Sep 06 13:44:07 aorus sudo[3759953]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -lgc 180,2700
+Sep 06 13:44:07 aorus sudo[3759953]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)
+Sep 06 13:44:07 aorus sudo[3759953]: pam_unix(sudo:session): session closed for user root
+Sep 06 13:44:07 aorus sudo[3759963]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -rmc
+Sep 06 13:44:07 aorus sudo[3759963]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)
+Sep 06 13:44:07 aorus sudo[3759963]: pam_unix(sudo:session): session closed for user root
+Sep 06 13:44:07 aorus qubic-gpu-tune-service[3759946]: [qli-tune] OK: power 550W, clocks 180-2700, mem reset, hugepages 281
+Sep 06 13:44:07 aorus qubic-gpu-tune-service[3759971]: [qli-tune] power/clock nu: 550.00, 2692
+Sep 06 13:44:07 aorus systemd[1523]: Started Qubic QLI CPU+CUDA miner (auto-update).
+Sep 06 13:44:07 aorus qli-runner.sh[3759974]: [qli-runner] geen updater-signature — start client

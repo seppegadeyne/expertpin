@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "workload": "Aorus AD-4.27bpw 2026-09-06: request27 CPU decode joined offsets measured with seeded unique sample749 / 511.81640625MiB. Raw evidence trace-matched-bandwidth/bandwidth-cpu.json: cold-requested1.3397033779464629GiB/s, warm15.948258166601283GiB/s; snapshots cold nonresident/warm resident, read_bytes603906048/0. These are matched buffered preadv effective rates, NOT additional RAM staging bandwidth or device-isolated NVMe. Miner active during CPU reads. GPU probe guard blocked at29% utilization before computation; no new GPU timing or routing. No measured candidate traffic/reserves or PCIe/RAM rates; do not invent inputs. Prior CPU synthetic hot timings are not whole-model per-token GEMM.",
+  "ram_bytes_per_s": null,
+  "nvme_bytes_per_s": null,
+  "pcie_bytes_per_s": null,
+  "candidates": []
+}

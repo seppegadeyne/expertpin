@@ -1,0 +1,310 @@
+{
+  "coverage": {
+    "filtered_rows": 24075,
+    "unique_slices": 11766,
+    "duplicate_rows": 12309,
+    "unique_slice_bytes": 8066508800,
+    "sampled_slices": 749,
+    "sampled_bytes": 536678400,
+    "sampled_slice_fraction": 0.06365799762026177,
+    "sampled_byte_fraction": 0.0665316822068055,
+    "sampled_trace_occurrences": 1483
+  },
+  "quants": [
+    {
+      "quant": "IQ2_S",
+      "coverage": {
+        "filtered_rows": 12270,
+        "unique_slices": 5972,
+        "duplicate_rows": 6298,
+        "unique_slice_bytes": 3134105600,
+        "sampled_slices": 250,
+        "sampled_bytes": 131200000,
+        "sampled_slice_fraction": 0.04186202277294039,
+        "sampled_byte_fraction": 0.04186202277294039,
+        "sampled_trace_occurrences": 516
+      },
+      "cold_requested": {
+        "bytes": 131200000,
+        "seconds": 0.10287090297788382,
+        "read_syscalls": 250,
+        "dontneed": {
+          "requested": true,
+          "covering_ranges": 249,
+          "errors": []
+        },
+        "effective_buffered_gib_per_s": 1.1877947821243513,
+        "cache_state": "unverified",
+        "storage_before": {
+          "read_bytes": 16384,
+          "error": null
+        },
+        "storage_after": {
+          "read_bytes": 154382336,
+          "error": null
+        },
+        "storage_read_bytes_delta": 154365952,
+        "nvme_bytes_per_s": null,
+        "ram_bytes_per_s": null,
+        "cache_before": {
+          "pages": 32273,
+          "resident_pages": 0,
+          "state": "all_nonresident"
+        },
+        "cache_after": {
+          "pages": 32273,
+          "resident_pages": 32273,
+          "state": "all_resident"
+        }
+      },
+      "warm_repeat": {
+        "bytes": 131200000,
+        "seconds": 0.007390226004645228,
+        "read_syscalls": 250,
+        "dontneed": {
+          "requested": false,
+          "covering_ranges": 0,
+          "errors": []
+        },
+        "effective_buffered_gib_per_s": 16.533935729806757,
+        "cache_state": "unverified",
+        "storage_before": {
+          "read_bytes": 154382336,
+          "error": null
+        },
+        "storage_after": {
+          "read_bytes": 154382336,
+          "error": null
+        },
+        "storage_read_bytes_delta": 0,
+        "nvme_bytes_per_s": null,
+        "ram_bytes_per_s": null,
+        "cache_before": {
+          "pages": 32273,
+          "resident_pages": 32273,
+          "state": "all_resident"
+        },
+        "cache_after": {
+          "pages": 32273,
+          "resident_pages": 32273,
+          "state": "all_resident"
+        }
+      }
+    },
+    {
+      "quant": "IQ4_NL",
+      "coverage": {
+        "filtered_rows": 8025,
+        "unique_slices": 3922,
+        "duplicate_rows": 4103,
+        "unique_slice_bytes": 3614515200,
+        "sampled_slices": 249,
+        "sampled_bytes": 229478400,
+        "sampled_slice_fraction": 0.063488016318205,
+        "sampled_byte_fraction": 0.063488016318205,
+        "sampled_trace_occurrences": 494
+      },
+      "cold_requested": {
+        "bytes": 229478400,
+        "seconds": 0.15450064290780574,
+        "read_syscalls": 249,
+        "dontneed": {
+          "requested": true,
+          "covering_ranges": 245,
+          "errors": []
+        },
+        "effective_buffered_gib_per_s": 1.3832849513394683,
+        "cache_state": "unverified",
+        "storage_before": {
+          "read_bytes": 154382336,
+          "error": null
+        },
+        "storage_after": {
+          "read_bytes": 401301504,
+          "error": null
+        },
+        "storage_read_bytes_delta": 246919168,
+        "nvme_bytes_per_s": null,
+        "ram_bytes_per_s": null,
+        "cache_before": {
+          "pages": 56270,
+          "resident_pages": 0,
+          "state": "all_nonresident"
+        },
+        "cache_after": {
+          "pages": 56270,
+          "resident_pages": 56270,
+          "state": "all_resident"
+        }
+      },
+      "warm_repeat": {
+        "bytes": 229478400,
+        "seconds": 0.0145363510819152,
+        "read_syscalls": 249,
+        "dontneed": {
+          "requested": false,
+          "covering_ranges": 0,
+          "errors": []
+        },
+        "effective_buffered_gib_per_s": 14.702342637591462,
+        "cache_state": "unverified",
+        "storage_before": {
+          "read_bytes": 401301504,
+          "error": null
+        },
+        "storage_after": {
+          "read_bytes": 401301504,
+          "error": null
+        },
+        "storage_read_bytes_delta": 0,
+        "nvme_bytes_per_s": null,
+        "ram_bytes_per_s": null,
+        "cache_before": {
+          "pages": 56270,
+          "resident_pages": 56270,
+          "state": "all_resident"
+        },
+        "cache_after": {
+          "pages": 56270,
+          "resident_pages": 56270,
+          "state": "all_resident"
+        }
+      }
+    },
+    {
+      "quant": "IQ3_S",
+      "coverage": {
+        "filtered_rows": 3780,
+        "unique_slices": 1872,
+        "duplicate_rows": 1908,
+        "unique_slice_bytes": 1317888000,
+        "sampled_slices": 250,
+        "sampled_bytes": 176000000,
+        "sampled_slice_fraction": 0.13354700854700854,
+        "sampled_byte_fraction": 0.13354700854700854,
+        "sampled_trace_occurrences": 473
+      },
+      "cold_requested": {
+        "bytes": 176000000,
+        "seconds": 0.11571156897116452,
+        "read_syscalls": 250,
+        "dontneed": {
+          "requested": true,
+          "covering_ranges": 246,
+          "errors": []
+        },
+        "effective_buffered_gib_per_s": 1.4165633962942072,
+        "cache_state": "unverified",
+        "storage_before": {
+          "read_bytes": 401301504,
+          "error": null
+        },
+        "storage_after": {
+          "read_bytes": 603922432,
+          "error": null
+        },
+        "storage_read_bytes_delta": 202620928,
+        "nvme_bytes_per_s": null,
+        "ram_bytes_per_s": null,
+        "cache_before": {
+          "pages": 43215,
+          "resident_pages": 0,
+          "state": "all_nonresident"
+        },
+        "cache_after": {
+          "pages": 43215,
+          "resident_pages": 43215,
+          "state": "all_resident"
+        }
+      },
+      "warm_repeat": {
+        "bytes": 176000000,
+        "seconds": 0.009413567022420466,
+        "read_syscalls": 250,
+        "dontneed": {
+          "requested": false,
+          "covering_ranges": 0,
+          "errors": []
+        },
+        "effective_buffered_gib_per_s": 17.412397738490643,
+        "cache_state": "unverified",
+        "storage_before": {
+          "read_bytes": 603922432,
+          "error": null
+        },
+        "storage_after": {
+          "read_bytes": 603922432,
+          "error": null
+        },
+        "storage_read_bytes_delta": 0,
+        "nvme_bytes_per_s": null,
+        "ram_bytes_per_s": null,
+        "cache_before": {
+          "pages": 43215,
+          "resident_pages": 43215,
+          "state": "all_resident"
+        },
+        "cache_after": {
+          "pages": 43215,
+          "resident_pages": 43215,
+          "state": "all_resident"
+        }
+      }
+    }
+  ],
+  "total": {
+    "cold_requested": {
+      "bytes": 536678400,
+      "seconds": 0.3730831148568541,
+      "read_syscalls": 749,
+      "effective_buffered_gib_per_s": 1.3397033779464629,
+      "storage_read_bytes_delta": 603906048,
+      "cache_before": {
+        "pages": 131758,
+        "resident_pages": 0,
+        "state": "all_nonresident"
+      },
+      "cache_after": {
+        "pages": 131758,
+        "resident_pages": 131758,
+        "state": "all_resident"
+      },
+      "cache_state": "unverified",
+      "nvme_bytes_per_s": null,
+      "ram_bytes_per_s": null
+    },
+    "warm_repeat": {
+      "bytes": 536678400,
+      "seconds": 0.031340144108980894,
+      "read_syscalls": 749,
+      "effective_buffered_gib_per_s": 15.948258166601283,
+      "storage_read_bytes_delta": 0,
+      "cache_before": {
+        "pages": 131758,
+        "resident_pages": 131758,
+        "state": "all_resident"
+      },
+      "cache_after": {
+        "pages": 131758,
+        "resident_pages": 131758,
+        "state": "all_resident"
+      },
+      "cache_state": "unverified",
+      "nvme_bytes_per_s": null,
+      "ram_bytes_per_s": null
+    }
+  },
+  "gpu_executed": false,
+  "gpu_block_util_pct": 29,
+  "model_tok_s_new": null,
+  "previous_model_tok_s": 16.268900522282546,
+  "previous_ram_peak_gib": 32.40419006347656,
+  "previous_vram_sample_peak_gib": 22.65234375,
+  "qli_stopped_seconds": 3.079276,
+  "advisor_status": "blocked",
+  "limitations": "Bounded quant-stratified unique-offset sample, not full-trace replay, temporal routing, GPU demand or trace-frequency-weighted coverage. Quant labels/layout come from the joined CSV; GGUF magic/version and bounds are checked, not tensor metadata or payload identity. DONTNEED is best effort, including covering boundary pages; dirty/pinned pages may remain. mincore PROT_NONE snapshots do not fault payload and are non-atomic, not continuous cache guarantees. read_bytes is process-accounted storage including readahead, not device-isolated traffic. Effective buffered rates include preadv/copies/Python, not physical hardware or RAM/GEMM rates. Quant pairs run serially; summed timings exclude setup/observations and are not wall time. Total residency sums per-quant page occurrences (cross-quant boundary pages may repeat). No concurrent model edits/ownership changes supported; stat checks cannot prove content identity. CPU-only measurement after guard abort; miner and Chromium active during reads.",
+  "sampled_mib": 511.81640625,
+  "coverage_byte_pct": 6.65316822068055,
+  "cold_storage_mib": 575.9296875,
+  "cold_read_amplification": 1.125266170578134
+}
