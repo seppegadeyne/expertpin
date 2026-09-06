@@ -252,6 +252,14 @@ void test_runtime_json_dump() {
     stats.cache_sim_bypasses = 1;
     stats.cache_sim_resident_bytes = 32768;
     stats.cache_sim_capacity_bytes = 65536;
+    stats.defer_wait_ns = 2'500'000'000ULL;
+    for (const uint64_t resident : {0ULL, 4096ULL}) {
+        stats.resident_bytes = resident;
+        const auto timing = nlohmann::json::parse(llama_moe_prefetch_stats_to_json(stats));
+        require(timing.at("defer_wait_seconds") == 2.5,
+                "runtime json: wait seconds independent of residency");
+        require(!timing.contains("defer_wait_ratio"), "runtime json: no false ratio");
+    }
 
     const auto root = nlohmann::json::parse(llama_moe_prefetch_stats_to_json(stats));
     require(root.at("requests") == 10 && root.at("hit_rate") == 0.7,

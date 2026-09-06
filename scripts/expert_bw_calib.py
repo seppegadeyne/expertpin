@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
 """expertpin: expert-bandwidth calibration probe (issue #2).
 
-Measures sequential read bandwidth over a region of the model file, the
-way the MoE prefetch engine consumes expert weights: large sequential
-chunks, optionally forced cold (page cache dropped via posix_fadvise
-DONTNEED) to measure the true NVMe path.
+Measures buffered sequential or seeded random-permutation reads over a file
+prefix. This is NOT a routing trace or proof of physical NVMe bandwidth.
+Optional POSIX_FADV_DONTNEED is best effort; cache state remains unverified.
 
-Outputs JSON: {"bytes", "seconds", "gib_per_s", "cold", "chunk_mib", ...}
+Outputs JSON with bytes, seconds, gib_per_s, dontneed_requested, cache_state,
+pattern, seed and chunk_bytes. No warm/cold or physical-device assertion.
 
 Usage:
   scripts/expert_bw_calib.py --file <shard.gguf> [--length MiB] [--chunk MiB]
                              [--cold] [--json OUT] [--self-test]
 
---cold drops the region from the page cache first (needs the file to be
-writable-readable by the same user; uses fadvise, no root).
+--cold requests DONTNEED first (read-only fd, no root). It does not prove cold I/O.
 --self-test validates the chunk-plan math on a temp file and exits.
 """
 import argparse
 import json
 import os
 import posix
+import random
+from pathlib import Path
 import tempfile
 import time
 
@@ -30,27 +31,29 @@ GIB = 1024 * 1024 * 1024
 def chunk_plan(length_bytes: int, chunk_bytes: int):
     """Return list of (offset, size) covering [0, length) in chunks.
 
-    The final chunk may be short; chunk_bytes must be > 0. Aligned to
-    4 KiB (page granularity of the page cache) except for a short tail.
+    The final chunk may be short; chunk_bytes must be > 0. Do not round
+    offsets: buffered preadv supports unaligned expert-sized chunks.
     """
     if chunk_bytes <= 0:
         raise ValueError("chunk_bytes must be positive")
     if length_bytes < 0:
         raise ValueError("length_bytes must be non-negative")
-    page = 4096
     chunks = []
     off = 0
     while off < length_bytes:
         size = min(chunk_bytes, length_bytes - off)
         chunks.append((off, size))
         off += size
-    # align all but the last chunk start to page boundaries when possible
-    aligned = []
-    for i, (o, s) in enumerate(chunks):
-        if i < len(chunks) - 1:
-            o = (o // page) * page
-        aligned.append((o, s))
-    return aligned
+    return chunks
+
+
+def read_plan(length, chunk, pattern, seed):
+    chunks = chunk_plan(length, chunk)
+    if pattern == 'random':
+        random.Random(seed).shuffle(chunks)
+    elif pattern != 'sequential':
+        raise ValueError('unknown read pattern')
+    return chunks
 
 
 def drop_cache(fd: int, offset: int, length: int):
@@ -58,10 +61,11 @@ def drop_cache(fd: int, offset: int, length: int):
     posix.posix_fadvise(fd, offset, length, posix.POSIX_FADV_DONTNEED)
 
 
-def measure(fd: int, length: int, chunk: int, cold: bool):
+def measure(fd: int, length: int, chunk: int, cold: bool,
+            pattern='sequential', seed=0):
+    chunks = read_plan(length, chunk, pattern, seed)
     if cold:
         drop_cache(fd, 0, length)
-    chunks = chunk_plan(length, chunk)
     buf = bytearray(chunk)
     t0 = time.perf_counter()
     total = 0
@@ -77,7 +81,7 @@ def measure(fd: int, length: int, chunk: int, cold: bool):
 
 def self_test():
     # chunk-plan math on a temp file
-    with tempfile.NamedTemporaryFile() as f:
+    with tempfile.NamedTemporaryFile(dir=Path(__file__).resolve().parents[1]) as f:
         f.write(b"x" * (10 * MIB))
         f.flush()
         plan = chunk_plan(10 * MIB, 4 * MIB)
@@ -112,7 +116,10 @@ def main():
     ap.add_argument("--chunk", type=int, default=16,
                     help="chunk size in MiB (default 16)")
     ap.add_argument("--cold", action="store_true",
-                    help="drop page cache for the region first")
+                    help="request best-effort DONTNEED; cold state NOT verified")
+    ap.add_argument("--chunk-bytes", type=int, help="override --chunk, e.g. 704000")
+    ap.add_argument("--pattern", choices=('sequential', 'random'), default='sequential')
+    ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--json", help="write result JSON to this path")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
@@ -123,11 +130,17 @@ def main():
     if not args.file:
         ap.error("--file is required (or use --self-test)")
 
+    chunk = args.chunk_bytes if args.chunk_bytes is not None else args.chunk * MIB
+    if args.length <= 0 or chunk <= 0:
+        ap.error('length and chunk must be positive')
+
     size = os.path.getsize(args.file)
     length = min(args.length * MIB, size)
+    if not length:
+        ap.error('file must not be empty')
     fd = os.open(args.file, os.O_RDONLY)
     try:
-        total, dt = measure(fd, length, args.chunk * MIB, args.cold)
+        total, dt = measure(fd, length, chunk, args.cold, args.pattern, args.seed)
     finally:
         os.close(fd)
 
@@ -136,10 +149,14 @@ def main():
         "file": args.file,
         "bytes": total,
         "mib": round(total / MIB, 1),
-        "seconds": round(dt, 4),
-        "gib_per_s": round(gib_per_s, 3),
-        "cold": args.cold,
-        "chunk_mib": args.chunk,
+        "seconds": dt,
+        "gib_per_s": gib_per_s,
+        "dontneed_requested": args.cold,
+        "cache_state": "unverified",
+        "io_api": "buffered preadv",
+        "pattern": args.pattern,
+        "seed": args.seed,
+        "chunk_bytes": chunk,
     }
     print(json.dumps(result, indent=2))
     if args.json:

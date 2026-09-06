@@ -1,0 +1,13 @@
+{
+  "file": "/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00003-of-00033.gguf",
+  "bytes": 1073741824,
+  "mib": 1024.0,
+  "seconds": 0.6237257489701733,
+  "gib_per_s": 1.6032687469630507,
+  "dontneed_requested": true,
+  "cache_state": "unverified",
+  "io_api": "buffered preadv",
+  "pattern": "random",
+  "seed": 17,
+  "chunk_bytes": 704000
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "workload": "Aorus AD-4.27bpw calibration incomplete 2026-09-06; buffered prefix probes do not establish physical NVMe rates; no measured candidate trace or CPU/GPU GEMM",
+  "ram_bytes_per_s": null,
+  "nvme_bytes_per_s": null,
+  "pcie_bytes_per_s": null,
+  "candidates": []
+}

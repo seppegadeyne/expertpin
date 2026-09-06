@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "workload": "Aorus AD-4.27bpw calibration incomplete 2026-09-06; buffered prefix probes do not establish physical NVMe rates; no measured candidate trace or CPU/GPU GEMM",
+  "status": "blocked",
+  "model": "serial-no-overlap; RAM traffic is staging only, excluding traffic inside GEMM or PCIe measurements",
+  "recommendation": null,
+  "missing": [
+    "nvme_bytes_per_s",
+    "pcie_bytes_per_s",
+    "ram_bytes_per_s"
+  ],
+  "ranked": [],
+  "rejected": []
+}

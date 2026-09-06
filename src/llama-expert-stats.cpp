@@ -177,7 +177,7 @@ std::string llama_moe_prefetch_stats_to_json(const ggml_moe_prefetch_stats & sta
         {"capacity_bytes", stats.capacity_bytes},
         {"hit_rate", stats.requests ? static_cast<double>(stats.hits) / stats.requests : 0.0},
         {"prefetch_hit_rate", stats.prefetched ? static_cast<double>(stats.prefetch_hits) / stats.prefetched : 0.0},
-        {"defer_wait_ratio", stats.resident_bytes ? static_cast<double>(stats.defer_wait_ns) / 1e9 : 0.0},
+        {"defer_wait_seconds", static_cast<double>(stats.defer_wait_ns) / 1e9},
     };
     root["cache_sim"] = {
         {"requests", stats.cache_sim_requests},
