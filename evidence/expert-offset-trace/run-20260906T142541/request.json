@@ -1,0 +1,1 @@
+{"messages": [{"role": "user", "content": "Explain how a bounded expert cache handles RAM and NVMe misses in detail."}], "max_tokens": 32, "temperature": 0.0, "seed": 42, "stream": false, "cache_prompt": false}
