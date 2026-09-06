@@ -21,6 +21,7 @@
 
 #include <cstdio>
 #include <string>
+#include <sstream>
 #include <vector>
 
 #include <sys/mman.h>
@@ -420,7 +421,75 @@ void test_shadow_only_hook_does_not_prefetch_or_touch_residency_stats() {
 #endif
 }
 
+void test_trace_hook() {
+#ifdef __linux__
+    char path[] = "expert-trace-test-XXXXXX";
+    const int fd = mkstemp(path);
+    require(fd >= 0, "trace tempfile");
+    if (fd < 0) return;
+    close(fd);
+    unlink(path); // production uses exclusive creation
+    const char * old_env = getenv("GGML_MOE_TRACE_FILE");
+    const bool had_env = old_env != nullptr;
+    const std::string saved_env = old_env ? old_env : "";
+    setenv("GGML_MOE_TRACE_FILE", path, 1);
+    test_weights tw(4, 128);
+    ids_ctx ic(tw.w);
+    ggml_set_name(tw.w, "blk.0.ffn_up_exps.weight");
+    require(ggml_moe_cache_sim_try_acquire(2 * tw.slice), "trace acquire");
+    require(!ggml_moe_cache_sim_try_acquire(3 * tw.slice), "trace second owner rejected");
+    ic.set_ids({3, 1, 3, -1, 4});
+    ggml_moe_cache_sim_kernel_hook(ic.node, 1); // nonzero worker ignored
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0);
+    ggml_moe_prefetch_new_epoch();
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0);
+    const auto counters = snapshot();
+    require(counters.cache_sim_requests == 4 && counters.cache_sim_hits == 2,
+            "trace leaves shadow counts intact");
+    ggml_moe_cache_sim_release();
+    FILE * file = fopen(path, "r");
+    require(file != nullptr, "trace exists");
+    std::string text;
+    if (file) {
+        char buffer[1024];
+        while (fgets(buffer, sizeof(buffer), file)) text += buffer;
+        fclose(file);
+    }
+    require(text.find("# end written=4 dropped=0 error=0") != std::string::npos, "trace footer");
+    std::istringstream lines(text);
+    std::string line;
+    std::getline(lines, line); // header
+    unsigned long long initial_epoch = 0;
+    for (unsigned long long i = 0; i < 4; ++i) {
+        require(static_cast<bool>(std::getline(lines, line)), "trace record present");
+        unsigned long long seq = 99, entry = 99, epoch = 99;
+        long long rows = 0;
+        require(sscanf(line.c_str(), "%llu,%llu,%llu,%lld,", &seq, &entry, &epoch, &rows) == 4,
+                "trace metadata parse");
+        if (i == 0) initial_epoch = epoch;
+        require(seq == i && entry == i / 2 && epoch == initial_epoch + i / 2 && rows == 1,
+                "trace exact serialized entry/epoch/shape sequence");
+    }
+    require(text.find("\"blk.0.ffn_up_exps.weight\",1,1,16384,16384,16384,0,0") != std::string::npos,
+            "trace first sorted distinct ID, exact stride/offset");
+    require(text.find("\"blk.0.ffn_up_exps.weight\",1,3,16384,49152,16384,1,0") != std::string::npos,
+            "trace subsequent shadow hit");
+    // Existing path must survive another ownership cycle unchanged.
+    require(ggml_moe_cache_sim_try_acquire(tw.slice), "trace reacquire");
+    ggml_moe_cache_sim_kernel_hook(ic.node, 0);
+    ggml_moe_cache_sim_release();
+    file = fopen(path, "r");
+    std::string after;
+    if (file) { char buffer[1024]; while (fgets(buffer, sizeof(buffer), file)) after += buffer; fclose(file); }
+    require(text == after, "trace refuses overwrite");
+    unlink(path);
+    if (had_env) setenv("GGML_MOE_TRACE_FILE", saved_env.c_str(), 1);
+    else unsetenv("GGML_MOE_TRACE_FILE");
+#endif
+}
+
 int main() {
+    test_trace_hook();
     // GGML_MOE_STATS=0 disables mmap-residency attribution; the explicitly
     // configured shadow test below remains independent of that kill switch.
     test_per_expert_counters();

@@ -3,6 +3,9 @@
 # Measurement validation needs no model, GPU, or third-party Python packages.
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if (Python3_Interpreter_FOUND)
+    add_test(NAME test-trace-run-cleanup
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-trace-run-cleanup.py)
+    set_tests_properties(test-trace-run-cleanup PROPERTIES LABELS "main;python" TIMEOUT 60)
     add_test(NAME test-cache-shadow-gates
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-cache-shadow-gates.py)
     add_test(NAME test-expert-cache-analysis
@@ -231,6 +234,9 @@ target_include_directories(test-expert-stats PRIVATE ${PROJECT_SOURCE_DIR}/src $
 
 llama_build_and_test(test-expert-cache-lru.cpp WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(test-expert-cache-lru PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
+
+llama_build_and_test(test-expert-trace.cpp)
+target_include_directories(test-expert-trace PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
 
 llama_build_and_test(test-moe-prefetch-stats.cpp)
 target_include_directories(test-moe-prefetch-stats PRIVATE ${PROJECT_SOURCE_DIR}/ggml/include ${PROJECT_SOURCE_DIR}/ggml/src)

@@ -128,7 +128,7 @@ if [ "$DRY" = "1" ]; then
   exit 0
 fi
 
-exec systemd-run --user --scope --unit="expertpin-test-$(date +%s)" \
+exec systemd-run --user --scope --unit="${EXPERTPIN_SCOPE_UNIT:-expertpin-test-$(date +%s)}" \
   -p MemoryHigh="${MEM_HIGH}M" \
   -p MemoryMax="${RAM_BUDGET_MIB}M" \
   "$BIN_DIR/llama-server" \

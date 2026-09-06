@@ -1,5 +1,6 @@
 #include "ggml-moe-prefetch.h"
 #include "ggml-moe-cache-lru.h"
+#include "ggml-moe-trace.h"
 #include "ggml-moe-stats.h"
 
 #if defined(__linux__)
@@ -205,6 +206,14 @@ struct prefetch_state {
     std::mutex cache_sim_mtx;
     ggml_moe_cache_lru cache_sim;
     bool cache_sim_owned = false;
+    struct close_trace_file {
+        void operator()(FILE * file) const {
+            if (fclose(file) != 0) fprintf(stderr, "expert trace: close failed; trace is incomplete\n");
+        }
+    };
+    std::unique_ptr<FILE, close_trace_file> trace_file;
+    std::unique_ptr<ggml_moe_trace> trace;
+    uint64_t trace_entry = 0;
 
     std::mutex                     pool_mtx;
     std::shared_ptr<prefetch_pool> pool;
@@ -559,6 +568,14 @@ bool ggml_moe_cache_sim_try_acquire(size_t capacity_bytes) {
     if (s.cache_sim_owned) return false;
     s.cache_sim.reset(capacity_bytes);
     s.cache_sim_owned = true;
+    s.trace_entry = 0;
+    const char * path = getenv("GGML_MOE_TRACE_FILE");
+    if (path && *path) {
+        // Exclusive creation: never overwrite another run's evidence.
+        s.trace_file.reset(fopen(path, "wx"));
+        if (s.trace_file) s.trace.reset(new ggml_moe_trace(s.trace_file.get()));
+        else fprintf(stderr, "expert trace: cannot create %s; tracing disabled\n", path);
+    }
     return true;
 }
 
@@ -567,6 +584,8 @@ void ggml_moe_cache_sim_release(void) {
     std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
     if (!s.cache_sim_owned) return;
     s.cache_sim_owned = false;
+    s.trace.reset();
+    s.trace_file.reset();
     s.cache_sim.reset(0);
 }
 
@@ -721,6 +740,7 @@ static void attribute_kernel_entry(
     if (include_cache_sim) {
         std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
         if (s.cache_sim.stats().capacity_bytes > 0) {
+            const uint64_t entry = s.trace ? s.trace_entry++ : 0;
             const size_t stride = w->nb[2];
             const size_t wbytes = ggml_nbytes(w);
             for (int64_t id = 0; id < n_as; ++id) {
@@ -728,7 +748,10 @@ static void attribute_kernel_entry(
                 const size_t off = static_cast<size_t>(id) * stride;
                 if (off >= wbytes) continue;
                 const size_t bytes = std::min(stride, wbytes - off);
-                s.cache_sim.access({w->data, stride, static_cast<uint32_t>(id)}, bytes);
+                const auto result = s.cache_sim.access({w->data, stride, static_cast<uint32_t>(id)}, bytes);
+                if (s.trace) s.trace->record(entry, s.epoch.load(std::memory_order_relaxed),
+                        ids->ne[1], w->name, static_cast<int>(w->type), static_cast<uint32_t>(id),
+                        stride, off, bytes, result.hit, result.bypassed);
             }
         }
     }
