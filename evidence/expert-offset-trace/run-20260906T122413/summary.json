@@ -1,0 +1,22 @@
+{
+  "started": "2026-09-06T12:24:13.614296+02:00",
+  "model_loaded": false,
+  "qli_stop_requested": "2026-09-06T12:24:15.760355+02:00",
+  "guard": {
+    "gpu_util_pct": 0,
+    "mem_available_bytes": 44942016512,
+    "required_mem_available": ">=34 GiB (Tier A)",
+    "ram_budget_gib": 36,
+    "launcher_headroom_gib": 4
+  },
+  "status": "cleanup_failed",
+  "error": "missing or mismatched own scope",
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-06T12:25:15.682613+02:00",
+  "qli_status": "active",
+  "headless_status": "active",
+  "cleanup_errors": [
+    "scope-stop: scope-stop: rc=5: Failed to stop expertpin-test-ce1d17e500f3493aab9267bf8d2d8ba7.scope: Unit expertpin-test-ce1d17e500f3493aab9267bf8d2d8ba7.scope not loaded.\n"
+  ],
+  "finished": "2026-09-06T12:25:15.809684+02:00"
+}

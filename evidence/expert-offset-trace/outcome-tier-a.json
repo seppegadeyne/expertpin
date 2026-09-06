@@ -1,0 +1,34 @@
+{
+  "code_commit": "053dbf2fad1af74c935668ed4275652468cd2462",
+  "kind": "failed_MTP_shadow_initialization_not_decode",
+  "guard_mem_available_gib": 41.85551452636719,
+  "scope_memory_max_gib": [
+    36.0
+  ],
+  "sampled_cgroup_memory_peak_gib": 32.40488052368164,
+  "sampled_swap_current_peak_gib": 0.8272514343261719,
+  "sampled_ram_plus_swap_current_peak_gib": 33.22274398803711,
+  "sampled_device_vram_peak_gib": 21.576171875,
+  "ram_budget_gib": 40,
+  "vram_budget_gib": 28,
+  "sample_count": 28,
+  "last_sample_events": "low 0\nhigh 215756\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+  "qli_stopped_interval_s": 59.922258,
+  "server_ready": false,
+  "completion_sent": false,
+  "new_decode_tok_s": null,
+  "trace_rows": 57132,
+  "footer": "# end written=57132 dropped=0 error=0",
+  "trace_sha256": "faf994dc079db8483749217e81a67881447de06cec093509eaba318c8530a4da",
+  "trace_sequence_offsets_and_shadow_counts_validated": true,
+  "trace_use": "initialization-only; not real request routing, prefill, decode or physical I/O",
+  "failure": "target owns singleton shadow; inherited draft context tries to acquire same shadow and fails",
+  "cleanup_raw_status": "cleanup_failed",
+  "cleanup_raw_errors": [
+    "scope-stop: scope-stop: rc=5: Failed to stop expertpin-test-ce1d17e500f3493aab9267bf8d2d8ba7.scope: Unit expertpin-test-ce1d17e500f3493aab9267bf8d2d8ba7.scope not loaded.\n"
+  ],
+  "scope_stopped_verified": true,
+  "qli_status": "active",
+  "headless_status": "active",
+  "qli_tune_ok": true
+}
