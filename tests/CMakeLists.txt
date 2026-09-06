@@ -251,6 +251,20 @@ target_link_libraries(${TEST_TARGET} PRIVATE llama)
 
 
 
+# CPU calibration must not link GPU backends; build it in a CPU-only tree.
+if (NOT GGML_CUDA AND NOT GGML_MUSA AND NOT GGML_HIPBLAS AND
+    NOT GGML_VULKAN AND NOT GGML_METAL AND NOT GGML_SYCL)
+    add_executable(bench-expert-cpu bench-expert-cpu.cpp)
+    target_link_libraries(bench-expert-cpu PRIVATE ggml)
+    target_include_directories(bench-expert-cpu PRIVATE ${PROJECT_SOURCE_DIR}/vendor)
+    if (Python3_Interpreter_FOUND)
+        add_test(NAME test-expert-cpu-bench
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-expert-cpu-bench.py
+                    $<TARGET_FILE:bench-expert-cpu>)
+        set_tests_properties(test-expert-cpu-bench PROPERTIES LABELS "main;python" TIMEOUT 180)
+    endif()
+endif()
+
 # Pure policy experiment: no common/llama/CUDA; GiB counters need 64-bit size_t.
 if (CMAKE_SIZEOF_VOID_P GREATER_EQUAL 8)
     add_executable(test-expert-cache-pressure

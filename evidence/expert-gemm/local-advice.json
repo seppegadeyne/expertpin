@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "workload": "Aorus AD-4.27bpw 2026-09-06: CPU-only synthetic IQ2_S/IQ3_S/IQ4_NL two-expert hot-bank MUL_MAT_ID timings now measured (cpu-*.json). These are not measured whole-model candidate cpu_compute_s or physical RAM bandwidth. Phase-tagged real model expert/file-offset trace, matched physical RAM/PCIe/NVMe bandwidth, GPU expert kernels, candidate traffic and reserves still absent. Prior residency/accounting probe is not physical bandwidth calibration.",
+  "status": "blocked",
+  "model": "serial-no-overlap; RAM traffic is staging only, excluding traffic inside GEMM or PCIe measurements",
+  "recommendation": null,
+  "missing": [
+    "nvme_bytes_per_s",
+    "pcie_bytes_per_s",
+    "ram_bytes_per_s"
+  ],
+  "ranked": [],
+  "rejected": []
+}

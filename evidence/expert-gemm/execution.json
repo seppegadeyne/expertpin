@@ -1,0 +1,129 @@
+{
+  "started": "2026-09-06T11:42:48.175658+02:00",
+  "gpu_work": false,
+  "model_load": false,
+  "thread_order": [
+    1,
+    8,
+    8,
+    1
+  ],
+  "repetitions": 101,
+  "claim": "synthetic hot expert CPU graph latency, not physical bandwidth or model decode",
+  "host": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           48 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  32\nOn-line CPU(s) list:                     0-31\nVendor ID:                               AuthenticAMD\nModel name:                              AMD Ryzen 9 9950X3D 16-Core Processor\nCPU family:                              26\nModel:                                   68\nThread(s) per core:                      2\nCore(s) per socket:                      16\nSocket(s):                               1\nStepping:                                0\nMicrocode version:                       0xb404035\nFrequency boost:                         enabled\nCPU(s) scaling MHz:                      72%\nCPU max MHz:                             5756.4521\nCPU min MHz:                             624.1940\nBogoMIPS:                                8600.30\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl xtopology nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpuid_fault cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local user_shstk avx_vnni avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid bus_lock_detect movdiri movdir64b overflow_recov succor smca fsrm avx512_vp2intersect flush_l1d amd_lbr_pmc_freeze\nVirtualization:                          AMD-V\nL1d cache:                               768 KiB (16 instances)\nL1i cache:                               512 KiB (16 instances)\nL2 cache:                                16 MiB (16 instances)\nL3 cache:                                128 MiB (2 instances)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-31\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Mitigation; IBPB on VMEXIT only\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; STIBP always-on; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB on VMEXIT\n",
+  "compiler": "c++ (GCC) 16.2.1 20260810\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "qli": "active\n",
+  "memory": "               total        used        free      shared  buff/cache   available\nMem:              60          22           4           0          38          38\nSwap:             60           9          50\n",
+  "linked": "\tlinux-vdso.so.1 (0x00007f5dff294000)\n\tlibggml.so => /home/seppe/Projects/expertpin/build-cpu-shadow/ggml/src/libggml.so (0x00007f5dfd200000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007f5dfce00000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007f5dfccc9000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007f5dff216000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007f5dfca00000)\n\tlibgomp.so.1 => /usr/lib/libgomp.so.1 (0x00007f5dff1ba000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007f5dff296000)\n",
+  "binary_sha256": "239aaa87d38ade25bf0ddcd88ed467333e0e62e056734e0d3198fd0a35d620e4",
+  "code_sha256": "682b375940af964c456f04c5c8a19abe977afb89a0339e6338b2f0592b792085",
+  "base_commit": "ae62f483445bb81a12021883a62ddfbc63d476c1",
+  "build_flags": "# CMAKE generated file: DO NOT EDIT!\n# Generated by \"Unix Makefiles\" Generator, CMake Version 4.4\n\n# compile C with /usr/bin/cc\n# compile CXX with /usr/bin/c++\nC_DEFINES = -DGGML_BUILD -DGGML_EXPERT_CHUNKING -DGGML_IQK_FA_ALL_QUANTS -DGGML_IQK_FLASH_ATTENTION -DGGML_SCHED_MAX_COPIES=1 -DGGML_SHARED -DGGML_USE_IQK_MULMAT -DGGML_USE_OPENMP -DNDEBUG -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_EXPORTS\n\nC_INCLUDES = -I/home/seppe/Projects/expertpin/ggml/src/../include -I/home/seppe/Projects/expertpin/ggml/src/.\n\nC_FLAGS = -O3 -DNDEBUG -std=gnu11 -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -march=native -fopenmp\n\nCXX_DEFINES = -DGGML_BUILD -DGGML_EXPERT_CHUNKING -DGGML_IQK_FA_ALL_QUANTS -DGGML_IQK_FLASH_ATTENTION -DGGML_SCHED_MAX_COPIES=1 -DGGML_SHARED -DGGML_USE_IQK_MULMAT -DGGML_USE_OPENMP -DNDEBUG -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_EXPORTS\n\nCXX_INCLUDES = -I/home/seppe/Projects/expertpin/ggml/src/../include -I/home/seppe/Projects/expertpin/ggml/src/.\n\nCXX_FLAGS = -O3 -DNDEBUG -std=gnu++20 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wno-format-truncation -Wextra-semi -march=native -fopenmp\n\n",
+  "measurements": [
+    {
+      "name": "cpu-1-threads1",
+      "started": "2026-09-06T11:42:48.198123+02:00",
+      "command": [
+        "/home/seppe/Projects/expertpin/build-cpu-shadow/bin/bench-expert-cpu",
+        "1",
+        "101"
+      ],
+      "cases": [
+        {
+          "quant": "iq2_s",
+          "median_us": 175.609,
+          "max_relative_l2_error": 0.004020936582645475
+        },
+        {
+          "quant": "iq3_s",
+          "median_us": 268.753,
+          "max_relative_l2_error": 0.004142599503823743
+        },
+        {
+          "quant": "iq4_nl",
+          "median_us": 79.924,
+          "max_relative_l2_error": 0.003995290956173956
+        }
+      ]
+    },
+    {
+      "name": "cpu-2-threads8",
+      "started": "2026-09-06T11:42:56.134559+02:00",
+      "command": [
+        "/home/seppe/Projects/expertpin/build-cpu-shadow/bin/bench-expert-cpu",
+        "8",
+        "101"
+      ],
+      "cases": [
+        {
+          "quant": "iq2_s",
+          "median_us": 23.291,
+          "max_relative_l2_error": 0.004020936582645475
+        },
+        {
+          "quant": "iq3_s",
+          "median_us": 34.352,
+          "max_relative_l2_error": 0.004142599503823743
+        },
+        {
+          "quant": "iq4_nl",
+          "median_us": 13.53,
+          "max_relative_l2_error": 0.003995290956173956
+        }
+      ]
+    },
+    {
+      "name": "cpu-3-threads8",
+      "started": "2026-09-06T11:43:02.715283+02:00",
+      "command": [
+        "/home/seppe/Projects/expertpin/build-cpu-shadow/bin/bench-expert-cpu",
+        "8",
+        "101"
+      ],
+      "cases": [
+        {
+          "quant": "iq2_s",
+          "median_us": 23.811,
+          "max_relative_l2_error": 0.004020936582645475
+        },
+        {
+          "quant": "iq3_s",
+          "median_us": 35.772,
+          "max_relative_l2_error": 0.004142599503823743
+        },
+        {
+          "quant": "iq4_nl",
+          "median_us": 13.311,
+          "max_relative_l2_error": 0.003995290956173956
+        }
+      ]
+    },
+    {
+      "name": "cpu-4-threads1",
+      "started": "2026-09-06T11:43:10.231687+02:00",
+      "command": [
+        "/home/seppe/Projects/expertpin/build-cpu-shadow/bin/bench-expert-cpu",
+        "1",
+        "101"
+      ],
+      "cases": [
+        {
+          "quant": "iq2_s",
+          "median_us": 177.639,
+          "max_relative_l2_error": 0.004020936582645475
+        },
+        {
+          "quant": "iq3_s",
+          "median_us": 272.583,
+          "max_relative_l2_error": 0.004142599503823743
+        },
+        {
+          "quant": "iq4_nl",
+          "median_us": 81.194,
+          "max_relative_l2_error": 0.003995290956173956
+        }
+      ]
+    }
+  ],
+  "finished": "2026-09-06T11:43:17.894492+02:00"
+}
