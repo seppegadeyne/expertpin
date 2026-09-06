@@ -3,6 +3,9 @@
 # Measurement validation needs no model, GPU, or third-party Python packages.
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if (Python3_Interpreter_FOUND)
+    add_test(NAME test-gpu-idle-readiness
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-gpu-idle-readiness.py)
+    set_tests_properties(test-gpu-idle-readiness PROPERTIES LABELS "main;python" TIMEOUT 60)
     add_test(NAME test-trace-run-cleanup
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-trace-run-cleanup.py)
     set_tests_properties(test-trace-run-cleanup PROPERTIES LABELS "main;python" TIMEOUT 60)

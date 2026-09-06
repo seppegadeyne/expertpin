@@ -25,6 +25,21 @@ MemoryMax <=40 GiB, and monitor/report system-RAM and VRAM peaks (VRAM <28 GiB).
 Those guards are external; the executable does not enforce a cgroup or measure
 peak footprint. Its small tensors do not waive the protocol.
 
+The physical harness `evidence/trace-matched-bandwidth/run-physical.py` now waits
+up to 60 seconds after stopping qli, observing utilization every two seconds.
+Only busy utilization is retried: <5% is still required; low RAM, excessive
+VRAM, malformed output or command failure abort immediately. Each observation
+logs `nvidia-smi`, `free -g`, and structured values. Command time counts against
+the readiness deadline. The pre-GEMM check remains an immediate strict guard.
+Set `EXPERTPIN_PHYSICAL_OUT` to an existing empty directory under repo `evidence/`
+to preserve earlier results. `EXPERTPIN_GPU_ONLY=1` skips the already measured CPU
+offset-read probe; it does not bypass readiness, budgets or guaranteed restore.
+Invalid/reused output destinations are rejected before any lifecycle actions or
+writes. Cleanup observation/log failures cannot skip stop/SIGKILL attempts; lack
+of verified termination still fails the run even though miner restart is mandatory.
+The wrapper uses MemoryMax=40G, MemorySwapMax=0, 120s GPU timeout and 300s scope
+timeout. It loads no model; DRAFT/launcher DRY are not applicable to this bench.
+
 The payload command **inside that guarded launcher**, not a standalone approval
 to run GPU work, is:
 
