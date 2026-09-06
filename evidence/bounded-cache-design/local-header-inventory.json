@@ -1,0 +1,1749 @@
+{
+  "expert_storage_span_bytes": 50646220800,
+  "expert_tensors": 144,
+  "header_reader": "/home/seppe/.hermes/profiles/expertpin/skills/devops/gpu-ram-prep/scripts/gguf_tensor_sizes.py",
+  "kind": "local_gguf_header_inventory",
+  "limitations": [
+    "header reader reads a bounded 64 MiB prefix per shard, no inference or full checkpoint load",
+    "offset-derived storage spans INCLUDE alignment/trailing padding; not exact runtime slice payloads",
+    "tensor dimension order is GGUF ne[0],ne[1],ne[2]; expert axis is ne[2] for these tensors",
+    "inventory spans cannot be substituted for runtime nb[2]/ggml_nbytes without checking layouts"
+  ],
+  "model_dir": "/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64",
+  "shards": 33,
+  "tensors": [
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.0.ffn_down_exps.weight",
+      "relative_offset": 719994880,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00003-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.0.ffn_gate_exps.weight",
+      "relative_offset": 1193594880,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00003-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.0.ffn_up_exps.weight",
+      "relative_offset": 1561036800,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00003-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.1.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00004-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.1.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00004-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.1.ffn_up_exps.weight",
+      "relative_offset": 841041920,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00004-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.2.ffn_down_exps.weight",
+      "relative_offset": 1314048896,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00004-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.2.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00005-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.2.ffn_up_exps.weight",
+      "relative_offset": 367441920,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00005-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.3.ffn_down_exps.weight",
+      "relative_offset": 813785984,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00005-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.3.ffn_gate_exps.weight",
+      "relative_offset": 1287385984,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00005-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.3.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00006-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.4.ffn_down_exps.weight",
+      "relative_offset": 424126464,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00006-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.4.ffn_gate_exps.weight",
+      "relative_offset": 897726464,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00006-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.4.ffn_up_exps.weight",
+      "relative_offset": 1173417984,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00006-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.5.ffn_down_exps.weight",
+      "relative_offset": 1519653760,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00006-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.5.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00007-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.5.ffn_up_exps.weight",
+      "relative_offset": 275691520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00007-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.6.ffn_down_exps.weight",
+      "relative_offset": 621927296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00007-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.6.ffn_gate_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00007-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.6.ffn_up_exps.weight",
+      "relative_offset": 1371218816,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00007-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.7.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00008-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.7.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00008-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.7.ffn_up_exps.weight",
+      "relative_offset": 749291520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00008-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.8.ffn_down_exps.weight",
+      "relative_offset": 1081667584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00008-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.8.ffn_gate_exps.weight",
+      "relative_offset": 1555267584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00008-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.8.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00009-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.9.ffn_down_exps.weight",
+      "relative_offset": 346235776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00009-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.9.ffn_gate_exps.weight",
+      "relative_offset": 819835776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00009-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.9.ffn_up_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00009-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.10.ffn_down_exps.weight",
+      "relative_offset": 1441763072,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00009-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.10.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00010-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.10.ffn_up_exps.weight",
+      "relative_offset": 275691520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00010-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.11.ffn_down_exps.weight",
+      "relative_offset": 630285184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00010-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.11.ffn_gate_exps.weight",
+      "relative_offset": 1103885184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00010-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.11.ffn_up_exps.weight",
+      "relative_offset": 1379576704,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00010-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.12.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00011-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.12.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00011-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.12.ffn_up_exps.weight",
+      "relative_offset": 749291520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00011-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.13.ffn_down_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00011-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.13.ffn_gate_exps.weight",
+      "relative_offset": 1569127296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00011-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.13.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00012-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.14.ffn_down_exps.weight",
+      "relative_offset": 346235776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00012-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.14.ffn_gate_exps.weight",
+      "relative_offset": 819835776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00012-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.14.ffn_up_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00012-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.15.ffn_down_exps.weight",
+      "relative_offset": 1450120960,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00012-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.15.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00013-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.15.ffn_up_exps.weight",
+      "relative_offset": 275691520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00013-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.16.ffn_down_exps.weight",
+      "relative_offset": 608067584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00013-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.16.ffn_gate_exps.weight",
+      "relative_offset": 1081667584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00013-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.16.ffn_up_exps.weight",
+      "relative_offset": 1357359104,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00013-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.17.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00014-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.17.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00014-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.17.ffn_up_exps.weight",
+      "relative_offset": 749291520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00014-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.18.ffn_down_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00014-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.18.ffn_gate_exps.weight",
+      "relative_offset": 1569127296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00014-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.18.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00015-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.19.ffn_down_exps.weight",
+      "relative_offset": 354593664,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00015-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.19.ffn_gate_exps.weight",
+      "relative_offset": 828193664,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00015-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.19.ffn_up_exps.weight",
+      "relative_offset": 1103885184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00015-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.20.ffn_down_exps.weight",
+      "relative_offset": 1436261248,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00015-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.20.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00016-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.20.ffn_up_exps.weight",
+      "relative_offset": 275691520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00016-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.21.ffn_down_exps.weight",
+      "relative_offset": 621927296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00016-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.21.ffn_gate_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00016-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.21.ffn_up_exps.weight",
+      "relative_offset": 1371218816,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00016-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.22.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00017-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.22.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00017-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.22.ffn_up_exps.weight",
+      "relative_offset": 749291520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00017-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.23.ffn_down_exps.weight",
+      "relative_offset": 1103885184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00017-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.23.ffn_gate_exps.weight",
+      "relative_offset": 1577485184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00017-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.23.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00018-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.24.ffn_down_exps.weight",
+      "relative_offset": 332376064,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00018-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.24.ffn_gate_exps.weight",
+      "relative_offset": 805976064,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00018-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.24.ffn_up_exps.weight",
+      "relative_offset": 1081667584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00018-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.25.ffn_down_exps.weight",
+      "relative_offset": 1427903360,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00018-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.25.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00019-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.25.ffn_up_exps.weight",
+      "relative_offset": 275691520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00019-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.26.ffn_down_exps.weight",
+      "relative_offset": 621927296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00019-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.26.ffn_gate_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00019-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.26.ffn_up_exps.weight",
+      "relative_offset": 1371218816,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00019-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.27.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00020-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.27.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00020-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.27.ffn_up_exps.weight",
+      "relative_offset": 749291520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00020-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.28.ffn_down_exps.weight",
+      "relative_offset": 1081667584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00020-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.28.ffn_gate_exps.weight",
+      "relative_offset": 1555267584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00020-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.28.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00021-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.29.ffn_down_exps.weight",
+      "relative_offset": 346235776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00021-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.29.ffn_gate_exps.weight",
+      "relative_offset": 819835776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00021-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.29.ffn_up_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00021-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.30.ffn_down_exps.weight",
+      "relative_offset": 1441763072,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00021-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.30.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00022-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.30.ffn_up_exps.weight",
+      "relative_offset": 275691520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00022-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.31.ffn_down_exps.weight",
+      "relative_offset": 630285184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00022-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.31.ffn_gate_exps.weight",
+      "relative_offset": 1103885184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00022-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.31.ffn_up_exps.weight",
+      "relative_offset": 1379576704,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00022-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.32.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00023-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.32.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00023-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.32.ffn_up_exps.weight",
+      "relative_offset": 749291520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00023-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.33.ffn_down_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00023-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.33.ffn_gate_exps.weight",
+      "relative_offset": 1569127296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00023-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.33.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00024-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.34.ffn_down_exps.weight",
+      "relative_offset": 346235776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00024-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.34.ffn_gate_exps.weight",
+      "relative_offset": 819835776,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00024-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.34.ffn_up_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00024-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.35.ffn_down_exps.weight",
+      "relative_offset": 1450120960,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00024-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.35.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00025-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.35.ffn_up_exps.weight",
+      "relative_offset": 275691520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00025-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.36.ffn_down_exps.weight",
+      "relative_offset": 608067584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00025-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.36.ffn_gate_exps.weight",
+      "relative_offset": 1081667584,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00025-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.36.ffn_up_exps.weight",
+      "relative_offset": 1357359104,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00025-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.37.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00026-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.37.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00026-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.37.ffn_up_exps.weight",
+      "relative_offset": 749291520,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00026-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.38.ffn_down_exps.weight",
+      "relative_offset": 1095527296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00026-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.38.ffn_gate_exps.weight",
+      "relative_offset": 1569127296,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00026-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.38.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00027-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.39.ffn_down_exps.weight",
+      "relative_offset": 354593664,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00027-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.39.ffn_gate_exps.weight",
+      "relative_offset": 828193664,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00027-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 22,
+      "name": "blk.39.ffn_up_exps.weight",
+      "relative_offset": 1103885184,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00027-of-00033.gguf",
+      "storage_span_bytes": 268697600
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.40.ffn_down_exps.weight",
+      "relative_offset": 1436261248,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00027-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.40.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00028-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.40.ffn_up_exps.weight",
+      "relative_offset": 367441920,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00028-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.41.ffn_down_exps.weight",
+      "relative_offset": 805428096,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00028-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.41.ffn_gate_exps.weight",
+      "relative_offset": 1279028096,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00028-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.41.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00029-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.42.ffn_down_exps.weight",
+      "relative_offset": 437986176,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00029-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.42.ffn_gate_exps.weight",
+      "relative_offset": 911586176,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00029-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.42.ffn_up_exps.weight",
+      "relative_offset": 1279028096,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00029-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.43.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00030-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.43.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00030-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.43.ffn_up_exps.weight",
+      "relative_offset": 841041920,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00030-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.44.ffn_down_exps.weight",
+      "relative_offset": 1265168384,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00030-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.44.ffn_gate_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00031-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.44.ffn_up_exps.weight",
+      "relative_offset": 367441920,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00031-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.45.ffn_down_exps.weight",
+      "relative_offset": 805428096,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00031-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.45.ffn_gate_exps.weight",
+      "relative_offset": 1279028096,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00031-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.45.ffn_up_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00032-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.46.ffn_down_exps.weight",
+      "relative_offset": 437986176,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00032-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.46.ffn_gate_exps.weight",
+      "relative_offset": 911586176,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00032-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.46.ffn_up_exps.weight",
+      "relative_offset": 1279028096,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00032-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        640,
+        2560,
+        512
+      ],
+      "ggml_type": 20,
+      "name": "blk.47.ffn_down_exps.weight",
+      "relative_offset": 0,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00033-of-00033.gguf",
+      "storage_span_bytes": 471859200
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.47.ffn_gate_exps.weight",
+      "relative_offset": 473600000,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00033-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    },
+    {
+      "dims": [
+        2560,
+        640,
+        512
+      ],
+      "ggml_type": 21,
+      "name": "blk.47.ffn_up_exps.weight",
+      "relative_offset": 841041920,
+      "shard": "Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00033-of-00033.gguf",
+      "storage_span_bytes": 360448000
+    }
+  ],
+  "type_counts": {
+    "20": 48,
+    "21": 24,
+    "22": 72
+  }
+}

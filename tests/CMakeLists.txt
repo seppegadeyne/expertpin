@@ -5,6 +5,9 @@ find_package(Python3 COMPONENTS Interpreter QUIET)
 if (Python3_Interpreter_FOUND)
     add_test(NAME test-cache-shadow-gates
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-cache-shadow-gates.py)
+    add_test(NAME test-expert-cache-analysis
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-expert-cache-analysis.py)
+    set_tests_properties(test-expert-cache-analysis PROPERTIES LABELS "main;python" TIMEOUT 60)
     set_tests_properties(test-cache-shadow-gates PROPERTIES LABELS "main;python" TIMEOUT 60)
 endif()
 

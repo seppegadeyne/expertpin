@@ -1,0 +1,127 @@
+{
+  "assumptions": {
+    "fresh_cache_and_immutable_key_sizes_asserted": true,
+    "scope": "same observed CPU slice stream only; not future prompts or decode-only"
+  },
+  "capacities": [
+    {
+      "basis": "ordering_unknown",
+      "capacity_bytes": 30064771072,
+      "evictions": null,
+      "hits": null,
+      "logical_working_set_excess_bytes": 1680867328,
+      "misses_lower_bound": 46080,
+      "misses_upper_bound": 470463,
+      "process_ram_peak_bytes": null
+    },
+    {
+      "basis": "conditional_exact_fitting_replay",
+      "capacity_bytes": 32212254720,
+      "evictions": 0,
+      "hits": 424383,
+      "logical_working_set_excess_bytes": 0,
+      "misses_lower_bound": 46080,
+      "misses_upper_bound": 46080,
+      "process_ram_peak_bytes": null
+    },
+    {
+      "basis": "conditional_exact_fitting_replay",
+      "capacity_bytes": 34359738368,
+      "evictions": 0,
+      "hits": 424383,
+      "logical_working_set_excess_bytes": 0,
+      "misses_lower_bound": 46080,
+      "misses_upper_bound": 46080,
+      "process_ram_peak_bytes": null
+    },
+    {
+      "basis": "conditional_exact_fitting_replay",
+      "capacity_bytes": 36507222016,
+      "evictions": 0,
+      "hits": 424383,
+      "logical_working_set_excess_bytes": 0,
+      "misses_lower_bound": 46080,
+      "misses_upper_bound": 46080,
+      "process_ram_peak_bytes": null
+    }
+  ],
+  "kind": "aggregate_cache_feasibility_not_model_replay",
+  "limitations": [
+    "aggregate counters contain neither expert identities nor access order",
+    "count hits do not determine byte hits for unequal slice sizes",
+    "shadow misses/evictions are not disk reads or physical page evictions",
+    "logical payload capacity excludes allocator, metadata, KV, PLE, scratch and other RAM",
+    "a 40-GiB cgroup and measured 28-GiB absolute VRAM remain separate hard gates"
+  ],
+  "nvme_reload_bytes": null,
+  "nvme_reload_ms": null,
+  "observed": {
+    "cache_sim": {
+      "bypasses": 0,
+      "capacity_bytes": 34359738368,
+      "evicted_bytes": 0,
+      "evictions": 0,
+      "hits": 424383,
+      "misses": 46080,
+      "requests": 470463,
+      "resident_bytes": 31745638400
+    },
+    "count_hit_rate": 0.9020539341032132,
+    "logical_working_set_bytes": 31745638400,
+    "mean_unique_slice_bytes": 688924.4444444445,
+    "unique_slices": 46080
+  },
+  "source_stats": "evidence/cache-shadow-ab/20260905T032156+0200/shadow-32g/expert-stats.json",
+  "synthetic_order_counterexample": [
+    {
+      "fitting_four_entries": {
+        "evictions": 0,
+        "hits": 4,
+        "misses": 4,
+        "requests": 8
+      },
+      "smaller_two_entries": {
+        "evictions": 2,
+        "hits": 4,
+        "misses": 4,
+        "requests": 8
+      },
+      "trace": [
+        "a",
+        "a",
+        "b",
+        "b",
+        "c",
+        "c",
+        "d",
+        "d"
+      ]
+    },
+    {
+      "fitting_four_entries": {
+        "evictions": 0,
+        "hits": 4,
+        "misses": 4,
+        "requests": 8
+      },
+      "smaller_two_entries": {
+        "evictions": 6,
+        "hits": 0,
+        "misses": 8,
+        "requests": 8
+      },
+      "trace": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "a",
+        "b",
+        "c",
+        "d"
+      ]
+    }
+  ],
+  "tok_s": null,
+  "vram_peak_bytes": null
+}

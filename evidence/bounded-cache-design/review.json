@@ -1,0 +1,25 @@
+{
+  "bevindingen": [
+    {
+      "ernst": "Laag — niet-blokkerend validatiegat",
+      "bewijs": "scripts/analyze-expert-cache.py:32-35 controleert eviction-bytes alleen op nul/niet-nul. Ook accepteert de uitgevoerde test tests/test-expert-cache-analysis.py:13-14,40-45 onder stable_cold_start=True één eviction van 10 bytes, 40 resident bytes en capaciteit 64. Zonder invalidaties zijn dan slechts 50 bytes ingevoegd: onvoldoende om de evictionvoorwaarde in ggml/src/ggml-moe-cache-lru.cpp:51-64 ooit te bereiken. De drukfixture is dus inconsistent met haar eigen aanname.",
+      "advies": "Controleer evicted_bytes >= evictions en, onder de stabiele cold-startaanname, evictions > 0 ⇒ resident_bytes + evicted_bytes > capacity_bytes. Gebruik een bereikbare drukfixture. Dit tast de gecontroleerde historische nul-evictiondeductie niet aan."
+    },
+    {
+      "ernst": "Geverifieerd — aggregate-inferenties en trace-semantiek",
+      "bewijs": "scripts/analyze-expert-cache.py:49-65 beperkt exacte fitting-replay terecht tot expliciete cold-start/stabiele sleutels, zonder bypasses/evictions. De runtime reset daadwerkelijk bij acquire (ggml/src/ggml-moe-prefetch.cpp:555-562), maar verwijdert gewijzigde groottes zonder evictioncounter (ggml/src/ggml-moe-cache-lru.cpp:38-43). De hook dedupliceert en doorloopt IDs oplopend (ggml/src/ggml-moe-prefetch.cpp:709-731); JSON bevat uitsluitend totalen (src/llama-expert-stats.cpp:182-194).",
+      "advies": "Behoud de conditionele formulering en kleinere-capintervallen. Geen tokenrouting, decode-only hitrate, byte-hitratio of NVMe-kosten uit deze totalen afleiden."
+    },
+    {
+      "ernst": "Geverifieerd — expertgroottes en last30",
+      "bewijs": "Alle 144 inventoryrecords gecontroleerd op unieke namen, laag/projectiedekking, dimensies, blockalignment en payload/span-gelijkheid. De quantformules stemmen overeen met gguf-py/gguf/constants.py:2206-2208. src/llama-load-tensors.cpp:274-287 selecteert achterwaarts. evidence/bounded-cache-design/layout-summary.json:5-27 reproduceert slices van 921600/704000/524800 bytes en last30 = 31745638400 bytes / 46080 slices; beide matchen de historische shadowcounters.",
+      "advies": "Deze concrete sizing is bruikbaar; blijf haar onderscheiden van runtimeallocaties en bewijs voor een kleine permanente hot subset."
+    },
+    {
+      "ernst": "Geverifieerd — begrensde arena versus mmap",
+      "bewijs": "research/2026-09-06-bounded-cache-design.md:95-119 vereist leases, indirectie, fragmentatie-accounting en begrensde I/O; mmap-advice wordt expliciet niet als harde cachecap verkocht. De noodzakelijke ABI-aanpassing is reëel: ggml/src/ggml.c:18351,18693-18699 adresseert experts via basispointer plus stride.",
+      "advies": "GO uitsluitend als ontwerpcontract. Arena-/leasecorrectheid en afzonderlijke RAM/VRAM- en echte I/O-metingen blijven noodzakelijke vervolggates; deze slice bewijst geen bounded runtime of snelheid."
+    }
+  ],
+  "eindoordeel": "GO voor deze CPU-only ontwerp/analyse-slice, met bovengenoemde niet-blokkerende validatieverbetering. Volledige gestagede diff gelezen en SHA-256-identiteit met review.diff bevestigd. Python-suite 7/7 groen; beide gegenereerde JSON-artifacts byte-identiek gereproduceerd; diff-check schoon. Geen bestanden gewijzigd, geen modelload, GPU- of service-acties."
+}

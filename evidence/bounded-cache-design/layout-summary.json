@@ -1,0 +1,41 @@
+{
+  "basis": "contiguous GGUF payload formula; quant blocks from gguf-py/gguf/constants.py:2206-2208; not a runtime allocation measurement",
+  "all_payloads_match_spans": true,
+  "total_payload_bytes": 50646220800,
+  "slice_sizes": [
+    {
+      "ggml_type": 20,
+      "tensor_count": 48,
+      "slice_bytes": 921600,
+      "experts_per_tensor": 512
+    },
+    {
+      "ggml_type": 21,
+      "tensor_count": 24,
+      "slice_bytes": 704000,
+      "experts_per_tensor": 512
+    },
+    {
+      "ggml_type": 22,
+      "tensor_count": 72,
+      "slice_bytes": 524800,
+      "experts_per_tensor": 512
+    }
+  ],
+  "last30_payload_bytes": 31745638400,
+  "last30_slices": 46080,
+  "iq3_layers": [
+    0,
+    1,
+    2,
+    3,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ]
+}
