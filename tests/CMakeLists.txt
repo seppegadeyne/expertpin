@@ -16,6 +16,9 @@ if (Python3_Interpreter_FOUND)
         add_test(NAME test-expert-io-observation
             COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-expert-io-observation.py)
         set_tests_properties(test-expert-io-observation PROPERTIES LABELS "main;python" TIMEOUT 60)
+        add_test(NAME test-trace-bandwidth
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-trace-bandwidth.py)
+        set_tests_properties(test-trace-bandwidth PROPERTIES LABELS "main;python" TIMEOUT 60)
     endif()
     set_tests_properties(test-expert-bandwidth PROPERTIES LABELS "main;python" TIMEOUT 60)
     set_tests_properties(test-expert-cache-analysis PROPERTIES LABELS "main;python" TIMEOUT 60)
@@ -282,4 +285,11 @@ if (CMAKE_SIZEOF_VOID_P GREATER_EQUAL 8)
     target_include_directories(test-expert-cache-pressure PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
     llama_test(test-expert-cache-pressure)
     set_tests_properties(test-expert-cache-pressure PROPERTIES TIMEOUT 30)
+endif()
+
+# CUDA calibration is opt-in at runtime: never register it with CTest.
+if (GGML_CUDA AND NOT GGML_MUSA AND NOT GGML_HIPBLAS)
+    add_executable(bench-expert-gpu bench-expert-gpu.cpp)
+    target_link_libraries(bench-expert-gpu PRIVATE ggml)
+    target_include_directories(bench-expert-gpu PRIVATE ${PROJECT_SOURCE_DIR}/vendor)
 endif()

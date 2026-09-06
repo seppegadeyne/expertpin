@@ -110,7 +110,9 @@ Add `--observe` to `expert_bw_calib.py` to collect:
 - `observation.cache_before/cache_after`: page counts from Linux `mincore` on a
   `PROT_NONE MAP_SHARED` prefix mapping. No payload page is faulted by this probe.
   Mapping is unmapped before reads start; vectors cover at most 65536 pages each.
-  Supports owned regular files, 64-bit Linux, prefixes at most 4 GiB. Unsupported
+  Supports owned regular files, 64-bit Linux, ranges at most 4 GiB. The helper's
+  optional `offset=0` preserves prefix compatibility; nonzero offsets map only
+  their covering pages, not the preceding file prefix. Unsupported
   observation/syscall failures report null counts and an error, NOT zero residency.
   Ownership is checked against the calling thread's filesystem UID (fourth Uid
   field in `/proc/thread-self/status`, with matching effective UID namespace).
@@ -143,3 +145,107 @@ partition, **not an expert-offset/routing trace**. Phase-tagged model traces,
 trace-matched NVMe/RAM/PCIe and quant-specific CPU/GPU GEMM remain open.
 
 Tests: `python3 tests/test-expert-io-observation.py` (also Linux 64-bit CTest).
+
+## Bounded trace-matched offset probe (CPU-only, no model load)
+
+`scripts/bench-trace-bandwidth.py` consumes the **complete tagged joined CSV**
+from `join-expert-trace.py`, including its zero-drop/error completion footer.
+The default source is
+`evidence/expert-offset-trace/run-20260906T131516/joined.csv`; default phase is
+`decode`, default seed is 17. First inspect the plan without accessing assets:
+
+```sh
+python3 scripts/bench-trace-bandwidth.py --plan-only --sample-mib 512 \
+  --json evidence/trace-matched-bandwidth/plan.json
+```
+
+An actual bounded read (not executed as part of implementation/testing) is:
+
+```sh
+python3 scripts/bench-trace-bandwidth.py \
+  --model-root /home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64 \
+  --sample-mib 512 --seed 17 \
+  --json evidence/trace-matched-bandwidth/measured.json
+```
+
+Output files must be new and outside the model root; existing files/symlinks
+are never overwritten. Run real measurements in an independently guarded
+cgroup, without concurrent tests/builds; capture the host conditions and memory
+peak separately. This script does not manage services, GPU state, or a cgroup.
+
+### Sampling and validation
+
+- `--phase decode|prefill|all` filters before exact `(shard, absolute_offset,
+  bytes)` deduplication. Repeated demand is counted, not replayed. Conflicting
+  quant labels for the same exact range fail. Only the joiner's supported
+  `20/IQ4_NL`, `21/IQ3_S`, `22/IQ2_S` are accepted.
+- Canonical shard/offset/size sort, seeded per-quant shuffle and seeded quant
+  execution order feed a round-robin selection under a **global per-pass**
+  payload cap: default 512 MiB, configurable 1..1024 MiB, plus 8192 slices max.
+  One seeded candidate per present quant must fit or the probe refuses the
+  budget. Subsequent candidates that do not fit are skipped, never shortened.
+  This is quant-stratified slice-count sampling, **not** proportional routing
+  demand or a claim that all quant bytes/experts are covered.
+- Global/per-quant coverage reports filtered rows, exact unique slices/bytes,
+  duplicate rows, selected slices/bytes and fractions, and occurrences in the
+  trace of selected slices. Byte denominators sum exact slice sizes, not an
+  interval union if an input contains partially overlapping ranges. JSON always
+  states `full_trace_replay: false`, even if a small fixture fits completely.
+- CSV input is capped at 64 MiB, 100000 rows and 64 KiB per physical line;
+  multiline records are unsupported. Complete header, numeric fields, sequence,
+  stride/relative-offset consistency, scope tags and footer counts are checked.
+  Bounds are validated for **all** CSV rows, including excluded phases, before
+  any payload/header reads. At most 64 GGUF fds plus one root-directory fd are
+  held; allocations use one reusable buffer at most 1 MiB. Larger slices use
+  consecutive bounded reads at their exact offsets, without alignment rounding.
+- Shards must be plain `.gguf` basenames under the supplied root. `openat` with
+  `O_RDONLY|O_NOFOLLOW|O_NONBLOCK` prevents following shard symlinks or blocking
+  on FIFOs; `fstat` requires regular files owned by the filesystem UID. No model
+  is loaded. Eight bytes per shard validate GGUF v2/v3 magic/version outside
+  timed intervals. Stats are checked after both passes; concurrent edits or
+  ownership changes are unsupported. Tensor metadata and payload identity are
+  still trusted to the joined provenance, not re-authenticated by this probe.
+
+### Matched observations and interpretation
+
+Each quant runs `cold_requested` then `warm_repeat` over **identical ordered
+slices**. Quant pairs run serially, not one global cold pass followed by one
+global warm pass. The first pass requests best-effort DONTNEED on the union of
+covering page spans, aligned outward to include both boundary pages; holes are
+not dropped. Partial pages can contain neighboring tensor bytes. There is no
+global cache drop or forced flush; advice errors are reported, not disguised as
+cold success. Dirty/pinned pages or other readers can prevent eviction.
+
+`mincore PROT_NONE MAP_SHARED` snapshots cover the exact selected page union
+per quant before and after each read loop, including the final partial EOF page.
+Mappings never fault payload. `/proc/self/io` snapshots immediately bracket the
+read-loop timer, before the post-read residency observation. Setup, header checks,
+advice, allocation and residency scans are excluded from timed intervals.
+
+JSON includes the exact read order/offsets, merged page spans and residency
+details, bytes, syscalls, seconds, process storage counter brackets/deltas and
+`effective_buffered_gib_per_s`. Unknown residency/counters or regressing counters
+produce nulls, not zero. Total results sum per-quant byte/time/storage intervals;
+rates are total bytes divided by summed times, never an average of rates.
+Total residency sums **per-quant page occurrences**, so shared cross-quant
+boundary pages can count again; it is not an atomic whole-sample snapshot.
+
+The warm label denotes an immediate matched reread, **not verified RAM speed**;
+`cache_state` remains `unverified`. Both `nvme_bytes_per_s` and `ram_bytes_per_s`
+are explicitly null. Readahead may exceed requested byte spans and the process
+storage delta is not physical device bandwidth. Copy/syscall/Python overheads
+remain in effective buffered rates. These results must not populate the
+advisor's hardware-calibration fields or imply decode throughput/GPU demand.
+
+Reproducibility fields include exact joined CSV SHA-256, script/helper SHA-256,
+sample-plan SHA-256, seed, quant execution order, Python/platform, input counts,
+and model path/stat identities. No full model payload hash is computed. Timing
+and cache state are observations, not reproducible constants. `--plan-only`
+reports `model_files_verified: false`, with no asset open/stat/read or fabricated
+measurements. Two measured passes consume up to twice the sample payload cap,
+plus the separately reported header-validation bytes; readahead is not capped
+by the requested payload budget.
+
+Tests: `python3 tests/test-trace-bandwidth.py`, also registered in Linux 64-bit
+CTest. All GGUF/CSV fixtures are synthetic, created temporarily inside this
+repository, and no real model asset reads are part of the test suite.

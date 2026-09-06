@@ -93,8 +93,19 @@ def filesystem_uid():
     return int(rows[0][3])
 
 
-def cache_snapshot(fd, length):
-    """Observe prefix residency without faulting payload into the process.
+def page_span(offset, length):
+    """Page-aligned covering span, including partial first/last payload pages."""
+    if offset < 0 or length <= 0:
+        raise ValueError('page range requires nonnegative offset and positive length')
+    page = os.sysconf('SC_PAGESIZE')
+    start = offset // page * page
+    return start, ((offset + length + page - 1) // page) * page - start
+
+
+def cache_snapshot(fd, length, offset=0):
+    """Observe exact range's covering pages without faulting payload into the process.
+
+    The optional byte offset defaults to zero for prefix-probe compatibility.
 
     PROT_NONE mapping, bounded mincore vectors. Snapshot only: not an atomic
     whole-range observation, residency can change during/after the syscall(s).
@@ -102,7 +113,8 @@ def cache_snapshot(fd, length):
     refuse those rather than turn a security mask into an all-resident claim.
     """
     result: dict[str, Any] = dict(method='mincore PROT_NONE MAP_SHARED', pages=None,
-                  resident_pages=None, error=None)
+                  resident_pages=None, error=None, offset=offset, length=length,
+                  page_offset=None, page_length=None)
     try:
         import ctypes
         import stat
@@ -112,8 +124,11 @@ def cache_snapshot(fd, length):
         info = os.fstat(fd)
         if not stat.S_ISREG(info.st_mode) or info.st_uid != filesystem_uid():
             raise ValueError('mincore requires an owned regular file to avoid masked residency')
-        if length <= 0 or length > min(info.st_size, 4 * GIB):
-            raise ValueError('snapshot prefix must be within the file and (0, 4 GiB]')
+        if offset < 0 or length <= 0 or length > 4 * GIB or offset + length > info.st_size:
+            raise ValueError('snapshot range must be within the file with length (0, 4 GiB]')
+        page_offset, page_length = page_span(offset, length)
+        mapped_length = offset + length - page_offset
+        result.update(page_offset=page_offset, page_length=page_length)
         libc = ctypes.CDLL(None, use_errno=True)
         libc.mmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_int,
                               ctypes.c_int, ctypes.c_int, ctypes.c_long]
@@ -123,8 +138,8 @@ def cache_snapshot(fd, length):
         libc.munmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
         libc.munmap.restype = ctypes.c_int
         page = os.sysconf('SC_PAGESIZE')
-        pages = (length + page - 1) // page
-        addr = libc.mmap(None, length, 0, 1, fd, 0)  # PROT_NONE, MAP_SHARED
+        pages = page_length // page
+        addr = libc.mmap(None, mapped_length, 0, 1, fd, page_offset)  # PROT_NONE, MAP_SHARED
         if addr == ctypes.c_void_p(-1).value:
             errno = ctypes.get_errno()
             raise OSError(errno, os.strerror(errno))
@@ -133,12 +148,12 @@ def cache_snapshot(fd, length):
             for start in range(0, pages, 65536):
                 count = min(65536, pages - start)
                 vec = (ctypes.c_ubyte * count)()
-                if libc.mincore(addr + start * page, min(count * page, length - start * page), vec):
+                if libc.mincore(addr + start * page, min(count * page, mapped_length - start * page), vec):
                     errno = ctypes.get_errno()
                     raise OSError(errno, os.strerror(errno))
                 resident += sum(value & 1 for value in vec)
         finally:
-            if libc.munmap(addr, length):
+            if libc.munmap(addr, mapped_length):
                 errno = ctypes.get_errno()
                 raise OSError(errno, os.strerror(errno))
         result.update(pages=pages, resident_pages=resident)
