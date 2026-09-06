@@ -239,3 +239,13 @@ add_executable(${TEST_TARGET} test-c.c)
 target_link_libraries(${TEST_TARGET} PRIVATE llama)
 
 
+
+# Pure policy experiment: no common/llama/CUDA; GiB counters need 64-bit size_t.
+if (CMAKE_SIZEOF_VOID_P GREATER_EQUAL 8)
+    add_executable(test-expert-cache-pressure
+        test-expert-cache-pressure.cpp
+        ${PROJECT_SOURCE_DIR}/ggml/src/ggml-moe-cache-lru.cpp)
+    target_include_directories(test-expert-cache-pressure PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
+    llama_test(test-expert-cache-pressure)
+    set_tests_properties(test-expert-cache-pressure PROPERTIES TIMEOUT 30)
+endif()
