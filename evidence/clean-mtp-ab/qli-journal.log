@@ -1,0 +1,80 @@
+Sep 06 15:51:27 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:27.555 [INFO]  AntColony: pushed cfg K=0 L=2 to 0 worker(s) for pk=E9A21DF93E6BB17AA9A733A43D34C91A9FC6B43F952C7BA7A44605601E299E72 [MI update]
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.382 [INFO]  [81095ef1-983f-4a16-902d-8c61dd09a9e8] qli-worker-AVX512 not running or has exited. Starting the process...
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: [133B blob data]
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.425 [INFO]  [CPU] Trainer: Algo: bpp9000
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.427 [INFO]  [CPU] Trainer: pplns cpu 229.0 is starting.
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.427 [INFO]  [CPU] Trainer: Version: AVX512
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.427 [INFO]  [CPU] Trainer: Author: mundus
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.427 [INFO]  [CPU] Trainer: Waiting for updinf/updpar from qli-client...
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.435 [INFO]  [d0f073ba-76d0-4614-8312-5c741fccffc2] qli-worker-CUDA not running or has exited. Starting the process...
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: [133B blob data]
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.458 [INFO]  [CPU] Trainer: Switching ID to VQVM...QVFH
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.458 [INFO]  [CPU] Trainer: updinf: applied, id VQVMUJWZ...
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.459 [INFO]  [CPU] Trainer: updpar: parent id 337629874514558977 (child)
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.460 [INFO]  [GPU] Trainer: ignoring 1 command-line argument(s); production auto-tunes every GPU
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.460 [INFO]  [GPU] Trainer: Algo: bpp9000
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.460 [INFO]  [GPU] Trainer: pplns cuda 229.0 is starting.
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.460 [INFO]  [GPU] Trainer: Author: mundus
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.460 [INFO]  [GPU] Trainer: Waiting for updinf/updpar from qli-client...
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.460 [INFO]  AntColony: replayed cfg K=0 L=2 to newly-ready worker for pk=E9A21DF93E6BB17AA9A733A43D34C91A9FC6B43F952C7BA7A44605601E299E72
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.462 [INFO]  [GPU] Trainer: Switching ID to VQVM...QVFH
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.462 [INFO]  [GPU] Trainer: updinf: applied, id VQVMUJWZ...
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.463 [INFO]  [GPU] Trainer: updpar: parent id 337629874514558977 (child)
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.464 [INFO]  AntColony: replayed cfg K=0 L=2 to newly-ready worker for pk=E9A21DF93E6BB17AA9A733A43D34C91A9FC6B43F952C7BA7A44605601E299E72
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.467 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 0 it/s | 0 avg it/s
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.505 [INFO]  [CPU] Trainer: bpp9000 share threshold: 4000
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.505 [INFO]  [CPU] Trainer: Mining Seed: 0d46bd36159ac95ca297df051ac7df0078666555e6590a7f88052b0c2964a083
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.505 [INFO]  [CPU] Trainer: bpp9000 mining params: I:18 O:1 P:64 K:3 Mut:100
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.560 [INFO]  [GPU] Trainer: bpp9000 share threshold: 4000
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.560 [INFO]  [GPU] Trainer: Mining Seed: 0d46bd36159ac95ca297df051ac7df0078666555e6590a7f88052b0c2964a083
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.560 [INFO]  [GPU] Trainer: bpp9000 mining params: I:18 O:1 P:64 K:3 Mut:100
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.720 [INFO]  [CPU] Trainer: [bpp9000] AOT tick kernel active.
+Sep 06 15:51:28 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:28.771 [INFO]  [GPU] Trainer: 1 CUDA devices are used.
+Sep 06 15:51:29 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:29.174 [INFO]  [CPU] Trainer: starting from parent solution with score: 3651
+Sep 06 15:51:29 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:29.467 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 0 it/s | 0 avg it/s
+Sep 06 15:51:30 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:30.468 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 0 it/s | 0 avg it/s
+Sep 06 15:51:30 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:30.774 [INFO]  [GPU] Trainer: GPU #0: 0 it/s
+Sep 06 15:51:31 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:31.471 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 6 it/s | 6 avg it/s
+Sep 06 15:51:32 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:32.471 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 12 it/s | 9 avg it/s
+Sep 06 15:51:32 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:32.772 [INFO]  [GPU] Trainer: GPU #0: 0 it/s
+Sep 06 15:51:33 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:33.472 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 19 it/s | 12 avg it/s
+Sep 06 15:51:34 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:34.476 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 25 it/s | 16 avg it/s
+Sep 06 15:51:35 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:35.476 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 31 it/s | 19 avg it/s
+Sep 06 15:51:36 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:36.477 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 38 it/s | 22 avg it/s
+Sep 06 15:51:37 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:37.477 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 44 it/s | 25 avg it/s
+Sep 06 15:51:38 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:38.478 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 50 it/s | 28 avg it/s
+Sep 06 15:51:39 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:39.479 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 57 it/s | 31 avg it/s
+Sep 06 15:51:39 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:39.544 [INFO]  [GPU] Trainer: starting from parent solution with score: 3651
+Sep 06 15:51:40 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:40.480 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 63 it/s | 34 avg it/s
+Sep 06 15:51:41 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:41.481 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 708 it/s | 676 avg it/s
+Sep 06 15:51:42 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:42.481 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 714 it/s | 679 avg it/s
+Sep 06 15:51:42 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:42.773 [INFO]  [GPU] Trainer: GPU #0: 638 it/s
+Sep 06 15:51:43 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:43.480 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 720 it/s | 682 avg it/s
+Sep 06 15:51:44 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:44.481 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 727 it/s | 685 avg it/s
+Sep 06 15:51:44 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:44.776 [INFO]  [GPU] Trainer: GPU #0: 638 it/s
+Sep 06 15:51:45 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:45.481 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 734 it/s | 689 avg it/s
+Sep 06 15:51:46 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:46.481 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 740 it/s | 692 avg it/s
+Sep 06 15:51:46 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:46.773 [INFO]  [GPU] Trainer: GPU #0: 638 it/s
+Sep 06 15:51:47 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:47.482 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 746 it/s | 695 avg it/s
+Sep 06 15:51:48 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:48.482 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 752 it/s | 698 avg it/s
+Sep 06 15:51:48 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:48.773 [INFO]  [GPU] Trainer: GPU #0: 636 it/s
+Sep 06 15:51:49 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:49.482 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 757 it/s | 701 avg it/s
+Sep 06 15:51:50 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:50.483 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 763 it/s | 704 avg it/s
+Sep 06 15:51:50 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:50.773 [INFO]  [GPU] Trainer: GPU #0: 636 it/s
+Sep 06 15:51:51 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:51.482 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 763 it/s | 706 avg it/s
+Sep 06 15:51:52 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:52.482 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 763 it/s | 709 avg it/s
+Sep 06 15:51:53 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:53.483 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 763 it/s | 711 avg it/s
+Sep 06 15:51:54 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:54.482 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 762 it/s | 714 avg it/s
+Sep 06 15:51:54 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:54.773 [INFO]  [GPU] Trainer: GPU #0: 636 it/s
+Sep 06 15:51:55 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:55.483 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 762 it/s | 716 avg it/s
+Sep 06 15:51:56 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:56.483 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 762 it/s | 717 avg it/s
+Sep 06 15:51:57 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:57.482 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 719 avg it/s
+Sep 06 15:51:58 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:58.485 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 721 avg it/s
+Sep 06 15:51:59 aorus qli-runner.sh[3920965]: 2026-09-06 13:51:59.485 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 723 avg it/s
+Sep 06 15:52:00 aorus qli-runner.sh[3920965]: 2026-09-06 13:52:00.486 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 724 avg it/s
+Sep 06 15:52:01 aorus qli-runner.sh[3920965]: 2026-09-06 13:52:01.487 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 726 avg it/s
+Sep 06 15:52:02 aorus qli-runner.sh[3920965]: 2026-09-06 13:52:02.488 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 727 avg it/s
+Sep 06 15:52:03 aorus qli-runner.sh[3920965]: 2026-09-06 13:52:03.487 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 728 avg it/s
+Sep 06 15:52:04 aorus qli-runner.sh[3920965]: 2026-09-06 13:52:04.487 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 729 avg it/s
+Sep 06 15:52:05 aorus qli-runner.sh[3920965]: 2026-09-06 13:52:05.488 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 731 avg it/s
+Sep 06 15:52:06 aorus qli-runner.sh[3920965]: 2026-09-06 13:52:06.488 [INFO]  E:229 | SHARES: 5708/5708 (R:797) | 767 it/s | 732 avg it/s

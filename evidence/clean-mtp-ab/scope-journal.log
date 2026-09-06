@@ -1,0 +1,13 @@
+Sep 06 15:43:53 aorus systemd[1523]: headless-chromium.service: Consumed 8.723s CPU time over 53min 459ms wall clock time, 634.8M memory peak.
+Sep 06 15:43:53 aorus systemd[1523]: app-org.chromium.Chromium-3852102.scope: Consumed 5.495s CPU time over 53min 204ms wall clock time, 269.8M memory peak.
+Sep 06 15:43:56 aorus systemd[1523]: qli.service: Consumed 22h 55min 57.586s CPU time over 53min 4.007s wall clock time, 937.4M memory peak.
+Sep 06 15:46:17 aorus systemd[1523]: expertpin-test-ebf32937d2444f20a840d9fab863d15b.scope: Consumed 18min 50.766s CPU time over 2min 20.308s wall clock time, 32.4G memory peak, 2.2G memory swap peak.
+Sep 06 15:46:24 aorus systemd[1523]: headless-chromium.service: Consumed 1.049s CPU time over 7.185s wall clock time, 505.7M memory peak.
+Sep 06 15:46:24 aorus systemd[1523]: app-org.chromium.Chromium-3915359.scope: Consumed 470ms CPU time over 6.981s wall clock time, 216.5M memory peak.
+Sep 06 15:46:30 aorus systemd[1523]: qli.service: Consumed 2min 49.353s CPU time over 13.547s wall clock time, 759.5M memory peak.
+Sep 06 15:49:01 aorus systemd[1523]: expertpin-test-ec4f32d00a6b4882904674084373dabc.scope: Consumed 23min 20.392s CPU time over 2min 30.553s wall clock time, 32.4G memory peak, 2.2G memory swap peak.
+Sep 06 15:49:10 aorus systemd[1523]: headless-chromium.service: Consumed 1.075s CPU time over 8.424s wall clock time, 768.8M memory peak.
+Sep 06 15:49:10 aorus systemd[1523]: app-org.chromium.Chromium-3918206.scope: Consumed 504ms CPU time over 8.187s wall clock time, 228.2M memory peak.
+Sep 06 15:49:15 aorus systemd[1523]: qli.service: Consumed 3min 17.038s CPU time over 13.781s wall clock time, 794.3M memory peak.
+Sep 06 15:50:08 aorus systemd[1523]: hermes-worker-cron-7acc2328a748-exec-9ebc357c56b341d0a3736b92bbde34c4.scope: Consumed 39.886s CPU time over 14min 54.511s wall clock time, 1.6G memory peak, 977.2M memory swap peak.
+Sep 06 15:51:25 aorus systemd[1523]: expertpin-test-d7860b3a18d84ef1ac3680f728a8ce6c.scope: Consumed 17min 49.634s CPU time over 2min 10.281s wall clock time, 32.4G memory peak, 2.1G memory swap peak.

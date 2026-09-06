@@ -1,0 +1,166 @@
+{
+  "started": "2026-09-06T15:46:24.575540+02:00",
+  "scope": "expertpin-test-ec4f32d00a6b4882904674084373dabc.scope",
+  "model_loaded": true,
+  "startup_n_max": 8,
+  "sequence": [
+    8,
+    8
+  ],
+  "requests": [
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 13353.998,
+        "prompt_per_token_ms": 196.38232352941176,
+        "prompt_per_second": 5.0921079964217455,
+        "predicted_n": 256,
+        "predicted_ms": 41782.287,
+        "predicted_per_token_ms": 163.21205859375,
+        "predicted_per_second": 6.1269982660355575,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 190,
+        "draft_n_accepted": 118,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 136,
+            "draft_n_accepted": 77
+          },
+          {
+            "depth": 2,
+            "draft_n": 22,
+            "draft_n_accepted": 17
+          },
+          {
+            "depth": 3,
+            "draft_n": 14,
+            "draft_n_accepted": 10
+          },
+          {
+            "depth": 4,
+            "draft_n": 9,
+            "draft_n_accepted": 6
+          },
+          {
+            "depth": 5,
+            "draft_n": 4,
+            "draft_n_accepted": 3
+          },
+          {
+            "depth": 6,
+            "draft_n": 2,
+            "draft_n_accepted": 2
+          },
+          {
+            "depth": 7,
+            "draft_n": 2,
+            "draft_n_accepted": 2
+          },
+          {
+            "depth": 8,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          }
+        ]
+      },
+      "acceptance_fraction": 0.6210526315789474,
+      "label": "01-nmax8",
+      "n_max": 8,
+      "wall_seconds": 55.98994717397727
+    },
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 7970.363,
+        "prompt_per_token_ms": 117.21122058823529,
+        "prompt_per_second": 8.531606402368373,
+        "predicted_n": 256,
+        "predicted_ms": 32830.245,
+        "predicted_per_token_ms": 128.24314453125,
+        "predicted_per_second": 7.79768777235747,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 190,
+        "draft_n_accepted": 118,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 136,
+            "draft_n_accepted": 77
+          },
+          {
+            "depth": 2,
+            "draft_n": 22,
+            "draft_n_accepted": 17
+          },
+          {
+            "depth": 3,
+            "draft_n": 14,
+            "draft_n_accepted": 10
+          },
+          {
+            "depth": 4,
+            "draft_n": 9,
+            "draft_n_accepted": 6
+          },
+          {
+            "depth": 5,
+            "draft_n": 4,
+            "draft_n_accepted": 3
+          },
+          {
+            "depth": 6,
+            "draft_n": 2,
+            "draft_n_accepted": 2
+          },
+          {
+            "depth": 7,
+            "draft_n": 2,
+            "draft_n_accepted": 2
+          },
+          {
+            "depth": 8,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          }
+        ]
+      },
+      "acceptance_fraction": 0.6210526315789474,
+      "label": "02-nmax8",
+      "n_max": 8,
+      "wall_seconds": 41.732584540965036
+    }
+  ],
+  "status": "completed",
+  "qli_stop_requested": "2026-09-06T15:46:26.725505+02:00",
+  "guard": {
+    "mem_available_bytes": 47851421696,
+    "gpu_util_pct": 0,
+    "vram_mib": 2030,
+    "elapsed_s": 0.02697163599077612
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-06T15:49:01.656237+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-06T15:49:01.786367+02:00",
+  "elapsed_seconds": 157.21084248297848
+}

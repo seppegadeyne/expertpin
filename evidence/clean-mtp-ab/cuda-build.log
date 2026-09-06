@@ -1,0 +1,5 @@
+[1/4] Generating build details from Git
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[2/4] Building CXX object common/CMakeFiles/build_info.dir/build-info.cpp.o
+[3/4] Linking CXX static library common/libcommon.a
+[4/4] Linking CXX executable bin/llama-server
