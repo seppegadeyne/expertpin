@@ -1,5 +1,13 @@
 #llama_add_compile_flags()
 
+# Measurement validation needs no model, GPU, or third-party Python packages.
+find_package(Python3 COMPONENTS Interpreter QUIET)
+if (Python3_Interpreter_FOUND)
+    add_test(NAME test-cache-shadow-gates
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-cache-shadow-gates.py)
+    set_tests_properties(test-cache-shadow-gates PROPERTIES LABELS "main;python" TIMEOUT 60)
+endif()
+
 function(llama_build source)
     set(TEST_SOURCES ${source} ${ARGN})
 
