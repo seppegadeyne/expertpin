@@ -1,0 +1,11 @@
+# Independent review and parent verification
+
+Review deleg_cc888a59 (gpt-6-astra configured pin) returned REQUEST CHANGES before any GPU stop. Full independent findings: duplicate run/request counting and missing matched launch provenance were blocking; rate ties were nonblocking. No new guarded-harness lifecycle blocker found. No second independent APPROVE is claimed.
+
+Parent verified original analyzer load_run/analyze did not reject duplicate request labels or repeated directory/scope and only compared HTTP payloads. Added rejection tests FIRST: real CPU run produced 3 failures (duplicate requests, duplicate runs and tied ranking). Implemented exact ordinal labels, unique resolved directories/scopes, parsed timezone-aware non-overlapping intervals, normalized recorded launch settings excluding depth/scope, and response model/context/prompt metadata equality. Added explicit rate tie groups. Tests rerun after fixes. The environment recording is a delta, not a full process snapshot; binary/model cryptographic identity is explicitly separate provenance, not inferred from HTTP equality.
+
+Parent source readbacks: common/sampling.cpp:546–548 uses greedy target sampling at temp0; 790–807 accepts until the first target/draft mismatch. examples/server/server-context.cpp:4273–4276 dispatches that comparison for empty proposal distributions. Therefore output differences must NOT be labelled solely expected speculative branching. Floating-point batch-shape sensitivity, recurrent state or another defect remain hypotheses requiring a target-only/token-logit investigation; quality is not assessed.
+
+Hash scope is canonical JSON of content and reasoning_content, preserving Unicode/whitespace and null vs empty, with missing keys treated as null. All raw response JSON remains available. It is not a full response/token-ID hash.
+
+Binary SHA256 measured before GPU work: 4a6ca3582eacfcb1ff22239be69d72a54ccafa5fe70725f64d769ae96f721ca2, exact match to prior forward outcome.json. No engine/binary/launcher/harness/model changes in this slice. Model hashes are not independently remeasured. GPU starts use unchanged guarded harness, one invocation for each 16, 8, 4; all research/review/CPU tests/code commit+push completed beforehand.
