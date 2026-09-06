@@ -7,6 +7,9 @@
 
 struct common_speculative;
 
+// Drafts must not claim the process-wide target shadow or write its stats file.
+llama_context_params common_speculative_context_params_to_llama(const gpt_params & params);
+
 bool common_speculative_needs_checkpoint(const llama_model * model);
 
 enum common_speculative_init_status {

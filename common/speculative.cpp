@@ -1994,6 +1994,16 @@ static bool common_speculative_has_target_features(const common_speculative * sp
     });
 }
 
+llama_context_params common_speculative_context_params_to_llama(const gpt_params & params) {
+    auto cparams = common_context_params_to_llama(params);
+    // The shadow is process-wide, with one lifetime owner: the target context.
+    // Apply after draft CLI overrides too; a separate draft budget is unsupported.
+    // Clearing the output also avoids a pointer into the temporary params_dft.
+    cparams.expert_cache_sim_bytes = 0;
+    cparams.expert_stats_file = nullptr;
+    return cparams;
+}
+
 bool common_speculative_load_draft_model(
         common_params_speculative & params,
         const gpt_params         & params_base) {
@@ -2054,7 +2064,7 @@ bool common_speculative_load_draft_model(
     }
 
     params.model_dft = loaded_model;
-    params.cparams_dft = common_context_params_to_llama(params_dft);
+    params.cparams_dft = common_speculative_context_params_to_llama(params_dft);
     return true;
 }
 
@@ -2095,7 +2105,7 @@ bool common_speculative_prepare_mtp_runtime(
     if (!has_external_mtp) {
         gpt_params params_mtp = params_base;
         params_mtp.pooling_type = LLAMA_POOLING_TYPE_NONE;
-        params.cparams_dft = common_context_params_to_llama(params_mtp);
+        params.cparams_dft = common_speculative_context_params_to_llama(params_mtp);
     }
 
     params.cparams_dft.mtp         = true;

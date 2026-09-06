@@ -238,6 +238,9 @@ target_include_directories(test-expert-cache-lru PRIVATE ${PROJECT_SOURCE_DIR}/g
 llama_build_and_test(test-expert-trace.cpp)
 target_include_directories(test-expert-trace PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
 
+llama_build_and_test(test-speculative-shadow.cpp)
+target_include_directories(test-speculative-shadow PRIVATE ${PROJECT_SOURCE_DIR}/ggml/include ${PROJECT_SOURCE_DIR}/ggml/src)
+
 llama_build_and_test(test-moe-prefetch-stats.cpp)
 target_include_directories(test-moe-prefetch-stats PRIVATE ${PROJECT_SOURCE_DIR}/ggml/include ${PROJECT_SOURCE_DIR}/ggml/src)
 

@@ -1,0 +1,9 @@
+# Independent review and parent verification
+
+Review deleg_4f6d788c (gpt-6-astra), 2026-09-06: AKKOORD met kanttekeningen; geen runtimeblocker. Volledige initial diff gelezen. Parent independently read src/llama.cpp:6425-6457 and ggml/src/ggml-moe-prefetch.cpp:815-841: zero budget disables draft shadow hook, while global residency counters may remain shared. notes.md corrected.
+
+Parent previously read src/llama.cpp:9253-9259 (single-owner reject unchanged), common/common.cpp:4431-4432 and both speculative conversion sites. Stats filename in local params_dft/params_mtp would dangle; helper clears it before later context creation. Target retains regular conversion.
+
+Processed low-severity suggestions: unset GGML_MOE_TRACE_FILE in test process; actual CLI parser coverage for explicit draft telemetry with target disabled and stats-only case. Initial CLI fixture used nonexistent --expert-cache-sim, failed; corrected against common/common.cpp:2203 to --expert-cache-sim-mib. Final build+targeted+main repeated. No second subagent pass claimed. Remaining limitation: unit tests call common helper, not real external/embedded model startup; both production callsites reviewed manually, GPU companion integration planned.
+
+RED evidence: foreground terminal built behavior-preserving helper and executed test (exit1): two 'draft must not fail initialization by double-claiming target shadow', two 'draft shadow disabled', two 'draft cannot overwrite target stats or retain temporary string'; total six failures. This paragraph is a transcription of genuine tool output, not a saved raw RED logfile. First missing CMake target was scaffold failure, not RED. Final CPU full build+CUDA server build exit0; targeted13/13; main31/33 with existing test-tokenizer-0-bert-bge and test-chat-template failures. Raw final logs adjacent.

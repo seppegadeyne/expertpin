@@ -1,0 +1,77 @@
+[  0%] Generating build details from Git
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[  1%] Built target test-expert-cache-pressure
+[  2%] Built target cpp-httplib
+[ 11%] Built target ggml
+[ 12%] Built target sha256
+[ 13%] Built target xxhash
+[ 13%] Generating build details from Git
+[ 13%] Built target sha1
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[ 13%] Built target llama-llava-cli
+[ 13%] Built target llama-gguf
+[ 14%] Built target llama-gemma3-cli
+[ 15%] Built target build_info
+[ 16%] Built target llama-minicpmv-cli
+[ 17%] Built target llama-qwen2vl-cli
+[ 17%] Built target bench-expert-cpu
+[ 18%] Built target llama-gguf-hash
+[ 47%] Built target llama
+[ 48%] Built target test-c
+[ 48%] Built target llama-quantize-stats
+[ 49%] Built target llama-bench-matmult
+[ 58%] Built target common
+[ 60%] Built target mtmd
+[ 61%] Built target test-jinja
+[ 61%] Built target test-tokenizer-0
+[ 62%] Built target test-chat-auto-parser
+[ 63%] Built target test-chat-template
+[ 64%] Built target test-regex-partial
+[ 65%] Built target test-json-partial
+[ 69%] Built target test-peg-parser
+[ 70%] Built target test-expert-manifest
+[ 72%] Built target test-expert-stats
+[ 72%] Built target test-expert-cache-lru
+[ 73%] Built target test-expert-trace
+[ 73%] Building CXX object tests/CMakeFiles/test-speculative-shadow.dir/test-speculative-shadow.cpp.o
+[ 73%] Built target test-moe-prefetch-stats
+[ 74%] Built target test-iq4-ks-kt-decode
+[ 75%] Built target test-model-load-cancel
+[ 75%] Built target test-autorelease
+[ 76%] Built target llama-baby-llama
+[ 76%] Built target llama-cvector-generator
+[ 76%] Built target llama-batched-bench
+[ 77%] Built target llama-batched
+[ 78%] Built target llama-convert-llama2c-to-ggml
+[ 78%] Built target llama-embedding
+[ 79%] Built target llama-eval-callback
+[ 80%] Built target llama-export-lora
+[ 80%] Built target llama-gbnf-validator
+[ 81%] Built target llama-gguf-split
+[ 81%] Built target llama-gritlm
+[ 82%] Built target llama-imatrix
+[ 84%] Built target llama-infill
+[ 84%] Built target llama-bench
+[ 85%] Built target llama-lookahead
+[ 85%] Built target llama-lookup
+[ 86%] Built target llama-lookup-create
+[ 87%] Built target llama-lookup-merge
+[ 87%] Built target llama-lookup-stats
+[ 87%] Built target llama-cli
+[ 87%] Built target llama-parallel
+[ 88%] Built target llama-passkey
+[ 89%] Built target llama-perplexity
+[ 90%] Built target llama-quantize
+[ 91%] Built target llama-retrieval
+[ 92%] Built target llama-mtmd-cli
+[ 92%] Built target llama-save-load-state
+[ 96%] Built target llama-server
+[ 96%] Built target llama-simple
+[ 97%] Built target llama-speculative
+[ 97%] Built target llama-spec-bench
+[ 98%] Built target llama-sweep-bench
+[ 98%] Built target llama-vdot
+[ 99%] Built target llama-tokenize
+[ 99%] Built target llama-q8dot
+[100%] Linking CXX executable ../bin/test-speculative-shadow
+[100%] Built target test-speculative-shadow
