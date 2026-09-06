@@ -144,7 +144,8 @@ try:
                PORT='8102', BIN_DIR=str(ROOT / 'build-sm120/bin'), FORCE='0', PINNED='0',
                EXPERT_CACHE_SIM_MIB='8192', EXPERT_STATS_FILE=str(OUT / 'expert-stats.json'),
                GGML_MOE_TRACE_FILE=str(OUT / 'trace.csv'), GGML_MOE_TRACE_REQUEST_ONLY='1',
-               GGML_MOE_GPU_TRACE_FILE=str(OUT / 'gpu-trace.csv'))
+               GGML_MOE_GPU_TRACE_FILE=str(OUT / 'gpu-trace.csv'),
+               GGML_CUDA_TRANSFER_TRACE_FILE=str(OUT / 'cuda-transfers.csv'))
     env['EXPERTPIN_SCOPE_UNIT'] = scope
     if not Path(env['DRAFT_MODEL']).is_file():
         raise RuntimeError('required draft model missing')

@@ -249,6 +249,15 @@ target_link_libraries(test-moe-gpu-trace PRIVATE ggml)
 target_include_directories(test-moe-gpu-trace PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
 llama_test(test-moe-gpu-trace)
 
+add_executable(test-cuda-transfer-trace test-cuda-transfer-trace.cpp)
+target_link_libraries(test-cuda-transfer-trace PRIVATE ggml)
+target_include_directories(test-cuda-transfer-trace PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
+llama_test(test-cuda-transfer-trace)
+llama_test(test-cuda-transfer-trace NAME test-cuda-transfer-trace-enabled ARGS enabled)
+llama_test(test-cuda-transfer-trace NAME test-cuda-transfer-trace-collision ARGS collision)
+set_tests_properties(test-cuda-transfer-trace test-cuda-transfer-trace-enabled
+    test-cuda-transfer-trace-collision PROPERTIES TIMEOUT 30)
+
 llama_build_and_test(test-speculative-shadow.cpp)
 target_include_directories(test-speculative-shadow PRIVATE ${PROJECT_SOURCE_DIR}/ggml/include ${PROJECT_SOURCE_DIR}/ggml/src)
 

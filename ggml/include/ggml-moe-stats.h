@@ -67,6 +67,8 @@ struct ggml_moe_trace_scope {
 // Both CPU (GGML_MOE_TRACE_FILE + REQUEST_ONLY) and CUDA
 // (GGML_MOE_GPU_TRACE_FILE, always request-only) observe this same scope.
 // CUDA tracing does not require CPU shadow ownership or capacity.
+// GGML_CUDA_TRANSFER_TRACE_FILE also activates this scope independently; it
+// observes ordinary backend host/device copies, not expert routing or DMA rates.
 bool ggml_moe_trace_request_scoped(void);
 void ggml_moe_trace_set_scope(struct ggml_moe_trace_scope scope);
 
