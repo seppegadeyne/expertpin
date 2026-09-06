@@ -1,0 +1,493 @@
+{
+  "run": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T163711-45502ba6d21c48ab95be359f73fb7eac",
+  "summary": {
+    "started": "2026-09-06T16:37:11.900535+02:00",
+    "scope": "expertpin-test-e0eb7b43cade4e588460f52886337077.scope",
+    "model_loaded": true,
+    "startup_n_max": 0,
+    "sequence": [
+      0,
+      0
+    ],
+    "requests": [
+      {
+        "usage": {
+          "completion_tokens": 256,
+          "prompt_tokens": 68,
+          "total_tokens": 324,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "prompt_n": 68,
+          "prompt_ms": 14307.273,
+          "prompt_per_token_ms": 210.40107352941175,
+          "prompt_per_second": 4.752827460551008,
+          "predicted_n": 256,
+          "predicted_ms": 45541.631,
+          "predicted_per_token_ms": 177.89699609375,
+          "predicted_per_second": 5.621230385885828,
+          "n_ctx": 8192,
+          "n_past": 323
+        },
+        "acceptance_fraction": null,
+        "label": "01-nmax0",
+        "n_max": 0,
+        "wall_seconds": 60.075495237950236
+      },
+      {
+        "usage": {
+          "completion_tokens": 256,
+          "prompt_tokens": 68,
+          "total_tokens": 324,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "prompt_n": 68,
+          "prompt_ms": 8898.663,
+          "prompt_per_token_ms": 130.8626911764706,
+          "prompt_per_second": 7.641597395024398,
+          "predicted_n": 256,
+          "predicted_ms": 32510.825,
+          "predicted_per_token_ms": 126.99541015625,
+          "predicted_per_second": 7.874300329198044,
+          "n_ctx": 8192,
+          "n_past": 323
+        },
+        "acceptance_fraction": null,
+        "label": "02-nmax0",
+        "n_max": 0,
+        "wall_seconds": 41.750667841988616
+      }
+    ],
+    "status": "completed",
+    "qli_stop_requested": "2026-09-06T16:37:14.050265+02:00",
+    "guard": {
+      "mem_available_bytes": 48741056512,
+      "gpu_util_pct": 0,
+      "vram_mib": 2039,
+      "elapsed_s": 4.078315912978724
+    },
+    "scope_stopped_verified": true,
+    "qli_start_requested": "2026-09-06T16:39:51.111450+02:00",
+    "qli_status": "active",
+    "cleanup_errors": [],
+    "finished": "2026-09-06T16:39:51.241649+02:00",
+    "elapsed_seconds": 159.3411320130108
+  },
+  "binary_sha256": "4a6ca3582eacfcb1ff22239be69d72a54ccafa5fe70725f64d769ae96f721ca2",
+  "ram_peak_gib": 32.404300689697266,
+  "vram_sample_peak_gib": 20.0048828125,
+  "swap_sample_peak_gib": 1.2601280212402344,
+  "sample_count": 149,
+  "comparisons": [
+    {
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T163711-45502ba6d21c48ab95be359f73fb7eac/01-nmax0-response.json",
+      "n_max": 0,
+      "equal": true,
+      "left_sha256": "6b0c803deb1fb4d791efd430f4b1cedaf2c4ec5ca92e7240f554b3ffa5455cb7",
+      "right_sha256": "6b0c803deb1fb4d791efd430f4b1cedaf2c4ec5ca92e7240f554b3ffa5455cb7",
+      "canonical_common_prefix_chars": 1130,
+      "diff": "",
+      "retokenized_field_differences": {
+        "content": {
+          "equal": true
+        },
+        "reasoning_content": {
+          "equal": true
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 14307.273,
+        "prompt_per_token_ms": 210.40107352941175,
+        "prompt_per_second": 4.752827460551008,
+        "predicted_n": 256,
+        "predicted_ms": 45541.631,
+        "predicted_per_token_ms": 177.89699609375,
+        "predicted_per_second": 5.621230385885828,
+        "n_ctx": 8192,
+        "n_past": 323
+      },
+      "original_decode_position": null,
+      "draft_proposal_at_difference": null,
+      "acceptance_at_difference": null
+    },
+    {
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T163711-45502ba6d21c48ab95be359f73fb7eac/02-nmax0-response.json",
+      "n_max": 0,
+      "equal": true,
+      "left_sha256": "6b0c803deb1fb4d791efd430f4b1cedaf2c4ec5ca92e7240f554b3ffa5455cb7",
+      "right_sha256": "6b0c803deb1fb4d791efd430f4b1cedaf2c4ec5ca92e7240f554b3ffa5455cb7",
+      "canonical_common_prefix_chars": 1130,
+      "diff": "",
+      "retokenized_field_differences": {
+        "content": {
+          "equal": true
+        },
+        "reasoning_content": {
+          "equal": true
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 8898.663,
+        "prompt_per_token_ms": 130.8626911764706,
+        "prompt_per_second": 7.641597395024398,
+        "predicted_n": 256,
+        "predicted_ms": 32510.825,
+        "predicted_per_token_ms": 126.99541015625,
+        "predicted_per_second": 7.874300329198044,
+        "n_ctx": 8192,
+        "n_past": 323
+      },
+      "original_decode_position": null,
+      "draft_proposal_at_difference": null,
+      "acceptance_at_difference": null
+    },
+    {
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161719-6a8bf12c290b44ab9f5cd71f90d8a41c/01-nmax4-response.json",
+      "n_max": 4,
+      "equal": false,
+      "left_sha256": "6b0c803deb1fb4d791efd430f4b1cedaf2c4ec5ca92e7240f554b3ffa5455cb7",
+      "right_sha256": "ca94ffb4d26462727b151d7c806c22f75f139e94fbbc76bfad109136d4b38fa4",
+      "canonical_common_prefix_chars": 187,
+      "diff": "--- left\n+++ right\n@@ -1,4 +1,4 @@\n {\n   \"content\": \"\",\n-  \"reasoning_content\": \"We need answer user: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" Need infer context. Likely about MoE (mixture-of-experts) inference, expert cache bounded, RAM and NVMe misses. Need explain mechanism: experts stored in RAM cache bounded size, NVMe backing store, misses: RAM miss -> fetch from NVMe to RAM, evict LRU/least valuable expert, maybe prefetch, overlap compute, handle NVMe miss? If expert not in NVMe? Maybe from model weights? Need detail. Could be about \\\"bounded expert cache\\\" in systems like Mixtral? Maybe \\\"expert cache\\\" in LLM serving with MoE, offloading experts to NVMe. Need explain RAM and NVMe misses. Let's think.\\n\\nQuestion: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" It might refer to a specific paper/system? \\\"bounded expert cache\\\" maybe in \\\"MoE-Inference\\\" or \\\"Fiddler\\\"? Need identify. Could be about \\\"expert cache\\\" in \\\"Mixture-of-Experts with bounded cache\\\" where experts are loaded into GPU? But user says RAM and NVMe misses, not GPU. Maybe cache hierarchy: GPU HBM? RAM\"\n+  \"reasoning_content\": \"We need answer user: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" Need infer context. Likely about MoE (mixture of experts) inference, expert cache, bounded cache, RAM and NVMe misses. Need explain mechanism: experts stored in RAM cache bounded size, NVMe backing store, GPU? Need detail on miss handling: RAM miss -> fetch from NVMe to RAM, maybe evict LRU, async prefetch, overlap compute, pinning, batching, metadata, page faults? NVMe miss -> fetch from remote storage/object store? Or if NVMe is cache tier? Need be careful.\\n\\nNeed produce final detailed explanation. Need maybe define bounded expert cache: fixed memory budget for expert weights in RAM, NVMe as secondary cache/tier. Handles misses by loading experts from NVMe into RAM, evicting least recently used, managing concurrency, I/O, GPU transfer. If NVMe miss, fetch from remote storage (S3/HDFS) or recompute? Need explain.\\n\\nLet's think of possible systems: \\\"bounded expert cache\\\" maybe from paper? Could be \\\"Expert Cache\\\" in MoE serving, \\\"bounded expert cache\\\" handles RAM and NVMe misses. Maybe related to \\\"Mixtral\"\n }\n",
+      "retokenized_field_differences": {
+        "content": {
+          "equal": true
+        },
+        "reasoning_content": {
+          "equal": false,
+          "kind": "token",
+          "index_0based": 33,
+          "position_1based": 34,
+          "target_id": 8404,
+          "reference_id": 314,
+          "target_ids_context": [
+            36,
+            318,
+            76,
+            12370,
+            8404,
+            17830,
+            15089,
+            8,
+            42903
+          ],
+          "reference_ids_context": [
+            36,
+            318,
+            76,
+            12370,
+            314,
+            11312,
+            8,
+            42903,
+            11
+          ],
+          "target_count": 256,
+          "reference_count": 256
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 6692.883,
+        "prompt_per_token_ms": 98.42475,
+        "prompt_per_second": 10.160046126609416,
+        "predicted_n": 256,
+        "predicted_ms": 30584.253,
+        "predicted_per_token_ms": 119.46973828125,
+        "predicted_per_second": 8.3703205044766,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 179,
+        "draft_n_accepted": 119,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 135,
+            "draft_n_accepted": 82
+          },
+          {
+            "depth": 2,
+            "draft_n": 21,
+            "draft_n_accepted": 18
+          },
+          {
+            "depth": 3,
+            "draft_n": 15,
+            "draft_n_accepted": 13
+          },
+          {
+            "depth": 4,
+            "draft_n": 8,
+            "draft_n_accepted": 6
+          }
+        ]
+      },
+      "original_decode_position": null,
+      "draft_proposal_at_difference": null,
+      "acceptance_at_difference": null
+    },
+    {
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161517-2c1eb221aa234812a933801b15ea5d06/01-nmax8-response.json",
+      "n_max": 8,
+      "equal": false,
+      "left_sha256": "6b0c803deb1fb4d791efd430f4b1cedaf2c4ec5ca92e7240f554b3ffa5455cb7",
+      "right_sha256": "35210531f124344251490d21e69495b8e93647b60e9dff44a4d8dfbc18e7a9a8",
+      "canonical_common_prefix_chars": 231,
+      "diff": "--- left\n+++ right\n@@ -1,4 +1,4 @@\n {\n   \"content\": \"\",\n-  \"reasoning_content\": \"We need answer user: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" Need infer context. Likely about MoE (mixture-of-experts) inference, expert cache bounded, RAM and NVMe misses. Need explain mechanism: experts stored in RAM cache bounded size, NVMe backing store, misses: RAM miss -> fetch from NVMe to RAM, evict LRU/least valuable expert, maybe prefetch, overlap compute, handle NVMe miss? If expert not in NVMe? Maybe from model weights? Need detail. Could be about \\\"bounded expert cache\\\" in systems like Mixtral? Maybe \\\"expert cache\\\" in LLM serving with MoE, offloading experts to NVMe. Need explain RAM and NVMe misses. Let's think.\\n\\nQuestion: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" It might refer to a specific paper/system? \\\"bounded expert cache\\\" maybe in \\\"MoE-Inference\\\" or \\\"Fiddler\\\"? Need identify. Could be about \\\"expert cache\\\" in \\\"Mixture-of-Experts with bounded cache\\\" where experts are loaded into GPU? But user says RAM and NVMe misses, not GPU. Maybe cache hierarchy: GPU HBM? RAM\"\n+  \"reasoning_content\": \"We need answer user: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" Need infer context. Likely about MoE (mixture-of-experts) inference, expert cache bounded in RAM and NVMe? Need explain handling RAM and NVMe misses. Could be from some paper/system? Need provide detailed explanation. Need think.\\n\\nWe need produce final answer. Need understand \\\"bounded expert cache\\\". Maybe in context of LLM MoE serving with expert weights stored in RAM and NVMe, cache limited. Bounded expert cache: cache experts in GPU? RAM? NVMe? Handles misses by fetching from lower tier. Need detail: RAM miss: expert not in RAM, fetch from NVMe to RAM, evict LRU/least valuable expert from RAM, maybe prefetch. NVMe miss: expert not in NVMe? fetch from remote storage/object store? Or if bounded cache only RAM+NVMe, NVMe miss means expert not cached in NVMe, must load from original model repository (disk/network), write into NVMe, then RAM. Need discuss admission policy, eviction, concurrency, overlap, pinning, batching, metadata, capacity constraints, hit rates, latency.\\n\\nMaybe \\\"bounded expert cache\\\" specifically from paper \\\"\"\n }\n",
+      "retokenized_field_differences": {
+        "content": {
+          "equal": true
+        },
+        "reasoning_content": {
+          "equal": false,
+          "kind": "token",
+          "index_0based": 42,
+          "position_1based": 43,
+          "target_id": 11,
+          "reference_id": 303,
+          "target_ids_context": [
+            11,
+            6009,
+            6297,
+            59056,
+            11,
+            21360,
+            321,
+            23683,
+            7575
+          ],
+          "reference_ids_context": [
+            11,
+            6009,
+            6297,
+            59056,
+            303,
+            21360,
+            321,
+            23683,
+            7575
+          ],
+          "target_count": 256,
+          "reference_count": 256
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 8516.814,
+        "prompt_per_token_ms": 125.24726470588236,
+        "prompt_per_second": 7.984206300618987,
+        "predicted_n": 256,
+        "predicted_ms": 24222.097,
+        "predicted_per_token_ms": 94.61756640625,
+        "predicted_per_second": 10.568861977557104,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 190,
+        "draft_n_accepted": 118,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 136,
+            "draft_n_accepted": 77
+          },
+          {
+            "depth": 2,
+            "draft_n": 22,
+            "draft_n_accepted": 17
+          },
+          {
+            "depth": 3,
+            "draft_n": 14,
+            "draft_n_accepted": 10
+          },
+          {
+            "depth": 4,
+            "draft_n": 9,
+            "draft_n_accepted": 6
+          },
+          {
+            "depth": 5,
+            "draft_n": 4,
+            "draft_n_accepted": 3
+          },
+          {
+            "depth": 6,
+            "draft_n": 2,
+            "draft_n_accepted": 2
+          },
+          {
+            "depth": 7,
+            "draft_n": 2,
+            "draft_n_accepted": 2
+          },
+          {
+            "depth": 8,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          }
+        ]
+      },
+      "original_decode_position": null,
+      "draft_proposal_at_difference": null,
+      "acceptance_at_difference": null
+    },
+    {
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161217-e1d70c565cee4ea3a67bfbf72aa153e0/01-nmax16-response.json",
+      "n_max": 16,
+      "equal": false,
+      "left_sha256": "6b0c803deb1fb4d791efd430f4b1cedaf2c4ec5ca92e7240f554b3ffa5455cb7",
+      "right_sha256": "22ad201182312054bcafc9dbecd5c6735939ea60e754373ecaf2b3c18851a3dd",
+      "canonical_common_prefix_chars": 278,
+      "diff": "--- left\n+++ right\n@@ -1,4 +1,4 @@\n {\n   \"content\": \"\",\n-  \"reasoning_content\": \"We need answer user: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" Need infer context. Likely about MoE (mixture-of-experts) inference, expert cache bounded, RAM and NVMe misses. Need explain mechanism: experts stored in RAM cache bounded size, NVMe backing store, misses: RAM miss -> fetch from NVMe to RAM, evict LRU/least valuable expert, maybe prefetch, overlap compute, handle NVMe miss? If expert not in NVMe? Maybe from model weights? Need detail. Could be about \\\"bounded expert cache\\\" in systems like Mixtral? Maybe \\\"expert cache\\\" in LLM serving with MoE, offloading experts to NVMe. Need explain RAM and NVMe misses. Let's think.\\n\\nQuestion: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" It might refer to a specific paper/system? \\\"bounded expert cache\\\" maybe in \\\"MoE-Inference\\\" or \\\"Fiddler\\\"? Need identify. Could be about \\\"expert cache\\\" in \\\"Mixture-of-Experts with bounded cache\\\" where experts are loaded into GPU? But user says RAM and NVMe misses, not GPU. Maybe cache hierarchy: GPU HBM? RAM\"\n+  \"reasoning_content\": \"We need answer user: \\\"Explain how a bounded expert cache handles RAM and NVMe misses in detail.\\\" Need infer context. Likely about MoE (mixture-of-experts) inference, expert cache bounded, RAM and NVMe misses. Need explain mechanism: bounded expert cache in GPU/CPU/NVMe hierarchy? Maybe from paper? Need detail: when expert requested not in GPU? RAM miss? NVMe miss? Bounded cache means limited capacity, eviction policies, prefetching, async transfers, batching, pinning, LRU/LFU, admission control, writeback? Need be careful.\\n\\nLet's parse: \\\"bounded expert cache\\\" maybe in context of \\\"Expert Cache\\\" for MoE serving, e.g., \\\"Fiddler\\\", \\\"MoE-Inference\\\", \\\"Mixtral\\\", \\\"DeepSpeed-MoE\\\", \\\"FlexMoE\\\", \\\"MegaScale-Infer\\\", \\\"KTransformers\\\"? Bounded expert cache handles RAM and NVMe misses. Could be from \\\"MoE-Inference: Efficient Mixture-of-Experts Inference with Expert Cache\\\"? There is concept: experts stored on NVMe, cached in RAM, GPU. Bounded cache: limited RAM capacity. On miss, load from NVMe to RAM, evict.\"\n }\n",
+      "retokenized_field_differences": {
+        "content": {
+          "equal": true
+        },
+        "reasoning_content": {
+          "equal": false,
+          "kind": "token",
+          "index_0based": 53,
+          "position_1based": 54,
+          "target_id": 11312,
+          "reference_id": 59056,
+          "target_ids_context": [
+            14235,
+            10033,
+            16456,
+            25,
+            11312,
+            9476,
+            303,
+            21360,
+            6297
+          ],
+          "reference_ids_context": [
+            14235,
+            10033,
+            16456,
+            25,
+            59056,
+            6009,
+            6297,
+            303,
+            21966
+          ],
+          "target_count": 256,
+          "reference_count": 256
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 17199.902,
+        "prompt_per_token_ms": 252.9397352941176,
+        "prompt_per_second": 3.95351089791093,
+        "predicted_n": 256,
+        "predicted_ms": 52702.609,
+        "predicted_per_token_ms": 205.86956640625,
+        "predicted_per_second": 4.857444533723179,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 198,
+        "draft_n_accepted": 118,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 137,
+            "draft_n_accepted": 78
+          },
+          {
+            "depth": 2,
+            "draft_n": 23,
+            "draft_n_accepted": 16
+          },
+          {
+            "depth": 3,
+            "draft_n": 16,
+            "draft_n_accepted": 10
+          },
+          {
+            "depth": 4,
+            "draft_n": 7,
+            "draft_n_accepted": 4
+          },
+          {
+            "depth": 5,
+            "draft_n": 4,
+            "draft_n_accepted": 3
+          },
+          {
+            "depth": 6,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 7,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 8,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 9,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 10,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 11,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 12,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 13,
+            "draft_n": 1,
+            "draft_n_accepted": 0
+          },
+          {
+            "depth": 14,
+            "draft_n": 1,
+            "draft_n_accepted": 0
+          },
+          {
+            "depth": 15,
+            "draft_n": 1,
+            "draft_n_accepted": 0
+          },
+          {
+            "depth": 16,
+            "draft_n": 1,
+            "draft_n_accepted": 0
+          }
+        ]
+      },
+      "original_decode_position": null,
+      "draft_proposal_at_difference": null,
+      "acceptance_at_difference": null
+    }
+  ],
+  "limitations": [
+    "Retokenized response fields, not original emitted IDs or global decode positions.",
+    "Aggregate by-depth metrics cannot identify proposal or acceptance at a particular output position.",
+    "One prompt, two repeats; disabling MTP also changes batch/checkpoint/workspace shape. Cause not identified.",
+    "Device-wide sampled VRAM, not continuous peak; swap separate."
+  ]
+}

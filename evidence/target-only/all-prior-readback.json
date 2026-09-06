@@ -1,0 +1,71 @@
+{
+  "all_12_existing_outputs_differ_from_target": true,
+  "counts_by_depth": {
+    "4": 4,
+    "8": 4,
+    "16": 4
+  },
+  "comparisons": [
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154353-b704f737db4b4058bdb33406eecbe56b/01-nmax4-response.json",
+      "sha256": "ca94ffb4d26462727b151d7c806c22f75f139e94fbbc76bfad109136d4b38fa4",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154353-b704f737db4b4058bdb33406eecbe56b/02-nmax4-response.json",
+      "sha256": "ca94ffb4d26462727b151d7c806c22f75f139e94fbbc76bfad109136d4b38fa4",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154624-e839af6e2bb4471bb04525b626e6fa33/01-nmax8-response.json",
+      "sha256": "35210531f124344251490d21e69495b8e93647b60e9dff44a4d8dfbc18e7a9a8",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154624-e839af6e2bb4471bb04525b626e6fa33/02-nmax8-response.json",
+      "sha256": "35210531f124344251490d21e69495b8e93647b60e9dff44a4d8dfbc18e7a9a8",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154910-11b11df013ea42cc9e7c09a0a1fcb0ad/01-nmax16-response.json",
+      "sha256": "22ad201182312054bcafc9dbecd5c6735939ea60e754373ecaf2b3c18851a3dd",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154910-11b11df013ea42cc9e7c09a0a1fcb0ad/02-nmax16-response.json",
+      "sha256": "22ad201182312054bcafc9dbecd5c6735939ea60e754373ecaf2b3c18851a3dd",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161217-e1d70c565cee4ea3a67bfbf72aa153e0/01-nmax16-response.json",
+      "sha256": "22ad201182312054bcafc9dbecd5c6735939ea60e754373ecaf2b3c18851a3dd",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161217-e1d70c565cee4ea3a67bfbf72aa153e0/02-nmax16-response.json",
+      "sha256": "22ad201182312054bcafc9dbecd5c6735939ea60e754373ecaf2b3c18851a3dd",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161517-2c1eb221aa234812a933801b15ea5d06/01-nmax8-response.json",
+      "sha256": "35210531f124344251490d21e69495b8e93647b60e9dff44a4d8dfbc18e7a9a8",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161517-2c1eb221aa234812a933801b15ea5d06/02-nmax8-response.json",
+      "sha256": "35210531f124344251490d21e69495b8e93647b60e9dff44a4d8dfbc18e7a9a8",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161719-6a8bf12c290b44ab9f5cd71f90d8a41c/01-nmax4-response.json",
+      "sha256": "ca94ffb4d26462727b151d7c806c22f75f139e94fbbc76bfad109136d4b38fa4",
+      "equals_target": false
+    },
+    {
+      "path": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161719-6a8bf12c290b44ab9f5cd71f90d8a41c/02-nmax4-response.json",
+      "sha256": "ca94ffb4d26462727b151d7c806c22f75f139e94fbbc76bfad109136d4b38fa4",
+      "equals_target": false
+    }
+  ],
+  "tier_a_gib": 45.393646240234375
+}

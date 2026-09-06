@@ -1,0 +1,11 @@
+test_capture_exact_roundtrip_and_reference_without_single_byte_decode (__main__.TargetOnly.test_capture_exact_roundtrip_and_reference_without_single_byte_decode) ... ok
+test_capture_fail_closed (__main__.TargetOnly.test_capture_fail_closed) ... ok
+test_reference_validation (__main__.TargetOnly.test_reference_validation) ... ok
+test_target_counters_absent_or_zero (__main__.TargetOnly.test_target_counters_absent_or_zero) ... ok
+test_target_plan (__main__.TargetOnly.test_target_plan) ... ok
+test_target_rejects_drafting_and_short_response (__main__.TargetOnly.test_target_rejects_drafting_and_short_response) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.006s
+
+OK
