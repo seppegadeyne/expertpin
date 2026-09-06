@@ -18,6 +18,27 @@ CODE = compile(ast.Module(body=FINAL, type_ignores=[]), str(SOURCE), 'exec')
 
 
 class GuardTests(unittest.TestCase):
+    def test_completion_requires_real_bounded_decode(self):
+        function = next(n for n in TREE.body if isinstance(n, ast.FunctionDef)
+                        and n.name == 'validate_completion')
+        ns = {}
+        exec(compile(ast.Module(body=[function], type_ignores=[]), str(SOURCE), 'exec'), ns)
+        validate = ns['validate_completion']
+        for count, reason, text, valid in ((32, 'length', 'answer', True),
+                (1, 'stop', '', False), (31, 'length', 'answer', False),
+                (32.0, 'length', 'answer', False), (32, 'stop', 'answer', False),
+                (32, 'length', '   ', False)):
+            data = {'usage': {'completion_tokens': count}, 'choices': [
+                {'finish_reason': reason, 'message': {'content': text}}]}
+            if valid:
+                self.assertEqual(validate(data)['completion_tokens'], 32)
+            else:
+                with self.assertRaises(RuntimeError): validate(data)
+        with self.assertRaises(RuntimeError): validate({})
+        data = {'usage': {'completion_tokens': 32}, 'choices': [
+            {'finish_reason': 'length', 'message': {'reasoning_content': 'reasoning'}}]}
+        self.assertEqual(validate(data)['completion_tokens'], 32)
+
     def test_tier_a_boundaries(self):
         # Compile only the pure guard: importing the harness would start services.
         function = next(node for node in TREE.body

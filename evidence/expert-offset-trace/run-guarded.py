@@ -33,6 +33,20 @@ def host_guard(util, mem):
     return 0 <= util < 5 and mem >= 34 * 1024**3
 
 
+def validate_completion(data):
+    """Require the intended bounded decode, not merely an HTTP 200 or EOS."""
+    usage = data.get('usage', {})
+    choices = data.get('choices', [])
+    if (type(usage.get('completion_tokens')) is not int or usage['completion_tokens'] != 32
+            or len(choices) != 1 or choices[0].get('finish_reason') != 'length'):
+        raise RuntimeError('request did not produce the intended 32-token decode')
+    message = choices[0].get('message', {})
+    if not any(isinstance(message.get(k), str) and message[k].strip()
+               for k in ('content', 'reasoning_content')):
+        raise RuntimeError('request produced no text')
+    return usage
+
+
 def command(args, name, check=True):
     result = subprocess.run(args, capture_output=True, text=True, timeout=60)
     (OUT / (name + '.log')).write_text(result.stdout + result.stderr)
@@ -162,20 +176,22 @@ try:
     if not ready:
         raise TimeoutError('health readiness timeout')
     summary['model_loaded'] = True
-    payload = {'prompt': 'Explain how a bounded expert cache handles RAM and NVMe misses.',
-               'n_predict': 32, 'temperature': 0.0, 'seed': 42, 'stream': False, 'cache_prompt': False}
+    payload = {'messages': [{'role': 'user', 'content':
+                'Explain how a bounded expert cache handles RAM and NVMe misses in detail.'}],
+               'max_tokens': 32, 'temperature': 0.0, 'seed': 42, 'stream': False, 'cache_prompt': False}
     (OUT / 'request.json').write_text(json.dumps(payload) + '\n')
     # curl runs separately so memory/VRAM continue to be sampled during inference.
     with (OUT / 'response.json').open('w') as response:
         request = subprocess.Popen(['curl', '--silent', '--show-error', '--fail-with-body', '--max-time', '300',
                                     '-H', 'Content-Type: application/json', '--data-binary', '@' + str(OUT / 'request.json'),
-                                    'http://127.0.0.1:8102/completion'], stdout=response)
+                                    'http://127.0.0.1:8102/v1/chat/completions'], stdout=response)
         while request.poll() is None:
             sample()
             time.sleep(1)
         if request.returncode:
             raise RuntimeError('completion failed')
     sample()
+    summary['completion_usage'] = validate_completion(json.loads((OUT / 'response.json').read_text()))
     summary['status'] = 'request_completed_pending_evidence_validation'
 except Exception as error:
     summary['status'] = 'blocked_or_failed'
