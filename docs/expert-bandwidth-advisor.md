@@ -103,3 +103,43 @@ Arithmetic correction to earlier issue #2 commentary: 100 * 1.97 MiB /
 not proof of physical I/O; no NVMe-bound diagnosis follows from this arithmetic.
 
 Run tests with `python3 tests/test-expert-bandwidth.py`; CTest also registers them.
+
+## Observed cache state and storage accounting (CPU-only follow-up)
+
+Add `--observe` to `expert_bw_calib.py` to collect:
+- `observation.cache_before/cache_after`: page counts from Linux `mincore` on a
+  `PROT_NONE MAP_SHARED` prefix mapping. No payload page is faulted by this probe.
+  Mapping is unmapped before reads start; vectors cover at most 65536 pages each.
+  Supports owned regular files, 64-bit Linux, prefixes at most 4 GiB. Unsupported
+  observation/syscall failures report null counts and an error, NOT zero residency.
+  Ownership is checked against the calling thread's filesystem UID (fourth Uid
+  field in `/proc/thread-self/status`, with matching effective UID namespace).
+  Missing/malformed credentials fail closed; credentials are never changed.
+  This avoids Linux's security masking for unowned files under stable credentials
+  and file ownership; changing either concurrently is unsupported.
+- `cache_before_state/cache_after_state`: `all_nonresident`, `all_resident`,
+  `mixed` or `unavailable`. These describe **non-atomic snapshots only**, not a
+  guarantee that pages remain cold/warm during the entire timed read loop.
+- `storage_before/storage_after`: `/proc/self/io` `read_bytes`, not `rchar`.
+  `storage_read_bytes_delta` is the nonnegative process-accounted storage delta,
+  including readahead. Missing/malformed/regressing counters produce null delta
+  and rate. Zero is valid when the kernel reports no storage reads.
+- `storage_accounted_gib_per_s`: that accounting delta divided by read-loop
+  elapsed time; the counter interval slightly brackets the timed interval.
+  It is **not** an isolated device bandwidth. Other tasks can affect runtime,
+  process readahead may extend past the requested range, and storage may not be NVMe.
+
+Planning, buffer allocation, DONTNEED and observations are outside read-loop
+timing. `gib_per_s` still measures requested buffered payload over read-loop time
+(syscalls, copies and Python included). `cache_state` stays `unverified` because
+continuous residency is unproven. `nvme_bytes_per_s` and `ram_bytes_per_s` remain
+explicitly null; do not feed either buffered or accounted rate into the advisor
+as hardware calibration. Warm preadv is not RAM staging/GEMM bandwidth.
+
+`--cold --observe` can show whether DONTNEED actually left pages nonresident;
+it does not force eviction, globally drop caches, or prove all physical traffic.
+`--pattern random --chunk-bytes 704000 --seed 17` remains a shuffled prefix
+partition, **not an expert-offset/routing trace**. Phase-tagged model traces,
+trace-matched NVMe/RAM/PCIe and quant-specific CPU/GPU GEMM remain open.
+
+Tests: `python3 tests/test-expert-io-observation.py` (also Linux 64-bit CTest).

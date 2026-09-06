@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "workload": "Aorus AD-4.27bpw 2026-09-06: 1GiB prefix, shuffled 704000-byte partition seed17, two cold/warm pairs with mincore snapshots and process read_bytes. No phase-tagged expert-offset trace, matched RAM/PCIe rates, candidate traffic/reserves or CPU/GPU expert GEMM. Accounted buffered rates are not hardware calibration.",
+  "status": "blocked",
+  "model": "serial-no-overlap; RAM traffic is staging only, excluding traffic inside GEMM or PCIe measurements",
+  "recommendation": null,
+  "missing": [
+    "nvme_bytes_per_s",
+    "pcie_bytes_per_s",
+    "ram_bytes_per_s"
+  ],
+  "ranked": [],
+  "rejected": []
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "workload": "Aorus AD-4.27bpw 2026-09-06: 1GiB prefix, shuffled 704000-byte partition seed17, two cold/warm pairs with mincore snapshots and process read_bytes. No phase-tagged expert-offset trace, matched RAM/PCIe rates, candidate traffic/reserves or CPU/GPU expert GEMM. Accounted buffered rates are not hardware calibration.",
+  "ram_bytes_per_s": null,
+  "nvme_bytes_per_s": null,
+  "pcie_bytes_per_s": null,
+  "candidates": []
+}

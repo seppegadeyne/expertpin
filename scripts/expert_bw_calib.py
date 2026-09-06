@@ -7,6 +7,8 @@ Optional POSIX_FADV_DONTNEED is best effort; cache state remains unverified.
 
 Outputs JSON with bytes, seconds, gib_per_s, dontneed_requested, cache_state,
 pattern, seed and chunk_bytes. No warm/cold or physical-device assertion.
+--observe adds non-faulting Linux mincore snapshots and /proc/self/io read_bytes
+around the reads. Unknown/unsupported observations are null, never fake zeros.
 
 Usage:
   scripts/expert_bw_calib.py --file <shard.gguf> [--length MiB] [--chunk MiB]
@@ -23,6 +25,7 @@ import random
 from pathlib import Path
 import tempfile
 import time
+from typing import Any
 
 MIB = 1024 * 1024
 GIB = 1024 * 1024 * 1024
@@ -61,12 +64,109 @@ def drop_cache(fd: int, offset: int, length: int):
     posix.posix_fadvise(fd, offset, length, posix.POSIX_FADV_DONTNEED)
 
 
+def parse_read_bytes(text):
+    values = [line.partition(':')[2].strip() for line in text.splitlines()
+              if line.partition(':')[0] == 'read_bytes']
+    if len(values) != 1 or not values[0].isascii() or not values[0].isdecimal():
+        raise ValueError('missing, duplicate or invalid read_bytes counter')
+    return int(values[0])
+
+
+def storage_snapshot() -> dict[str, Any]:
+    """Linux process-accounted storage reads, NOT read syscall payload bytes."""
+    try:
+        return dict(read_bytes=parse_read_bytes(Path('/proc/self/io').read_text()), error=None)
+    except (OSError, ValueError) as error:
+        return dict(read_bytes=None, error=str(error))
+
+
+def filesystem_uid():
+    """Read this thread's fsuid; never call setfsuid or modify credentials."""
+    rows = [line.split()[1:] for line in Path('/proc/thread-self/status').read_text().splitlines()
+            if line.partition(':')[0] == 'Uid']
+    if len(rows) != 1 or len(rows[0]) != 4 or not all(
+            value.isascii() and value.isdecimal() for value in rows[0]):
+        raise ValueError('missing, duplicate or invalid thread Uid fields')
+    # A nonstandard proc namespace view cannot safely authenticate ownership.
+    if int(rows[0][1]) != os.geteuid():
+        raise ValueError('proc effective UID differs from the caller')
+    return int(rows[0][3])
+
+
+def cache_snapshot(fd, length):
+    """Observe prefix residency without faulting payload into the process.
+
+    PROT_NONE mapping, bounded mincore vectors. Snapshot only: not an atomic
+    whole-range observation, residency can change during/after the syscall(s).
+    Linux may mask mincore results for files the caller does not own/cannot write;
+    refuse those rather than turn a security mask into an all-resident claim.
+    """
+    result: dict[str, Any] = dict(method='mincore PROT_NONE MAP_SHARED', pages=None,
+                  resident_pages=None, error=None)
+    try:
+        import ctypes
+        import stat
+        import sys
+        if not sys.platform.startswith('linux') or ctypes.sizeof(ctypes.c_void_p) != 8:
+            raise ValueError('residency observation requires 64-bit Linux')
+        info = os.fstat(fd)
+        if not stat.S_ISREG(info.st_mode) or info.st_uid != filesystem_uid():
+            raise ValueError('mincore requires an owned regular file to avoid masked residency')
+        if length <= 0 or length > min(info.st_size, 4 * GIB):
+            raise ValueError('snapshot prefix must be within the file and (0, 4 GiB]')
+        libc = ctypes.CDLL(None, use_errno=True)
+        libc.mmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_int,
+                              ctypes.c_int, ctypes.c_int, ctypes.c_long]
+        libc.mmap.restype = ctypes.c_void_p
+        libc.mincore.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_void_p]
+        libc.mincore.restype = ctypes.c_int
+        libc.munmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+        libc.munmap.restype = ctypes.c_int
+        page = os.sysconf('SC_PAGESIZE')
+        pages = (length + page - 1) // page
+        addr = libc.mmap(None, length, 0, 1, fd, 0)  # PROT_NONE, MAP_SHARED
+        if addr == ctypes.c_void_p(-1).value:
+            errno = ctypes.get_errno()
+            raise OSError(errno, os.strerror(errno))
+        resident = 0
+        try:
+            for start in range(0, pages, 65536):
+                count = min(65536, pages - start)
+                vec = (ctypes.c_ubyte * count)()
+                if libc.mincore(addr + start * page, min(count * page, length - start * page), vec):
+                    errno = ctypes.get_errno()
+                    raise OSError(errno, os.strerror(errno))
+                resident += sum(value & 1 for value in vec)
+        finally:
+            if libc.munmap(addr, length):
+                errno = ctypes.get_errno()
+                raise OSError(errno, os.strerror(errno))
+        result.update(pages=pages, resident_pages=resident)
+    except (OSError, ValueError, AttributeError, ImportError) as error:
+        result['error'] = str(error)
+    return result
+
+
+def cache_snapshot_state(sample):
+    if sample['pages'] is None or sample['resident_pages'] is None:
+        return 'unavailable'
+    if sample['resident_pages'] == 0:
+        return 'all_nonresident'
+    if sample['resident_pages'] == sample['pages']:
+        return 'all_resident'
+    return 'mixed'
+
+
 def measure(fd: int, length: int, chunk: int, cold: bool,
-            pattern='sequential', seed=0):
+            pattern='sequential', seed=0, observation=None):
     chunks = read_plan(length, chunk, pattern, seed)
+    buf = bytearray(min(chunk, length))
+    before: dict[str, Any] = {}
     if cold:
         drop_cache(fd, 0, length)
-    buf = bytearray(chunk)
+    if observation is not None:
+        observation['cache_before'] = cache_snapshot(fd, length)
+        before = storage_snapshot()
     t0 = time.perf_counter()
     total = 0
     for off, size in chunks:
@@ -76,6 +176,21 @@ def measure(fd: int, length: int, chunk: int, cold: bool,
         if n != size:
             raise IOError(f"short read at {off}: {n} != {size}")
     dt = time.perf_counter() - t0
+    if observation is not None:
+        after = storage_snapshot()
+        observation['cache_after'] = cache_snapshot(fd, length)
+        a, b = before['read_bytes'], after['read_bytes']
+        delta = b - a if a is not None and b is not None and b >= a else None
+        observation.update(
+            storage_before=before, storage_after=after,
+            storage_read_bytes_delta=delta,
+            storage_accounted_gib_per_s=delta / GIB / dt if delta is not None and dt > 0 else None,
+            cache_before_state=cache_snapshot_state(observation['cache_before']),
+            cache_after_state=cache_snapshot_state(observation['cache_after']),
+            nvme_bytes_per_s=None, ram_bytes_per_s=None,
+            limitations='Non-atomic residency snapshots; process read_bytes includes readahead, '
+                        'not device-isolated NVMe traffic. Buffered preadv includes copy and Python '
+                        'loop costs; no continuous cache-state guarantee or physical RAM rate.')
     return total, dt
 
 
@@ -121,6 +236,8 @@ def main():
     ap.add_argument("--pattern", choices=('sequential', 'random'), default='sequential')
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--json", help="write result JSON to this path")
+    ap.add_argument("--observe", action="store_true",
+                    help="observe Linux mincore snapshots and process storage read_bytes; not hardware rates")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
 
@@ -139,8 +256,9 @@ def main():
     if not length:
         ap.error('file must not be empty')
     fd = os.open(args.file, os.O_RDONLY)
+    observation = {} if args.observe else None
     try:
-        total, dt = measure(fd, length, chunk, args.cold, args.pattern, args.seed)
+        total, dt = measure(fd, length, chunk, args.cold, args.pattern, args.seed, observation)
     finally:
         os.close(fd)
 
@@ -158,6 +276,8 @@ def main():
         "seed": args.seed,
         "chunk_bytes": chunk,
     }
+    if observation is not None:
+        result["observation"] = observation
     print(json.dumps(result, indent=2))
     if args.json:
         with open(args.json, "w") as f:

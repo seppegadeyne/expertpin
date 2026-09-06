@@ -9,6 +9,11 @@ if (Python3_Interpreter_FOUND)
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-expert-cache-analysis.py)
     add_test(NAME test-expert-bandwidth
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-expert-bandwidth.py)
+    if (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SIZEOF_VOID_P GREATER_EQUAL 8)
+        add_test(NAME test-expert-io-observation
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-expert-io-observation.py)
+        set_tests_properties(test-expert-io-observation PROPERTIES LABELS "main;python" TIMEOUT 60)
+    endif()
     set_tests_properties(test-expert-bandwidth PROPERTIES LABELS "main;python" TIMEOUT 60)
     set_tests_properties(test-expert-cache-analysis PROPERTIES LABELS "main;python" TIMEOUT 60)
     set_tests_properties(test-cache-shadow-gates PROPERTIES LABELS "main;python" TIMEOUT 60)

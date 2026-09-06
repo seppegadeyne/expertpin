@@ -1,0 +1,42 @@
+{
+  "file": "/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00003-of-00033.gguf",
+  "bytes": 1073741824,
+  "mib": 1024.0,
+  "seconds": 0.0685835579643026,
+  "gib_per_s": 14.580754187767496,
+  "dontneed_requested": false,
+  "cache_state": "unverified",
+  "io_api": "buffered preadv",
+  "pattern": "random",
+  "seed": 17,
+  "chunk_bytes": 704000,
+  "observation": {
+    "cache_before": {
+      "method": "mincore PROT_NONE MAP_SHARED",
+      "pages": 262144,
+      "resident_pages": 262144,
+      "error": null
+    },
+    "cache_after": {
+      "method": "mincore PROT_NONE MAP_SHARED",
+      "pages": 262144,
+      "resident_pages": 262144,
+      "error": null
+    },
+    "storage_before": {
+      "read_bytes": 0,
+      "error": null
+    },
+    "storage_after": {
+      "read_bytes": 0,
+      "error": null
+    },
+    "storage_read_bytes_delta": 0,
+    "storage_accounted_gib_per_s": 0.0,
+    "cache_before_state": "all_resident",
+    "cache_after_state": "all_resident",
+    "nvme_bytes_per_s": null,
+    "ram_bytes_per_s": null,
+    "limitations": "Non-atomic residency snapshots; process read_bytes includes readahead, not device-isolated NVMe traffic. Buffered preadv includes copy and Python loop costs; no continuous cache-state guarantee or physical RAM rate."
+  }
+}
