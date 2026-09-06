@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "ggml_type": 20,
+      "quant": "iq4_nl",
+      "median_us": 7.651,
+      "minimum_us": 7.47,
+      "maximum_us": 16.371,
+      "max_relative_l2_error": 0.0035470194919648918,
+      "slice_bytes": 921600
+    },
+    {
+      "ggml_type": 21,
+      "quant": "iq3_s",
+      "median_us": 7.42,
+      "minimum_us": 7.26,
+      "maximum_us": 16.541,
+      "max_relative_l2_error": 0.0038636476459128506,
+      "slice_bytes": 704000
+    },
+    {
+      "ggml_type": 22,
+      "quant": "iq2_s",
+      "median_us": 7.79,
+      "minimum_us": 7.62,
+      "maximum_us": 16.821,
+      "max_relative_l2_error": 0.0037870965265218138,
+      "slice_bytes": 524800
+    }
+  ],
+  "memory_peak_highest_read_gib": 0.389007568359375,
+  "vram_device_sample_peak_gib": 2.482421875,
+  "samples": 67,
+  "mem_available_gib": 43.62825012207031,
+  "qli_stop_to_start_seconds": 8.743074,
+  "binary_sha256": "93166c47cb03d87fb569d678a2c7e609285ca41e51d059c3b1f6d4b1e184cea6",
+  "model_tokens_per_second": null,
+  "prior_short_decode_tokens_per_second": 16.268900522282546,
+  "prior_gap_to_20": 3.7310994777174535
+}

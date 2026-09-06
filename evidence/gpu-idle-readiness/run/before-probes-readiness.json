@@ -1,0 +1,14 @@
+[
+  {
+    "mem_available_bytes": 46834552832,
+    "gpu_util_pct": 100,
+    "vram_mib": 2030,
+    "elapsed_s": 0.028220926062203944
+  },
+  {
+    "mem_available_bytes": 46845476864,
+    "gpu_util_pct": 0,
+    "vram_mib": 2030,
+    "elapsed_s": 2.0685909630265087
+  }
+]

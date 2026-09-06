@@ -1,0 +1,2 @@
+Sep 06 14:01:38 aorus systemd[1523]: Started [systemd-run] /usr/sbin/timeout --signal=TERM --kill-after=10 300 /home/seppe/.hermes/hermes-agent/.worktrees/pr74809-repair-20260811/.venv/bin/python3 /home/seppe/Projects/expertpin/evidence/trace-matched-bandwidth/run-physical.py --inner.
+Sep 06 14:01:42 aorus systemd[1523]: expertpin-physical-188c210ca90d4efc8649be09568fd2b5.scope: Consumed 4.199s CPU time over 4.018s wall clock time, 398.3M memory peak.

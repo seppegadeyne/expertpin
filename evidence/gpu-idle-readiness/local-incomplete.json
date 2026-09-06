@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "workload": "Aorus request27 CPU offsets: previous matched buffered preadv cold/warm rates remain in trace-matched-bandwidth/bandwidth-cpu.json. New gpu-idle-readiness/run/gpu.json: synthetic hot single-expert CUDA MUL_MAT (101 dispatch+sync samples each), medians us {'iq4_nl': 7.651, 'iq3_s': 7.42, 'iq2_s': 7.79}. These are NOT routed whole-model per-token compute or physical VRAM/PCIe bandwidth. No matched pageable staging, complete CPU/GPU routing, candidate traffic/reserves; no fabricated rate inputs. Hardware rates/candidates remain null/empty, so no recommendation is justified.",
+  "ram_bytes_per_s": null,
+  "nvme_bytes_per_s": null,
+  "pcie_bytes_per_s": null,
+  "candidates": []
+}

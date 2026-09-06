@@ -1,0 +1,616 @@
+{
+  "samples": [
+    {
+      "memory.current": "8368128",
+      "memory.peak": "8368128",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2030,
+      "timestamp": "2026-09-06T14:01:38.471624+02:00"
+    },
+    {
+      "memory.current": "10125312",
+      "memory.peak": "39604224",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2030,
+      "timestamp": "2026-09-06T14:01:38.522158+02:00"
+    },
+    {
+      "memory.current": "231288832",
+      "memory.peak": "231550976",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2030,
+      "timestamp": "2026-09-06T14:01:38.587199+02:00"
+    },
+    {
+      "memory.current": "309403648",
+      "memory.peak": "309403648",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2047,
+      "timestamp": "2026-09-06T14:01:38.658388+02:00"
+    },
+    {
+      "memory.current": "346767360",
+      "memory.peak": "346767360",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2536,
+      "timestamp": "2026-09-06T14:01:38.718849+02:00"
+    },
+    {
+      "memory.current": "346787840",
+      "memory.peak": "368508928",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2536,
+      "timestamp": "2026-09-06T14:01:38.779743+02:00"
+    },
+    {
+      "memory.current": "340307968",
+      "memory.peak": "368541696",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2540,
+      "timestamp": "2026-09-06T14:01:38.840688+02:00"
+    },
+    {
+      "memory.current": "376287232",
+      "memory.peak": "376553472",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:38.901833+02:00"
+    },
+    {
+      "memory.current": "375975936",
+      "memory.peak": "397459456",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:38.962199+02:00"
+    },
+    {
+      "memory.current": "376000512",
+      "memory.peak": "397459456",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.022436+02:00"
+    },
+    {
+      "memory.current": "376320000",
+      "memory.peak": "397459456",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.082558+02:00"
+    },
+    {
+      "memory.current": "376352768",
+      "memory.peak": "397778944",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.141993+02:00"
+    },
+    {
+      "memory.current": "376410112",
+      "memory.peak": "397778944",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.202183+02:00"
+    },
+    {
+      "memory.current": "380948480",
+      "memory.peak": "397836288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.262699+02:00"
+    },
+    {
+      "memory.current": "394539008",
+      "memory.peak": "415932416",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.322007+02:00"
+    },
+    {
+      "memory.current": "394395648",
+      "memory.peak": "415932416",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.381896+02:00"
+    },
+    {
+      "memory.current": "394665984",
+      "memory.peak": "415932416",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.441787+02:00"
+    },
+    {
+      "memory.current": "394739712",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.501487+02:00"
+    },
+    {
+      "memory.current": "394375168",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.561139+02:00"
+    },
+    {
+      "memory.current": "394690560",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.620733+02:00"
+    },
+    {
+      "memory.current": "394452992",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.680817+02:00"
+    },
+    {
+      "memory.current": "394153984",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.740765+02:00"
+    },
+    {
+      "memory.current": "394190848",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.800477+02:00"
+    },
+    {
+      "memory.current": "394301440",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.860240+02:00"
+    },
+    {
+      "memory.current": "394448896",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.920705+02:00"
+    },
+    {
+      "memory.current": "393777152",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:39.982053+02:00"
+    },
+    {
+      "memory.current": "393814016",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.043919+02:00"
+    },
+    {
+      "memory.current": "393953280",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.104804+02:00"
+    },
+    {
+      "memory.current": "393773056",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.165339+02:00"
+    },
+    {
+      "memory.current": "393875456",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.225469+02:00"
+    },
+    {
+      "memory.current": "393883648",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.285539+02:00"
+    },
+    {
+      "memory.current": "393912320",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.345790+02:00"
+    },
+    {
+      "memory.current": "393973760",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.406213+02:00"
+    },
+    {
+      "memory.current": "394362880",
+      "memory.peak": "416034816",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.466347+02:00"
+    },
+    {
+      "memory.current": "394752000",
+      "memory.peak": "416116736",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.526696+02:00"
+    },
+    {
+      "memory.current": "394797056",
+      "memory.peak": "416116736",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.586408+02:00"
+    },
+    {
+      "memory.current": "395096064",
+      "memory.peak": "416202752",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.646467+02:00"
+    },
+    {
+      "memory.current": "395100160",
+      "memory.peak": "416464896",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.706223+02:00"
+    },
+    {
+      "memory.current": "394899456",
+      "memory.peak": "416464896",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.766234+02:00"
+    },
+    {
+      "memory.current": "394817536",
+      "memory.peak": "416464896",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.826615+02:00"
+    },
+    {
+      "memory.current": "394993664",
+      "memory.peak": "416464896",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.886553+02:00"
+    },
+    {
+      "memory.current": "394739712",
+      "memory.peak": "416464896",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:40.947757+02:00"
+    },
+    {
+      "memory.current": "394895360",
+      "memory.peak": "416493568",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.007700+02:00"
+    },
+    {
+      "memory.current": "395300864",
+      "memory.peak": "416645120",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.067814+02:00"
+    },
+    {
+      "memory.current": "395132928",
+      "memory.peak": "416645120",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.127609+02:00"
+    },
+    {
+      "memory.current": "395165696",
+      "memory.peak": "416645120",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.187688+02:00"
+    },
+    {
+      "memory.current": "395509760",
+      "memory.peak": "416645120",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.248405+02:00"
+    },
+    {
+      "memory.current": "393940992",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.307744+02:00"
+    },
+    {
+      "memory.current": "394248192",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.367242+02:00"
+    },
+    {
+      "memory.current": "394289152",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.427615+02:00"
+    },
+    {
+      "memory.current": "394481664",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.487335+02:00"
+    },
+    {
+      "memory.current": "394809344",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.547578+02:00"
+    },
+    {
+      "memory.current": "395059200",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.607350+02:00"
+    },
+    {
+      "memory.current": "394866688",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.668376+02:00"
+    },
+    {
+      "memory.current": "394788864",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.727887+02:00"
+    },
+    {
+      "memory.current": "395268096",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.787480+02:00"
+    },
+    {
+      "memory.current": "395243520",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.846804+02:00"
+    },
+    {
+      "memory.current": "394944512",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.906470+02:00"
+    },
+    {
+      "memory.current": "395276288",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:41.967276+02:00"
+    },
+    {
+      "memory.current": "395042816",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:42.026986+02:00"
+    },
+    {
+      "memory.current": "394801152",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:42.086959+02:00"
+    },
+    {
+      "memory.current": "394854400",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:42.146652+02:00"
+    },
+    {
+      "memory.current": "394846208",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:42.206202+02:00"
+    },
+    {
+      "memory.current": "394862592",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:42.265638+02:00"
+    },
+    {
+      "memory.current": "395280384",
+      "memory.peak": "416780288",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2542,
+      "timestamp": "2026-09-06T14:01:42.326213+02:00"
+    },
+    {
+      "memory.current": "210587648",
+      "memory.peak": "417693696",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2030,
+      "timestamp": "2026-09-06T14:01:42.402211+02:00"
+    },
+    {
+      "memory.current": "201138176",
+      "memory.peak": "417693696",
+      "memory.max": "42949672960",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "vram_mib": 2030,
+      "timestamp": "2026-09-06T14:01:42.461106+02:00"
+    }
+  ],
+  "model_load": false,
+  "started": "2026-09-06T14:01:38.461041+02:00",
+  "gpu_guard": {
+    "mem_available_bytes": 46835953664,
+    "gpu_util_pct": 0,
+    "vram_mib": 2030
+  },
+  "success": true,
+  "finished": "2026-09-06T14:01:42.461118+02:00"
+}

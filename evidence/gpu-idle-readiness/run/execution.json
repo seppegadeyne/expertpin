@@ -1,0 +1,20 @@
+{
+  "scope": "expertpin-physical-188c210ca90d4efc8649be09568fd2b5.scope",
+  "cleanup_errors": [],
+  "started": "2026-09-06T14:01:31.629813+02:00",
+  "qli_stop_requested": "2026-09-06T14:01:33.729458+02:00",
+  "guard": {
+    "mem_available_bytes": 46845476864,
+    "gpu_util_pct": 0,
+    "vram_mib": 2030,
+    "elapsed_s": 2.0685909630265087
+  },
+  "success": true,
+  "scope-state": "inactive",
+  "qli_start_requested": "2026-09-06T14:01:42.472532+02:00",
+  "qli-start": "",
+  "qli-active": "active",
+  "host-restore": "[gpu-host-prep] restore: headless-chromium.service=active, MemAvailable=43.7 GiB",
+  "chromium-active": "active",
+  "qli-journal": "Sep 06 14:01:34 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:34.404 [INFO]  [CPU] Trainer: Received exit command...\nSep 06 14:01:34 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:34.404 [INFO]  [CPU] Trainer: Waiting for local server\nSep 06 14:01:34 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:34.404 [INFO]  [CPU] Trainer: Waiting for mining thread\nSep 06 14:01:34 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:34.404 [INFO]  [CPU] Trainer: shutting down...\nSep 06 14:01:34 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:34.894 [INFO]  [GPU] Trainer: GPU #0: 931 it/s\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.026 [INFO]  [e2c8dab8-af9c-4272-8fef-df41f470948c] qli-worker-AVX512 not running or has exited. Starting the process...\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: [133B blob data]\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.043 [INFO]  [CPU] Trainer: Algo: bpp9000\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.043 [INFO]  [CPU] Trainer: pplns cpu 229.0 is starting.\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.043 [INFO]  [CPU] Trainer: Version: AVX512\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.043 [INFO]  [CPU] Trainer: Author: mundus\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.043 [INFO]  [CPU] Trainer: Waiting for updinf/updpar from qli-client...\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.095 [INFO]  [GPU] Trainer: Received exit signal. Waiting for GPU threads to finish current tasks...\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.095 [INFO]  [GPU] Trainer: GPU#0 finished\nSep 06 14:01:36 aorus qli-runner.sh[3759974]: 2026-09-06 12:01:36.095 [INFO]  [GPU] Trainer: shutting down.\nSep 06 14:01:36 aorus systemd[1523]: Stopped Qubic QLI CPU+CUDA miner (auto-update).\nSep 06 14:01:36 aorus systemd[1523]: qli.service: Consumed 7h 31min 28.504s CPU time over 17min 28.765s wall clock time, 824.7M memory peak.\nSep 06 14:01:42 aorus systemd[1523]: Starting Qubic QLI CPU+CUDA miner (auto-update)...\nSep 06 14:01:42 aorus sudo[3785515]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -pl 550\nSep 06 14:01:42 aorus sudo[3785515]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)\nSep 06 14:01:42 aorus sudo[3785515]: pam_unix(sudo:session): session closed for user root\nSep 06 14:01:42 aorus sudo[3785519]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -lgc 180,2700\nSep 06 14:01:42 aorus sudo[3785519]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)\nSep 06 14:01:42 aorus sudo[3785519]: pam_unix(sudo:session): session closed for user root\nSep 06 14:01:42 aorus sudo[3785523]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -rmc\nSep 06 14:01:42 aorus sudo[3785523]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)\nSep 06 14:01:42 aorus sudo[3785523]: pam_unix(sudo:session): session closed for user root\nSep 06 14:01:42 aorus qubic-gpu-tune-service[3785514]: [qli-tune] OK: power 550W, clocks 180-2700, mem reset, hugepages 281\nSep 06 14:01:42 aorus systemd[1523]: Started Qubic QLI CPU+CUDA miner (auto-update).\nSep 06 14:01:42 aorus qli-runner.sh[3785534]: [qli-runner] geen updater-signature \u2014 start client"
+}
