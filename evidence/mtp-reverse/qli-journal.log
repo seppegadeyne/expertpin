@@ -1,0 +1,3 @@
+Sep 06 16:15:08 aorus qubic-gpu-tune-service[3951121]: [qli-tune] OK: power 550W, clocks 180-2700, mem reset, hugepages 281
+Sep 06 16:17:13 aorus qubic-gpu-tune-service[3953533]: [qli-tune] OK: power 550W, clocks 180-2700, mem reset, hugepages 281
+Sep 06 16:19:31 aorus qubic-gpu-tune-service[3956170]: [qli-tune] OK: power 550W, clocks 180-2700, mem reset, hugepages 281

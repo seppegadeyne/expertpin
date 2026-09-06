@@ -1,0 +1,13 @@
+Sep 06 16:12:17 aorus systemd[1523]: headless-chromium.service: Consumed 4.345s CPU time over 20min 51.861s wall clock time, 911.2M memory peak.
+Sep 06 16:12:17 aorus systemd[1523]: app-org.chromium.Chromium-3920969.scope: Consumed 2.759s CPU time over 20min 51.580s wall clock time, 252.2M memory peak.
+Sep 06 16:12:26 aorus systemd[1523]: qli.service: Consumed 9h 1min 22.780s CPU time over 21min 45ms wall clock time, 1.2G memory peak.
+Sep 06 16:15:08 aorus systemd[1523]: expertpin-test-87e70536e3af4bb8a65f9af5520e39b3.scope: Consumed 27min 16.850s CPU time over 2min 42.562s wall clock time, 32.4G memory peak, 2.1G memory swap peak.
+Sep 06 16:15:17 aorus systemd[1523]: headless-chromium.service: Consumed 1.070s CPU time over 9.006s wall clock time, 890.6M memory peak.
+Sep 06 16:15:17 aorus systemd[1523]: app-org.chromium.Chromium-3951187.scope: Consumed 569ms CPU time over 8.737s wall clock time, 255.5M memory peak.
+Sep 06 16:15:23 aorus systemd[1523]: qli.service: Consumed 3min 36.886s CPU time over 14.971s wall clock time, 836.2M memory peak.
+Sep 06 16:17:13 aorus systemd[1523]: expertpin-test-430c83ad1ee24b0485a75e8771584a07.scope: Consumed 12min 50.442s CPU time over 1min 49.384s wall clock time, 32.4G memory peak, 2.1G memory swap peak.
+Sep 06 16:17:19 aorus systemd[1523]: headless-chromium.service: Consumed 1.110s CPU time over 6.377s wall clock time, 902.7M memory peak.
+Sep 06 16:17:19 aorus systemd[1523]: app-org.chromium.Chromium-3953559.scope: Consumed 580ms CPU time over 6.103s wall clock time, 258.9M memory peak.
+Sep 06 16:17:28 aorus systemd[1523]: qli.service: Consumed 2min 28.291s CPU time over 15.546s wall clock time, 826.4M memory peak.
+Sep 06 16:17:59 aorus systemd[1523]: hermes-worker-cron-7acc2328a748-exec-04d052110d364ecc8712e2ce0a9044e2.scope: Consumed 29.563s CPU time over 11min 42.140s wall clock time, 1.1G memory peak, 866.9M memory swap peak.
+Sep 06 16:19:31 aorus systemd[1523]: expertpin-test-f5e7ca266c89499791221aaa1810fcc3.scope: Consumed 16min 27.315s CPU time over 2min 2.278s wall clock time, 32.4G memory peak, 2.1G memory swap peak.
