@@ -1,0 +1,591 @@
+Test project /home/seppe/Projects/expertpin/build-cpu-shadow
+      Start  1: test-gpu-idle-readiness
+ 1/39 Test  #1: test-gpu-idle-readiness ..............   Passed    0.09 sec
+      Start  2: test-trace-run-cleanup
+ 2/39 Test  #2: test-trace-run-cleanup ...............   Passed    0.12 sec
+      Start  3: test-cache-shadow-gates
+ 3/39 Test  #3: test-cache-shadow-gates ..............   Passed    1.55 sec
+      Start  4: test-expert-cache-analysis
+ 4/39 Test  #4: test-expert-cache-analysis ...........   Passed    0.05 sec
+      Start  5: test-expert-bandwidth
+ 5/39 Test  #5: test-expert-bandwidth ................   Passed    0.20 sec
+      Start  6: test-expert-io-observation
+ 6/39 Test  #6: test-expert-io-observation ...........   Passed    0.26 sec
+      Start  7: test-trace-bandwidth
+ 7/39 Test  #7: test-trace-bandwidth .................   Passed    0.38 sec
+      Start  8: test-tokenizer-0-bert-bge
+ 8/39 Test  #8: test-tokenizer-0-bert-bge ............***Failed    0.03 sec
+main : reading vocab from: '/home/seppe/Projects/expertpin/tests/../models/ggml-vocab-bert-bge.gguf'
+CPU: using device CPU - 0 MiB free
+llama_model_loader: loaded meta data with 20 key-value pairs and 0 tensors from /home/seppe/Projects/expertpin/tests/../models/ggml-vocab-bert-bge.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = bert
+llama_model_loader: - kv   1:                               general.name str              = bert-bge
+llama_model_loader: - kv   2:                           bert.block_count u32              = 12
+llama_model_loader: - kv   3:                        bert.context_length u32              = 512
+llama_model_loader: - kv   4:                      bert.embedding_length u32              = 384
+llama_model_loader: - kv   5:                   bert.feed_forward_length u32              = 1536
+llama_model_loader: - kv   6:                  bert.attention.head_count u32              = 12
+llama_model_loader: - kv   7:          bert.attention.layer_norm_epsilon f32              = 0.000000
+llama_model_loader: - kv   8:                          general.file_type u32              = 1
+llama_model_loader: - kv   9:                      bert.attention.causal bool             = false
+llama_model_loader: - kv  10:            tokenizer.ggml.token_type_count u32              = 2
+llama_model_loader: - kv  11:                       tokenizer.ggml.model str              = bert
+llama_model_loader: - kv  12:                         tokenizer.ggml.pre str              = bert-bge
+llama_model_loader: - kv  13:                      tokenizer.ggml.tokens arr[str,30522]   = ["[PAD]", "[unused0]", "[unused1]", "...
+llama_model_loader: - kv  14:                  tokenizer.ggml.token_type arr[i32,30522]   = [3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  15:            tokenizer.ggml.unknown_token_id u32              = 100
+llama_model_loader: - kv  16:          tokenizer.ggml.seperator_token_id u32              = 102
+llama_model_loader: - kv  17:            tokenizer.ggml.padding_token_id u32              = 0
+llama_model_loader: - kv  18:                tokenizer.ggml.cls_token_id u32              = 101
+llama_model_loader: - kv  19:               tokenizer.ggml.mask_token_id u32              = 103
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 0 ('[PAD]')
+load: special tokens cache size = 5
+load: token to piece cache size = 0.2032 MB
+llm_load_print_meta: format           = GGUF V3 (latest)
+llm_load_print_meta: arch             = bert
+llm_load_print_meta: model type       = ?B
+llm_load_print_meta: model ftype      = all F32
+llm_load_print_meta: model params     = 0.000 K
+llm_load_print_meta: model size       = 0.000 MiB (-nan BPW) 
+llm_load_print_meta: general.name     = bert-bge
+print_info: vocab type            = WPM
+print_info: n_vocab               = 30522
+print_info: n_merges              = 0
+print_info: BOS token             = 101 '[CLS]'
+print_info: UNK token             = 100 '[UNK]'
+print_info: SEP token             = 102 '[SEP]'
+print_info: PAD token             = 0 '[PAD]'
+print_info: MASK token            = 103 '[MASK]'
+print_info: LF token              = 0 '[PAD]'
+print_info: FIM PAD token         = 0 '[PAD]'
+print_info: EOG token             = 0 '[PAD]'
+print_info: max token length      = 21
+llama_model_load: vocab only - skipping tensors
+llama_init_from_model: n_ctx         = 512
+llama_init_from_model: n_batch       = 512
+llama_init_from_model: n_ubatch      = 512
+llama_init_from_model: flash_attn    = 1
+llama_init_from_model: attn_max_b    = 256
+llama_init_from_model: fused_moe     = 1
+llama_init_from_model: grouped er    = 0
+llama_init_from_model: fused_up_gate = 1
+llama_init_from_model: fused_mmad    = 1
+llama_init_from_model: rope_cache    = 0
+llama_init_from_model: graph_reuse   = 1
+llama_init_from_model: k_cache_hadam = 0
+llama_init_from_model: v_cache_hadam = 0
+llama_init_from_model: split_mode_graph_scheduling = 0
+llama_init_from_model: reduce_type   = f16
+llama_init_from_model: sched_async   = 0
+llama_init_from_model: ser           = -1, 0
+llama_init_from_model: freq_base     = 0.0
+llama_init_from_model: freq_scale    = 1
+main : failed test:    '
+ 
+
+ 
+
+
+ 	 		 	
+  
+   
+    
+     
+🚀 (normal) 😶‍🌫️ (multiple emojis concatenated) ✅ 🦙🦙 3 33 333 3333 33333 333333 3333333 33333333 3.3 3..3 3...3 កាន់តែពិសេសអាច😁 ?我想在apple工作1314151天～ ------======= нещо на Български ''''''```````""""......!!!!!!?????? I've been 'told he's there, 'RE you sure? 'M not sure I'll make it, 'D you like some tea? We'Ve a'lL'
+main : detokenized to: '[UNK] ( normal )[UNK] ( multiple emojis concatenated )[UNK][UNK] 3 33 333 3333 33333 333333 3333333 33333333 3. 3 3.. 3 3... 3[UNK]? 我[UNK][UNK] apple[UNK][UNK] 1314151 天 ～ - - - - - - = = = = = = = нещо на[UNK]'''''' ` ` ` ` ` ` ` " " " "......!!!!!!??????[UNK]'ve been'told he's there, '[UNK] you sure? '[UNK] not sure[UNK]'ll make it, '[UNK] you like some tea?[UNK] '[UNK] a '[UNK]' instead of '[UNK] ( normal )[UNK] ( multiple emojis concatenated )[UNK][UNK] 3 33 333 3333 33333 333333 3333333 33333333 3. 3 3.. 3 3... 3[UNK]? 我[UNK][UNK] apple[UNK][UNK] 1314151 天 ～ - - - - - - = = = = = = = нещо на български'''''' ` ` ` ` ` ` ` " " " "......!!!!!!?????? i've been'told he's there,'re you sure?'m not sure i'll make it,'d you like some tea? we've a'll'
+main : expected tokens:    100 '[UNK]',   1006 ' (',   3671 ' normal',   1007 ' )',    100 '[UNK]',   1006 ' (',   3674 ' multiple',   7861 ' em',  29147 'oj',   2483 'is',   9530 ' con',  16280 'cate',  23854 'nated',   1007 ' )',    100 '[UNK]',    100 '[UNK]',   1017 ' 3',   3943 ' 33',  21211 ' 333',  21211 ' 333',   2509 '3',  21211 ' 333',  22394 '33',  21211 ' 333',  22394 '33',   2509 '3',  21211 ' 333',  22394 '33',  22394 '33',  21211 ' 333',  22394 '33',  22394 '33',   2509 '3',   1017 ' 3',   1012 ' .',   1017 ' 3',   1017 ' 3',   1012 ' .',   1012 ' .',   1017 ' 3',   1017 ' 3',   1012 ' .',   1012 ' .',   1012 ' .',   1017 ' 3',    100 '[UNK]',   1029 ' ?',   1855 ' 我',    100 '[UNK]',    100 '[UNK]',   6207 ' apple',    100 '[UNK]',    100 '[UNK]',  14677 ' 131',  23632 '41',  22203 '51',   1811 ' 天',   1995 ' ～',   1011 ' -',   1011 ' -',   1011 ' -',   1011 ' -',   1011 ' -',   1011 ' -',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1192 ' н',  15290 'е',  29754 'щ',  14150 'о',   1192 ' н',  10260 'а',   1181 ' б',  29755 'ъ',  29436 'л',  29741 'г',  10260 'а',  16856 'р',  29747 'с',  23925 'к',  10325 'и',   1005 ' '',   1005 ' '',   1005 ' '',   1005 ' '',   1005 ' '',   1005 ' '',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1000 ' "',   1000 ' "',   1000 ' "',   1000 ' "',   1012 ' .',   1012 ' .',   1012 ' .',   1012 ' .',   1012 ' .',   1012 ' .',    999 ' !',    999 ' !',    999 ' !',    999 ' !',    999 ' !',    999 ' !',   1029 ' ?',   1029 ' ?',   1029 ' ?',   1029 ' ?',   1029 ' ?',   1029 ' ?',   1045 ' i',   1005 ' '',   2310 ' ve',   2042 ' been',   1005 ' '',   2409 ' told',   2002 ' he',   1005 ' '',   1055 ' s',   2045 ' there',   1010 ' ,',   1005 ' '',   2128 ' re',   2017 ' you',   2469 ' sure',   1029 ' ?',   1005 ' '',   1049 ' m',   2025 ' not',   2469 ' sure',   1045 ' i',   1005 ' '',   2222 ' ll',   2191 ' make',   2009 ' it',   1010 ' ,',   1005 ' '',   1040 ' d',   2017 ' you',   2066 ' like',   2070 ' some',   5572 ' tea',   1029 ' ?',   2057 ' we',   1005 ' '',   2310 ' ve',   1037 ' a',   1005 ' '',   2222 ' ll', 
+main : got tokens:         100 '[UNK]',   1006 ' (',   3671 ' normal',   1007 ' )',    100 '[UNK]',   1006 ' (',   3674 ' multiple',   7861 ' em',  29147 'oj',   2483 'is',   9530 ' con',  16280 'cate',  23854 'nated',   1007 ' )',    100 '[UNK]',    100 '[UNK]',   1017 ' 3',   3943 ' 33',  21211 ' 333',  21211 ' 333',   2509 '3',  21211 ' 333',  22394 '33',  21211 ' 333',  22394 '33',   2509 '3',  21211 ' 333',  22394 '33',  22394 '33',  21211 ' 333',  22394 '33',  22394 '33',   2509 '3',   1017 ' 3',   1012 ' .',   1017 ' 3',   1017 ' 3',   1012 ' .',   1012 ' .',   1017 ' 3',   1017 ' 3',   1012 ' .',   1012 ' .',   1012 ' .',   1017 ' 3',    100 '[UNK]',   1029 ' ?',   1855 ' 我',    100 '[UNK]',    100 '[UNK]',   6207 ' apple',    100 '[UNK]',    100 '[UNK]',  14677 ' 131',  23632 '41',  22203 '51',   1811 ' 天',   1995 ' ～',   1011 ' -',   1011 ' -',   1011 ' -',   1011 ' -',   1011 ' -',   1011 ' -',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1027 ' =',   1192 ' н',  15290 'е',  29754 'щ',  14150 'о',   1192 ' н',  10260 'а',    100 '[UNK]',   1005 ' '',   1005 ' '',   1005 ' '',   1005 ' '',   1005 ' '',   1005 ' '',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1036 ' `',   1000 ' "',   1000 ' "',   1000 ' "',   1000 ' "',   1012 ' .',   1012 ' .',   1012 ' .',   1012 ' .',   1012 ' .',   1012 ' .',    999 ' !',    999 ' !',    999 ' !',    999 ' !',    999 ' !',    999 ' !',   1029 ' ?',   1029 ' ?',   1029 ' ?',   1029 ' ?',   1029 ' ?',   1029 ' ?',    100 '[UNK]',   1005 ' '',   2310 ' ve',   2042 ' been',   1005 ' '',   2409 ' told',   2002 ' he',   1005 ' '',   1055 ' s',   2045 ' there',   1010 ' ,',   1005 ' '',    100 '[UNK]',   2017 ' you',   2469 ' sure',   1029 ' ?',   1005 ' '',    100 '[UNK]',   2025 ' not',   2469 ' sure',    100 '[UNK]',   1005 ' '',   2222 ' ll',   2191 ' make',   2009 ' it',   1010 ' ,',   1005 ' '',    100 '[UNK]',   2017 ' you',   2066 ' like',   2070 ' some',   5572 ' tea',   1029 ' ?',    100 '[UNK]',   1005 ' '',    100 '[UNK]',   1037 ' a',   1005 ' '',    100 '[UNK]', 
+main : failed test:    '    Hello'
+main : detokenized to: '[UNK]' instead of ' hello'
+main : expected tokens:   7592 ' hello', 
+main : got tokens:         100 '[UNK]', 
+main : failed test:    '    Hello
+    Hello'
+main : detokenized to: '[UNK][UNK]' instead of ' hello hello'
+main : expected tokens:   7592 ' hello',   7592 ' hello', 
+main : got tokens:         100 '[UNK]',    100 '[UNK]', 
+main : failed test:    '   Hello'
+main : detokenized to: '[UNK]' instead of ' hello'
+main : expected tokens:   7592 ' hello', 
+main : got tokens:         100 '[UNK]', 
+main : failed test:    '  Hello'
+main : detokenized to: '[UNK]' instead of ' hello'
+main : expected tokens:   7592 ' hello', 
+main : got tokens:         100 '[UNK]', 
+main : failed test:    ' Hello'
+main : detokenized to: '[UNK]' instead of ' hello'
+main : expected tokens:   7592 ' hello', 
+main : got tokens:         100 '[UNK]', 
+main : failed test:    ' Hello World'
+main : detokenized to: '[UNK][UNK]' instead of ' hello world'
+main : expected tokens:   7592 ' hello',   2088 ' world', 
+main : got tokens:         100 '[UNK]',    100 '[UNK]', 
+main : failed test:    ' Hello World!'
+main : detokenized to: '[UNK][UNK]!' instead of ' hello world!'
+main : expected tokens:   7592 ' hello',   2088 ' world',    999 ' !', 
+main : got tokens:         100 '[UNK]',    100 '[UNK]',    999 ' !', 
+main : failed test:    ' Hello world'
+main : detokenized to: '[UNK] world' instead of ' hello world'
+main : expected tokens:   7592 ' hello',   2088 ' world', 
+main : got tokens:         100 '[UNK]',   2088 ' world', 
+main : failed test:    ' Hello, world!'
+main : detokenized to: '[UNK], world!' instead of ' hello, world!'
+main : expected tokens:   7592 ' hello',   1010 ' ,',   2088 ' world',    999 ' !', 
+main : got tokens:         100 '[UNK]',   1010 ' ,',   2088 ' world',    999 ' !', 
+main : failed test:    'Cửa Việt'
+main : detokenized to: '[UNK][UNK]' instead of ' cua viet'
+main : expected tokens:  12731 ' cu',   2050 'a',  19710 ' viet', 
+main : got tokens:         100 '[UNK]',    100 '[UNK]', 
+main : failed test:    'Führer'
+main : detokenized to: '[UNK]' instead of ' fuhrer'
+main : expected tokens:  11865 ' fu',  17875 'hrer', 
+main : got tokens:         100 '[UNK]', 
+main : failed test:    'Hello'
+main : detokenized to: '[UNK]' instead of ' hello'
+main : expected tokens:   7592 ' hello', 
+main : got tokens:         100 '[UNK]', 
+main : failed test:    'Hello World'
+main : detokenized to: '[UNK][UNK]' instead of ' hello world'
+main : expected tokens:   7592 ' hello',   2088 ' world', 
+main : got tokens:         100 '[UNK]',    100 '[UNK]', 
+main : failed test:    'Hello world'
+main : detokenized to: '[UNK] world' instead of ' hello world'
+main : expected tokens:   7592 ' hello',   2088 ' world', 
+main : got tokens:         100 '[UNK]',   2088 ' world', 
+main : failed test:    'Hello, world!'
+main : detokenized to: '[UNK], world!' instead of ' hello, world!'
+main : expected tokens:   7592 ' hello',   1010 ' ,',   2088 ' world',    999 ' !', 
+main : got tokens:         100 '[UNK]',   1010 ' ,',   2088 ' world',    999 ' !', 
+main : failed test:    'Hello, y'all! How are you 😁 ?我想在apple工作1314151天～'
+main : detokenized to: '[UNK], y'all![UNK] are you[UNK]? 我[UNK][UNK] apple[UNK][UNK] 1314151 天 ～' instead of ' hello, y'all! how are you[UNK]? 我[UNK][UNK] apple[UNK][UNK] 1314151 天 ～'
+main : expected tokens:   7592 ' hello',   1010 ' ,',   1061 ' y',   1005 ' '',   2035 ' all',    999 ' !',   2129 ' how',   2024 ' are',   2017 ' you',    100 '[UNK]',   1029 ' ?',   1855 ' 我',    100 '[UNK]',    100 '[UNK]',   6207 ' apple',    100 '[UNK]',    100 '[UNK]',  14677 ' 131',  23632 '41',  22203 '51',   1811 ' 天',   1995 ' ～', 
+main : got tokens:         100 '[UNK]',   1010 ' ,',   1061 ' y',   1005 ' '',   2035 ' all',    999 ' !',    100 '[UNK]',   2024 ' are',   2017 ' you',    100 '[UNK]',   1029 ' ?',   1855 ' 我',    100 '[UNK]',    100 '[UNK]',   6207 ' apple',    100 '[UNK]',    100 '[UNK]',  14677 ' 131',  23632 '41',  22203 '51',   1811 ' 天',   1995 ' ～', 
+main : failed test:    'нещо на Български'
+main : detokenized to: ' нещо на[UNK]' instead of ' нещо на български'
+main : expected tokens:   1192 ' н',  15290 'е',  29754 'щ',  14150 'о',   1192 ' н',  10260 'а',   1181 ' б',  29755 'ъ',  29436 'л',  29741 'г',  10260 'а',  16856 'р',  29747 'с',  23925 'к',  10325 'и', 
+main : got tokens:        1192 ' н',  15290 'е',  29754 'щ',  14150 'о',   1192 ' н',  10260 'а',    100 '[UNK]', 
+
+src: ''
+res: ''
+tok: 
+
+src: '	'
+res: ''
+tok: 
+
+src: '	
+'
+res: ''
+tok: 
+
+src: '
+'
+res: ''
+tok: 
+
+src: '
+
+'
+res: ''
+tok: 
+
+src: '
+
+
+'
+res: ''
+tok: 
+
+src: '
+ 
+
+ 
+
+
+ 	 		 	
+  
+   
+    
+     
+🚀 (normal) 😶‍🌫️ (multiple emojis concatenated) ✅ 🦙🦙 3 33 333 3333 33333 333333 3333333 33333333 3.3 3..3 3...3 កាន់តែពិសេសអាច😁 ?我想在apple工作1314151天～ ------======= нещо на Български ''''''```````""""......!!!!!!?????? I've been 'told he's there, 'RE you sure? 'M not sure I'll make it, 'D you like some tea? We'Ve a'lL'
+res: '[UNK] ( normal )[UNK] ( multiple emojis concatenated )[UNK][UNK] 3 33 333 3333 33333 333333 3333333 33333333 3. 3 3.. 3 3... 3[UNK]? 我[UNK][UNK] apple[UNK][UNK] 1314151 天 ～ - - - - - - = = = = = = = нещо на[UNK]'''''' ` ` ` ` ` ` ` " " " "......!!!!!!??????[UNK]'ve been'told he's there, '[UNK] you sure? '[UNK] not sure[UNK]'ll make it, '[UNK] you like some tea?[UNK] '[UNK] a '[UNK]'
+tok: 100 1006 3671 1007 100 1006 3674 7861 29147 2483 9530 16280 23854 1007 100 100 1017 3943 21211 21211 2509 21211 22394 21211 22394 2509 21211 22394 22394 21211 22394 22394 2509 1017 1012 1017 1017 1012 1012 1017 1017 1012 1012 1012 1017 100 1029 1855 100 100 6207 100 100 14677 23632 22203 1811 1995 1011 1011 1011 1011 1011 1011 1027 1027 1027 1027 1027 1027 1027 1192 15290 29754 14150 1192 10260 100 1005 1005 1005 1005 1005 1005 1036 1036 1036 1036 1036 1036 1036 1000 1000 1000 1000 1012 1012 1012 1012 1012 1012 999 999 999 999 999 999 1029 1029 1029 1029 1029 1029 100 1005 2310 2042 1005 2409 2002 1005 1055 2045 1010 1005 100 2017 2469 1029 1005 100 2025 2469 100 1005 2222 2191 2009 1010 1005 100 2017 2066 2070 5572 1029 100 1005 100 1037 1005 100 
+
+src: '
+ ='
+res: ' ='
+tok: 1027 
+
+src: ' '
+res: ''
+tok: 
+
+src: '  '
+res: ''
+tok: 
+
+src: '   '
+res: ''
+tok: 
+
+src: '    Hello'
+res: '[UNK]'
+tok: 100 
+
+src: '    Hello
+    Hello'
+res: '[UNK][UNK]'
+tok: 100 100 
+
+src: '   Hello'
+res: '[UNK]'
+tok: 100 
+
+src: '  Hello'
+res: '[UNK]'
+tok: 100 
+
+src: ' ('
+res: ' ('
+tok: 1006 
+
+src: ' Hello'
+res: '[UNK]'
+tok: 100 
+
+src: ' Hello World'
+res: '[UNK][UNK]'
+tok: 100 100 
+
+src: ' Hello World!'
+res: '[UNK][UNK]!'
+tok: 100 100 999 
+
+src: ' Hello world'
+res: '[UNK] world'
+tok: 100 2088 
+
+src: ' Hello, world!'
+res: '[UNK], world!'
+tok: 100 1010 2088 999 
+
+src: ' discards'
+res: ' discards'
+tok: 5860 18117 
+
+src: ' this is 🦙.cpp'
+res: ' this is[UNK]. cpp'
+tok: 2023 2003 100 1012 18133 2361 
+
+src: '!!!!!!'
+res: '!!!!!!'
+tok: 999 999 999 999 999 999 
+
+src: '' era'
+res: ''era'
+tok: 1005 3690 
+
+src: '3'
+res: ' 3'
+tok: 1017 
+
+src: '33'
+res: ' 33'
+tok: 3943 
+
+src: '333'
+res: ' 333'
+tok: 21211 
+
+src: '3333'
+res: ' 3333'
+tok: 21211 2509 
+
+src: '33333'
+res: ' 33333'
+tok: 21211 22394 
+
+src: '333333'
+res: ' 333333'
+tok: 21211 22394 2509 
+
+src: '3333333'
+res: ' 3333333'
+tok: 21211 22394 22394 
+
+src: '33333333'
+res: ' 33333333'
+tok: 21211 22394 22394 2509 
+
+src: '333333333'
+res: ' 333333333'
+tok: 21211 22394 22394 22394 
+
+src: 'Cửa Việt'
+res: '[UNK][UNK]'
+tok: 100 100 
+
+src: 'Führer'
+res: '[UNK]'
+tok: 100 
+
+src: 'Hello'
+res: '[UNK]'
+tok: 100 
+
+src: 'Hello World'
+res: '[UNK][UNK]'
+tok: 100 100 
+
+src: 'Hello world'
+res: '[UNK] world'
+tok: 100 2088 
+
+src: 'Hello, world!'
+res: '[UNK], world!'
+tok: 100 1010 2088 999 
+
+src: 'Hello, y'all! How are you 😁 ?我想在apple工作1314151天～'
+res: '[UNK], y'all![UNK] are you[UNK]? 我[UNK][UNK] apple[UNK][UNK] 1314151 天 ～'
+tok: 100 1010 1061 1005 2035 999 100 2024 2017 100 1029 1855 100 100 6207 100 100 14677 23632 22203 1811 1995 
+
+src: 'ied 4 ½ months'
+res: ' ied 4 ½ months'
+tok: 29464 2094 1018 1092 2706 
+
+src: 'w048 7tuijk dsdfhu'
+res: ' w048 7tuijk dsdfhu'
+tok: 1059 2692 18139 1021 8525 28418 2243 16233 20952 6979 
+
+src: 'нещо на Български'
+res: ' нещо на[UNK]'
+tok: 1192 15290 29754 14150 1192 10260 100 
+
+src: 'កាន់តែពិសេសអាចខលចេញ'
+res: '[UNK]'
+tok: 100 
+
+src: '🚀 (normal) 😶‍🌫️ (multiple emojis concatenated) ✅ (only emoji that has its own token)'
+res: '[UNK] ( normal )[UNK] ( multiple emojis concatenated )[UNK] ( only emoji that has its own token )'
+tok: 100 1006 3671 1007 100 1006 3674 7861 29147 2483 9530 16280 23854 1007 100 1006 2069 7861 29147 2072 2008 2038 2049 2219 19204 1007 
+
+Tests failed
+
+      Start  9: test-tokenizer-0-command-r
+ 9/39 Test  #9: test-tokenizer-0-command-r ...........   Passed    0.44 sec
+      Start 10: test-tokenizer-0-deepseek-coder
+10/39 Test #10: test-tokenizer-0-deepseek-coder ......   Passed    0.05 sec
+      Start 11: test-tokenizer-0-deepseek-llm
+11/39 Test #11: test-tokenizer-0-deepseek-llm ........   Passed    0.17 sec
+      Start 12: test-tokenizer-0-falcon
+12/39 Test #12: test-tokenizer-0-falcon ..............   Passed    0.10 sec
+      Start 13: test-tokenizer-0-gpt-2
+13/39 Test #13: test-tokenizer-0-gpt-2 ...............   Passed    0.08 sec
+      Start 14: test-tokenizer-0-llama-bpe
+14/39 Test #14: test-tokenizer-0-llama-bpe ...........   Passed    0.28 sec
+      Start 15: test-tokenizer-0-llama-spm
+15/39 Test #15: test-tokenizer-0-llama-spm ...........   Passed    0.04 sec
+      Start 16: test-tokenizer-0-mpt
+16/39 Test #16: test-tokenizer-0-mpt .................   Passed    0.08 sec
+      Start 17: test-tokenizer-0-phi-3
+17/39 Test #17: test-tokenizer-0-phi-3 ...............   Passed    0.04 sec
+      Start 18: test-tokenizer-0-qwen2
+18/39 Test #18: test-tokenizer-0-qwen2 ...............   Passed    0.24 sec
+      Start 19: test-tokenizer-0-refact
+19/39 Test #19: test-tokenizer-0-refact ..............   Passed    0.08 sec
+      Start 20: test-tokenizer-0-starcoder
+20/39 Test #20: test-tokenizer-0-starcoder ...........   Passed    0.08 sec
+      Start 21: test-jinja
+21/39 Test #21: test-jinja ...........................   Passed    0.10 sec
+      Start 23: test-chat-auto-parser
+22/39 Test #23: test-chat-auto-parser ................   Passed    0.15 sec
+      Start 24: test-chat-template
+23/39 Test #24: test-chat-template ...................Subprocess aborted***Exception:   0.11 sec
+Built-in chat templates:
+  bailing
+  bailing-think
+  bailing2
+  bitnet
+  chatglm3
+  chatglm4
+  chatml
+  command-r
+  deepseek
+  deepseek2
+  deepseek3
+  deepseek4
+  exaone3
+  falcon3
+  falcon_e
+  gemma
+  gigachat
+  gpt-oss
+  granite
+  grok-2
+  hunyuan-moe
+  kimi-k2
+  llama2
+  llama2-sys
+  llama2-sys-bos
+  llama2-sys-strip
+  llama3
+  llama4
+  megrez
+  minicpm
+  mistral-v1
+  mistral-v3
+  mistral-v3-tekken
+  mistral-v7
+  monarch
+  openchat
+  orion
+  phi3
+  rwkv-world
+  seed_oss
+  vicuna
+  vicuna-orca
+  zephyr
+
+
+=== teknium/OpenHermes-2.5-Mistral-7B ===
+
+
+
+=== mistralai/Mistral-7B-Instruct-v0.2 (NOTE: Old pre-v1 without a system prompt) ===
+
+
+
+=== TheBloke/FusionNet_34Bx2_MoE-AWQ ===
+
+
+
+=== bofenghuang/vigogne-2-70b-chat ===
+
+
+
+=== mlabonne/AlphaMonarch-7B ===
+
+
+
+=== google/gemma-7b-it ===
+
+
+
+=== OrionStarAI/Orion-14B-Chat ===
+
+
+
+=== openchat/openchat-3.5-0106 ===
+
+
+
+=== deepseek-ai/deepseek-coder-33b-instruct ===
+
+
+
+=== eachadea/vicuna-13b-1.1 ===
+
+
+
+=== Orca-Vicuna ===
+
+
+
+=== CohereForAI/c4ai-command-r-plus ===
+
+
+
+=== Llama-3 ===
+
+
+
+=== Phi-3-mini ===
+
+
+
+=== Phi-3-small ===
+
+
+
+=== Phi-3-medium ===
+
+
+
+=== Phi-3-vision ===
+
+
+
+=== ChatGLM3 ===
+
+
+
+=== ChatGLM4 ===
+
+Expected:
+[gMASK]<sop><|system|>
+You are a helpful assistant<|user|>
+Hello<|assistant|>
+Hi there<|user|>
+Who are you<|assistant|>
+   I am an assistant   <|user|>
+Another question<|assistant|>
+
+-------------------------
+Actual:
+[gMASK]<sop><|system|>
+You are a helpful assistant<|user|>
+Hello<|assistant|>
+Hi there<|user|>
+Who are you<|assistant|>
+   I am an assistant   <|user|>
+Another question<|assistant|>
+test-chat-template: /home/seppe/Projects/expertpin/tests/test-chat-template.cpp:729: int main_automated_tests(): Assertion `output == test_case.expected_output' failed.
+
+      Start 25: test-json-partial
+24/39 Test #25: test-json-partial ....................   Passed    0.00 sec
+      Start 26: test-peg-parser
+25/39 Test #26: test-peg-parser ......................   Passed    0.02 sec
+      Start 27: test-regex-partial
+26/39 Test #27: test-regex-partial ...................   Passed    0.00 sec
+      Start 28: test-expert-manifest
+27/39 Test #28: test-expert-manifest .................   Passed    0.00 sec
+      Start 29: test-expert-stats
+28/39 Test #29: test-expert-stats ....................   Passed    0.00 sec
+      Start 30: test-expert-cache-lru
+29/39 Test #30: test-expert-cache-lru ................   Passed    0.00 sec
+      Start 31: test-expert-trace
+30/39 Test #31: test-expert-trace ....................   Passed    0.09 sec
+      Start 32: test-moe-gpu-trace
+31/39 Test #32: test-moe-gpu-trace ...................   Passed    0.00 sec
+      Start 33: test-cuda-transfer-trace
+32/39 Test #33: test-cuda-transfer-trace .............   Passed    0.00 sec
+      Start 34: test-cuda-transfer-trace-enabled
+33/39 Test #34: test-cuda-transfer-trace-enabled .....   Passed    0.00 sec
+      Start 35: test-cuda-transfer-trace-collision
+34/39 Test #35: test-cuda-transfer-trace-collision ...   Passed    0.00 sec
+      Start 36: test-speculative-shadow
+35/39 Test #36: test-speculative-shadow ..............   Passed    0.00 sec
+      Start 37: test-moe-prefetch-stats
+36/39 Test #37: test-moe-prefetch-stats ..............   Passed    0.00 sec
+      Start 38: test-iq4-ks-kt-decode
+37/39 Test #38: test-iq4-ks-kt-decode ................   Passed    0.00 sec
+      Start 41: test-expert-cpu-bench
+38/39 Test #41: test-expert-cpu-bench ................   Passed   15.99 sec
+      Start 42: test-expert-cache-pressure
+39/39 Test #42: test-expert-cache-pressure ...........   Passed    0.05 sec
+
+95% tests passed, 2 tests failed out of 39
+
+Label Time Summary:
+main      =  20.90 sec*proc (39 tests)
+python    =  18.64 sec*proc (8 tests)
+
+Total Test time (real) =  20.92 sec
+
+The following tests FAILED:
+	  8 - test-tokenizer-0-bert-bge (Failed)                main
+	 24 - test-chat-template (Subprocess aborted)           main
+Errors while running CTest

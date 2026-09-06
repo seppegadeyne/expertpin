@@ -1,0 +1,45 @@
+Test project /home/seppe/Projects/expertpin/build-cpu-shadow
+      Start  1: test-gpu-idle-readiness
+ 1/18 Test  #1: test-gpu-idle-readiness ..............   Passed    0.09 sec
+      Start  2: test-trace-run-cleanup
+ 2/18 Test  #2: test-trace-run-cleanup ...............   Passed    0.11 sec
+      Start  3: test-cache-shadow-gates
+ 3/18 Test  #3: test-cache-shadow-gates ..............   Passed    1.54 sec
+      Start  4: test-expert-cache-analysis
+ 4/18 Test  #4: test-expert-cache-analysis ...........   Passed    0.06 sec
+      Start  5: test-expert-bandwidth
+ 5/18 Test  #5: test-expert-bandwidth ................   Passed    0.20 sec
+      Start  6: test-expert-io-observation
+ 6/18 Test  #6: test-expert-io-observation ...........   Passed    0.27 sec
+      Start  7: test-trace-bandwidth
+ 7/18 Test  #7: test-trace-bandwidth .................   Passed    0.39 sec
+      Start 28: test-expert-manifest
+ 8/18 Test #28: test-expert-manifest .................   Passed    0.00 sec
+      Start 29: test-expert-stats
+ 9/18 Test #29: test-expert-stats ....................   Passed    0.00 sec
+      Start 30: test-expert-cache-lru
+10/18 Test #30: test-expert-cache-lru ................   Passed    0.00 sec
+      Start 31: test-expert-trace
+11/18 Test #31: test-expert-trace ....................   Passed    0.09 sec
+      Start 32: test-moe-gpu-trace
+12/18 Test #32: test-moe-gpu-trace ...................   Passed    0.00 sec
+      Start 33: test-cuda-transfer-trace
+13/18 Test #33: test-cuda-transfer-trace .............   Passed    0.00 sec
+      Start 34: test-cuda-transfer-trace-enabled
+14/18 Test #34: test-cuda-transfer-trace-enabled .....   Passed    0.00 sec
+      Start 35: test-cuda-transfer-trace-collision
+15/18 Test #35: test-cuda-transfer-trace-collision ...   Passed    0.00 sec
+      Start 37: test-moe-prefetch-stats
+16/18 Test #37: test-moe-prefetch-stats ..............   Passed    0.00 sec
+      Start 41: test-expert-cpu-bench
+17/18 Test #41: test-expert-cpu-bench ................   Passed   15.53 sec
+      Start 42: test-expert-cache-pressure
+18/18 Test #42: test-expert-cache-pressure ...........   Passed    0.06 sec
+
+100% tests passed out of 18
+
+Label Time Summary:
+main      =  18.37 sec*proc (18 tests)
+python    =  18.19 sec*proc (8 tests)
+
+Total Test time (real) =  18.38 sec

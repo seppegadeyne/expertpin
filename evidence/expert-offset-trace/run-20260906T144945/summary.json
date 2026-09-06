@@ -1,0 +1,31 @@
+{
+  "started": "2026-09-06T14:49:45.146587+02:00",
+  "model_loaded": true,
+  "qli_stop_requested": "2026-09-06T14:49:47.301215+02:00",
+  "guard": {
+    "gpu_util_pct": 0,
+    "mem_available_bytes": 47846297600,
+    "required_mem_available": ">=34 GiB (Tier A)",
+    "ram_budget_gib": 36,
+    "launcher_headroom_gib": 4
+  },
+  "pcie_observation_start": "2026-09-06T14:50:41.945631+02:00",
+  "request_start": "2026-09-06T14:50:41.945817+02:00",
+  "request_end": "2026-09-06T14:50:51.124613+02:00",
+  "pcie_exit_before_cleanup": null,
+  "completion_usage": {
+    "completion_tokens": 32,
+    "prompt_tokens": 68,
+    "total_tokens": 100,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "status": "request_completed_pending_evidence_validation",
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-06T14:50:52.946844+02:00",
+  "qli_status": "active",
+  "headless_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-06T14:50:53.292805+02:00"
+}

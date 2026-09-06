@@ -1,0 +1,1430 @@
+# cuda_transfer_trace_v1 coverage=ordinary_backend_set_get_only timing=host_API_wall_not_DMA
+id,context,request_id,seq_id,phase,pos_min,pos_max,backend_api,direction,tensor,offset_bytes,size_bytes,device,host_kind,pointer_status,start_monotonic_ns,copy_api_wall_ns,sync_api_wall_ns,copy_status,sync_status
+0,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,645120,0,pageable,0,862935908504518,42742,21141,0,0
+1,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,252,0,pageable,0,862935908588002,3360,9540,0,0
+2,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,645120,0,pageable,0,862937400327861,96515,21381,0,0
+3,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,272,0,pageable,0,862937400478739,3630,3640,0,0
+4,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,272,0,pageable,0,862937400488709,1611,2930,0,0
+5,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,68,0,pageable,0,862937400495990,1280,3040,0,0
+6,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#inp_pos#0",0,1008,0,pageable,0,862937400502290,1730,3270,0,0
+7,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#KQ_mask#0",0,32768,0,pageable,0,862937400508860,15371,7921,0,0
+8,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,645120,0,pageable,0,862937454503099,55643,430,0,0
+9,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-12",0,127016,0,pageable,0,862937454569283,20361,270,0,0
+10,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,6451200,0,pageable,0,862937530202635,375629,19411,0,0
+11,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,645120,0,pageable,0,862937531406095,64063,510,0,0
+12,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-13",0,127016,0,pageable,0,862937531476308,17601,280,0,0
+13,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,6451200,0,pageable,0,862937663063997,349197,20491,0,0
+14,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,645120,0,pageable,0,862937664240335,48092,550,0,0
+15,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-14",0,127016,0,pageable,0,862937664294108,16020,270,0,0
+16,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,6451200,0,pageable,0,862937847044984,340467,21241,0,0
+17,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,645120,0,pageable,0,862937848125358,51113,540,0,0
+18,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-15",0,127016,0,pageable,0,862937848182041,16321,290,0,0
+19,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,6451200,0,pageable,0,862937985064662,310795,20781,0,0
+20,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,645120,0,pageable,0,862937986252041,55613,660,0,0
+21,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-16",0,127016,0,pageable,0,862937986315824,16071,260,0,0
+22,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,6451200,0,pageable,0,862938321141916,475044,11290,0,0
+23,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,645120,0,pageable,0,862938322877142,203770,860,0,0
+24,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-17",0,127016,0,pageable,0,862938323101343,29091,400,0,0
+25,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,6451200,0,pageable,0,862938484881799,333267,22151,0,0
+26,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,645120,0,pageable,0,862938486026946,53723,400,0,0
+27,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-18",0,127016,0,pageable,0,862938486088519,16251,260,0,0
+28,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,6451200,0,pageable,0,862938592456747,313145,22851,0,0
+29,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,645120,0,pageable,0,862938593743250,78744,470,0,0
+30,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-19",0,127016,0,pageable,0,862938593837445,19351,270,0,0
+31,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,6451200,0,pageable,0,862938670614274,351318,19611,0,0
+32,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,645120,0,pageable,0,862938671783962,86975,530,0,0
+33,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-20",0,127016,0,pageable,0,862938671890928,23391,290,0,0
+34,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,6451200,0,pageable,0,862938714671890,302965,20571,0,0
+35,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,645120,0,pageable,0,862938715794476,53932,600,0,0
+36,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-21",0,127016,0,pageable,0,862938715858579,16611,270,0,0
+37,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,6451200,0,pageable,0,862938739190836,306326,17471,0,0
+38,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,645120,0,pageable,0,862938740331293,52623,710,0,0
+39,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-22",0,127016,0,pageable,0,862938740403237,16721,370,0,0
+40,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,6451200,0,pageable,0,862938844155354,316706,20661,0,0
+41,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,645120,0,pageable,0,862938845206396,52523,490,0,0
+42,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-23",0,127016,0,pageable,0,862938845274770,13930,260,0,0
+43,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,6451200,0,pageable,0,862939254292412,372069,20221,0,0
+44,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,645120,0,pageable,0,862939255469101,54092,570,0,0
+45,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-24",0,127016,0,pageable,0,862939255531544,16241,270,0,0
+46,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,6451200,0,pageable,0,862939476584541,352277,20251,0,0
+47,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,645120,0,pageable,0,862939477754519,52393,520,0,0
+48,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-25",0,127016,0,pageable,0,862939477816832,16531,280,0,0
+49,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,6451200,0,pageable,0,862939751701860,352158,21541,0,0
+50,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,645120,0,pageable,0,862939752875418,56573,610,0,0
+51,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-26",0,127016,0,pageable,0,862939752937772,17070,270,0,0
+52,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,6451200,0,pageable,0,862940100975159,369248,14951,0,0
+53,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,645120,0,pageable,0,862940102051442,52203,530,0,0
+54,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-27",0,127016,0,pageable,0,862940102113905,16261,260,0,0
+55,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,6451200,0,pageable,0,862940451515560,354978,20761,0,0
+56,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,645120,0,pageable,0,862940452675478,52472,520,0,0
+57,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-28",0,127016,0,pageable,0,862940452738241,16291,260,0,0
+58,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,6451200,0,pageable,0,862940752014869,345377,24831,0,0
+59,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,645120,0,pageable,0,862940753197618,53612,610,0,0
+60,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-29",0,127016,0,pageable,0,862940753263331,17011,330,0,0
+61,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,6451200,0,pageable,0,862941069657678,351468,18010,0,0
+62,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,645120,0,pageable,0,862941070815126,54852,520,0,0
+63,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-30",0,127016,0,pageable,0,862941070885209,16951,280,0,0
+64,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,6451200,0,pageable,0,862941137936636,334556,20451,0,0
+65,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,645120,0,pageable,0,862941139003889,52212,530,0,0
+66,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-31",0,127016,0,pageable,0,862941139067012,16881,260,0,0
+67,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,6451200,0,pageable,0,862941165401488,316426,21201,0,0
+68,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,645120,0,pageable,0,862941166525794,53053,720,0,0
+69,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-32",0,127016,0,pageable,0,862941166591287,16941,380,0,0
+70,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,6451200,0,pageable,0,862941191886402,337707,20191,0,0
+71,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,645120,0,pageable,0,862941193044950,55373,670,0,0
+72,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-33",0,127016,0,pageable,0,862941193122374,17310,341,0,0
+73,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,6451200,0,pageable,0,862941270811128,329716,16441,0,0
+74,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,645120,0,pageable,0,862941271976816,55063,810,0,0
+75,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-34",0,127016,0,pageable,0,862941272054600,17300,391,0,0
+76,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,6451200,0,pageable,0,862941517283206,356788,22101,0,0
+77,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,645120,0,pageable,0,862941518591741,55803,670,0,0
+78,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-35",0,127016,0,pageable,0,862941518666095,17361,270,0,0
+79,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,6451200,0,pageable,0,862941615897229,349677,21281,0,0
+80,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,645120,0,pageable,0,862941617056706,51853,680,0,0
+81,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-36",0,127016,0,pageable,0,862941617127270,16841,350,0,0
+82,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,6451200,0,pageable,0,862941695311599,300155,22141,0,0
+83,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,645120,0,pageable,0,862941696424244,50303,510,0,0
+84,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-37",0,127016,0,pageable,0,862941696490517,16181,280,0,0
+85,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,6451200,0,pageable,0,862941798888247,338927,20551,0,0
+86,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,645120,0,pageable,0,862941800045495,54253,560,0,0
+87,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-38",0,127016,0,pageable,0,862941800109548,16511,260,0,0
+88,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,6451200,0,pageable,0,862941867757494,316106,22101,0,0
+89,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,645120,0,pageable,0,862941868802736,53603,710,0,0
+90,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-39",0,127016,0,pageable,0,862941868875050,16811,370,0,0
+91,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,6451200,0,pageable,0,862941937809180,307815,22181,0,0
+92,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,645120,0,pageable,0,862941938939066,51803,510,0,0
+93,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-40",0,127016,0,pageable,0,862941939005999,14851,440,0,0
+94,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,6451200,0,pageable,0,862942033385342,336126,20411,0,0
+95,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,645120,0,pageable,0,862942034550499,55183,640,0,0
+96,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-41",0,127016,0,pageable,0,862942034617183,17261,360,0,0
+97,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,6451200,0,pageable,0,862942045027979,289645,22531,0,0
+98,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,645120,0,pageable,0,862942046121904,51792,400,0,0
+99,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-42",0,127016,0,pageable,0,862942046184577,16370,260,0,0
+100,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,6451200,0,pageable,0,862942055203454,294015,21081,0,0
+101,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,645120,0,pageable,0,862942056225915,53732,570,0,0
+102,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-43",0,127016,0,pageable,0,862942056298778,16531,260,0,0
+103,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,6451200,0,pageable,0,862942065192380,287054,22041,0,0
+104,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,645120,0,pageable,0,862942066279663,51823,540,0,0
+105,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-44",0,127016,0,pageable,0,862942066340417,16580,260,0,0
+106,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,6451200,0,pageable,0,862942075902081,296525,21671,0,0
+107,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,645120,0,pageable,0,862942077008256,54402,671,0,0
+108,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-45",0,127016,0,pageable,0,862942077078089,16871,410,0,0
+109,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,6451200,0,pageable,0,862942088596521,308475,21881,0,0
+110,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,645120,0,pageable,0,862942089712066,52353,620,0,0
+111,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-46",0,127016,0,pageable,0,862942089770309,16811,430,0,0
+112,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,6451200,0,pageable,0,862942102335522,289985,22211,0,0
+113,target,25,0,prefill,0,62,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,645120,0,pageable,0,862942103327882,51042,440,0,0
+114,target,25,0,prefill,0,62,get_tensor,D2H,"ffn_moe_topk-47",0,127016,0,pageable,0,862942103389625,16121,250,0,0
+115,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,6451200,0,pageable,0,862942113887346,280253,22172,0,0
+116,target,25,0,prefill,0,62,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,252,0,pageable,0,862942114225192,25662,8810,0,0
+117,target,25,0,prefill,0,62,get_tensor_async,D2H,"result_output",0,62576640,0,pageable,0,862942114465234,18826784,0,0,-1
+118,target,25,0,prefill,0,62,get_tensor_async,D2H,"result_mtp_embd",0,2580480,0,pageable,0,862942133332850,649633,0,0,-1
+119,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,51200,0,pageable,0,862942231748533,14511,10770,0,0
+120,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,20,0,pageable,0,862942231789865,1720,2780,0,0
+121,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,51200,0,pageable,0,862942259704090,20271,4840,0,0
+122,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,48,0,pageable,0,862942259749962,2470,3031,0,0
+123,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,48,0,pageable,0,862942259758333,1300,2910,0,0
+124,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,12,0,pageable,0,862942259764073,1030,2930,0,0
+125,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#inp_pos#0",0,80,0,pageable,0,862942259769573,1250,3200,0,0
+126,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862942259775494,1800,3170,0,0
+127,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,51200,0,pageable,0,862942272341407,16301,340,0,0
+128,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-12",0,8232,0,pageable,0,862942272366358,5110,230,0,0
+129,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,512000,0,pageable,0,862942313385033,38862,13981,0,0
+130,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,51200,0,pageable,0,862942313713690,11900,400,0,0
+131,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-13",0,8232,0,pageable,0,862942313730350,5821,240,0,0
+132,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,512000,0,pageable,0,862942345399712,38471,13391,0,0
+133,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,51200,0,pageable,0,862942345721228,15950,380,0,0
+134,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-14",0,8232,0,pageable,0,862942345741409,9220,250,0,0
+135,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,512000,0,pageable,0,862942388506720,32142,17661,0,0
+136,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,51200,0,pageable,0,862942388884919,11201,340,0,0
+137,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-15",0,8232,0,pageable,0,862942388903630,5810,250,0,0
+138,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,512000,0,pageable,0,862942447244994,35562,18851,0,0
+139,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,51200,0,pageable,0,862942447558940,11391,370,0,0
+140,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-16",0,8232,0,pageable,0,862942447574201,5400,230,0,0
+141,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,512000,0,pageable,0,862942483858361,43342,14921,0,0
+142,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,51200,0,pageable,0,862942484203878,13101,450,0,0
+143,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-17",0,8232,0,pageable,0,862942484222889,6580,310,0,0
+144,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,512000,0,pageable,0,862942503104566,40792,11090,0,0
+145,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,51200,0,pageable,0,862942503424352,11810,350,0,0
+146,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-18",0,8232,0,pageable,0,862942503440403,5730,230,0,0
+147,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,512000,0,pageable,0,862942561386387,41792,11931,0,0
+148,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,51200,0,pageable,0,862942561793817,17811,460,0,0
+149,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-19",0,8232,0,pageable,0,862942561817239,9950,300,0,0
+150,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,512000,0,pageable,0,862942652198683,38622,16290,0,0
+151,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,51200,0,pageable,0,862942652521989,11700,350,0,0
+152,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-20",0,8232,0,pageable,0,862942652537700,5490,230,0,0
+153,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,512000,0,pageable,0,862942726106270,43532,15361,0,0
+154,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,51200,0,pageable,0,862942726437136,11951,370,0,0
+155,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-21",0,8232,0,pageable,0,862942726453557,5850,250,0,0
+156,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,512000,0,pageable,0,862942744363105,34072,12401,0,0
+157,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,51200,0,pageable,0,862942744673621,14761,350,0,0
+158,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-22",0,8232,0,pageable,0,862942744692582,5350,240,0,0
+159,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,512000,0,pageable,0,862942789309935,35672,15601,0,0
+160,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,51200,0,pageable,0,862942789678874,11460,390,0,0
+161,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-23",0,8232,0,pageable,0,862942789695074,5941,230,0,0
+162,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,512000,0,pageable,0,862942790662072,23522,15660,0,0
+163,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,51200,0,pageable,0,862942790935866,9121,290,0,0
+164,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-24",0,8232,0,pageable,0,862942790947637,13780,250,0,0
+165,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,512000,0,pageable,0,862942794064571,24851,16371,0,0
+166,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,51200,0,pageable,0,862942794345195,9361,250,0,0
+167,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-25",0,8232,0,pageable,0,862942794357446,5210,230,0,0
+168,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,512000,0,pageable,0,862942795349975,22211,16111,0,0
+169,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,51200,0,pageable,0,862942795621858,8561,250,0,0
+170,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-26",0,8232,0,pageable,0,862942795634789,4970,240,0,0
+171,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,512000,0,pageable,0,862942796881461,21711,16111,0,0
+172,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,51200,0,pageable,0,862942797191486,8431,250,0,0
+173,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-27",0,8232,0,pageable,0,862942797202837,5190,230,0,0
+174,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,512000,0,pageable,0,862942801026237,27421,15401,0,0
+175,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,51200,0,pageable,0,862942801312731,10250,370,0,0
+176,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-28",0,8232,0,pageable,0,862942801326622,5300,230,0,0
+177,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,512000,0,pageable,0,862942803494779,21441,16171,0,0
+178,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,51200,0,pageable,0,862942803763292,8361,260,0,0
+179,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-29",0,8232,0,pageable,0,862942803774173,5030,250,0,0
+180,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,512000,0,pageable,0,862942809201542,24752,17370,0,0
+181,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,51200,0,pageable,0,862942809481916,9291,290,0,0
+182,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-30",0,8232,0,pageable,0,862942809494587,5260,230,0,0
+183,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,512000,0,pageable,0,862942810693676,20361,16321,0,0
+184,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,51200,0,pageable,0,862942810999641,9791,250,0,0
+185,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-31",0,8232,0,pageable,0,862942811012472,11541,230,0,0
+186,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,512000,0,pageable,0,862942811904126,20081,16411,0,0
+187,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,51200,0,pageable,0,862942812172230,7950,270,0,0
+188,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-32",0,8232,0,pageable,0,862942812182710,4880,230,0,0
+189,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,512000,0,pageable,0,862942814198310,21351,19701,0,0
+190,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,51200,0,pageable,0,862942814473864,12160,500,0,0
+191,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-33",0,8232,0,pageable,0,862942814495735,5630,240,0,0
+192,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,512000,0,pageable,0,862942815745347,24351,16261,0,0
+193,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,51200,0,pageable,0,862942816017380,8581,270,0,0
+194,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-34",0,8232,0,pageable,0,862942816028651,5030,250,0,0
+195,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,512000,0,pageable,0,862942816998229,22461,16631,0,0
+196,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,51200,0,pageable,0,862942817305454,7851,250,0,0
+197,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-35",0,8232,0,pageable,0,862942817315975,5010,240,0,0
+198,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,512000,0,pageable,0,862942818471172,20021,16401,0,0
+199,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,51200,0,pageable,0,862942818738025,8071,250,0,0
+200,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-36",0,8232,0,pageable,0,862942818748546,4940,230,0,0
+201,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,512000,0,pageable,0,862942819733315,19951,16531,0,0
+202,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,51200,0,pageable,0,862942819998038,8380,270,0,0
+203,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-37",0,8232,0,pageable,0,862942820008848,6881,240,0,0
+204,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,512000,0,pageable,0,862942821058331,19321,16390,0,0
+205,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,51200,0,pageable,0,862942821326844,7930,250,0,0
+206,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-38",0,8232,0,pageable,0,862942821337274,4841,230,0,0
+207,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,512000,0,pageable,0,862942823484931,20711,16681,0,0
+208,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,51200,0,pageable,0,862942823791856,8721,340,0,0
+209,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-39",0,8232,0,pageable,0,862942823803427,5170,230,0,0
+210,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,512000,0,pageable,0,862942825334083,19721,16340,0,0
+211,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,51200,0,pageable,0,862942825598006,7960,250,0,0
+212,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-40",0,8232,0,pageable,0,862942825608436,4840,240,0,0
+213,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,512000,0,pageable,0,862942826762514,19270,16401,0,0
+214,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,51200,0,pageable,0,862942827027507,8050,260,0,0
+215,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-41",0,8232,0,pageable,0,862942827037957,5120,220,0,0
+216,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,512000,0,pageable,0,862942828557723,39031,15121,0,0
+217,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,51200,0,pageable,0,862942828894459,12411,450,0,0
+218,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-42",0,8232,0,pageable,0,862942828912310,5750,320,0,0
+219,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,512000,0,pageable,0,862942830270758,27901,15061,0,0
+220,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,51200,0,pageable,0,862942830619685,10000,360,0,0
+221,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-43",0,8232,0,pageable,0,862942830634196,5570,310,0,0
+222,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,512000,0,pageable,0,862942831968592,25571,17601,0,0
+223,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,51200,0,pageable,0,862942832253766,9560,340,0,0
+224,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-44",0,8232,0,pageable,0,862942832266907,5320,310,0,0
+225,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,512000,0,pageable,0,862942833498738,25101,15241,0,0
+226,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,51200,0,pageable,0,862942833781702,9670,350,0,0
+227,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-45",0,8232,0,pageable,0,862942833794792,5431,310,0,0
+228,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,512000,0,pageable,0,862942835107228,29511,15621,0,0
+229,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,51200,0,pageable,0,862942835408462,11241,470,0,0
+230,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-46",0,8232,0,pageable,0,862942835424383,5581,310,0,0
+231,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,512000,0,pageable,0,862942836944159,24201,15411,0,0
+232,target,25,0,prefill,63,67,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,51200,0,pageable,0,862942837277135,9591,370,0,0
+233,target,25,0,prefill,63,67,get_tensor,D2H,"ffn_moe_topk-47",0,8232,0,pageable,0,862942837290666,5710,300,0,0
+234,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,512000,0,pageable,0,862942838508066,22841,16921,0,0
+235,target,25,0,prefill,63,67,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,20,0,pageable,0,862942838553089,2890,7700,0,0
+236,target,25,0,prefill,63,67,get_tensor_async,D2H,"result_output",0,4966400,0,pageable,0,862942838644963,656543,0,0,-1
+237,target,25,0,prefill,63,67,get_tensor_async,D2H,"result_mtp_embd",0,204800,0,pageable,0,862942839306336,20451,0,0,-1
+238,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,40960,0,pageable,0,862942856561342,5870,10131,0,0
+239,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,16,0,pageable,0,862942856591953,1301,3100,0,0
+240,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,40960,0,pageable,0,862942889043213,25412,3890,0,0
+241,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,32,0,pageable,0,862942889099296,2320,2951,0,0
+242,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,32,0,pageable,0,862942889106557,1250,3120,0,0
+243,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,8,0,pageable,0,862942889112507,1120,3170,0,0
+244,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#inp_pos#0",0,64,0,pageable,0,862942889118377,1340,2950,0,0
+245,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862942889124177,1811,3370,0,0
+246,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,40960,0,pageable,0,862942898228489,15141,350,0,0
+247,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-12",0,6184,0,pageable,0,862942898251840,3970,230,0,0
+248,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,409600,0,pageable,0,862942926488211,35872,15711,0,0
+249,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,40960,0,pageable,0,862942926792706,11151,380,0,0
+250,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-13",0,6184,0,pageable,0,862942926808027,5520,250,0,0
+251,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,409600,0,pageable,0,862942937952070,31271,13811,0,0
+252,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,40960,0,pageable,0,862942938252395,11860,430,0,0
+253,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-14",0,6184,0,pageable,0,862942938268566,5820,330,0,0
+254,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,409600,0,pageable,0,862942945005300,26591,14041,0,0
+255,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,40960,0,pageable,0,862942945331146,9810,301,0,0
+256,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-15",0,6184,0,pageable,0,862942945344257,5320,220,0,0
+257,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,409600,0,pageable,0,862942948077202,22221,9971,0,0
+258,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,40960,0,pageable,0,862942948331205,8840,290,0,0
+259,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-16",0,6184,0,pageable,0,862942948343355,4981,220,0,0
+260,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,409600,0,pageable,0,862942961303019,25401,10090,0,0
+261,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,40960,0,pageable,0,862942961571992,10960,350,0,0
+262,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-17",0,6184,0,pageable,0,862942961586513,5500,240,0,0
+263,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,409600,0,pageable,0,862942977870690,28322,9750,0,0
+264,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,40960,0,pageable,0,862942978143874,9890,320,0,0
+265,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-18",0,6184,0,pageable,0,862942978156915,5100,240,0,0
+266,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,409600,0,pageable,0,862943000924734,36402,13461,0,0
+267,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,40960,0,pageable,0,862943001299503,11210,380,0,0
+268,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-19",0,6184,0,pageable,0,862943001315744,5560,250,0,0
+269,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,409600,0,pageable,0,862943039453556,33861,13531,0,0
+270,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,40960,0,pageable,0,862943039751651,11320,450,0,0
+271,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-20",0,6184,0,pageable,0,862943039767461,5361,230,0,0
+272,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,409600,0,pageable,0,862943054284102,38811,10661,0,0
+273,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,40960,0,pageable,0,862943054570536,9920,340,0,0
+274,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-21",0,6184,0,pageable,0,862943054587057,5140,240,0,0
+275,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,409600,0,pageable,0,862943071352128,29292,10390,0,0
+276,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,40960,0,pageable,0,862943071633952,10381,400,0,0
+277,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-22",0,6184,0,pageable,0,862943071648653,5150,230,0,0
+278,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,409600,0,pageable,0,862943107155355,38171,13101,0,0
+279,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,40960,0,pageable,0,862943107534013,12101,370,0,0
+280,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-23",0,6184,0,pageable,0,862943107552194,5891,240,0,0
+281,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,409600,0,pageable,0,862943158085761,39772,11631,0,0
+282,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,40960,0,pageable,0,862943158401567,11471,360,0,0
+283,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-24",0,6184,0,pageable,0,862943158417988,5400,230,0,0
+284,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,409600,0,pageable,0,862943165331901,50202,9921,0,0
+285,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,40960,0,pageable,0,862943165645756,15451,460,0,0
+286,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-25",0,6184,0,pageable,0,862943165667458,5860,330,0,0
+287,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,409600,0,pageable,0,862943168094208,26571,13491,0,0
+288,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,40960,0,pageable,0,862943168372882,9910,400,0,0
+289,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-26",0,6184,0,pageable,0,862943168386913,5310,240,0,0
+290,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,409600,0,pageable,0,862943169366361,19471,12251,0,0
+291,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,40960,0,pageable,0,862943169660736,8560,280,0,0
+292,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-27",0,6184,0,pageable,0,862943169672396,5061,230,0,0
+293,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,409600,0,pageable,0,862943170429654,18341,14111,0,0
+294,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,40960,0,pageable,0,862943170678726,7721,240,0,0
+295,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-28",0,6184,0,pageable,0,862943170688917,4850,230,0,0
+296,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,409600,0,pageable,0,862943171628753,18321,14191,0,0
+297,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,40960,0,pageable,0,862943171877076,7790,240,0,0
+298,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-29",0,6184,0,pageable,0,862943171887386,4910,220,0,0
+299,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,409600,0,pageable,0,862943172558979,17461,14261,0,0
+300,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,40960,0,pageable,0,862943172803952,7850,250,0,0
+301,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-30",0,6184,0,pageable,0,862943172814312,4740,230,0,0
+302,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,409600,0,pageable,0,862943175317676,19921,13891,0,0
+303,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,40960,0,pageable,0,862943175619331,8301,350,0,0
+304,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-31",0,6184,0,pageable,0,862943175631402,5250,300,0,0
+305,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,409600,0,pageable,0,862943176260623,18891,14081,0,0
+306,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,40960,0,pageable,0,862943176515196,8570,350,0,0
+307,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-32",0,6184,0,pageable,0,862943176526976,5011,310,0,0
+308,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,409600,0,pageable,0,862943177225571,18511,14101,0,0
+309,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,40960,0,pageable,0,862943177482574,8580,380,0,0
+310,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-33",0,6184,0,pageable,0,862943177494424,5191,300,0,0
+311,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,409600,0,pageable,0,862943178193399,18641,14031,0,0
+312,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,40960,0,pageable,0,862943178447012,8520,350,0,0
+313,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-34",0,6184,0,pageable,0,862943178458772,5051,300,0,0
+314,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,409600,0,pageable,0,862943179267732,18711,14381,0,0
+315,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,40960,0,pageable,0,862943179562967,8100,340,0,0
+316,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-35",0,6184,0,pageable,0,862943179574638,5210,320,0,0
+317,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,409600,0,pageable,0,862943180467402,18451,14090,0,0
+318,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,40960,0,pageable,0,862943180720664,8261,370,0,0
+319,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-36",0,6184,0,pageable,0,862943180732175,5010,300,0,0
+320,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,409600,0,pageable,0,862943181549806,18541,14140,0,0
+321,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,40960,0,pageable,0,862943181802928,8211,340,0,0
+322,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-37",0,6184,0,pageable,0,862943181814369,5200,310,0,0
+323,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,409600,0,pageable,0,862943184898462,19381,14630,0,0
+324,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,40960,0,pageable,0,862943185157575,8880,370,0,0
+325,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-38",0,6184,0,pageable,0,862943185170035,5160,311,0,0
+326,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,409600,0,pageable,0,862943186184626,17990,14241,0,0
+327,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,40960,0,pageable,0,862943186480190,7931,350,0,0
+328,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-39",0,6184,0,pageable,0,862943186491871,5290,300,0,0
+329,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,409600,0,pageable,0,862943187084090,17781,14261,0,0
+330,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,40960,0,pageable,0,862943187333122,7801,360,0,0
+331,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-40",0,6184,0,pageable,0,862943187344103,5050,310,0,0
+332,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,409600,0,pageable,0,862943188124852,17881,14300,0,0
+333,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,40960,0,pageable,0,862943188375994,8291,350,0,0
+334,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-41",0,6184,0,pageable,0,862943188387495,5210,310,0,0
+335,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,409600,0,pageable,0,862943189126242,17870,14311,0,0
+336,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,40960,0,pageable,0,862943189377344,7650,340,0,0
+337,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-42",0,6184,0,pageable,0,862943189388124,4971,300,0,0
+338,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,409600,0,pageable,0,862943190591074,17601,14431,0,0
+339,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,40960,0,pageable,0,862943190879028,7841,340,0,0
+340,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-43",0,6184,0,pageable,0,862943190890319,5280,310,0,0
+341,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,409600,0,pageable,0,862943191845816,17331,14211,0,0
+342,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,40960,0,pageable,0,862943192095679,7890,360,0,0
+343,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-44",0,6184,0,pageable,0,862943192108569,5001,300,0,0
+344,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,409600,0,pageable,0,862943193070027,17061,14211,0,0
+345,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,40960,0,pageable,0,862943193319900,7880,360,0,0
+346,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-45",0,6184,0,pageable,0,862943193330880,5210,300,0,0
+347,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,409600,0,pageable,0,862943194321599,17101,14121,0,0
+348,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,40960,0,pageable,0,862943194570262,7990,340,0,0
+349,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-46",0,6184,0,pageable,0,862943194581512,5070,300,0,0
+350,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,409600,0,pageable,0,862943195921059,17220,14441,0,0
+351,target,25,0,decode,68,71,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,40960,0,pageable,0,862943196209933,8020,340,0,0
+352,target,25,0,decode,68,71,get_tensor,D2H,"ffn_moe_topk-47",0,6184,0,pageable,0,862943196221404,5440,300,0,0
+353,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,409600,0,pageable,0,862943197430724,17090,13721,0,0
+354,target,25,0,decode,68,71,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,16,0,pageable,0,862943197465335,2490,7261,0,0
+355,target,25,0,decode,68,71,get_tensor_async,D2H,"result_output",0,3973120,0,pageable,0,862943197549119,642092,0,0,-1
+356,target,25,0,decode,68,71,get_tensor_async,D2H,"result_mtp_embd",0,163840,0,pageable,0,862943198195241,17651,0,0,-1
+357,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,51200,0,pageable,0,862943226556429,7250,10340,0,0
+358,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,20,0,pageable,0,862943226583760,1450,3090,0,0
+359,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,51200,0,pageable,0,862943257345326,36252,5110,0,0
+360,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,48,0,pageable,0,862943257420070,2450,3120,0,0
+361,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,48,0,pageable,0,862943257428770,1630,3190,0,0
+362,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,12,0,pageable,0,862943257436341,1600,3320,0,0
+363,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#inp_pos#0",0,80,0,pageable,0,862943257443311,1190,3050,0,0
+364,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862943257449631,18351,3200,0,0
+365,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,51200,0,pageable,0,862943262479031,15711,360,0,0
+366,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-12",0,8232,0,pageable,0,862943262499992,5030,220,0,0
+367,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,512000,0,pageable,0,862943284773217,35061,16991,0,0
+368,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,51200,0,pageable,0,862943285078492,10620,310,0,0
+369,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-13",0,8232,0,pageable,0,862943285092313,5430,240,0,0
+370,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,512000,0,pageable,0,862943294693879,30701,12701,0,0
+371,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,51200,0,pageable,0,862943294987943,10281,300,0,0
+372,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-14",0,8232,0,pageable,0,862943295003414,5721,260,0,0
+373,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,512000,0,pageable,0,862943311160666,32322,12170,0,0
+374,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,51200,0,pageable,0,862943311505523,10461,340,0,0
+375,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-15",0,8232,0,pageable,0,862943311519604,5300,220,0,0
+376,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,512000,0,pageable,0,862943321882268,28511,12561,0,0
+377,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,51200,0,pageable,0,862943322165342,9620,300,0,0
+378,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-16",0,8232,0,pageable,0,862943322179883,5210,230,0,0
+379,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,512000,0,pageable,0,862943326097827,30882,12310,0,0
+380,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,51200,0,pageable,0,862943326386821,8881,280,0,0
+381,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-17",0,8232,0,pageable,0,862943326398202,5130,230,0,0
+382,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,512000,0,pageable,0,862943352943919,32561,17181,0,0
+383,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,51200,0,pageable,0,862943353247534,14901,320,0,0
+384,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-18",0,8232,0,pageable,0,862943353266335,8950,230,0,0
+385,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,512000,0,pageable,0,862943391434589,43442,15101,0,0
+386,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,51200,0,pageable,0,862943391823828,12071,360,0,0
+387,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-19",0,8232,0,pageable,0,862943391840899,5720,230,0,0
+388,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,512000,0,pageable,0,862943433123617,38892,15991,0,0
+389,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,51200,0,pageable,0,862943433443423,11840,370,0,0
+390,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-20",0,8232,0,pageable,0,862943433459374,5370,240,0,0
+391,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,512000,0,pageable,0,862943462263503,43872,12510,0,0
+392,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,51200,0,pageable,0,862943462604710,13230,370,0,0
+393,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-21",0,8232,0,pageable,0,862943462623421,6110,240,0,0
+394,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,512000,0,pageable,0,862943471736963,41222,10990,0,0
+395,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,51200,0,pageable,0,862943472070729,12561,530,0,0
+396,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-22",0,8232,0,pageable,0,862943472088580,6010,360,0,0
+397,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,512000,0,pageable,0,862943505181032,35232,12130,0,0
+398,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,51200,0,pageable,0,862943505551420,10931,360,0,0
+399,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-23",0,8232,0,pageable,0,862943505566061,5670,220,0,0
+400,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,512000,0,pageable,0,862943538946967,41252,18821,0,0
+401,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,51200,0,pageable,0,862943539280784,15741,370,0,0
+402,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-24",0,8232,0,pageable,0,862943539301075,9260,230,0,0
+403,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,512000,0,pageable,0,862943547258050,31121,12331,0,0
+404,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,51200,0,pageable,0,862943547552014,9481,310,0,0
+405,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-25",0,8232,0,pageable,0,862943547564695,4440,240,0,0
+406,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,512000,0,pageable,0,862943559083246,39252,13411,0,0
+407,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,51200,0,pageable,0,862943559406352,21441,390,0,0
+408,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-26",0,8232,0,pageable,0,862943559432243,5541,230,0,0
+409,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,512000,0,pageable,0,862943567646701,29672,15430,0,0
+410,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,51200,0,pageable,0,862943568003479,11210,300,0,0
+411,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-27",0,8232,0,pageable,0,862943568018520,5440,250,0,0
+412,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,512000,0,pageable,0,862943569266471,22102,15900,0,0
+413,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,51200,0,pageable,0,862943569543735,8431,250,0,0
+414,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-28",0,8232,0,pageable,0,862943569555006,4950,240,0,0
+415,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,512000,0,pageable,0,862943573819737,23341,16201,0,0
+416,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,51200,0,pageable,0,862943574095461,8620,240,0,0
+417,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-29",0,8232,0,pageable,0,862943574106751,5131,230,0,0
+418,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,512000,0,pageable,0,862943575106971,21431,15981,0,0
+419,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,51200,0,pageable,0,862943575376805,8250,250,0,0
+420,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-30",0,8232,0,pageable,0,862943575387665,4990,220,0,0
+421,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,512000,0,pageable,0,862943576660378,20901,15991,0,0
+422,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,51200,0,pageable,0,862943576972364,8390,250,0,0
+423,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-31",0,8232,0,pageable,0,862943576983604,5110,240,0,0
+424,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,512000,0,pageable,0,862943578216475,21501,16061,0,0
+425,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,51200,0,pageable,0,862943578486769,8350,250,0,0
+426,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-32",0,8232,0,pageable,0,862943578497699,5001,240,0,0
+427,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,512000,0,pageable,0,862943579728341,20711,16090,0,0
+428,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,51200,0,pageable,0,862943580002824,10561,410,0,0
+429,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-33",0,8232,0,pageable,0,862943580017815,5840,360,0,0
+430,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,512000,0,pageable,0,862943581571672,25731,15881,0,0
+431,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,51200,0,pageable,0,862943581854856,10010,380,0,0
+432,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-34",0,8232,0,pageable,0,862943581868217,5270,240,0,0
+433,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,512000,0,pageable,0,862943584022793,20511,16431,0,0
+434,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,51200,0,pageable,0,862943584329039,8150,250,0,0
+435,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-35",0,8232,0,pageable,0,862943584339809,5210,220,0,0
+436,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,512000,0,pageable,0,862943585604412,25371,12231,0,0
+437,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,51200,0,pageable,0,862943585875095,8531,260,0,0
+438,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-36",0,8232,0,pageable,0,862943585886176,5000,230,0,0
+439,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,512000,0,pageable,0,862943587236033,20711,16361,0,0
+440,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,51200,0,pageable,0,862943587504286,7801,240,0,0
+441,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-37",0,8232,0,pageable,0,862943587514477,5260,230,0,0
+442,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,512000,0,pageable,0,862943588746668,19971,16201,0,0
+443,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,51200,0,pageable,0,862943589015151,8021,250,0,0
+444,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-38",0,8232,0,pageable,0,862943589025582,4980,230,0,0
+445,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,512000,0,pageable,0,862943590408110,19941,16551,0,0
+446,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,51200,0,pageable,0,862943590715396,8180,270,0,0
+447,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-39",0,8232,0,pageable,0,862943590728436,5261,220,0,0
+448,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,512000,0,pageable,0,862943592037901,19651,16181,0,0
+449,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,51200,0,pageable,0,862943592305734,7801,240,0,0
+450,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-40",0,8232,0,pageable,0,862943592315925,4850,230,0,0
+451,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,512000,0,pageable,0,862943594362146,20712,16170,0,0
+452,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,51200,0,pageable,0,862943594630760,8310,250,0,0
+453,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-41",0,8232,0,pageable,0,862943594641620,5131,240,0,0
+454,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,512000,0,pageable,0,862943596255660,19731,16401,0,0
+455,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,51200,0,pageable,0,862943596521644,7970,250,0,0
+456,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-42",0,8232,0,pageable,0,862943596531974,4880,220,0,0
+457,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,512000,0,pageable,0,862943597963355,19871,16381,0,0
+458,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,51200,0,pageable,0,862943598267980,8021,260,0,0
+459,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-43",0,8232,0,pageable,0,862943598278481,5110,230,0,0
+460,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,512000,0,pageable,0,862943599805707,20121,16330,0,0
+461,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,51200,0,pageable,0,862943600071640,7870,260,0,0
+462,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-44",0,8232,0,pageable,0,862943600081840,5010,241,0,0
+463,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,512000,0,pageable,0,862943601660659,19521,16360,0,0
+464,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,51200,0,pageable,0,862943601925152,7960,270,0,0
+465,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-45",0,8232,0,pageable,0,862943601935482,5051,230,0,0
+466,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,512000,0,pageable,0,862943603346742,20891,13121,0,0
+467,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,51200,0,pageable,0,862943603610505,7951,260,0,0
+468,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-46",0,8232,0,pageable,0,862943603621136,4940,240,0,0
+469,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,512000,0,pageable,0,862943605355022,19301,16411,0,0
+470,target,25,0,decode,72,76,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,51200,0,pageable,0,862943605659767,8220,260,0,0
+471,target,25,0,decode,72,76,get_tensor,D2H,"ffn_moe_topk-47",0,8232,0,pageable,0,862943605670537,5371,230,0,0
+472,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,512000,0,pageable,0,862943607093308,19011,16201,0,0
+473,target,25,0,decode,72,76,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,20,0,pageable,0,862943607131330,2290,8701,0,0
+474,target,25,0,decode,72,76,get_tensor_async,D2H,"result_output",0,4966400,0,pageable,0,862943607204624,662453,0,0,-1
+475,target,25,0,decode,72,76,get_tensor_async,D2H,"result_mtp_embd",0,204800,0,pageable,0,862943607870247,18971,0,0,-1
+476,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,51200,0,pageable,0,862943612893386,4650,10731,0,0
+477,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,20,0,pageable,0,862943612919217,1230,3060,0,0
+478,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,51200,0,pageable,0,862943613388650,4371,10590,0,0
+479,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,48,0,pageable,0,862943613406001,1180,2890,0,0
+480,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,48,0,pageable,0,862943613411542,1100,2930,0,0
+481,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,12,0,pageable,0,862943613416992,1000,3120,0,0
+482,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#inp_pos#0",0,80,0,pageable,0,862943613424112,1190,2970,0,0
+483,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862943613433733,1520,3130,0,0
+484,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,51200,0,pageable,0,862943618481823,16071,350,0,0
+485,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-12",0,8232,0,pageable,0,862943618505564,5201,240,0,0
+486,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,512000,0,pageable,0,862943624300432,23321,13091,0,0
+487,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,51200,0,pageable,0,862943624571135,9911,370,0,0
+488,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-13",0,8232,0,pageable,0,862943624584646,5460,260,0,0
+489,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,512000,0,pageable,0,862943639674525,33241,17841,0,0
+490,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,51200,0,pageable,0,862943639975290,10960,490,0,0
+491,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-14",0,8232,0,pageable,0,862943639991110,5681,320,0,0
+492,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,512000,0,pageable,0,862943649975096,30061,14621,0,0
+493,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,51200,0,pageable,0,862943650308612,16271,360,0,0
+494,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-15",0,8232,0,pageable,0,862943650329113,9401,230,0,0
+495,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,512000,0,pageable,0,862943658233805,24602,13000,0,0
+496,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,51200,0,pageable,0,862943658504749,9360,520,0,0
+497,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-16",0,8232,0,pageable,0,862943658517349,5171,260,0,0
+498,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,512000,0,pageable,0,862943668369578,27312,12760,0,0
+499,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,51200,0,pageable,0,862943668647492,9640,300,0,0
+500,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-17",0,8232,0,pageable,0,862943668660333,5180,230,0,0
+501,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,512000,0,pageable,0,862943694666503,35352,11950,0,0
+502,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,51200,0,pageable,0,862943694969998,11021,380,0,0
+503,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-18",0,8232,0,pageable,0,862943694985479,5390,240,0,0
+504,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,512000,0,pageable,0,862943703888820,31772,19021,0,0
+505,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,51200,0,pageable,0,862943704260739,11100,370,0,0
+506,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-19",0,8232,0,pageable,0,862943704276440,5730,220,0,0
+507,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,512000,0,pageable,0,862943711081917,38812,14811,0,0
+508,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,51200,0,pageable,0,862943711409964,11230,380,0,0
+509,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-20",0,8232,0,pageable,0,862943711425644,5701,230,0,0
+510,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,512000,0,pageable,0,862943720737486,31422,13471,0,0
+511,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,51200,0,pageable,0,862943721039091,9851,310,0,0
+512,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-21",0,8232,0,pageable,0,862943721053232,5400,220,0,0
+513,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,512000,0,pageable,0,862943726530284,42462,11360,0,0
+514,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,51200,0,pageable,0,862943726864970,13731,510,0,0
+515,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-22",0,8232,0,pageable,0,862943726886911,6311,430,0,0
+516,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,512000,0,pageable,0,862943743816571,32682,12061,0,0
+517,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,51200,0,pageable,0,862943744203081,16760,390,0,0
+518,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-23",0,8232,0,pageable,0,862943744227992,9650,310,0,0
+519,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,512000,0,pageable,0,862943761194044,59623,15460,0,0
+520,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,51200,0,pageable,0,862943761533730,11331,390,0,0
+521,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-24",0,8232,0,pageable,0,862943761549261,5440,240,0,0
+522,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,512000,0,pageable,0,862943767289036,34362,14330,0,0
+523,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,51200,0,pageable,0,862943767596191,11111,360,0,0
+524,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-25",0,8232,0,pageable,0,862943767611192,5530,250,0,0
+525,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,512000,0,pageable,0,862943774079303,40152,11750,0,0
+526,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,51200,0,pageable,0,862943774396749,10950,400,0,0
+527,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-26",0,8232,0,pageable,0,862943774411939,14421,260,0,0
+528,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,512000,0,pageable,0,862943780655729,34342,11950,0,0
+529,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,51200,0,pageable,0,862943781036618,11501,500,0,0
+530,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-27",0,8232,0,pageable,0,862943781053699,5920,310,0,0
+531,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,512000,0,pageable,0,862943790728649,31261,15441,0,0
+532,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,51200,0,pageable,0,862943791028924,11370,390,0,0
+533,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-28",0,8232,0,pageable,0,862943791044564,5411,240,0,0
+534,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,512000,0,pageable,0,862943792146109,23411,16221,0,0
+535,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,51200,0,pageable,0,862943792418793,8690,280,0,0
+536,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-29",0,8232,0,pageable,0,862943792430333,5091,230,0,0
+537,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,512000,0,pageable,0,862943793383311,22481,12800,0,0
+538,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,51200,0,pageable,0,862943793652314,8290,260,0,0
+539,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-30",0,8232,0,pageable,0,862943793663254,4941,230,0,0
+540,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,512000,0,pageable,0,862943794810541,22351,17851,0,0
+541,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,51200,0,pageable,0,862943795125507,8510,250,0,0
+542,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-31",0,8232,0,pageable,0,862943795137028,5160,230,0,0
+543,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,512000,0,pageable,0,862943796245323,21411,16090,0,0
+544,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,51200,0,pageable,0,862943796515886,8320,270,0,0
+545,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-32",0,8232,0,pageable,0,862943796526787,4870,240,0,0
+546,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,512000,0,pageable,0,862943797644442,22741,16001,0,0
+547,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,51200,0,pageable,0,862943797915745,8281,260,0,0
+548,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-33",0,8232,0,pageable,0,862943797926576,5130,230,0,0
+549,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,512000,0,pageable,0,862943798802149,21451,16421,0,0
+550,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,51200,0,pageable,0,862943799073233,8350,250,0,0
+551,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-34",0,8232,0,pageable,0,862943799085933,4951,240,0,0
+552,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,512000,0,pageable,0,862943800101194,20561,16551,0,0
+553,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,51200,0,pageable,0,862943800407509,8060,250,0,0
+554,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-35",0,8232,0,pageable,0,862943800418330,5330,220,0,0
+555,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,512000,0,pageable,0,862943803032279,23681,12401,0,0
+556,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,51200,0,pageable,0,862943803308563,8940,300,0,0
+557,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-36",0,8232,0,pageable,0,862943803320494,5270,370,0,0
+558,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,512000,0,pageable,0,862943805455989,21692,16230,0,0
+559,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,51200,0,pageable,0,862943805726533,8230,260,0,0
+560,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-37",0,8232,0,pageable,0,862943805737293,5081,250,0,0
+561,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,512000,0,pageable,0,862943807295621,20971,16341,0,0
+562,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,51200,0,pageable,0,862943807564664,8491,260,0,0
+563,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-38",0,8232,0,pageable,0,862943807575635,4890,240,0,0
+564,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,512000,0,pageable,0,862943808726562,20221,16511,0,0
+565,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,51200,0,pageable,0,862943809031877,8140,270,0,0
+566,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-39",0,8232,0,pageable,0,862943809042677,5081,240,0,0
+567,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,512000,0,pageable,0,862943811077448,20951,15921,0,0
+568,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,51200,0,pageable,0,862943811344362,8110,250,0,0
+569,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-40",0,8232,0,pageable,0,862943811355052,4930,220,0,0
+570,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,512000,0,pageable,0,862943813772892,20251,16471,0,0
+571,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,51200,0,pageable,0,862943814040195,8071,250,0,0
+572,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-41",0,8232,0,pageable,0,862943814050796,5050,240,0,0
+573,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,512000,0,pageable,0,862943815127989,19741,16751,0,0
+574,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,51200,0,pageable,0,862943815394903,7850,270,0,0
+575,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-42",0,8232,0,pageable,0,862943815405173,5150,250,0,0
+576,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,512000,0,pageable,0,862943816772171,19581,16071,0,0
+577,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,51200,0,pageable,0,862943817075676,7990,270,0,0
+578,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-43",0,8232,0,pageable,0,862943817086377,5060,240,0,0
+579,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,512000,0,pageable,0,862943818244734,19361,16381,0,0
+580,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,51200,0,pageable,0,862943818511007,7591,260,0,0
+581,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-44",0,8232,0,pageable,0,862943818521048,4910,230,0,0
+582,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,512000,0,pageable,0,862943819739918,19461,16371,0,0
+583,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,51200,0,pageable,0,862943820004241,8371,270,0,0
+584,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-45",0,8232,0,pageable,0,862943820015152,5140,230,0,0
+585,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,512000,0,pageable,0,862943821472584,19211,15581,0,0
+586,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,51200,0,pageable,0,862943821741798,7770,260,0,0
+587,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-46",0,8232,0,pageable,0,862943821755068,5020,220,0,0
+588,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,512000,0,pageable,0,862943823425421,19121,15951,0,0
+589,target,25,0,decode,77,81,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,51200,0,pageable,0,862943823727466,7910,240,0,0
+590,target,25,0,decode,77,81,get_tensor,D2H,"ffn_moe_topk-47",0,8232,0,pageable,0,862943823737986,8271,250,0,0
+591,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,512000,0,pageable,0,862943825166257,19061,16441,0,0
+592,target,25,0,decode,77,81,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,20,0,pageable,0,862943825204559,2120,8721,0,0
+593,target,25,0,decode,77,81,get_tensor_async,D2H,"result_output",0,4966400,0,pageable,0,862943825276553,671523,0,0,-1
+594,target,25,0,decode,77,81,get_tensor_async,D2H,"result_mtp_embd",0,204800,0,pageable,0,862943825951296,19131,0,0,-1
+595,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,51200,0,pageable,0,862943831052929,5411,10150,0,0
+596,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,20,0,pageable,0,862943831086801,1090,3150,0,0
+597,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,51200,0,pageable,0,862943831557684,4011,13100,0,0
+598,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,48,0,pageable,0,862943831577265,1141,2930,0,0
+599,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,48,0,pageable,0,862943831582976,1100,2900,0,0
+600,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,12,0,pageable,0,862943831588356,990,3090,0,0
+601,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#inp_pos#0",0,80,0,pageable,0,862943831593696,1080,2910,0,0
+602,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862943831599117,1590,3140,0,0
+603,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,51200,0,pageable,0,862943836584234,15661,310,0,0
+604,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-12",0,8232,0,pageable,0,862943836603955,5040,240,0,0
+605,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,512000,0,pageable,0,862943842951190,26101,12141,0,0
+606,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,51200,0,pageable,0,862943843239684,9701,410,0,0
+607,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-13",0,8232,0,pageable,0,862943843253475,5590,330,0,0
+608,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,512000,0,pageable,0,862943859665039,33742,15780,0,0
+609,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,51200,0,pageable,0,862943859975434,11621,490,0,0
+610,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-14",0,8232,0,pageable,0,862943859991895,5760,330,0,0
+611,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,512000,0,pageable,0,862943883997506,34202,15671,0,0
+612,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,51200,0,pageable,0,862943884363494,10761,390,0,0
+613,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-15",0,8232,0,pageable,0,862943884378945,11631,310,0,0
+614,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,512000,0,pageable,0,862943889674608,27291,15891,0,0
+615,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,51200,0,pageable,0,862943889967102,10031,350,0,0
+616,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-16",0,8232,0,pageable,0,862943889980863,5520,320,0,0
+617,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,512000,0,pageable,0,862943897219142,31142,15841,0,0
+618,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,51200,0,pageable,0,862943897516337,10930,381,0,0
+619,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-17",0,8232,0,pageable,0,862943897531148,5450,240,0,0
+620,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,512000,0,pageable,0,862943900818651,29931,12711,0,0
+621,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,51200,0,pageable,0,862943901119926,11040,480,0,0
+622,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-18",0,8232,0,pageable,0,862943901140347,5720,330,0,0
+623,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,512000,0,pageable,0,862943910826537,34962,12181,0,0
+624,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,51200,0,pageable,0,862943911189415,11021,400,0,0
+625,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-19",0,8232,0,pageable,0,862943911205246,5730,220,0,0
+626,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,512000,0,pageable,0,862943919606173,25931,15681,0,0
+627,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,51200,0,pageable,0,862943919889847,9550,291,0,0
+628,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-20",0,8232,0,pageable,0,862943919902508,5100,230,0,0
+629,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,512000,0,pageable,0,862943932896732,25631,18641,0,0
+630,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,51200,0,pageable,0,862943933185887,9470,300,0,0
+631,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-21",0,8232,0,pageable,0,862943933198507,5150,250,0,0
+632,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,512000,0,pageable,0,862943935436408,22871,12501,0,0
+633,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,51200,0,pageable,0,862943935703571,8481,270,0,0
+634,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-22",0,8232,0,pageable,0,862943935714702,4950,230,0,0
+635,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,512000,0,pageable,0,862943948695926,26071,17511,0,0
+636,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,51200,0,pageable,0,862943949017882,9941,380,0,0
+637,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-23",0,8232,0,pageable,0,862943949032113,5460,310,0,0
+638,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,512000,0,pageable,0,862943956322504,27242,12760,0,0
+639,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,51200,0,pageable,0,862943956597758,8301,310,0,0
+640,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-24",0,8232,0,pageable,0,862943956608699,4900,240,0,0
+641,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,512000,0,pageable,0,862943960366135,21631,16081,0,0
+642,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,51200,0,pageable,0,862943960635908,8521,250,0,0
+643,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-25",0,8232,0,pageable,0,862943960647109,5110,230,0,0
+644,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,512000,0,pageable,0,862943966672558,24421,12931,0,0
+645,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,51200,0,pageable,0,862943966944482,9390,320,0,0
+646,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-26",0,8232,0,pageable,0,862943966956932,5140,230,0,0
+647,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,512000,0,pageable,0,862943976209311,26921,12281,0,0
+648,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,51200,0,pageable,0,862943976521387,18020,381,0,0
+649,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-27",0,8232,0,pageable,0,862943976542798,5360,230,0,0
+650,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,512000,0,pageable,0,862943991010785,26242,13490,0,0
+651,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,51200,0,pageable,0,862943991287489,9531,360,0,0
+652,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-28",0,8232,0,pageable,0,862943991300310,4990,240,0,0
+653,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,512000,0,pageable,0,862943992439026,20521,16111,0,0
+654,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,51200,0,pageable,0,862943992704859,8151,270,0,0
+655,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-29",0,8232,0,pageable,0,862943992717060,5130,220,0,0
+656,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,512000,0,pageable,0,862943993834385,20752,16520,0,0
+657,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,51200,0,pageable,0,862943994101699,7920,250,0,0
+658,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-30",0,8232,0,pageable,0,862943994112169,4861,230,0,0
+659,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,512000,0,pageable,0,862943995127970,20141,16051,0,0
+660,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,51200,0,pageable,0,862943995429705,7860,250,0,0
+661,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-31",0,8232,0,pageable,0,862943995440365,5491,230,0,0
+662,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,512000,0,pageable,0,862943996335550,20011,16580,0,0
+663,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,51200,0,pageable,0,862943996599533,7970,260,0,0
+664,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-32",0,8232,0,pageable,0,862943996609873,4920,240,0,0
+665,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,512000,0,pageable,0,862943997546950,20231,16331,0,0
+666,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,51200,0,pageable,0,862943997814473,8030,270,0,0
+667,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-33",0,8232,0,pageable,0,862943997825244,5090,230,0,0
+668,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,512000,0,pageable,0,862943998732919,19731,16230,0,0
+669,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,51200,0,pageable,0,862943998996802,8150,260,0,0
+670,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-34",0,8232,0,pageable,0,862943999007512,5491,230,0,0
+671,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,512000,0,pageable,0,862944001212372,20521,16480,0,0
+672,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,51200,0,pageable,0,862944001517387,7870,250,0,0
+673,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-35",0,8232,0,pageable,0,862944001527977,5050,230,0,0
+674,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,512000,0,pageable,0,862944002603071,19731,16330,0,0
+675,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,51200,0,pageable,0,862944002869974,7790,250,0,0
+676,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-36",0,8232,0,pageable,0,862944002880184,4911,230,0,0
+677,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,512000,0,pageable,0,862944004006950,19811,19361,0,0
+678,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,51200,0,pageable,0,862944004273653,7961,260,0,0
+679,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-37",0,8232,0,pageable,0,862944004283954,5270,240,0,0
+680,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,512000,0,pageable,0,862944005279593,19481,16211,0,0
+681,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,51200,0,pageable,0,862944005541896,7901,260,0,0
+682,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-38",0,8232,0,pageable,0,862944005552187,4930,230,0,0
+683,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,512000,0,pageable,0,862944006634791,19551,16640,0,0
+684,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,51200,0,pageable,0,862944006936145,7641,260,0,0
+685,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-39",0,8232,0,pageable,0,862944006946386,5280,230,0,0
+686,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,512000,0,pageable,0,862944011003007,22951,19941,0,0
+687,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,51200,0,pageable,0,862944011274031,8250,260,0,0
+688,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-40",0,8232,0,pageable,0,862944011284861,4900,230,0,0
+689,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,512000,0,pageable,0,862944014035908,39542,14521,0,0
+690,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,51200,0,pageable,0,862944014382165,12381,470,0,0
+691,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-41",0,8232,0,pageable,0,862944014404096,6030,310,0,0
+692,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,512000,0,pageable,0,862944015814366,27291,15371,0,0
+693,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,51200,0,pageable,0,862944016108491,10320,380,0,0
+694,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-42",0,8232,0,pageable,0,862944016122891,5311,310,0,0
+695,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,512000,0,pageable,0,862944017463528,25741,15301,0,0
+696,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,51200,0,pageable,0,862944017810025,9900,360,0,0
+697,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-43",0,8232,0,pageable,0,862944017824136,5440,310,0,0
+698,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,512000,0,pageable,0,862944019072618,23901,15611,0,0
+699,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,51200,0,pageable,0,862944019355982,9330,340,0,0
+700,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-44",0,8232,0,pageable,0,862944019369042,5331,320,0,0
+701,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,512000,0,pageable,0,862944020802234,23741,15521,0,0
+702,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,51200,0,pageable,0,862944021081417,9291,350,0,0
+703,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-45",0,8232,0,pageable,0,862944021094338,5460,310,0,0
+704,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,512000,0,pageable,0,862944022534509,23142,15940,0,0
+705,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,51200,0,pageable,0,862944022813743,9431,370,0,0
+706,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-46",0,8232,0,pageable,0,862944022826904,5240,310,0,0
+707,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,512000,0,pageable,0,862944024754890,23391,15611,0,0
+708,target,25,0,decode,82,86,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,51200,0,pageable,0,862944025077526,9510,330,0,0
+709,target,25,0,decode,82,86,get_tensor,D2H,"ffn_moe_topk-47",0,8232,0,pageable,0,862944025090846,5771,310,0,0
+710,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,512000,0,pageable,0,862944026445593,22652,15850,0,0
+711,target,25,0,decode,82,86,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,20,0,pageable,0,862944026488866,2800,8760,0,0
+712,target,25,0,decode,82,86,get_tensor_async,D2H,"result_output",0,4966400,0,pageable,0,862944026582300,650693,0,0,-1
+713,target,25,0,decode,82,86,get_tensor_async,D2H,"result_mtp_embd",0,204800,0,pageable,0,862944027237513,19811,0,0,-1
+714,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,40960,0,pageable,0,862944033506774,4890,10291,0,0
+715,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,16,0,pageable,0,862944033530475,1110,3120,0,0
+716,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,40960,0,pageable,0,862944036040569,5841,4710,0,0
+717,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,32,0,pageable,0,862944036055930,1300,2980,0,0
+718,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,32,0,pageable,0,862944036061790,1020,2951,0,0
+719,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,8,0,pageable,0,862944036067151,1030,3080,0,0
+720,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#inp_pos#0",0,64,0,pageable,0,862944036073521,1130,2910,0,0
+721,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862944036078831,1590,4061,0,0
+722,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,40960,0,pageable,0,862944040643588,14831,310,0,0
+723,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-12",0,6184,0,pageable,0,862944040661419,4860,230,0,0
+724,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,409600,0,pageable,0,862944042292590,19811,10440,0,0
+725,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,40960,0,pageable,0,862944042541522,7380,340,0,0
+726,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-13",0,6184,0,pageable,0,862944042556213,4380,310,0,0
+727,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,409600,0,pageable,0,862944044336631,26141,19681,0,0
+728,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,40960,0,pageable,0,862944044618005,8370,370,0,0
+729,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-14",0,6184,0,pageable,0,862944044629746,5030,310,0,0
+730,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,409600,0,pageable,0,862944045969492,17861,14651,0,0
+731,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,40960,0,pageable,0,862944046281048,7810,340,0,0
+732,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-15",0,6184,0,pageable,0,862944046293018,5240,310,0,0
+733,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,409600,0,pageable,0,862944053896765,25422,14030,0,0
+734,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,40960,0,pageable,0,862944054155308,8981,390,0,0
+735,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-16",0,6184,0,pageable,0,862944054168089,5270,250,0,0
+736,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,409600,0,pageable,0,862944055177599,16451,14580,0,0
+737,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,40960,0,pageable,0,862944055418421,6890,230,0,0
+738,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-17",0,6184,0,pageable,0,862944055427481,4991,230,0,0
+739,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,409600,0,pageable,0,862944059540255,24072,10640,0,0
+740,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,40960,0,pageable,0,862944059809589,10950,580,0,0
+741,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-18",0,6184,0,pageable,0,862944059825820,5740,380,0,0
+742,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,409600,0,pageable,0,862944070717370,25551,12451,0,0
+743,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,40960,0,pageable,0,862944071050166,9751,480,0,0
+744,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-19",0,6184,0,pageable,0,862944071064597,5550,381,0,0
+745,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,409600,0,pageable,0,862944075786201,34572,9441,0,0
+746,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,40960,0,pageable,0,862944076082196,11001,380,0,0
+747,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-20",0,6184,0,pageable,0,862944076097577,5350,250,0,0
+748,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,409600,0,pageable,0,862944080430732,20891,14151,0,0
+749,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,40960,0,pageable,0,862944080690635,8210,270,0,0
+750,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-21",0,6184,0,pageable,0,862944080701565,5161,220,0,0
+751,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,409600,0,pageable,0,862944084808439,21601,10361,0,0
+752,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,40960,0,pageable,0,862944085058291,8781,270,0,0
+753,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-22",0,6184,0,pageable,0,862944085069862,4990,230,0,0
+754,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,409600,0,pageable,0,862944090932483,20321,14141,0,0
+755,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,40960,0,pageable,0,862944091237678,7820,280,0,0
+756,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-23",0,6184,0,pageable,0,862944091248508,5061,230,0,0
+757,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,409600,0,pageable,0,862944092184075,17691,14411,0,0
+758,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,40960,0,pageable,0,862944092429927,7091,260,0,0
+759,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-24",0,6184,0,pageable,0,862944092439188,4820,250,0,0
+760,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,409600,0,pageable,0,862944093536152,17161,14231,0,0
+761,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,40960,0,pageable,0,862944093783664,7581,250,0,0
+762,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-25",0,6184,0,pageable,0,862944093793435,4980,230,0,0
+763,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,409600,0,pageable,0,862944097123460,19291,10761,0,0
+764,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,40960,0,pageable,0,862944097371302,7831,280,0,0
+765,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-26",0,6184,0,pageable,0,862944097381573,4890,230,0,0
+766,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,409600,0,pageable,0,862944098757291,18781,10941,0,0
+767,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,40960,0,pageable,0,862944099043225,7901,260,0,0
+768,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-27",0,6184,0,pageable,0,862944099053956,12950,230,0,0
+769,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,409600,0,pageable,0,862944103189051,21461,10421,0,0
+770,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,40960,0,pageable,0,862944103437063,7911,340,0,0
+771,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-28",0,6184,0,pageable,0,862944103447894,4790,240,0,0
+772,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,409600,0,pageable,0,862944105973639,17621,14511,0,0
+773,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,40960,0,pageable,0,862944106224432,7920,270,0,0
+774,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-29",0,6184,0,pageable,0,862944106234702,4960,260,0,0
+775,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,409600,0,pageable,0,862944109105654,23012,14410,0,0
+776,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,40960,0,pageable,0,862944109371508,7670,260,0,0
+777,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-30",0,6184,0,pageable,0,862944109381648,4800,230,0,0
+778,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,409600,0,pageable,0,862944110330425,15621,14821,0,0
+779,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,40960,0,pageable,0,862944110606979,6800,250,0,0
+780,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-31",0,6184,0,pageable,0,862944110616159,5051,230,0,0
+781,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,409600,0,pageable,0,862944111574127,15851,14430,0,0
+782,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,40960,0,pageable,0,862944111813769,7130,260,0,0
+783,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-32",0,6184,0,pageable,0,862944111822989,4780,230,0,0
+784,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,409600,0,pageable,0,862944116033798,15891,14661,0,0
+785,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,40960,0,pageable,0,862944116275330,7100,250,0,0
+786,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-33",0,6184,0,pageable,0,862944116284531,4970,230,0,0
+787,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,409600,0,pageable,0,862944117301221,15261,14721,0,0
+788,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,40960,0,pageable,0,862944117540233,6910,250,0,0
+789,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-34",0,6184,0,pageable,0,862944117549263,4751,230,0,0
+790,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,409600,0,pageable,0,862944128025523,15381,14801,0,0
+791,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,40960,0,pageable,0,862944128299297,6670,240,0,0
+792,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-35",0,6184,0,pageable,0,862944128308157,5120,250,0,0
+793,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,409600,0,pageable,0,862944129580650,21311,15821,0,0
+794,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,40960,0,pageable,0,862944129840133,9031,400,0,0
+795,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-36",0,6184,0,pageable,0,862944129857164,5210,240,0,0
+796,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,409600,0,pageable,0,862944130871614,16451,14601,0,0
+797,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,40960,0,pageable,0,862944131127157,11521,510,0,0
+798,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-37",0,6184,0,pageable,0,862944131148648,5600,230,0,0
+799,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,409600,0,pageable,0,862944132310606,17751,11490,0,0
+800,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,40960,0,pageable,0,862944132554928,7710,280,0,0
+801,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-38",0,6184,0,pageable,0,862944132565498,4871,240,0,0
+802,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,409600,0,pageable,0,862944133678134,15920,14781,0,0
+803,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,40960,0,pageable,0,862944133956947,6871,270,0,0
+804,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-39",0,6184,0,pageable,0,862944133966618,4980,230,0,0
+805,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,409600,0,pageable,0,862944134785048,15391,14481,0,0
+806,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,40960,0,pageable,0,862944135023280,7051,260,0,0
+807,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-40",0,6184,0,pageable,0,862944135032421,4810,230,0,0
+808,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,409600,0,pageable,0,862944136630870,15871,14641,0,0
+809,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,40960,0,pageable,0,862944136872682,7231,250,0,0
+810,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-41",0,6184,0,pageable,0,862944136882153,5000,220,0,0
+811,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,409600,0,pageable,0,862944138018169,15651,14790,0,0
+812,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,40960,0,pageable,0,862944138257691,6950,260,0,0
+813,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-42",0,6184,0,pageable,0,862944138266751,4760,230,0,0
+814,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,409600,0,pageable,0,862944139611208,15571,14741,0,0
+815,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,40960,0,pageable,0,862944139887822,7050,290,0,0
+816,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-43",0,6184,0,pageable,0,862944139897132,5530,231,0,0
+817,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,409600,0,pageable,0,862944140977956,15380,14551,0,0
+818,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,40960,0,pageable,0,862944141219218,6710,260,0,0
+819,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-44",0,6184,0,pageable,0,862944141228008,4760,230,0,0
+820,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,409600,0,pageable,0,862944142437868,15201,14741,0,0
+821,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,40960,0,pageable,0,862944142681550,7091,260,0,0
+822,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-45",0,6184,0,pageable,0,862944142690701,5030,230,0,0
+823,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,409600,0,pageable,0,862944143897531,15620,14721,0,0
+824,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,40960,0,pageable,0,862944144138633,6930,250,0,0
+825,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-46",0,6184,0,pageable,0,862944144147903,4840,230,0,0
+826,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,409600,0,pageable,0,862944145581214,36982,12961,0,0
+827,target,25,0,decode,87,90,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,40960,0,pageable,0,862944145951783,11140,410,0,0
+828,target,25,0,decode,87,90,get_tensor,D2H,"ffn_moe_topk-47",0,6184,0,pageable,0,862944145968283,5921,240,0,0
+829,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,409600,0,pageable,0,862944147402134,20702,14000,0,0
+830,target,25,0,decode,87,90,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,16,0,pageable,0,862944147446157,2540,8710,0,0
+831,target,25,0,decode,87,90,get_tensor_async,D2H,"result_output",0,3973120,0,pageable,0,862944147532751,647342,0,0,-1
+832,target,25,0,decode,87,90,get_tensor_async,D2H,"result_mtp_embd",0,163840,0,pageable,0,862944148182373,16841,0,0,-1
+833,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,20480,0,pageable,0,862944152540949,4721,9010,0,0
+834,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,8,0,pageable,0,862944152565031,1110,2960,0,0
+835,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,20480,0,pageable,0,862944152893407,2470,10601,0,0
+836,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,32,0,pageable,0,862944152908688,1150,3110,0,0
+837,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,32,0,pageable,0,862944152914358,1050,2910,0,0
+838,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,8,0,pageable,0,862944152919578,1000,2880,0,0
+839,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#inp_pos#0",0,32,0,pageable,0,862944152924648,1031,2910,0,0
+840,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862944152929769,1560,3400,0,0
+841,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,20480,0,pageable,0,862944156197201,14721,280,0,0
+842,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-12",0,2088,0,pageable,0,862944156215222,4580,240,0,0
+843,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,204800,0,pageable,0,862944165647020,18651,11900,0,0
+844,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,20480,0,pageable,0,862944165876691,9021,460,0,0
+845,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-13",0,2088,0,pageable,0,862944165890342,5460,300,0,0
+846,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,204800,0,pageable,0,862944170618186,14671,10711,0,0
+847,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,20480,0,pageable,0,862944170827507,7500,270,0,0
+848,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-14",0,2088,0,pageable,0,862944170838257,4750,230,0,0
+849,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,204800,0,pageable,0,862944173737691,13241,6620,0,0
+850,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,20480,0,pageable,0,862944174001724,7770,2301,0,0
+851,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-15",0,2088,0,pageable,0,862944174015695,5120,310,0,0
+852,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,204800,0,pageable,0,862944176482817,13561,10440,0,0
+853,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,20480,0,pageable,0,862944176688687,6941,360,0,0
+854,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-16",0,2088,0,pageable,0,862944176698948,4780,310,0,0
+855,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,204800,0,pageable,0,862944179678076,12661,10480,0,0
+856,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,20480,0,pageable,0,862944179884006,6760,340,0,0
+857,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-17",0,2088,0,pageable,0,862944179894047,5080,290,0,0
+858,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,204800,0,pageable,0,862944187746176,11481,6880,0,0
+859,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,20480,0,pageable,0,862944187942046,7020,300,0,0
+860,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-18",0,2088,0,pageable,0,862944187951816,4520,240,0,0
+861,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,204800,0,pageable,0,862944189768036,16151,6191,0,0
+862,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,20480,0,pageable,0,862944190049400,8691,470,0,0
+863,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-19",0,2088,0,pageable,0,862944190063391,5360,320,0,0
+864,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,204800,0,pageable,0,862944193222658,12330,6821,0,0
+865,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,20480,0,pageable,0,862944193428618,6990,350,0,0
+866,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-20",0,2088,0,pageable,0,862944193439319,4910,300,0,0
+867,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,204800,0,pageable,0,862944195724622,12390,6001,0,0
+868,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,20480,0,pageable,0,862944195926592,5970,360,0,0
+869,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-21",0,2088,0,pageable,0,862944195936032,4041,310,0,0
+870,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,204800,0,pageable,0,862944196763223,10491,7010,0,0
+871,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,20480,0,pageable,0,862944196963033,6661,340,0,0
+872,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-22",0,2088,0,pageable,0,862944196973214,4780,310,0,0
+873,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,204800,0,pageable,0,862944197678069,10960,6561,0,0
+874,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,20480,0,pageable,0,862944197938332,7030,310,0,0
+875,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-23",0,2088,0,pageable,0,862944197949022,5231,310,0,0
+876,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,204800,0,pageable,0,862944198516620,10801,6840,0,0
+877,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,20480,0,pageable,0,862944198716270,6861,340,0,0
+878,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-24",0,2088,0,pageable,0,862944198726391,4960,300,0,0
+879,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,204800,0,pageable,0,862944203125029,25111,5601,0,0
+880,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,20480,0,pageable,0,862944203393252,10131,450,0,0
+881,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-25",0,2088,0,pageable,0,862944203408273,5540,310,0,0
+882,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,204800,0,pageable,0,862944210213391,28731,5720,0,0
+883,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,20480,0,pageable,0,862944210472204,9570,350,0,0
+884,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-26",0,2088,0,pageable,0,862944210485604,5090,230,0,0
+885,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,204800,0,pageable,0,862944212819540,15181,6440,0,0
+886,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,20480,0,pageable,0,862944213087313,7701,270,0,0
+887,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-27",0,2088,0,pageable,0,862944213098424,4810,240,0,0
+888,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,204800,0,pageable,0,862944220155654,15231,6430,0,0
+889,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,20480,0,pageable,0,862944220370235,15480,300,0,0
+890,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-28",0,2088,0,pageable,0,862944220388956,5060,240,0,0
+891,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,204800,0,pageable,0,862944222589295,63583,12321,0,0
+892,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,20480,0,pageable,0,862944222850518,7460,270,0,0
+893,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-29",0,2088,0,pageable,0,862944222860808,4721,230,0,0
+894,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,204800,0,pageable,0,862944223776614,14420,6801,0,0
+895,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,20480,0,pageable,0,862944223974123,6511,240,0,0
+896,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-30",0,2088,0,pageable,0,862944223983094,4460,230,0,0
+897,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,204800,0,pageable,0,862944224546872,9820,6611,0,0
+898,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,20480,0,pageable,0,862944224787354,6080,220,0,0
+899,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-31",0,2088,0,pageable,0,862944224797654,4701,220,0,0
+900,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,204800,0,pageable,0,862944225352912,9300,6941,0,0
+901,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,20480,0,pageable,0,862944225541531,5801,230,0,0
+902,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-32",0,2088,0,pageable,0,862944225549402,4410,230,0,0
+903,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,204800,0,pageable,0,862944225933371,8660,6790,0,0
+904,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,20480,0,pageable,0,862944226116810,5970,230,0,0
+905,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-33",0,2088,0,pageable,0,862944226124970,4650,230,0,0
+906,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,204800,0,pageable,0,862944226903239,8550,7161,0,0
+907,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,20480,0,pageable,0,862944227092088,6281,240,0,0
+908,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-34",0,2088,0,pageable,0,862944227100789,4380,230,0,0
+909,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,204800,0,pageable,0,862944227747401,8700,6760,0,0
+910,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,20480,0,pageable,0,862944227981492,5981,260,0,0
+911,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-35",0,2088,0,pageable,0,862944227989713,4710,230,0,0
+912,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,204800,0,pageable,0,862944228541960,8830,6911,0,0
+913,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,20480,0,pageable,0,862944228732390,5960,240,0,0
+914,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-36",0,2088,0,pageable,0,862944228740540,4390,250,0,0
+915,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,204800,0,pageable,0,862944229380602,8390,6720,0,0
+916,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,20480,0,pageable,0,862944229564441,5840,240,0,0
+917,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-37",0,2088,0,pageable,0,862944229572321,4680,230,0,0
+918,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,204800,0,pageable,0,862944230142840,8890,7150,0,0
+919,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,20480,0,pageable,0,862944230327889,5860,240,0,0
+920,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-38",0,2088,0,pageable,0,862944230335779,4430,230,0,0
+921,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,204800,0,pageable,0,862944230955420,8910,6801,0,0
+922,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,20480,0,pageable,0,862944231187661,5871,250,0,0
+923,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-39",0,2088,0,pageable,0,862944231196072,4740,240,0,0
+924,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,204800,0,pageable,0,862944232092136,9451,6930,0,0
+925,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,20480,0,pageable,0,862944232279786,6190,250,0,0
+926,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-40",0,2088,0,pageable,0,862944232288226,4630,240,0,0
+927,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,204800,0,pageable,0,862944232875785,8371,6720,0,0
+928,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,20480,0,pageable,0,862944233059914,5941,240,0,0
+929,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-41",0,2088,0,pageable,0,862944233068035,4550,250,0,0
+930,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,204800,0,pageable,0,862944233685625,8621,7070,0,0
+931,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,20480,0,pageable,0,862944233870285,5900,250,0,0
+932,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-42",0,2088,0,pageable,0,862944233878195,4480,240,0,0
+933,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,204800,0,pageable,0,862944234606091,8780,6831,0,0
+934,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,20480,0,pageable,0,862944234837542,5991,240,0,0
+935,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-43",0,2088,0,pageable,0,862944234848303,4670,230,0,0
+936,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,204800,0,pageable,0,862944235305136,8510,6840,0,0
+937,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,20480,0,pageable,0,862944235493175,5940,250,0,0
+938,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-44",0,2088,0,pageable,0,862944235501075,4571,240,0,0
+939,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,204800,0,pageable,0,862944236174939,8540,6861,0,0
+940,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,20480,0,pageable,0,862944236359088,5870,240,0,0
+941,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-45",0,2088,0,pageable,0,862944236366958,4741,250,0,0
+942,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,204800,0,pageable,0,862944236998740,10510,6861,0,0
+943,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,20480,0,pageable,0,862944237185099,5930,240,0,0
+944,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-46",0,2088,0,pageable,0,862944237193089,4431,230,0,0
+945,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,204800,0,pageable,0,862944237788569,8670,6811,0,0
+946,target,25,0,decode,91,92,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,20480,0,pageable,0,862944238012360,6600,390,0,0
+947,target,25,0,decode,91,92,get_tensor,D2H,"ffn_moe_topk-47",0,2088,0,pageable,0,862944238022791,4910,230,0,0
+948,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,204800,0,pageable,0,862944238656432,8490,7251,0,0
+949,target,25,0,decode,91,92,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,8,0,pageable,0,862944238674163,2000,9290,0,0
+950,target,25,0,decode,91,92,get_tensor_async,D2H,"result_output",0,1986560,0,pageable,0,862944238743146,517196,0,0,-1
+951,target,25,0,decode,91,92,get_tensor_async,D2H,"result_mtp_embd",0,81920,0,pageable,0,862944239262782,14991,0,0,-1
+952,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,20480,0,pageable,0,862944241036820,3390,6511,0,0
+953,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,8,0,pageable,0,862944241054091,1270,2840,0,0
+954,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,20480,0,pageable,0,862944243692082,22701,2920,0,0
+955,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,32,0,pageable,0,862944243740224,1880,3010,0,0
+956,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,32,0,pageable,0,862944243747294,1191,3130,0,0
+957,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,8,0,pageable,0,862944243753125,1100,2910,0,0
+958,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#inp_pos#0",0,32,0,pageable,0,862944243759915,1240,3230,0,0
+959,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862944243765855,1690,3481,0,0
+960,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,20480,0,pageable,0,862944247092040,14111,330,0,0
+961,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-12",0,2088,0,pageable,0,862944247111191,4591,230,0,0
+962,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,204800,0,pageable,0,862944249118141,16911,11810,0,0
+963,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,20480,0,pageable,0,862944249337092,7070,250,0,0
+964,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-13",0,2088,0,pageable,0,862944249346942,6841,230,0,0
+965,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,204800,0,pageable,0,862944250756462,19191,6420,0,0
+966,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,20480,0,pageable,0,862944250981173,8021,360,0,0
+967,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-14",0,2088,0,pageable,0,862944250992944,4740,230,0,0
+968,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,204800,0,pageable,0,862944253963801,13791,6490,0,0
+969,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,20480,0,pageable,0,862944254220744,7040,300,0,0
+970,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-15",0,2088,0,pageable,0,862944254234175,4810,220,0,0
+971,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,204800,0,pageable,0,862944254631464,11621,6780,0,0
+972,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,20480,0,pageable,0,862944254825174,6280,240,0,0
+973,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-16",0,2088,0,pageable,0,862944254833945,4470,230,0,0
+974,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,204800,0,pageable,0,862944256650715,12530,6751,0,0
+975,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,20480,0,pageable,0,862944256848974,6571,240,0,0
+976,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-17",0,2088,0,pageable,0,862944256857895,4680,230,0,0
+977,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,204800,0,pageable,0,862944265464672,12771,6780,0,0
+978,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,20480,0,pageable,0,862944265665532,6730,260,0,0
+979,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-18",0,2088,0,pageable,0,862944265674702,4511,230,0,0
+980,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,204800,0,pageable,0,862944270513512,11781,6630,0,0
+981,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,20480,0,pageable,0,862944270760225,6680,260,0,0
+982,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-19",0,2088,0,pageable,0,862944270769835,4870,240,0,0
+983,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,204800,0,pageable,0,862944271509812,11470,10751,0,0
+984,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,20480,0,pageable,0,862944271709102,6370,240,0,0
+985,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-20",0,2088,0,pageable,0,862944271717932,4510,230,0,0
+986,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,204800,0,pageable,0,862944274186815,17251,6340,0,0
+987,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,20480,0,pageable,0,862944274402035,8291,390,0,0
+988,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-21",0,2088,0,pageable,0,862944274414066,5140,230,0,0
+989,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,204800,0,pageable,0,862944277134431,13031,6640,0,0
+990,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,20480,0,pageable,0,862944277336091,6860,280,0,0
+991,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-22",0,2088,0,pageable,0,862944277345961,4631,240,0,0
+992,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,204800,0,pageable,0,862944278675577,10021,6820,0,0
+993,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,20480,0,pageable,0,862944278916589,6331,270,0,0
+994,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-23",0,2088,0,pageable,0,862944278925710,4700,250,0,0
+995,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,204800,0,pageable,0,862944280798293,10140,6841,0,0
+996,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,20480,0,pageable,0,862944280989822,6281,280,0,0
+997,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-24",0,2088,0,pageable,0,862944280998533,4640,250,0,0
+998,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,204800,0,pageable,0,862944281679646,8511,6970,0,0
+999,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,20480,0,pageable,0,862944281864145,5871,240,0,0
+1000,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-25",0,2088,0,pageable,0,862944281872076,4640,230,0,0
+1001,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,204800,0,pageable,0,862944284905087,11900,6720,0,0
+1002,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,20480,0,pageable,0,862944285109807,7010,360,0,0
+1003,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-26",0,2088,0,pageable,0,862944285122617,4841,320,0,0
+1004,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,204800,0,pageable,0,862944287049373,27491,5510,0,0
+1005,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,20480,0,pageable,0,862944287394000,10360,420,0,0
+1006,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-27",0,2088,0,pageable,0,862944287410381,5500,320,0,0
+1007,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,204800,0,pageable,0,862944290273003,16321,5980,0,0
+1008,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,20480,0,pageable,0,862944290487163,7491,270,0,0
+1009,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-28",0,2088,0,pageable,0,862944290498114,11871,230,0,0
+1010,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,204800,0,pageable,0,862944294189017,16451,10140,0,0
+1011,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,20480,0,pageable,0,862944294406608,7480,300,0,0
+1012,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-29",0,2088,0,pageable,0,862944294416848,4731,230,0,0
+1013,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,204800,0,pageable,0,862944295072731,12251,6210,0,0
+1014,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,20480,0,pageable,0,862944295271011,6460,270,0,0
+1015,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-30",0,2088,0,pageable,0,862944295280081,4510,220,0,0
+1016,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,204800,0,pageable,0,862944295839209,12161,6220,0,0
+1017,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,20480,0,pageable,0,862944296091082,6550,240,0,0
+1018,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-31",0,2088,0,pageable,0,862944296100322,4670,230,0,0
+1019,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,204800,0,pageable,0,862944296691331,11291,6260,0,0
+1020,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,20480,0,pageable,0,862944296886771,6430,230,0,0
+1021,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-32",0,2088,0,pageable,0,862944296895541,4471,220,0,0
+1022,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,204800,0,pageable,0,862944297444089,9260,6870,0,0
+1023,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,20480,0,pageable,0,862944297632858,5790,240,0,0
+1024,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-33",0,2088,0,pageable,0,862944297640658,4661,230,0,0
+1025,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,204800,0,pageable,0,862944298589515,10371,6820,0,0
+1026,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,20480,0,pageable,0,862944298780425,5970,230,0,0
+1027,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-34",0,2088,0,pageable,0,862944298788605,4481,260,0,0
+1028,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,204800,0,pageable,0,862944299503881,9880,6841,0,0
+1029,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,20480,0,pageable,0,862944299736142,5870,251,0,0
+1030,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-35",0,2088,0,pageable,0,862944299744283,5300,250,0,0
+1031,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,204800,0,pageable,0,862944300368734,9550,6910,0,0
+1032,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,20480,0,pageable,0,862944300555513,5880,230,0,0
+1033,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-36",0,2088,0,pageable,0,862944300563393,4460,230,0,0
+1034,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,204800,0,pageable,0,862944301177664,9150,6941,0,0
+1035,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,20480,0,pageable,0,862944301364513,5730,230,0,0
+1036,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-37",0,2088,0,pageable,0,862944301372243,4681,240,0,0
+1037,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,204800,0,pageable,0,862944302716160,10121,6890,0,0
+1038,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,20480,0,pageable,0,862944302909520,5740,250,0,0
+1039,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-38",0,2088,0,pageable,0,862944302921000,4451,220,0,0
+1040,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,204800,0,pageable,0,862944303592514,9330,6940,0,0
+1041,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,20480,0,pageable,0,862944303826765,5710,230,0,0
+1042,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-39",0,2088,0,pageable,0,862944303834826,4690,230,0,0
+1043,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,204800,0,pageable,0,862944304430755,9281,6660,0,0
+1044,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,20480,0,pageable,0,862944304616664,5691,250,0,0
+1045,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-40",0,2088,0,pageable,0,862944304624415,4450,220,0,0
+1046,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,204800,0,pageable,0,862944305967541,10681,6820,0,0
+1047,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,20480,0,pageable,0,862944306166401,6211,250,0,0
+1048,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-41",0,2088,0,pageable,0,862944306174832,4750,230,0,0
+1049,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,204800,0,pageable,0,862944306856896,8880,6900,0,0
+1050,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,20480,0,pageable,0,862944307044025,5670,240,0,0
+1051,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-42",0,2088,0,pageable,0,862944307051725,4431,230,0,0
+1052,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,204800,0,pageable,0,862944307770071,8860,6741,0,0
+1053,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,20480,0,pageable,0,862944308000852,5741,230,0,0
+1054,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-43",0,2088,0,pageable,0,862944308008973,6750,240,0,0
+1055,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,204800,0,pageable,0,862944308624993,8511,6750,0,0
+1056,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,20480,0,pageable,0,862944308808842,5571,240,0,0
+1057,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-44",0,2088,0,pageable,0,862944308816443,4490,230,0,0
+1058,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,204800,0,pageable,0,862944309480926,8710,6911,0,0
+1059,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,20480,0,pageable,0,862944309671245,5851,240,0,0
+1060,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-45",0,2088,0,pageable,0,862944309679056,4690,240,0,0
+1061,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,204800,0,pageable,0,862944310297056,8651,7110,0,0
+1062,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,20480,0,pageable,0,862944310482755,5701,230,0,0
+1063,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-46",0,2088,0,pageable,0,862944310490496,4480,230,0,0
+1064,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,204800,0,pageable,0,862944311140388,8820,6691,0,0
+1065,target,25,0,decode,93,94,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,20480,0,pageable,0,862944311364369,4740,230,0,0
+1066,target,25,0,decode,93,94,get_tensor,D2H,"ffn_moe_topk-47",0,2088,0,pageable,0,862944311371219,3861,240,0,0
+1067,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,204800,0,pageable,0,862944312017782,8700,14751,0,0
+1068,target,25,0,decode,93,94,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,8,0,pageable,0,862944312043333,2000,9210,0,0
+1069,target,25,0,decode,93,94,get_tensor_async,D2H,"result_output",0,1986560,0,pageable,0,862944312113306,507266,0,0,-1
+1070,target,25,0,decode,93,94,get_tensor_async,D2H,"result_mtp_embd",0,81920,0,pageable,0,862944312622692,14740,0,0,-1
+1071,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,20480,0,pageable,0,862944314458333,7890,12151,0,0
+1072,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,8,0,pageable,0,862944314492304,1890,3141,0,0
+1073,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,20480,0,pageable,0,862944314821311,3320,10190,0,0
+1074,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,32,0,pageable,0,862944314837851,1421,2850,0,0
+1075,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,32,0,pageable,0,862944314844062,1270,3060,0,0
+1076,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,8,0,pageable,0,862944314850182,1250,3320,0,0
+1077,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#inp_pos#0",0,32,0,pageable,0,862944314856552,1270,3281,0,0
+1078,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862944314862923,1720,3210,0,0
+1079,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,20480,0,pageable,0,862944318320764,14911,290,0,0
+1080,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-12",0,2088,0,pageable,0,862944318340455,4670,230,0,0
+1081,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,204800,0,pageable,0,862944319681052,10420,11891,0,0
+1082,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,20480,0,pageable,0,862944319877702,6660,270,0,0
+1083,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-13",0,2088,0,pageable,0,862944319886752,4690,240,0,0
+1084,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,204800,0,pageable,0,862944321112693,9070,10741,0,0
+1085,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,20480,0,pageable,0,862944321304892,5941,250,0,0
+1086,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-14",0,2088,0,pageable,0,862944321313033,4500,230,0,0
+1087,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,204800,0,pageable,0,862944322060940,9500,7161,0,0
+1088,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,20480,0,pageable,0,862944322290581,6100,231,0,0
+1089,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-15",0,2088,0,pageable,0,862944322299212,4700,230,0,0
+1090,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,204800,0,pageable,0,862944322809667,8430,6941,0,0
+1091,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,20480,0,pageable,0,862944322993366,5760,240,0,0
+1092,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-16",0,2088,0,pageable,0,862944323002607,4530,230,0,0
+1093,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,204800,0,pageable,0,862944323535903,8440,6751,0,0
+1094,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,20480,0,pageable,0,862944323719892,5830,231,0,0
+1095,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-17",0,2088,0,pageable,0,862944323727733,4740,240,0,0
+1096,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,204800,0,pageable,0,862944324307071,8641,7090,0,0
+1097,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,20480,0,pageable,0,862944324492021,5810,240,0,0
+1098,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-18",0,2088,0,pageable,0,862944324499871,4500,240,0,0
+1099,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,204800,0,pageable,0,862944328708660,11040,6460,0,0
+1100,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,20480,0,pageable,0,862944328945481,6731,240,0,0
+1101,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-19",0,2088,0,pageable,0,862944328955052,4830,240,0,0
+1102,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,204800,0,pageable,0,862944329987303,9041,7100,0,0
+1103,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,20480,0,pageable,0,862944330175022,6211,230,0,0
+1104,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-20",0,2088,0,pageable,0,862944330183473,4510,230,0,0
+1105,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,204800,0,pageable,0,862944337559599,11310,6611,0,0
+1106,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,20480,0,pageable,0,862944337752318,6631,280,0,0
+1107,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-21",0,2088,0,pageable,0,862944337762859,4820,230,0,0
+1108,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,204800,0,pageable,0,862944338376899,8891,7090,0,0
+1109,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,20480,0,pageable,0,862944338564589,5760,250,0,0
+1110,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-22",0,2088,0,pageable,0,862944338572419,4500,240,0,0
+1111,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,204800,0,pageable,0,862944339650463,9760,6780,0,0
+1112,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,20480,0,pageable,0,862944339885794,6070,250,0,0
+1113,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-23",0,2088,0,pageable,0,862944339894215,4770,240,0,0
+1114,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,204800,0,pageable,0,862944340395539,8661,7200,0,0
+1115,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,20480,0,pageable,0,862944340581529,5820,250,0,0
+1116,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-24",0,2088,0,pageable,0,862944340589289,4590,240,0,0
+1117,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,204800,0,pageable,0,862944341209560,8750,6711,0,0
+1118,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,20480,0,pageable,0,862944341394639,5910,240,0,0
+1119,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-25",0,2088,0,pageable,0,862944341402479,4721,230,0,0
+1120,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,204800,0,pageable,0,862944341988659,9130,6850,0,0
+1121,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,20480,0,pageable,0,862944342182378,5781,230,0,0
+1122,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-26",0,2088,0,pageable,0,862944342190199,4480,230,0,0
+1123,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,204800,0,pageable,0,862944345192858,11000,11461,0,0
+1124,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,20480,0,pageable,0,862944345440210,7010,280,0,0
+1125,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-27",0,2088,0,pageable,0,862944345450700,4831,230,0,0
+1126,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,204800,0,pageable,0,862944347639499,9730,11101,0,0
+1127,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,20480,0,pageable,0,862944347831858,6131,240,0,0
+1128,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-28",0,2088,0,pageable,0,862944347840269,4550,230,0,0
+1129,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,204800,0,pageable,0,862944349694591,9760,6761,0,0
+1130,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,20480,0,pageable,0,862944349883870,14821,250,0,0
+1131,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-29",0,2088,0,pageable,0,862944349901081,4760,250,0,0
+1132,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,204800,0,pageable,0,862944353498870,10070,6871,0,0
+1133,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,20480,0,pageable,0,862944353688359,6110,250,0,0
+1134,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-30",0,2088,0,pageable,0,862944353696680,4580,240,0,0
+1135,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,204800,0,pageable,0,862944354200605,8570,6790,0,0
+1136,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,20480,0,pageable,0,862944354427146,5890,250,0,0
+1137,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-31",0,2088,0,pageable,0,862944354435256,4760,240,0,0
+1138,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,204800,0,pageable,0,862944354795644,8680,6961,0,0
+1139,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,20480,0,pageable,0,862944354984583,5811,260,0,0
+1140,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-32",0,2088,0,pageable,0,862944354992344,4510,230,0,0
+1141,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,204800,0,pageable,0,862944355422935,8640,6881,0,0
+1142,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,20480,0,pageable,0,862944355608284,5951,240,0,0
+1143,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-33",0,2088,0,pageable,0,862944355619155,4700,220,0,0
+1144,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,204800,0,pageable,0,862944356075747,8611,6670,0,0
+1145,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,20480,0,pageable,0,862944356264707,5760,240,0,0
+1146,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-34",0,2088,0,pageable,0,862944356272527,4500,230,0,0
+1147,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,204800,0,pageable,0,862944356915799,8561,6800,0,0
+1148,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,20480,0,pageable,0,862944357139040,5951,220,0,0
+1149,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-35",0,2088,0,pageable,0,862944357147281,4650,230,0,0
+1150,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,204800,0,pageable,0,862944357640895,8520,7141,0,0
+1151,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,20480,0,pageable,0,862944357824654,6090,230,0,0
+1152,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-36",0,2088,0,pageable,0,862944357832725,4470,250,0,0
+1153,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,204800,0,pageable,0,862944358849845,10161,6710,0,0
+1154,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,20480,0,pageable,0,862944359039814,6291,260,0,0
+1155,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-37",0,2088,0,pageable,0,862944359048435,4810,240,0,0
+1156,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,204800,0,pageable,0,862944359640964,8431,7220,0,0
+1157,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,20480,0,pageable,0,862944359825474,5690,250,0,0
+1158,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-38",0,2088,0,pageable,0,862944359833144,4450,240,0,0
+1159,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,204800,0,pageable,0,862944360459785,8310,6821,0,0
+1160,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,20480,0,pageable,0,862944360684206,5920,230,0,0
+1161,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-39",0,2088,0,pageable,0,862944360692327,4690,240,0,0
+1162,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,204800,0,pageable,0,862944361076826,8300,7130,0,0
+1163,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,20480,0,pageable,0,862944361259975,5820,240,0,0
+1164,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-40",0,2088,0,pageable,0,862944361267765,4490,230,0,0
+1165,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,204800,0,pageable,0,862944361750789,8220,6781,0,0
+1166,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,20480,0,pageable,0,862944361936058,6120,230,0,0
+1167,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-41",0,2088,0,pageable,0,862944361944079,4840,230,0,0
+1168,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,204800,0,pageable,0,862944362432553,8240,7011,0,0
+1169,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,20480,0,pageable,0,862944362616012,5690,220,0,0
+1170,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-42",0,2088,0,pageable,0,862944362623642,4501,230,0,0
+1171,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,204800,0,pageable,0,862944363209691,8191,6860,0,0
+1172,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,20480,0,pageable,0,862944363434463,5820,230,0,0
+1173,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-43",0,2088,0,pageable,0,862944363442363,4700,220,0,0
+1174,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,204800,0,pageable,0,862944363899116,8360,7070,0,0
+1175,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,20480,0,pageable,0,862944364082875,5710,230,0,0
+1176,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-44",0,2088,0,pageable,0,862944364091805,4470,220,0,0
+1177,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,204800,0,pageable,0,862944364585360,8270,6820,0,0
+1178,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,20480,0,pageable,0,862944364768879,6070,230,0,0
+1179,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-45",0,2088,0,pageable,0,862944364776849,4740,220,0,0
+1180,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,204800,0,pageable,0,862944366727786,8690,7191,0,0
+1181,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,20480,0,pageable,0,862944366914165,6070,251,0,0
+1182,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-46",0,2088,0,pageable,0,862944366922416,4560,220,0,0
+1183,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,204800,0,pageable,0,862944367906454,8511,6800,0,0
+1184,target,25,0,decode,95,96,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,20480,0,pageable,0,862944368128986,6100,240,0,0
+1185,target,25,0,decode,95,96,get_tensor,D2H,"ffn_moe_topk-47",0,2088,0,pageable,0,862944368137346,4970,230,0,0
+1186,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,204800,0,pageable,0,862944368884413,8300,6981,0,0
+1187,target,25,0,decode,95,96,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,8,0,pageable,0,862944368901774,1880,9120,0,0
+1188,target,25,0,decode,95,96,get_tensor_async,D2H,"result_output",0,1986560,0,pageable,0,862944368969157,514516,0,0,-1
+1189,target,25,0,decode,95,96,get_tensor_async,D2H,"result_mtp_embd",0,81920,0,pageable,0,862944369485853,14660,0,0,-1
+1190,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,20480,0,pageable,0,862944395515184,3580,9301,0,0
+1191,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,8,0,pageable,0,862944395547406,1160,2960,0,0
+1192,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,20480,0,pageable,0,862944400641619,8690,3520,0,0
+1193,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,32,0,pageable,0,862944400677050,2010,2891,0,0
+1194,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,32,0,pageable,0,862944400684491,1270,3010,0,0
+1195,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,8,0,pageable,0,862944400690361,1140,2990,0,0
+1196,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#inp_pos#0",0,32,0,pageable,0,862944400695951,1130,3101,0,0
+1197,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862944400701682,1750,3310,0,0
+1198,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,20480,0,pageable,0,862944403974894,13801,360,0,0
+1199,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-12",0,2088,0,pageable,0,862944403995795,4630,240,0,0
+1200,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,204800,0,pageable,0,862944404481699,12871,12220,0,0
+1201,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,20480,0,pageable,0,862944404685529,7210,350,0,0
+1202,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-13",0,2088,0,pageable,0,862944404696080,4960,300,0,0
+1203,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,204800,0,pageable,0,862944407354982,13060,7981,0,0
+1204,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,20480,0,pageable,0,862944407571672,9491,450,0,0
+1205,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-14",0,2088,0,pageable,0,862944407589673,5021,220,0,0
+1206,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,204800,0,pageable,0,862944408101689,11390,6441,0,0
+1207,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,20480,0,pageable,0,862944408340301,6270,270,0,0
+1208,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-15",0,2088,0,pageable,0,862944408349431,4750,240,0,0
+1209,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,204800,0,pageable,0,862944408779402,9621,6990,0,0
+1210,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,20480,0,pageable,0,862944408966141,6141,240,0,0
+1211,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-16",0,2088,0,pageable,0,862944408975922,4430,220,0,0
+1212,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,204800,0,pageable,0,862944409387052,9831,7010,0,0
+1213,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,20480,0,pageable,0,862944409573892,5940,230,0,0
+1214,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-17",0,2088,0,pageable,0,862944409582052,4670,230,0,0
+1215,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,204800,0,pageable,0,862944409988882,9571,6680,0,0
+1216,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,20480,0,pageable,0,862944410175462,6380,230,0,0
+1217,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-18",0,2088,0,pageable,0,862944410184052,4510,220,0,0
+1218,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,204800,0,pageable,0,862944414281925,10821,6900,0,0
+1219,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,20480,0,pageable,0,862944414509757,6230,250,0,0
+1220,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-19",0,2088,0,pageable,0,862944414518587,4750,240,0,0
+1221,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,204800,0,pageable,0,862944414980770,9460,6811,0,0
+1222,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,20480,0,pageable,0,862944415169839,5851,230,0,0
+1223,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-20",0,2088,0,pageable,0,862944415178050,4480,230,0,0
+1224,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,204800,0,pageable,0,862944415617011,9241,6880,0,0
+1225,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,20480,0,pageable,0,862944415807391,5940,240,0,0
+1226,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-21",0,2088,0,pageable,0,862944415815881,4711,230,0,0
+1227,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,204800,0,pageable,0,862944416224052,9320,6770,0,0
+1228,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,20480,0,pageable,0,862944416410851,5980,240,0,0
+1229,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-22",0,2088,0,pageable,0,862944416419101,4450,230,0,0
+1230,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,204800,0,pageable,0,862944417597710,15111,6420,0,0
+1231,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,20480,0,pageable,0,862944417862693,7600,540,0,0
+1232,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-23",0,2088,0,pageable,0,862944417875724,5580,400,0,0
+1233,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,204800,0,pageable,0,862944418265743,10340,6761,0,0
+1234,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,20480,0,pageable,0,862944418464833,6550,410,0,0
+1235,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-24",0,2088,0,pageable,0,862944418474853,4931,360,0,0
+1236,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,204800,0,pageable,0,862944418888144,9750,6701,0,0
+1237,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,20480,0,pageable,0,862944419085554,6620,420,0,0
+1238,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-25",0,2088,0,pageable,0,862944419095804,5050,360,0,0
+1239,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,204800,0,pageable,0,862944428229797,11061,6830,0,0
+1240,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,20480,0,pageable,0,862944428431537,6531,400,0,0
+1241,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-26",0,2088,0,pageable,0,862944428441858,5120,350,0,0
+1242,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,204800,0,pageable,0,862944430225266,10561,6750,0,0
+1243,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,20480,0,pageable,0,862944430468548,6851,420,0,0
+1244,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-27",0,2088,0,pageable,0,862944430479519,5120,370,0,0
+1245,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,204800,0,pageable,0,862944432628426,10950,7020,0,0
+1246,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,20480,0,pageable,0,862944432832766,6980,390,0,0
+1247,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-28",0,2088,0,pageable,0,862944432846886,4861,350,0,0
+1248,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,204800,0,pageable,0,862944435932619,10841,6600,0,0
+1249,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,20480,0,pageable,0,862944436135810,6840,400,0,0
+1250,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-29",0,2088,0,pageable,0,862944436146210,5070,360,0,0
+1251,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,204800,0,pageable,0,862944437919568,10150,7031,0,0
+1252,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,20480,0,pageable,0,862944438119068,6470,400,0,0
+1253,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-30",0,2088,0,pageable,0,862944438129058,4921,360,0,0
+1254,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,204800,0,pageable,0,862944438634853,9601,6640,0,0
+1255,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,20480,0,pageable,0,862944438873535,6661,410,0,0
+1256,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-31",0,2088,0,pageable,0,862944438883966,5200,360,0,0
+1257,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,204800,0,pageable,0,862944439272405,9601,7250,0,0
+1258,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,20480,0,pageable,0,862944439468715,6640,380,0,0
+1259,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-32",0,2088,0,pageable,0,862944439478715,4781,370,0,0
+1260,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,204800,0,pageable,0,862944439891956,9690,6711,0,0
+1261,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,20480,0,pageable,0,862944440089276,6550,380,0,0
+1262,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-33",0,2088,0,pageable,0,862944440099196,5070,370,0,0
+1263,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,204800,0,pageable,0,862944440554529,9740,6931,0,0
+1264,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,20480,0,pageable,0,862944440751798,9021,460,0,0
+1265,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-34",0,2088,0,pageable,0,862944440769689,4911,230,0,0
+1266,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,204800,0,pageable,0,862944441191320,10681,6910,0,0
+1267,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,20480,0,pageable,0,862944441422432,6210,260,0,0
+1268,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-35",0,2088,0,pageable,0,862944441431402,4780,230,0,0
+1269,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,204800,0,pageable,0,862944441896265,9081,6920,0,0
+1270,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,20480,0,pageable,0,862944442082314,6011,230,0,0
+1271,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-36",0,2088,0,pageable,0,862944442090605,4440,230,0,0
+1272,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,204800,0,pageable,0,862944442464093,9151,6810,0,0
+1273,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,20480,0,pageable,0,862944442654373,5990,230,0,0
+1274,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-37",0,2088,0,pageable,0,862944442662523,4631,230,0,0
+1275,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,204800,0,pageable,0,862944443065913,8861,6760,0,0
+1276,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,20480,0,pageable,0,862944443252913,5710,240,0,0
+1277,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-38",0,2088,0,pageable,0,862944443260783,4430,220,0,0
+1278,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,204800,0,pageable,0,862944443678054,8920,11341,0,0
+1279,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,20480,0,pageable,0,862944443903685,5810,240,0,0
+1280,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-39",0,2088,0,pageable,0,862944443913365,4721,220,0,0
+1281,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,204800,0,pageable,0,862944444289944,9081,11120,0,0
+1282,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,20480,0,pageable,0,862944444479303,5711,240,0,0
+1283,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-40",0,2088,0,pageable,0,862944444487114,4410,240,0,0
+1284,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,204800,0,pageable,0,862944444935616,8820,6751,0,0
+1285,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,20480,0,pageable,0,862944445120405,6090,230,0,0
+1286,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-41",0,2088,0,pageable,0,862944445128606,4630,240,0,0
+1287,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,204800,0,pageable,0,862944445629260,8641,7220,0,0
+1288,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,20480,0,pageable,0,862944445813950,5770,240,0,0
+1289,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-42",0,2088,0,pageable,0,862944445821830,4410,220,0,0
+1290,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,204800,0,pageable,0,862944446406389,8480,6781,0,0
+1291,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,20480,0,pageable,0,862944446628370,5810,230,0,0
+1292,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-43",0,2088,0,pageable,0,862944446636510,4721,220,0,0
+1293,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,204800,0,pageable,0,862944447104254,8400,6980,0,0
+1294,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,20480,0,pageable,0,862944447289013,5780,250,0,0
+1295,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-44",0,2088,0,pageable,0,862944447296943,4411,230,0,0
+1296,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,204800,0,pageable,0,862944447799958,8511,6740,0,0
+1297,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,20480,0,pageable,0,862944447986248,6100,240,0,0
+1298,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-45",0,2088,0,pageable,0,862944447994498,4650,230,0,0
+1299,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,204800,0,pageable,0,862944448606458,8541,7220,0,0
+1300,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,20480,0,pageable,0,862944448794127,5731,250,0,0
+1301,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-46",0,2088,0,pageable,0,862944448802088,4480,230,0,0
+1302,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,204800,0,pageable,0,862944449502223,8320,6780,0,0
+1303,target,25,0,decode,96,97,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,20480,0,pageable,0,862944449723824,5980,230,0,0
+1304,target,25,0,decode,96,97,get_tensor,D2H,"ffn_moe_topk-47",0,2088,0,pageable,0,862944449732094,4730,230,0,0
+1305,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,204800,0,pageable,0,862944450456930,8550,6941,0,0
+1306,target,25,0,decode,96,97,set_tensor,H2D,"CUDA0#inp_out_ids#0",0,8,0,pageable,0,862944450474991,2010,8750,0,0
+1307,target,25,0,decode,96,97,get_tensor_async,D2H,"result_output",0,1986560,0,pageable,0,862944450544814,508826,0,0,-1
+1308,target,25,0,decode,96,97,get_tensor_async,D2H,"result_mtp_embd",0,81920,0,pageable,0,862944451056870,15131,0,0,-1
+1309,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#inp_embd (reshaped)#0",0,10240,0,pageable,0,862944454013196,2851,9120,0,0
+1310,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#inp_s_seq_qnext#0",0,4,0,pageable,0,862944454030877,1120,3141,0,0
+1311,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ple_embd-1#0",0,10240,0,pageable,0,862944454290030,5551,3190,0,0
+1312,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#qsa_win_cells#0",0,32,0,pageable,0,862944454307071,1500,2900,0,0
+1313,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#qsa_win_pos#0",0,32,0,pageable,0,862944454313311,1150,2901,0,0
+1314,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#qsa_win_blocks#0",0,8,0,pageable,0,862944454318742,1010,3120,0,0
+1315,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#inp_pos#0",0,16,0,pageable,0,862944454326852,1040,2920,0,0
+1316,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#KQ_mask#0",0,8192,0,pageable,0,862944454337123,1700,8730,0,0
+1317,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-12 (reshaped)",0,10240,0,pageable,0,862944457060478,15930,300,0,0
+1318,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-12",0,40,0,pageable,0,862944457079379,4550,230,0,0
+1319,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-12#0",0,102400,0,pageable,0,862944457469548,5850,10791,0,0
+1320,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-13 (reshaped)",0,10240,0,pageable,0,862944457648417,5660,260,0,0
+1321,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-13",0,40,0,pageable,0,862944457656147,4660,230,0,0
+1322,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-13#0",0,102400,0,pageable,0,862944458014065,5160,6491,0,0
+1323,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-14 (reshaped)",0,10240,0,pageable,0,862944458190684,5190,240,0,0
+1324,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-14",0,40,0,pageable,0,862944458197744,4350,230,0,0
+1325,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-14#0",0,102400,0,pageable,0,862944458535381,5020,5400,0,0
+1326,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-15 (reshaped)",0,10240,0,pageable,0,862944458724840,5120,230,0,0
+1327,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-15",0,40,0,pageable,0,862944458731820,4581,230,0,0
+1328,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-15#0",0,102400,0,pageable,0,862944459059687,4920,5040,0,0
+1329,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-16 (reshaped)",0,10240,0,pageable,0,862944459237396,5240,240,0,0
+1330,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-16",0,40,0,pageable,0,862944459244466,4350,230,0,0
+1331,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-16#0",0,102400,0,pageable,0,862944459570612,4900,5111,0,0
+1332,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-17 (reshaped)",0,10240,0,pageable,0,862944459742551,5090,230,0,0
+1333,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-17",0,40,0,pageable,0,862944459749411,4540,230,0,0
+1334,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-17#0",0,102400,0,pageable,0,862944461557601,6380,5150,0,0
+1335,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-18 (reshaped)",0,10240,0,pageable,0,862944461736010,29141,250,0,0
+1336,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-18",0,40,0,pageable,0,862944461767621,4460,230,0,0
+1337,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-18#0",0,102400,0,pageable,0,862944462132209,5131,5210,0,0
+1338,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-19 (reshaped)",0,10240,0,pageable,0,862944462329649,5230,230,0,0
+1339,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-19",0,40,0,pageable,0,862944462336849,4641,240,0,0
+1340,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-19#0",0,102400,0,pageable,0,862944462677056,4780,5421,0,0
+1341,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-20 (reshaped)",0,10240,0,pageable,0,862944462849865,5110,220,0,0
+1342,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-20",0,40,0,pageable,0,862944462856815,4390,230,0,0
+1343,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-20#0",0,102400,0,pageable,0,862944463183481,4991,5040,0,0
+1344,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-21 (reshaped)",0,10240,0,pageable,0,862944463355390,5070,230,0,0
+1345,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-21",0,40,0,pageable,0,862944463362330,4640,230,0,0
+1346,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-21#0",0,102400,0,pageable,0,862944463695897,4950,5240,0,0
+1347,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-22 (reshaped)",0,10240,0,pageable,0,862944463867575,5071,250,0,0
+1348,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-22",0,40,0,pageable,0,862944463874456,4420,230,0,0
+1349,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-22#0",0,102400,0,pageable,0,862944467496465,6821,5150,0,0
+1350,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-23 (reshaped)",0,10240,0,pageable,0,862944467697065,5691,240,0,0
+1351,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-23",0,40,0,pageable,0,862944467708226,4590,230,0,0
+1352,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-23#0",0,102400,0,pageable,0,862944470294764,6520,5051,0,0
+1353,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-24 (reshaped)",0,10240,0,pageable,0,862944470471573,5540,220,0,0
+1354,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-24",0,40,0,pageable,0,862944470479333,4361,230,0,0
+1355,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-24#0",0,102400,0,pageable,0,862944473734465,7330,4950,0,0
+1356,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-25 (reshaped)",0,10240,0,pageable,0,862944473920184,5610,220,0,0
+1357,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-25",0,40,0,pageable,0,862944473928054,4551,230,0,0
+1358,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-25#0",0,102400,0,pageable,0,862944474288932,5111,5070,0,0
+1359,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-26 (reshaped)",0,10240,0,pageable,0,862944474461091,5110,250,0,0
+1360,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-26",0,40,0,pageable,0,862944474468111,4300,230,0,0
+1361,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-26#0",0,102400,0,pageable,0,862944475872391,6390,5331,0,0
+1362,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-27 (reshaped)",0,10240,0,pageable,0,862944476077491,5650,240,0,0
+1363,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-27",0,40,0,pageable,0,862944476085592,4600,240,0,0
+1364,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-27#0",0,102400,0,pageable,0,862944478119092,5801,5040,0,0
+1365,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-28 (reshaped)",0,10240,0,pageable,0,862944478297441,5450,231,0,0
+1366,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-28",0,40,0,pageable,0,862944478305162,4340,250,0,0
+1367,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-28#0",0,102400,0,pageable,0,862944482080009,6370,4950,0,0
+1368,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-29 (reshaped)",0,10240,0,pageable,0,862944482257898,5640,230,0,0
+1369,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-29",0,40,0,pageable,0,862944482265788,4600,230,0,0
+1370,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-29#0",0,102400,0,pageable,0,862944482639177,4990,4980,0,0
+1371,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-30 (reshaped)",0,10240,0,pageable,0,862944482817796,5120,250,0,0
+1372,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-30",0,40,0,pageable,0,862944482824846,4290,230,0,0
+1373,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-30#0",0,102400,0,pageable,0,862944483180934,4860,5250,0,0
+1374,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-31 (reshaped)",0,10240,0,pageable,0,862944483374853,5460,241,0,0
+1375,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-31",0,40,0,pageable,0,862944483382304,4520,250,0,0
+1376,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-31#0",0,102400,0,pageable,0,862944483718330,4831,5070,0,0
+1377,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-32 (reshaped)",0,10240,0,pageable,0,862944483890069,5130,230,0,0
+1378,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-32",0,40,0,pageable,0,862944483897109,4310,240,0,0
+1379,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-32#0",0,102400,0,pageable,0,862944484233276,4930,5080,0,0
+1380,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-33 (reshaped)",0,10240,0,pageable,0,862944484404624,5101,240,0,0
+1381,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-33",0,40,0,pageable,0,862944484411635,4520,230,0,0
+1382,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-33#0",0,102400,0,pageable,0,862944484740161,4820,5020,0,0
+1383,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-34 (reshaped)",0,10240,0,pageable,0,862944484912549,5101,250,0,0
+1384,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-34",0,40,0,pageable,0,862944484920730,4360,230,0,0
+1385,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-34#0",0,102400,0,pageable,0,862944485275327,5061,5440,0,0
+1386,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-35 (reshaped)",0,10240,0,pageable,0,862944485465397,5120,230,0,0
+1387,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-35",0,40,0,pageable,0,862944485472467,4580,250,0,0
+1388,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-35#0",0,102400,0,pageable,0,862944485814564,5090,5221,0,0
+1389,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-36 (reshaped)",0,10240,0,pageable,0,862944485989653,5530,220,0,0
+1390,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-36",0,40,0,pageable,0,862944485997033,4290,230,0,0
+1391,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-36#0",0,102400,0,pageable,0,862944486320869,4901,5140,0,0
+1392,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-37 (reshaped)",0,10240,0,pageable,0,862944486491908,5100,230,0,0
+1393,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-37",0,40,0,pageable,0,862944486498888,4510,230,0,0
+1394,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-37#0",0,102400,0,pageable,0,862944486834165,4930,5460,0,0
+1395,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-38 (reshaped)",0,10240,0,pageable,0,862944487007173,5191,230,0,0
+1396,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-38",0,40,0,pageable,0,862944487014274,4360,230,0,0
+1397,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-38#0",0,102400,0,pageable,0,862944487520619,5860,5190,0,0
+1398,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-39 (reshaped)",0,10240,0,pageable,0,862944487716499,5310,220,0,0
+1399,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-39",0,40,0,pageable,0,862944487723999,4530,250,0,0
+1400,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-39#0",0,102400,0,pageable,0,862944488054795,4920,5071,0,0
+1401,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-40 (reshaped)",0,10240,0,pageable,0,862944488227464,5060,230,0,0
+1402,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-40",0,40,0,pageable,0,862944488234474,4320,230,0,0
+1403,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-40#0",0,102400,0,pageable,0,862944488607763,4860,5030,0,0
+1404,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-41 (reshaped)",0,10240,0,pageable,0,862944488778991,5030,220,0,0
+1405,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-41",0,40,0,pageable,0,862944488785952,4510,230,0,0
+1406,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-41#0",0,102400,0,pageable,0,862944489161300,4780,5031,0,0
+1407,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-42 (reshaped)",0,10240,0,pageable,0,862944489333259,5160,250,0,0
+1408,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-42",0,40,0,pageable,0,862944489340339,4300,230,0,0
+1409,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-42#0",0,102400,0,pageable,0,862944489723418,5220,5271,0,0
+1410,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-43 (reshaped)",0,10240,0,pageable,0,862944489913148,5180,250,0,0
+1411,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-43",0,40,0,pageable,0,862944489920288,4550,220,0,0
+1412,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-43#0",0,102400,0,pageable,0,862944490295807,4790,5030,0,0
+1413,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-44 (reshaped)",0,10240,0,pageable,0,862944490467375,5210,240,0,0
+1414,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-44",0,40,0,pageable,0,862944490474545,4291,230,0,0
+1415,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-44#0",0,102400,0,pageable,0,862944490857965,5010,5050,0,0
+1416,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-45 (reshaped)",0,10240,0,pageable,0,862944491030043,5000,240,0,0
+1417,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-45",0,40,0,pageable,0,862944491036993,4531,250,0,0
+1418,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-45#0",0,102400,0,pageable,0,862944491427133,4910,5240,0,0
+1419,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-46 (reshaped)",0,10240,0,pageable,0,862944491600031,5140,250,0,0
+1420,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-46",0,40,0,pageable,0,862944491609372,4300,240,0,0
+1421,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-46#0",0,102400,0,pageable,0,862944492889125,11971,4530,0,0
+1422,target,25,0,decode,98,98,get_tensor,D2H,"hc_mixed-47 (reshaped)",0,10240,0,pageable,0,862944493138128,7840,470,0,0
+1423,target,25,0,decode,98,98,get_tensor,D2H,"ffn_moe_topk-47",0,40,0,pageable,0,862944493150828,5540,310,0,0
+1424,target,25,0,decode,98,98,set_tensor,H2D,"CUDA0#ffn_moe_down-47#0",0,102400,0,pageable,0,862944493592470,6160,4951,0,0
+1425,target,25,0,decode,98,98,get_tensor_async,D2H,"result_output",0,993280,0,pageable,0,862944493667294,468563,0,0,-1
+1426,target,25,0,decode,98,98,get_tensor_async,D2H,"result_mtp_embd",0,40960,0,pageable,0,862944494138487,12751,0,0,-1
+# end admitted=1427 written=1427 dropped=0 errors=0 api_errors=0 pointer_errors=0 io_errors=0

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "workload": "Same bounded 32-token target+MTP request run-20260906T144945; ordinary backend pageable endpoint API observations; no matched DMA/staging rate or candidate compute/reserve decomposition. See input-provenance.md.",
+  "ram_bytes_per_s": null,
+  "nvme_bytes_per_s": null,
+  "pcie_bytes_per_s": null,
+  "candidates": [
+    {
+      "id": "proposed-host4-gpu1",
+      "host_cache_bytes": 4294967296,
+      "gpu_cache_bytes": 1073741824,
+      "host_other_bytes": null,
+      "gpu_other_bytes": null,
+      "ram_bytes_per_token": null,
+      "nvme_bytes_per_token": null,
+      "pcie_bytes_per_token": null,
+      "cpu_compute_seconds_per_token": null,
+      "gpu_compute_seconds_per_token": null
+    },
+    {
+      "id": "proposed-host8-gpu2",
+      "host_cache_bytes": 8589934592,
+      "gpu_cache_bytes": 2147483648,
+      "host_other_bytes": null,
+      "gpu_other_bytes": null,
+      "ram_bytes_per_token": null,
+      "nvme_bytes_per_token": null,
+      "pcie_bytes_per_token": null,
+      "cpu_compute_seconds_per_token": null,
+      "gpu_compute_seconds_per_token": null
+    },
+    {
+      "id": "proposed-host12-gpu4",
+      "host_cache_bytes": 12884901888,
+      "gpu_cache_bytes": 4294967296,
+      "host_other_bytes": null,
+      "gpu_other_bytes": null,
+      "ram_bytes_per_token": null,
+      "nvme_bytes_per_token": null,
+      "pcie_bytes_per_token": null,
+      "cpu_compute_seconds_per_token": null,
+      "gpu_compute_seconds_per_token": null
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "transfer_name_groups_not_offset_attribution": {
+    "prefill/H2D/other input/attention/PLE tensors": {
+      "calls": 18,
+      "bytes": 1435952,
+      "requested_MiB": 1.3694305419921875
+    },
+    "prefill/D2H/mixed activations": {
+      "calls": 72,
+      "bytes": 25067520,
+      "requested_MiB": 23.90625
+    },
+    "prefill/D2H/routing IDs": {
+      "calls": 72,
+      "bytes": 4868928,
+      "requested_MiB": 4.64337158203125
+    },
+    "prefill/H2D/MoE output activations": {
+      "calls": 72,
+      "bytes": 250675200,
+      "requested_MiB": 239.0625
+    },
+    "prefill/D2H/result logits/MTP embeddings": {
+      "calls": 4,
+      "bytes": 70328320,
+      "requested_MiB": 67.0703125
+    },
+    "decode/H2D/other input/attention/PLE tensors": {
+      "calls": 89,
+      "bytes": 738872,
+      "requested_MiB": 0.7046432495117188
+    },
+    "decode/D2H/mixed activations": {
+      "calls": 360,
+      "bytes": 11796480,
+      "requested_MiB": 11.25
+    },
+    "decode/D2H/routing IDs": {
+      "calls": 360,
+      "bytes": 1636416,
+      "requested_MiB": 1.56060791015625
+    },
+    "decode/H2D/MoE output activations": {
+      "calls": 360,
+      "bytes": 117964800,
+      "requested_MiB": 112.5
+    },
+    "decode/D2H/result logits/MTP embeddings": {
+      "calls": 20,
+      "bytes": 33095680,
+      "requested_MiB": 31.5625
+    }
+  },
+  "joined_header_validation": {
+    "joined.csv": {
+      "records": 45015,
+      "unique_tensors": 108
+    },
+    "gpu-joined.csv": {
+      "records": 15534,
+      "unique_tensors": 36
+    }
+  },
+  "baseline_15335f1e": {
+    "status": "blocked",
+    "recommendation": null,
+    "missing": [
+      "nvme_bytes_per_s",
+      "pcie_bytes_per_s",
+      "ram_bytes_per_s"
+    ]
+  },
+  "current": {
+    "status": "blocked",
+    "recommendation": null,
+    "missing_count": 24
+  },
+  "interpretation": "Baseline had no recommendation either. More evidence does not yet calibrate candidate costs; no cap ranking or speedup comparison can be made."
+}

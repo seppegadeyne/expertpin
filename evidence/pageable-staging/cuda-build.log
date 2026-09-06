@@ -1,0 +1,37 @@
+[0/1] Re-running CMake...
+-- OpenMP found
+-- Using optimized iqk matrix multiplications
+-- Enabling IQK Flash Attention kernels
+-- Including all IQK FA kernels
+-- CUDA found
+-- Using CUDA architectures: 120
+-- Could NOT find NCCL (missing: NCCL_INCLUDE_DIRS NCCL_LIBRARIES) 
+==================== NCCL NOT found -> building wihout NCCL support
+-- CUDA Toolkit: 13.3.73
+-- CUDA host compiler is GNU 15.3.0
+
+-- ccache found, compilation results will be cached. Disable with GGML_CCACHE=OFF.
+-- CMAKE_SYSTEM_PROCESSOR: x86_64
+-- x86 detected
+-- ARCH_FLAGS = -march=native
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public/index.html.gz
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public_llamacpp/index_llamacpp.html.gz
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public_llamacpp/loading.html
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/seppe/Projects/expertpin/build-sm120
+[1/15] Generating build details from Git
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[2/15] Building CXX object common/CMakeFiles/build_info.dir/build-info.cpp.o
+[3/15] Building CXX object ggml/src/CMakeFiles/ggml.dir/ggml-cuda-transfer-trace.cpp.o
+[4/15] Building CXX object ggml/src/CMakeFiles/ggml.dir/ggml-moe-gpu-trace.cpp.o
+[5/15] Building CXX object ggml/src/CMakeFiles/ggml.dir/ggml-moe-prefetch.cpp.o
+[6/15] Building CXX object src/CMakeFiles/llama.dir/llama-expert-stats.cpp.o
+[7/15] Building CUDA object ggml/src/CMakeFiles/ggml.dir/ggml-cuda.cu.o
+[8/15] Linking CXX shared library ggml/src/libggml.so
+[9/15] Building CXX object src/CMakeFiles/llama.dir/llama.cpp.o
+[10/15] Linking CXX shared library src/libllama.so
+[11/15] Linking CXX shared library examples/mtmd/libmtmd.so
+[12/15] Linking CXX static library common/libcommon.a
+[13/15] Building CXX object examples/server/CMakeFiles/llama-server.dir/server-context.cpp.o
+[14/15] Linking CXX executable bin/llama-server

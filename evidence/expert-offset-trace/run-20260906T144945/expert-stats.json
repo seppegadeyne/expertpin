@@ -1,0 +1,24 @@
+{
+  "cache_sim": {
+    "bypasses": 0,
+    "capacity_bytes": 8589934592,
+    "evicted_bytes": 47487846400,
+    "evictions": 69680,
+    "hit_rate": 0.2037935811367181,
+    "hits": 21037,
+    "misses": 82190,
+    "requests": 103227,
+    "resident_bytes": 8589747200
+  },
+  "capacity_bytes": 0,
+  "defer_wait_ns": 0,
+  "defer_wait_seconds": 0.0,
+  "hit_rate": 0.0,
+  "hits": 0,
+  "misses": 0,
+  "prefetch_hit_rate": 0.0,
+  "prefetch_hits": 0,
+  "prefetched": 0,
+  "requests": 0,
+  "resident_bytes": 0
+}

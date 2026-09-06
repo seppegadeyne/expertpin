@@ -1,0 +1,131 @@
+[  1%] Built target build_info
+[ 10%] Built target ggml
+[ 10%] Built target sha1
+[ 11%] Built target xxhash
+[ 12%] Built target sha256
+[ 13%] Built target test-expert-cache-pressure
+[ 14%] Built target cpp-httplib
+[ 15%] Built target llama-llava-cli
+[ 15%] Built target llama-gemma3-cli
+[ 15%] Built target llama-minicpmv-cli
+[ 15%] Built target llama-qwen2vl-cli
+[ 16%] Built target test-moe-gpu-trace
+[ 17%] Linking CXX executable ../../bin/llama-gguf-hash
+[ 18%] Linking CXX executable ../../bin/llama-gguf
+[ 18%] Built target test-cuda-transfer-trace
+[ 18%] Linking CXX executable ../bin/bench-expert-cpu
+[ 46%] Built target llama
+[ 46%] Linking C executable ../bin/test-c
+[ 46%] Linking CXX executable ../../bin/llama-bench-matmult
+[ 55%] Built target common
+[ 56%] Linking CXX executable ../../bin/llama-quantize-stats
+[ 56%] Built target llama-gguf-hash
+[ 57%] Built target llama-gguf
+[ 57%] Built target bench-expert-cpu
+[ 57%] Linking CXX shared library libmtmd.so
+[ 57%] Linking CXX executable ../bin/test-tokenizer-0
+[ 57%] Built target test-c
+[ 57%] Linking CXX executable ../bin/test-chat-auto-parser
+[ 57%] Linking CXX executable ../bin/test-jinja
+[ 57%] Linking CXX executable ../bin/test-chat-template
+[ 57%] Built target llama-bench-matmult
+[ 57%] Linking CXX executable ../bin/test-json-partial
+[ 57%] Built target llama-quantize-stats
+[ 59%] Built target mtmd
+[ 60%] Linking CXX executable ../bin/test-peg-parser
+[ 60%] Built target test-expert-manifest
+[ 61%] Linking CXX executable ../bin/test-regex-partial
+[ 61%] Built target test-tokenizer-0
+[ 62%] Building CXX object tests/CMakeFiles/test-expert-stats.dir/test-expert-stats.cpp.o
+[ 63%] Built target test-chat-auto-parser
+[ 64%] Built target test-json-partial
+[ 65%] Linking CXX executable ../bin/test-expert-cache-lru
+[ 66%] Built target test-jinja
+[ 67%] Built target test-expert-trace
+[ 68%] Built target test-moe-prefetch-stats
+[ 68%] Building CXX object tests/CMakeFiles/test-speculative-shadow.dir/test-speculative-shadow.cpp.o
+[ 69%] Built target test-chat-template
+[ 69%] Linking CXX executable ../bin/test-iq4-ks-kt-decode
+[ 69%] Linking CXX executable ../bin/test-model-load-cancel
+[ 70%] Linking CXX executable ../bin/test-autorelease
+[ 72%] Built target test-peg-parser
+[ 72%] Linking CXX executable ../../bin/llama-cvector-generator
+[ 72%] Built target test-expert-cache-lru
+[ 72%] Built target test-regex-partial
+[ 72%] Built target test-autorelease
+[ 72%] Linking CXX executable ../../bin/llama-baby-llama
+[ 73%] Built target test-iq4-ks-kt-decode
+[ 73%] Linking CXX executable ../../bin/llama-batched-bench
+[ 74%] Built target test-model-load-cancel
+[ 75%] Linking CXX executable ../../bin/llama-convert-llama2c-to-ggml
+[ 76%] Linking CXX executable ../../bin/llama-batched
+[ 76%] Linking CXX executable ../../bin/llama-embedding
+[ 76%] Built target llama-cvector-generator
+[ 76%] Built target llama-convert-llama2c-to-ggml
+[ 76%] Linking CXX executable ../../bin/llama-eval-callback
+[ 77%] Built target llama-baby-llama
+[ 77%] Built target llama-batched-bench
+[ 78%] Built target llama-embedding
+[ 78%] Linking CXX executable ../../bin/llama-export-lora
+[ 78%] Linking CXX executable ../../bin/llama-gguf-split
+[ 79%] Linking CXX executable ../../bin/llama-gbnf-validator
+[ 79%] Linking CXX executable ../../bin/llama-gritlm
+[ 79%] Built target llama-batched
+[ 79%] Linking CXX executable ../../bin/llama-imatrix
+[ 79%] Built target llama-gbnf-validator
+[ 79%] Built target llama-gguf-split
+[ 79%] Linking CXX executable ../../bin/llama-infill
+[ 80%] Linking CXX executable ../../bin/llama-bench
+[ 80%] Built target llama-eval-callback
+[ 81%] Built target llama-export-lora
+[ 81%] Linking CXX executable ../../bin/llama-lookahead
+[ 81%] Linking CXX executable ../../bin/llama-lookup
+[ 82%] Built target llama-gritlm
+[ 82%] Built target llama-imatrix
+[ 83%] Linking CXX executable ../../bin/llama-lookup-create
+[ 84%] Built target llama-infill
+[ 84%] Linking CXX executable ../../bin/llama-lookup-merge
+[ 84%] Built target llama-lookahead
+[ 84%] Built target llama-bench
+[ 85%] Linking CXX executable ../../bin/llama-lookup-stats
+[ 86%] Linking CXX executable ../../bin/llama-parallel
+[ 86%] Linking CXX executable ../../bin/llama-cli
+[ 87%] Built target llama-lookup
+[ 87%] Built target llama-lookup-merge
+[ 87%] Linking CXX executable ../../bin/llama-passkey
+[ 87%] Linking CXX executable ../../bin/llama-perplexity
+[ 88%] Built target llama-perplexity
+[ 88%] Built target llama-lookup-create
+[ 88%] Built target llama-parallel
+[ 89%] Built target llama-cli
+[ 89%] Built target llama-passkey
+[ 89%] Linking CXX executable ../../bin/llama-retrieval
+[ 89%] Linking CXX executable ../../bin/llama-quantize
+[ 89%] Linking CXX executable ../../bin/llama-mtmd-cli
+[ 89%] Built target llama-lookup-stats
+[ 90%] Linking CXX executable ../../bin/llama-save-load-state
+[ 90%] Building CXX object examples/server/CMakeFiles/llama-server.dir/server-context.cpp.o
+[ 90%] Linking CXX executable ../../bin/llama-simple
+[ 90%] Built target llama-quantize
+[ 90%] Linking CXX executable ../../bin/llama-spec-bench
+[ 91%] Built target llama-retrieval
+[ 91%] Built target llama-save-load-state
+[ 92%] Linking CXX executable ../../bin/llama-speculative
+[ 93%] Built target llama-mtmd-cli
+[ 93%] Linking CXX executable ../../bin/llama-sweep-bench
+[ 93%] Built target llama-simple
+[ 93%] Linking CXX executable ../../bin/llama-tokenize
+[ 93%] Linking CXX executable ../../bin/llama-vdot
+[ 94%] Built target llama-spec-bench
+[ 94%] Built target llama-vdot
+[ 94%] Built target llama-speculative
+[ 95%] Linking CXX executable ../../bin/llama-q8dot
+[ 96%] Built target llama-tokenize
+[ 96%] Built target llama-sweep-bench
+[ 96%] Built target llama-q8dot
+[ 97%] Linking CXX executable ../bin/test-speculative-shadow
+[ 97%] Built target test-speculative-shadow
+[ 97%] Linking CXX executable ../bin/test-expert-stats
+[ 97%] Built target test-expert-stats
+[ 98%] Linking CXX executable ../../bin/llama-server
+[100%] Built target llama-server
