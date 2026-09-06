@@ -1,0 +1,33 @@
+Test project /home/seppe/Projects/expertpin/build-cpu-shadow
+      Start  1: test-trace-run-cleanup
+ 1/12 Test  #1: test-trace-run-cleanup ...........   Passed    0.11 sec
+      Start  2: test-cache-shadow-gates
+ 2/12 Test  #2: test-cache-shadow-gates ..........   Passed    1.43 sec
+      Start  3: test-expert-cache-analysis
+ 3/12 Test  #3: test-expert-cache-analysis .......   Passed    0.04 sec
+      Start  4: test-expert-bandwidth
+ 4/12 Test  #4: test-expert-bandwidth ............   Passed    0.19 sec
+      Start  5: test-expert-io-observation
+ 5/12 Test  #5: test-expert-io-observation .......   Passed    0.24 sec
+      Start 26: test-expert-manifest
+ 6/12 Test #26: test-expert-manifest .............   Passed    0.00 sec
+      Start 27: test-expert-stats
+ 7/12 Test #27: test-expert-stats ................   Passed    0.00 sec
+      Start 28: test-expert-cache-lru
+ 8/12 Test #28: test-expert-cache-lru ............   Passed    0.00 sec
+      Start 29: test-expert-trace
+ 9/12 Test #29: test-expert-trace ................   Passed    0.09 sec
+      Start 30: test-moe-prefetch-stats
+10/12 Test #30: test-moe-prefetch-stats ..........   Passed    0.00 sec
+      Start 34: test-expert-cpu-bench
+11/12 Test #34: test-expert-cpu-bench ............   Passed   13.06 sec
+      Start 35: test-expert-cache-pressure
+12/12 Test #35: test-expert-cache-pressure .......   Passed    0.05 sec
+
+100% tests passed out of 12
+
+Label Time Summary:
+main      =  15.22 sec*proc (12 tests)
+python    =  15.07 sec*proc (6 tests)
+
+Total Test time (real) =  15.23 sec

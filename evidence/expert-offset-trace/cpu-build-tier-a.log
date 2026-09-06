@@ -1,0 +1,126 @@
+[  0%] Generating build details from Git
+[  1%] Built target test-expert-cache-pressure
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[  2%] Built target cpp-httplib
+[ 11%] Built target ggml
+[ 11%] Built target sha256
+[ 12%] Built target xxhash
+[ 13%] Building CXX object common/CMakeFiles/build_info.dir/build-info.cpp.o
+[ 13%] Built target sha1
+[ 14%] Built target llama-llava-cli
+[ 15%] Built target llama-gguf
+[ 15%] Built target llama-gemma3-cli
+[ 16%] Built target llama-minicpmv-cli
+[ 17%] Built target llama-qwen2vl-cli
+[ 17%] Built target build_info
+[ 18%] Built target bench-expert-cpu
+[ 18%] Built target llama-gguf-hash
+[ 47%] Built target llama
+[ 48%] Built target test-c
+[ 48%] Linking CXX executable ../../bin/llama-bench-matmult
+[ 48%] Linking CXX executable ../../bin/llama-quantize-stats
+[ 48%] Linking CXX static library libcommon.a
+[ 50%] Built target mtmd
+[ 50%] Built target llama-bench-matmult
+[ 51%] Built target llama-quantize-stats
+[ 60%] Built target common
+[ 60%] Linking CXX executable ../bin/test-tokenizer-0
+[ 61%] Linking CXX executable ../bin/test-chat-template
+[ 62%] Linking CXX executable ../bin/test-chat-auto-parser
+[ 62%] Linking CXX executable ../bin/test-jinja
+[ 62%] Built target test-tokenizer-0
+[ 63%] Built target test-chat-auto-parser
+[ 63%] Built target test-chat-template
+[ 63%] Built target test-jinja
+[ 63%] Linking CXX executable ../bin/test-json-partial
+[ 64%] Linking CXX executable ../bin/test-regex-partial
+[ 65%] Linking CXX executable ../bin/test-peg-parser
+[ 66%] Linking CXX executable ../bin/test-expert-manifest
+[ 66%] Built target test-json-partial
+[ 67%] Linking CXX executable ../bin/test-expert-stats
+[ 67%] Built target test-regex-partial
+[ 67%] Built target test-expert-manifest
+[ 70%] Built target test-peg-parser
+[ 71%] Linking CXX executable ../bin/test-expert-cache-lru
+[ 71%] Built target test-expert-stats
+[ 71%] Linking CXX executable ../bin/test-moe-prefetch-stats
+[ 72%] Linking CXX executable ../bin/test-iq4-ks-kt-decode
+[ 73%] Linking CXX executable ../bin/test-expert-trace
+[ 73%] Built target test-expert-cache-lru
+[ 73%] Linking CXX executable ../bin/test-model-load-cancel
+[ 74%] Built target test-moe-prefetch-stats
+[ 74%] Built target test-iq4-ks-kt-decode
+[ 74%] Linking CXX executable ../bin/test-autorelease
+[ 74%] Built target test-expert-trace
+[ 74%] Linking CXX executable ../../bin/llama-cvector-generator
+[ 75%] Linking CXX executable ../../bin/llama-baby-llama
+[ 76%] Built target test-model-load-cancel
+[ 76%] Linking CXX executable ../../bin/llama-batched-bench
+[ 77%] Built target test-autorelease
+[ 77%] Linking CXX executable ../../bin/llama-batched
+[ 78%] Built target llama-cvector-generator
+[ 78%] Built target llama-baby-llama
+[ 78%] Linking CXX executable ../../bin/llama-convert-llama2c-to-ggml
+[ 79%] Linking CXX executable ../../bin/llama-embedding
+[ 80%] Built target llama-batched-bench
+[ 80%] Built target llama-batched
+[ 80%] Linking CXX executable ../../bin/llama-eval-callback
+[ 80%] Linking CXX executable ../../bin/llama-export-lora
+[ 80%] Built target llama-convert-llama2c-to-ggml
+[ 81%] Linking CXX executable ../../bin/llama-gbnf-validator
+[ 81%] Built target llama-embedding
+[ 81%] Built target llama-gbnf-validator
+[ 81%] Linking CXX executable ../../bin/llama-gguf-split
+[ 81%] Built target llama-eval-callback
+[ 82%] Built target llama-export-lora
+[ 82%] Linking CXX executable ../../bin/llama-gritlm
+[ 83%] Linking CXX executable ../../bin/llama-imatrix
+[ 83%] Linking CXX executable ../../bin/llama-infill
+[ 83%] Built target llama-gguf-split
+[ 84%] Linking CXX executable ../../bin/llama-bench
+[ 85%] Built target llama-infill
+[ 85%] Built target llama-gritlm
+[ 85%] Built target llama-imatrix
+[ 85%] Linking CXX executable ../../bin/llama-lookahead
+[ 85%] Linking CXX executable ../../bin/llama-lookup
+[ 86%] Linking CXX executable ../../bin/llama-lookup-create
+[ 86%] Built target llama-bench
+[ 86%] Linking CXX executable ../../bin/llama-lookup-merge
+[ 86%] Built target llama-lookahead
+[ 87%] Built target llama-lookup
+[ 87%] Built target llama-lookup-merge
+[ 87%] Built target llama-lookup-create
+[ 87%] Linking CXX executable ../../bin/llama-lookup-stats
+[ 87%] Linking CXX executable ../../bin/llama-cli
+[ 87%] Linking CXX executable ../../bin/llama-parallel
+[ 88%] Linking CXX executable ../../bin/llama-passkey
+[ 89%] Built target llama-lookup-stats
+[ 90%] Built target llama-cli
+[ 90%] Built target llama-passkey
+[ 91%] Built target llama-parallel
+[ 91%] Linking CXX executable ../../bin/llama-quantize
+[ 91%] Linking CXX executable ../../bin/llama-retrieval
+[ 91%] Linking CXX executable ../../bin/llama-perplexity
+[ 91%] Linking CXX executable ../../bin/llama-mtmd-cli
+[ 91%] Built target llama-quantize
+[ 91%] Built target llama-perplexity
+[ 91%] Linking CXX executable ../../bin/llama-save-load-state
+[ 91%] Linking CXX executable ../../bin/llama-server
+[ 91%] Built target llama-mtmd-cli
+[ 91%] Built target llama-retrieval
+[ 91%] Linking CXX executable ../../bin/llama-simple
+[ 91%] Linking CXX executable ../../bin/llama-spec-bench
+[ 92%] Built target llama-save-load-state
+[ 92%] Built target llama-spec-bench
+[ 92%] Linking CXX executable ../../bin/llama-speculative
+[ 93%] Built target llama-simple
+[ 94%] Linking CXX executable ../../bin/llama-sweep-bench
+[ 94%] Linking CXX executable ../../bin/llama-tokenize
+[ 97%] Built target llama-server
+[ 97%] Linking CXX executable ../../bin/llama-vdot
+[ 98%] Built target llama-vdot
+[ 98%] Linking CXX executable ../../bin/llama-q8dot
+[ 98%] Built target llama-sweep-bench
+[ 99%] Built target llama-speculative
+[ 99%] Built target llama-tokenize
+[100%] Built target llama-q8dot
