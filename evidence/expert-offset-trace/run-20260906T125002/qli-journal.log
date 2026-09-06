@@ -1,0 +1,13 @@
+Sep 06 12:51:13 aorus systemd[1523]: Starting Qubic QLI CPU+CUDA miner (auto-update)...
+Sep 06 12:51:13 aorus sudo[3690733]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -pl 550
+Sep 06 12:51:13 aorus sudo[3690733]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)
+Sep 06 12:51:13 aorus sudo[3690733]: pam_unix(sudo:session): session closed for user root
+Sep 06 12:51:13 aorus sudo[3690737]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -lgc 180,2700
+Sep 06 12:51:13 aorus sudo[3690737]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)
+Sep 06 12:51:13 aorus sudo[3690737]: pam_unix(sudo:session): session closed for user root
+Sep 06 12:51:13 aorus sudo[3690741]:    seppe : PWD=/home/seppe/Projects/qubic ; USER=root ; COMMAND=/usr/bin/nvidia-smi -i 0 -rmc
+Sep 06 12:51:13 aorus sudo[3690741]: pam_unix(sudo:session): session opened for user root(uid=0) by seppe(uid=1000)
+Sep 06 12:51:13 aorus sudo[3690741]: pam_unix(sudo:session): session closed for user root
+Sep 06 12:51:13 aorus qubic-gpu-tune-service[3690732]: [qli-tune] OK: power 550W, clocks 180-2700, mem reset, hugepages 281
+Sep 06 12:51:13 aorus systemd[1523]: Started Qubic QLI CPU+CUDA miner (auto-update).
+Sep 06 12:51:13 aorus qli-runner.sh[3690752]: [qli-runner] geen updater-signature — start client

@@ -1,0 +1,140 @@
+[
+  {
+    "run": "run-20260906T124502",
+    "commit": "7742c11f29f2661bf2e0c626ab44e09b1665747f",
+    "server_ready": true,
+    "actual_32_token_decode": false,
+    "guard_mem_available_gib": 43.180206298828125,
+    "memory_max_gib": [
+      36.0
+    ],
+    "highest_sampled_cgroup_memory_peak_gib": 32.40407180786133,
+    "highest_sampled_swap_current_gib": 1.0534934997558594,
+    "highest_sampled_ram_plus_swap_current_gib": 33.19472885131836,
+    "highest_sampled_device_vram_gib": 22.638671875,
+    "sample_count": 30,
+    "last_memory_events": "low 0\nhigh 196328\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 2",
+    "ram_budget_gib": 40,
+    "vram_budget_gib": 28,
+    "new_decode_tok_s": null,
+    "timings": {
+      "prompt_n": 14,
+      "prompt_ms": 2979.268,
+      "prompt_per_token_ms": 212.80485714285714,
+      "prompt_per_second": 4.699140862789115,
+      "predicted_n": 1,
+      "predicted_ms": 0.001,
+      "predicted_per_token_ms": 0.001,
+      "predicted_per_second": 1000000.0,
+      "n_ctx": 8192,
+      "n_past": 14
+    },
+    "trace_rows": 66471,
+    "trace_dropped": 0,
+    "trace_footer_error": 0,
+    "trace_sha256": "abcdcd4bc66cf5a4bfed28e57357f8563dd8e775c866df47d1eb9fde8030b354",
+    "trace_validated_sequence_relative_offsets_counts": true,
+    "trace_scope": "CPU kernel-distinct target shadow; initialization and request mixed, bounded prefix, no phase/context tags or GGUF absolute offsets; NOT physical IO",
+    "cache_sim": {
+      "bypasses": 0,
+      "capacity_bytes": 8589934592,
+      "evicted_bytes": 34455628800,
+      "evictions": 51060,
+      "hit_rate": 0.05065366851709768,
+      "hits": 3367,
+      "misses": 63104,
+      "requests": 66471,
+      "resident_bytes": 8589312000
+    },
+    "qli_stop_requested": "2026-09-06T12:45:04.841667+02:00",
+    "qli_start_requested": "2026-09-06T12:46:03.068697+02:00",
+    "qli_stopped_interval_s": 58.22703,
+    "qli_active": true,
+    "headless_active": true,
+    "qli_tune_ok": true,
+    "scope_stopped_verified": true,
+    "cleanup_errors": []
+  },
+  {
+    "run": "run-20260906T125002",
+    "commit": "7602fdc48d782c84d2f10bfc2ba89bff137f8fea",
+    "server_ready": true,
+    "actual_32_token_decode": true,
+    "guard_mem_available_gib": 44.2716064453125,
+    "memory_max_gib": [
+      36.0
+    ],
+    "highest_sampled_cgroup_memory_peak_gib": 32.404659271240234,
+    "highest_sampled_swap_current_gib": 1.6987838745117188,
+    "highest_sampled_ram_plus_swap_current_gib": 34.09754180908203,
+    "highest_sampled_device_vram_gib": 22.65234375,
+    "sample_count": 42,
+    "last_memory_events": "low 0\nhigh 211894\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 2",
+    "ram_budget_gib": 40,
+    "vram_budget_gib": 28,
+    "new_decode_tok_s": 12.228905234009655,
+    "timings": {
+      "prompt_n": 68,
+      "prompt_ms": 13079.337,
+      "prompt_per_token_ms": 192.34319117647058,
+      "prompt_per_second": 5.199040287745473,
+      "predicted_n": 32,
+      "predicted_ms": 2616.751,
+      "predicted_per_token_ms": 81.77346875,
+      "predicted_per_second": 12.228905234009655,
+      "n_ctx": 8192,
+      "n_past": 99,
+      "draft_n": 22,
+      "draft_n_accepted": 21,
+      "draft_by_depth": [
+        {
+          "depth": 1,
+          "draft_n": 9,
+          "draft_n_accepted": 8
+        },
+        {
+          "depth": 2,
+          "draft_n": 5,
+          "draft_n_accepted": 5
+        },
+        {
+          "depth": 3,
+          "draft_n": 5,
+          "draft_n_accepted": 5
+        },
+        {
+          "depth": 4,
+          "draft_n": 3,
+          "draft_n_accepted": 3
+        }
+      ]
+    },
+    "trace_rows": 100000,
+    "trace_dropped": 3227,
+    "trace_footer_error": 0,
+    "trace_sha256": "6af7aa1a97ca4f493f9db214c85741dde026729f973d6ca016eb414a3ce05155",
+    "trace_validated_sequence_relative_offsets_counts": true,
+    "trace_scope": "CPU kernel-distinct target shadow; initialization and request mixed, bounded prefix, no phase/context tags or GGUF absolute offsets; NOT physical IO",
+    "cache_sim": {
+      "bypasses": 0,
+      "capacity_bytes": 8589934592,
+      "evicted_bytes": 47487846400,
+      "evictions": 69680,
+      "hit_rate": 0.2037935811367181,
+      "hits": 21037,
+      "misses": 82190,
+      "requests": 103227,
+      "resident_bytes": 8589747200
+    },
+    "qli_stop_requested": "2026-09-06T12:50:04.802591+02:00",
+    "qli_start_requested": "2026-09-06T12:51:13.258834+02:00",
+    "qli_stopped_interval_s": 68.456243,
+    "qli_active": true,
+    "headless_active": true,
+    "qli_tune_ok": true,
+    "scope_stopped_verified": true,
+    "cleanup_errors": [],
+    "target_gap_tok_s": 7.771094765990345,
+    "mtp_acceptance": 0.9545454545454546
+  }
+]

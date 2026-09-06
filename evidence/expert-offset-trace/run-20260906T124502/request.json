@@ -1,0 +1,1 @@
+{"prompt": "Explain how a bounded expert cache handles RAM and NVMe misses.", "n_predict": 32, "temperature": 0.0, "seed": 42, "stream": false, "cache_prompt": false}

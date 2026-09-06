@@ -1,0 +1,27 @@
+{
+  "started": "2026-09-06T12:50:02.671490+02:00",
+  "model_loaded": true,
+  "qli_stop_requested": "2026-09-06T12:50:04.802591+02:00",
+  "guard": {
+    "gpu_util_pct": 2,
+    "mem_available_bytes": 47536275456,
+    "required_mem_available": ">=34 GiB (Tier A)",
+    "ram_budget_gib": 36,
+    "launcher_headroom_gib": 4
+  },
+  "completion_usage": {
+    "completion_tokens": 32,
+    "prompt_tokens": 68,
+    "total_tokens": 100,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "status": "request_completed_pending_evidence_validation",
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-06T12:51:13.258834+02:00",
+  "qli_status": "active",
+  "headless_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-06T12:51:13.379238+02:00"
+}
