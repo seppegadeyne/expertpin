@@ -9,6 +9,14 @@ import time
 import uuid
 import urllib.request
 import urllib.error
+import importlib.util
+
+# Reuse the already regression-tested bounded idle gate; importing has no lifecycle actions.
+_gate_path = Path(__file__).resolve().parents[1] / 'trace-matched-bandwidth/run-physical.py'
+_gate_spec = importlib.util.spec_from_file_location('physical_gate', _gate_path)
+assert _gate_spec is not None and _gate_spec.loader is not None
+_gate = importlib.util.module_from_spec(_gate_spec)
+_gate_spec.loader.exec_module(_gate)
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / datetime.now().strftime('run-%Y%m%dT%H%M%S')
@@ -20,6 +28,8 @@ proc = None
 scope = 'expertpin-test-' + uuid.uuid4().hex + '.scope'
 scope_launched = False
 request = None
+pcie = None
+pcie_log = None
 prepared = False
 server_log = None
 samples = []
@@ -118,8 +128,9 @@ try:
     command(['systemctl', '--user', 'stop', 'qli.service'], 'qli-stop')
     command(['nvidia-smi'], 'nvidia-before')
     command(['free', '-g'], 'free-before')
-    util, used, free = gpu()
-    mem = available()
+    _gate.OUT = OUT
+    idle = _gate.wait_gpu_idle('model-readiness')
+    util, mem = idle['gpu_util_pct'], idle['mem_available_bytes']
     summary['guard'] = {'gpu_util_pct': util, 'mem_available_bytes': mem,
                         'required_mem_available': '>=34 GiB (Tier A)',
                         'ram_budget_gib': RAM_BUDGET_GIB,
@@ -132,7 +143,8 @@ try:
                CTX='8192', NCMOE='36', NGL='99', RAM_BUDGET_GIB=str(RAM_BUDGET_GIB), CACHE_RAM_MIB='512',
                PORT='8102', BIN_DIR=str(ROOT / 'build-sm120/bin'), FORCE='0', PINNED='0',
                EXPERT_CACHE_SIM_MIB='8192', EXPERT_STATS_FILE=str(OUT / 'expert-stats.json'),
-               GGML_MOE_TRACE_FILE=str(OUT / 'trace.csv'), GGML_MOE_TRACE_REQUEST_ONLY='1')
+               GGML_MOE_TRACE_FILE=str(OUT / 'trace.csv'), GGML_MOE_TRACE_REQUEST_ONLY='1',
+               GGML_MOE_GPU_TRACE_FILE=str(OUT / 'gpu-trace.csv'))
     env['EXPERTPIN_SCOPE_UNIT'] = scope
     if not Path(env['DRAFT_MODEL']).is_file():
         raise RuntimeError('required draft model missing')
@@ -180,6 +192,19 @@ try:
                 'Explain how a bounded expert cache handles RAM and NVMe misses in detail.'}],
                'max_tokens': 32, 'temperature': 0.0, 'seed': 42, 'stream': False, 'cache_prompt': False}
     (OUT / 'request.json').write_text(json.dumps(payload) + '\n')
+    # Device-wide PCIe throughput samples; NOT pageable-only or per-process bytes.
+    # Includes our IDs readback, other GPU clients, and driver traffic. Keep raw units.
+    summary['pcie_observation_start'] = datetime.now().astimezone().isoformat()
+    pcie_log = (OUT / 'pcie-dmon.log').open('x')
+    launching = True
+    try:
+        pcie = subprocess.Popen(['nvidia-smi', 'dmon', '-s', 't', '-d', '1', '-c', '300', '-o', 'DT'],
+                                stdout=pcie_log, stderr=subprocess.STDOUT)
+    finally:
+        launching = False
+    if pending_signal is not None:
+        interrupt(pending_signal, None)
+    summary['request_start'] = datetime.now().astimezone().isoformat()
     # curl runs separately so memory/VRAM continue to be sampled during inference.
     with (OUT / 'response.json').open('w') as response:
         request = subprocess.Popen(['curl', '--silent', '--show-error', '--fail-with-body', '--max-time', '300',
@@ -191,6 +216,8 @@ try:
         if request.returncode:
             raise RuntimeError('completion failed')
     sample()
+    summary['request_end'] = datetime.now().astimezone().isoformat()
+    summary['pcie_exit_before_cleanup'] = pcie.poll()
     summary['completion_usage'] = validate_completion(json.loads((OUT / 'response.json').read_text()))
     summary['status'] = 'request_completed_pending_evidence_validation'
 except Exception as error:
@@ -220,6 +247,9 @@ finally:
                 child.wait(timeout=10)
 
     attempt('request-stop', lambda: terminate(request))
+    attempt('pcie-stop', lambda: terminate(pcie))
+    if pcie_log:
+        attempt('pcie-log-close', pcie_log.close)
     if scope_launched:
         attempt('scope-stop', lambda: command(['systemctl', '--user', 'stop', scope], 'scope-stop'))
         active = attempt('scope-state', lambda: command(['systemctl', '--user', 'is-active', scope], 'scope-state', check=False))

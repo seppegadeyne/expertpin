@@ -1335,6 +1335,8 @@ add_library(ggml
             ggml-backend.cpp
             ggml-moe-cache-lru.cpp
             ggml-moe-cache-lru.h
+            ggml-moe-gpu-trace.cpp
+            ggml-moe-gpu-trace.h
             ggml-moe-prefetch.cpp
             ggml-moe-prefetch.h
             ../include/ggml-moe-stats.h

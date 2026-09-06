@@ -244,6 +244,11 @@ target_include_directories(test-expert-cache-lru PRIVATE ${PROJECT_SOURCE_DIR}/g
 llama_build_and_test(test-expert-trace.cpp)
 target_include_directories(test-expert-trace PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
 
+add_executable(test-moe-gpu-trace test-moe-gpu-trace.cpp)
+target_link_libraries(test-moe-gpu-trace PRIVATE ggml)
+target_include_directories(test-moe-gpu-trace PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
+llama_test(test-moe-gpu-trace)
+
 llama_build_and_test(test-speculative-shadow.cpp)
 target_include_directories(test-speculative-shadow PRIVATE ${PROJECT_SOURCE_DIR}/ggml/include ${PROJECT_SOURCE_DIR}/ggml/src)
 

@@ -10,6 +10,7 @@
 #include "ggml-backend-impl.h"
 //#include "ggml-impl.h"
 #include "ggml-utils.h"
+#include "ggml-moe-gpu-trace.h"
 
 #include "ggml-cuda/common.cuh"
 #include "ggml-cuda/acc.cuh"
@@ -2871,10 +2872,32 @@ static inline bool prepare_row_mappigs(ggml_backend_cuda_context& ctx, int64_t n
     return is_ser;
 }
 
+static bool ggml_cuda_trace_read_ids(const ggml_tensor * ids, int32_t * packed,
+        size_t row_bytes, size_t rows, void * user) {
+    auto & ctx = *static_cast<ggml_backend_cuda_context *>(user);
+    // IDs are ready on the consuming backend stream, before their allocation can
+    // be reused. Pack only selected columns, not the gaps in top-k views.
+    auto buffer = ids->view_src ? ids->view_src->buffer : ids->buffer;
+    if (!buffer || !ggml_backend_buffer_is_cuda(buffer)) return false;
+    auto buffer_ctx = static_cast<ggml_backend_cuda_buffer_context *>(buffer->context);
+    if (buffer_ctx->device != ctx.device) return false;
+    CUDA_CHECK(cudaMemcpy2DAsync(packed, row_bytes, ids->data, ids->nb[1],
+                row_bytes, rows, cudaMemcpyDeviceToHost, ctx.stream()));
+    CUDA_CHECK(cudaStreamSynchronize(ctx.stream()));
+    return true;
+}
+
+static void ggml_cuda_trace_experts(ggml_backend_cuda_context & ctx,
+        const ggml_tensor * w0, const ggml_tensor * w1, const ggml_tensor * ids) {
+    ggml_moe_gpu_trace_record(w0, w1, ids, ggml_cuda_trace_read_ids, &ctx);
+}
+
 static bool ggml_cuda_mul_mat_id(ggml_backend_cuda_context & ctx, ggml_tensor * dst, ggml_tensor * next) {
     const ggml_tensor * src0 = dst->src[0];
     const ggml_tensor * src1 = dst->src[1];
     const ggml_tensor * ids  = dst->src[2];
+
+    ggml_cuda_trace_experts(ctx, src0, nullptr, ids);
 
     CUDA_CHECK(cudaMemsetAsync((char *)dst->data, 0, ggml_nbytes(dst), ctx.stream()));
 
@@ -2929,6 +2952,8 @@ static bool ggml_cuda_mul_mat_id(ggml_backend_cuda_context & ctx, ggml_tensor * 
                 if (next_src0_ctx->device == device_id &&
                     next_dst_ctx->device  == device_id) {
                     local_dst.data = next->data;
+                    // This fused dispatch consumes the FIRST node's IDs.
+                    ggml_cuda_trace_experts(ctx, next->src[0], nullptr, ids);
                     ggml_cuda_op_mul_mat_vec_q_id(ctx, next->src[0], &local_src1, ids, &local_dst, nullptr,
                         (const char *)next->src[0]->data, nullptr, src1_quantized.get(), (float *)next->data,
                         0, src0->ne[1], 1, src1_padded_col_size, stream);
@@ -3080,6 +3105,8 @@ static int ggml_cuda_moe_up_gate_unary(ggml_backend_cuda_context & ctx, ggml_ten
     const ggml_tensor * src1 = dst->src[2];
     const ggml_tensor * ids  = dst->src[3];
 
+    ggml_cuda_trace_experts(ctx, src0_1, src0_2, ids);
+
     if (src1->ne[1] == 1 && src1->ne[2] <= 8 && src1->ne[3] == 1 &&
         ggml_is_quantized(src0_1->type) &&
         (!src0_2 || ggml_is_quantized(src0_2->type)) &&
@@ -3175,6 +3202,8 @@ static int ggml_cuda_moe_up_gate_unary(ggml_backend_cuda_context & ctx, ggml_ten
             }
 
             if (!fuse_next) return i;
+
+            ggml_cuda_trace_experts(ctx, next->src[0], nullptr, ids);
 
             const int64_t dst_padded_col_size = GGML_PAD(dst->ne[0], MATRIX_ROW_PADDING);
             GGML_ASSERT(dst->ne[0] % QK8_1 == 0);
@@ -3338,6 +3367,7 @@ static int ggml_cuda_moe_up_gate_unary(ggml_backend_cuda_context & ctx, ggml_ten
         if (next && next->op == GGML_OP_MUL_MAT_ID && ggml_is_quantized(next->src[0]->type) &&
             ggml_cuda_should_use_mmq(next->src[0]->type, ggml_cuda_info().devices[ctx.device].cc, src1->ne[2])) {
             //ggml_cuda_mul_mat_q_id(ctx, next->src[0], dst, ids, next, (char *)ids_device.get(), nullptr);
+            ggml_cuda_trace_experts(ctx, next->src[0], nullptr, ids);
             ggml_cuda_mul_mat_q_id(ctx, next->src[0], dst, ids, next, nullptr, nullptr);
             return i+1;
         }
@@ -3380,6 +3410,7 @@ static int ggml_cuda_moe_up_gate_unary(ggml_backend_cuda_context & ctx, ggml_ten
     bool fuse_down = false;
     if (next && next->op == GGML_OP_MUL_MAT_ID) {
         fuse_down = true;
+        ggml_cuda_trace_experts(ctx, next->src[0], nullptr, ids);
         final_dst = *next;
         final_dst.ne[1] = final_dst.ne[2] = final_dst.ne[3] = 1;
         final_dst.nb[2] = final_dst.nb[3] = final_dst.nb[1];
@@ -4713,7 +4744,10 @@ GGML_CALL static enum ggml_status ggml_backend_cuda_graph_compute(ggml_backend_t
     // Disable CUDA graphs in presence of env var, old GPU, use-case which is changing too rapidly,
     // or previous graph capture failure.
     // Also disable for multi-gpu for now. TO DO investigate
-    bool use_cuda_graph = !disable_cuda_graphs_due_to_env && cuda_ctx->use_cuda_graph;
+    // Host IDs readback cannot be captured/replayed; disable even during init,
+    // so a later active target scope never replays an unobserved cached graph.
+    bool use_cuda_graph = !disable_cuda_graphs_due_to_env && cuda_ctx->use_cuda_graph &&
+        !ggml_moe_gpu_trace_enabled();
 
     ggml_cuda_graph * graph = nullptr;
     if (use_cuda_graph) {

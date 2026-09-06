@@ -21,6 +21,9 @@ public:
     ggml_moe_trace(const ggml_moe_trace &) = delete;
     ggml_moe_trace & operator=(const ggml_moe_trace &) = delete;
     bool failed() const { return error_; }
+    uint64_t remaining() const { return error_ || finished_ ? 0 : limit_ - written_; }
+    // A skipped operation/readback is incomplete evidence, not an empty selection.
+    void incomplete() { if (!finished_) { ++dropped_; error_ = true; } }
 
     void record(uint64_t entry, uint64_t epoch, int64_t rows, const char * name,
                 int type, uint32_t expert, size_t stride, size_t offset, size_t bytes,

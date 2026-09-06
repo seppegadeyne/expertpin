@@ -64,6 +64,9 @@ struct ggml_moe_trace_scope {
     int32_t pos_min;
     int32_t pos_max;
 };
+// Both CPU (GGML_MOE_TRACE_FILE + REQUEST_ONLY) and CUDA
+// (GGML_MOE_GPU_TRACE_FILE, always request-only) observe this same scope.
+// CUDA tracing does not require CPU shadow ownership or capacity.
 bool ggml_moe_trace_request_scoped(void);
 void ggml_moe_trace_set_scope(struct ggml_moe_trace_scope scope);
 

@@ -2,6 +2,7 @@
 #include "ggml-moe-cache-lru.h"
 #include "ggml-moe-trace.h"
 #include "ggml-moe-stats.h"
+#include "ggml-moe-gpu-trace.h"
 
 #if defined(__linux__)
 
@@ -584,10 +585,11 @@ bool ggml_moe_cache_sim_try_acquire(size_t capacity_bytes) {
 bool ggml_moe_trace_request_scoped(void) {
     auto & s = state();
     std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
-    return s.trace && s.trace->request_scoped();
+    return (s.trace && s.trace->request_scoped()) || ggml_moe_gpu_trace_enabled();
 }
 
 void ggml_moe_trace_set_scope(struct ggml_moe_trace_scope scope) {
+    ggml_moe_gpu_trace_set_scope(scope);
     auto & s = state();
     std::lock_guard<std::mutex> lock(s.cache_sim_mtx);
     if (s.trace) s.trace->set_scope(scope);
@@ -913,8 +915,8 @@ bool ggml_moe_cache_sim_try_acquire(size_t capacity_bytes) { return capacity_byt
 void ggml_moe_cache_sim_release(void) {}
 void ggml_moe_prefetch_set_cache_sim_capacity(size_t) {}
 void ggml_moe_prefetch_new_epoch(void) {}
-bool ggml_moe_trace_request_scoped(void) { return false; }
-void ggml_moe_trace_set_scope(struct ggml_moe_trace_scope) {}
+bool ggml_moe_trace_request_scoped(void) { return ggml_moe_gpu_trace_enabled(); }
+void ggml_moe_trace_set_scope(struct ggml_moe_trace_scope scope) { ggml_moe_gpu_trace_set_scope(scope); }
 void ggml_moe_prefetch_node(const struct ggml_tensor *) {}
 void ggml_moe_prefetch_tensor(const struct ggml_tensor *) {}
 bool ggml_moe_prefetch_experts(const struct ggml_tensor *, const uint32_t *, size_t) { return false; }

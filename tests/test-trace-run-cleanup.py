@@ -80,6 +80,26 @@ class GuardTests(unittest.TestCase):
 
 
 class CleanupTests(unittest.TestCase):
+    def test_monitor_is_reaped_and_log_closed_before_restore(self):
+        calls = []
+        child = Mock()
+        child.poll.return_value = None
+        child.wait.side_effect = [subprocess.TimeoutExpired('dmon', 10), 0]
+        log = Mock()
+        ns = dict(signal=Mock(), subprocess=subprocess,
+                  command=lambda args, name, check=True: calls.append(name) or 'active',
+                  summary={}, request=None, pcie=child, pcie_log=log, proc=None,
+                  scope_launched=False, server_log=None, datetime=datetime,
+                  prepared=True, PREP='fake', OUT=MagicMock(), json=json)
+        with contextlib.redirect_stdout(io.StringIO()):
+            exec(CODE, ns)
+        child.terminate.assert_called_once()
+        child.kill.assert_called_once()
+        self.assertEqual(child.wait.call_count, 2)
+        log.close.assert_called_once()
+        self.assertIn('qli-start', calls)
+        self.assertIn('host-restore', calls)
+
     def test_signal_during_spawn_preserves_child_for_cleanup(self):
         body = next(node.body for node in TREE.body if isinstance(node, ast.Try))
         first = next(i for i, n in enumerate(body) if isinstance(n, ast.Assign)
@@ -120,6 +140,8 @@ class CleanupTests(unittest.TestCase):
                       server_log=None, datetime=datetime, prepared=True, PREP='fake',
                       OUT=MagicMock(), json=json, time=SimpleNamespace(sleep=lambda _: None))
             with contextlib.redirect_stdout(io.StringIO()):
+                ns.setdefault('pcie', None)
+                ns.setdefault('pcie_log', None)
                 exec(CODE, ns)
             self.assertLess(calls.index('scope-final-state'), calls.index('qli-start'))
             self.assertEqual(ns['summary'].get('scope_stopped_verified', False), not stuck)
@@ -143,6 +165,8 @@ class CleanupTests(unittest.TestCase):
                               scope_launched=True, scope='expertpin-test-fake.scope', server_log=None,
                               datetime=datetime, prepared=True, PREP='fake-prep', OUT=MagicMock(), json=json)
                     with contextlib.redirect_stdout(io.StringIO()):
+                        ns.setdefault('pcie', None)
+                        ns.setdefault('pcie_log', None)
                         exec(CODE, ns)
                     for needed in ('qli-start', 'qli-active', 'host-restore', 'headless-active', 'qli-journal'):
                         self.assertIn(needed, calls)
@@ -159,6 +183,8 @@ class CleanupTests(unittest.TestCase):
                   summary={}, request=child, proc=None, scope_launched=False, server_log=None,
                   datetime=datetime, prepared=True, PREP='fake-prep', OUT=MagicMock(), json=json)
         with contextlib.redirect_stdout(io.StringIO()):
+            ns.setdefault('pcie', None)
+            ns.setdefault('pcie_log', None)
             exec(CODE, ns)
         child.terminate.assert_called_once()
         child.kill.assert_called_once()

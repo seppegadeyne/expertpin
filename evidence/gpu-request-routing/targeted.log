@@ -1,0 +1,41 @@
+Test project /home/seppe/Projects/expertpin/build-cpu-shadow
+      Start  1: test-gpu-idle-readiness
+ 1/16 Test  #1: test-gpu-idle-readiness ..........   Passed    0.08 sec
+      Start  2: test-trace-run-cleanup
+ 2/16 Test  #2: test-trace-run-cleanup ...........   Passed    0.09 sec
+      Start  3: test-cache-shadow-gates
+ 3/16 Test  #3: test-cache-shadow-gates ..........   Passed    1.51 sec
+      Start  4: test-expert-cache-analysis
+ 4/16 Test  #4: test-expert-cache-analysis .......   Passed    0.05 sec
+      Start  5: test-expert-bandwidth
+ 5/16 Test  #5: test-expert-bandwidth ............   Passed    0.20 sec
+      Start  6: test-expert-io-observation
+ 6/16 Test  #6: test-expert-io-observation .......   Passed    0.26 sec
+      Start  7: test-trace-bandwidth
+ 7/16 Test  #7: test-trace-bandwidth .............   Passed    0.37 sec
+      Start 28: test-expert-manifest
+ 8/16 Test #28: test-expert-manifest .............   Passed    0.00 sec
+      Start 29: test-expert-stats
+ 9/16 Test #29: test-expert-stats ................   Passed    0.00 sec
+      Start 30: test-expert-cache-lru
+10/16 Test #30: test-expert-cache-lru ............   Passed    0.00 sec
+      Start 31: test-expert-trace
+11/16 Test #31: test-expert-trace ................   Passed    0.09 sec
+      Start 32: test-moe-gpu-trace
+12/16 Test #32: test-moe-gpu-trace ...............   Passed    0.00 sec
+      Start 33: test-speculative-shadow
+13/16 Test #33: test-speculative-shadow ..........   Passed    0.00 sec
+      Start 34: test-moe-prefetch-stats
+14/16 Test #34: test-moe-prefetch-stats ..........   Passed    0.00 sec
+      Start 38: test-expert-cpu-bench
+15/16 Test #38: test-expert-cpu-bench ............   Passed   15.28 sec
+      Start 39: test-expert-cache-pressure
+16/16 Test #39: test-expert-cache-pressure .......   Passed    0.05 sec
+
+100% tests passed out of 16
+
+Label Time Summary:
+main      =  18.00 sec*proc (16 tests)
+python    =  17.84 sec*proc (8 tests)
+
+Total Test time (real) =  18.00 sec
