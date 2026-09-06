@@ -3,6 +3,7 @@
 
 Run separately at startup depths 4, 8, 16: recurrent checkpoints are startup-bounded.
 Each invocation repeats the same 256-token request twice at its startup depth.
+Depth 0 disables the draft model entirely for target-only correctness isolation.
 Lifecycle derived from ../expert-offset-trace/run-guarded.py; no tracing/dmon.
 """
 import argparse
@@ -34,15 +35,16 @@ GRAPH_DISABLE = ('GGML_CUDA_DISABLE_GRAPHS', 'GGML_CUDA_NO_GRAPHS')
 
 
 def validate_plan(startup_nmax):
-    if type(startup_nmax) is not int or startup_nmax not in (4, 8, 16):
-        raise ValueError('startup n_max must be 4, 8 or 16')
+    if type(startup_nmax) is not int or startup_nmax not in (0, 4, 8, 16):
+        raise ValueError('startup n_max must be 0 (target-only), 4, 8 or 16')
 
 
 def clean_environment(inherited, scope, startup_nmax=4):
     env = {k: v for k, v in inherited.items()
            if not k.startswith(TRACE_PREFIXES) and k not in GRAPH_DISABLE
            and not k.startswith('LLAMA_ARG_')}
-    env.update(GGML_CUDA_NO_PINNED='1', DRAFT='1', DRAFT_NMAX=str(startup_nmax),
+    validate_plan(startup_nmax)
+    env.update(GGML_CUDA_NO_PINNED='1', DRAFT=str(int(startup_nmax != 0)), DRAFT_NMAX=str(startup_nmax),
                DRAFT_MODEL='/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf',
                MODEL_DIR='/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64',
                CTX='8192', NCMOE='36', NGL='99', THREADS='16', KVT='q8_0',
@@ -54,11 +56,21 @@ def clean_environment(inherited, scope, startup_nmax=4):
 
 
 def payload(nmax):
-    if type(nmax) is not int or nmax not in DEPTHS:
-        raise ValueError('unsupported request depth')
-    return {'messages': [{'role': 'user', 'content': PROMPT}], 'max_tokens': TOKENS,
+    validate_plan(nmax)
+    result = {'messages': [{'role': 'user', 'content': PROMPT}], 'max_tokens': TOKENS,
             'temperature': 0.0, 'seed': 42, 'stream': False, 'cache_prompt': False,
-            'ignore_eos': True, 'speculative.n_max': nmax}
+            'ignore_eos': True}
+    if nmax:
+        result['speculative.n_max'] = nmax
+    return result
+
+
+def output_fields(data):
+    message = data['choices'][0]['message']
+    result = {k: message.get(k) for k in ('content', 'reasoning_content')}
+    if any(v is not None and not isinstance(v, str) for v in result.values()):
+        raise ValueError('non-text response field')
+    return result
 
 
 def validate_completion(data, nmax):
@@ -83,6 +95,11 @@ def validate_completion(data, nmax):
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
             raise RuntimeError('invalid timing: ' + key)
     rows = timings.get('draft_by_depth')
+    if nmax == 0:
+        if (timings.get('draft_n', 0) != 0 or timings.get('draft_n_accepted', 0) != 0
+                or rows not in (None, [])):
+            raise RuntimeError('unexpected drafting in target-only mode')
+        return {'usage': usage, 'timings': timings, 'acceptance_fraction': None}
     if not isinstance(rows, list) or not rows:
         raise RuntimeError('missing MTP acceptance depth counters')
     drafted = accepted = 0
@@ -140,6 +157,7 @@ class Run:
         self.cgroup_path = None
         self.scope_launched = self.prepared = self.launching = False
         self.pending_signal = None
+        self.tokenize_references = []
         self.start = time.monotonic()
         self.label = 'preflight'
         self.summary = {'started': datetime.now().astimezone().isoformat(), 'scope': self.scope,
@@ -215,7 +233,7 @@ class Run:
         env = clean_environment(os.environ, self.scope, self.startup_nmax)
         self.save('environment.json', {k: v for k, v in env.items()
                                       if k not in os.environ or os.environ[k] != v})
-        if not Path(env['DRAFT_MODEL']).is_file():
+        if self.startup_nmax and not Path(env['DRAFT_MODEL']).is_file():
             raise RuntimeError('required draft model missing')
         self.prepared = True  # Restore even a partially failed preparation.
         self.command(['bash', PREP], 'host-prep', timeout=45)
@@ -292,7 +310,40 @@ class Run:
             self.save(self.label + '-metrics.json', result)
             self.summary['requests'].append(result)
             self.save('summary.json', self.summary)
+        if self.tokenize_references:
+            self.capture_tokenizations()
         self.summary['status'] = 'completed'
+
+    def capture_tokenizations(self):
+        """Retokenized response fields, NOT observed decode or draft token IDs."""
+        paths = [self.out / (r['label'] + '-response.json') for r in self.summary['requests']]
+        paths += self.tokenize_references
+        records = []
+        def post(endpoint, body):
+            self.sample()  # Enforce work deadline and budgets for every request.
+            request = urllib.request.Request('http://127.0.0.1:8102/' + endpoint,
+                data=json.dumps(body).encode(), headers={'Content-Type': 'application/json'})
+            with urllib.request.urlopen(request, timeout=5) as response:
+                return json.load(response)
+        for path in paths:
+            fields = output_fields(json.loads(path.read_text()))
+            tokens = {}
+            for key, text in fields.items():
+                if text is None:
+                    tokens[key] = None
+                    continue
+                result = post('tokenize', {'content': text, 'add_special': False})['tokens']
+                if not isinstance(result, list) or any(type(t) is not int for t in result):
+                    raise RuntimeError('invalid token IDs')
+                if post('detokenize', {'tokens': result})['content'] != text:
+                    raise RuntimeError('retokenization failed exact round-trip')
+                tokens[key] = result
+            records.append({'response_path': str(path.resolve()), 'fields': fields, 'tokens': tokens})
+        # Do not detokenize individual IDs: byte-fallback tokens may be invalid
+        # UTF-8 in isolation. Compare complete ID sequences offline, including
+        # prefix/length and null differences; retain exact source fields here.
+        self.save('retokenized.json', {'kind': 'retokenized_fields_not_decode_trace',
+                                      'records': records})
 
     def own_scope_empty(self):
         cg = self.command(['systemctl', '--user', 'show', self.scope, '-p', 'ControlGroup', '--value'],
@@ -354,17 +405,22 @@ class Run:
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--startup-n-max', type=int, choices=(4, 8, 16), default=4,
+    parser.add_argument('--startup-n-max', type=int, choices=(0, 4, 8, 16), default=4,
                         help='repeat twice at this startup/request depth; reload for a different depth')
+    parser.add_argument('--tokenize-reference', type=Path, action='append', default=[],
+                        help='retokenize saved response fields after generation; not a decode trace')
     args = parser.parse_args(argv)
     try:
         validate_plan(args.startup_n_max)
+        for path in args.tokenize_reference:
+            output_fields(json.loads(path.read_text()))
     except ValueError as error:
         print(error)
         return 2
     out = Path(__file__).resolve().parent / ('run-' + datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + uuid.uuid4().hex)
     out.mkdir()
     run = Run(out, args.startup_n_max)
+    run.tokenize_references = args.tokenize_reference
     previous = {sig: signal.getsignal(sig) for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGALRM)}
     try:
         for sig in previous:

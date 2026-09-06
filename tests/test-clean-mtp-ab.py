@@ -72,7 +72,7 @@ class CleanMTPTests(unittest.TestCase):
             run = harness.Run(Path('/unused'), nmax)
             self.assertEqual(run.sequence, (nmax, nmax))
             self.assertEqual(run.summary['sequence'], [nmax, nmax])
-        for invalid in (True, 0, 3, 32):
+        for invalid in (True, 3, 32):
             with self.assertRaises(ValueError):
                 harness.validate_plan(invalid)
 
