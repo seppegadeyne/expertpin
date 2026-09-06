@@ -1,0 +1,17 @@
+{
+  "started": "2026-09-06T12:09:15.164169+02:00",
+  "model_loaded": false,
+  "qli_stop_requested": "2026-09-06T12:09:17.445815+02:00",
+  "guard": {
+    "gpu_util_pct": 0,
+    "mem_available_bytes": 44860411904,
+    "required_mem_available": ">45 GiB (developer rule; stricter than Tier A)"
+  },
+  "status": "blocked_or_failed",
+  "error": "host guard blocked; no model load",
+  "qli_start_requested": "2026-09-06T12:09:20.718604+02:00",
+  "qli_status": "active",
+  "headless_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-06T12:09:20.841847+02:00"
+}

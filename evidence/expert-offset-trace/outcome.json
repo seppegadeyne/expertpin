@@ -1,0 +1,19 @@
+{
+  "kind": "guarded_model_trace_attempt",
+  "code_commit": "fe46f1c0025a394cf3cb6fbd5de27771242672c8",
+  "guard_mem_available_gib": 41.77951431274414,
+  "gpu_util_pct_before_load": 0,
+  "user_tier_a_34gib_passed": true,
+  "developer_above_45gib_passed": false,
+  "model_loaded": false,
+  "new_decode_tok_s": null,
+  "model_run_ram_peak_gib": null,
+  "model_run_vram_peak_gib": null,
+  "ram_budget_gib": 40,
+  "vram_budget_gib": 28,
+  "qli_status": "active",
+  "headless_status": "active",
+  "qli_tune_ok": true,
+  "cleanup_errors": [],
+  "conclusion": "blocked before model load; no real model trace, no new performance/budget result"
+}
