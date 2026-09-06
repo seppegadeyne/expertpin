@@ -32,6 +32,26 @@ int main() {
             "1,5,10,1,\"down\nline\",20,2,921600,1843200,921600,1,0\n"
             "# end written=2 dropped=1 error=0\n");
         fclose(f);
+        f = tmpfile();
+        require(f != nullptr);
+        {
+            ggml_moe_trace trace(f, 2, true);
+            require(trace.request_scoped());
+            for (int i = 0; i < 100001; ++i)
+                trace.record(i, 0, 1, "warmup", 0, 0, 1, 0, 1, false, false);
+            trace.set_scope({42, 0, 1, 0, 67});
+            trace.record(100001, 0, 68, "prefill", 0, 0, 1, 0, 1, false, false);
+            trace.set_scope({42, 0, 2, 68, 72});
+            trace.record(100002, 0, 5, "verify", 0, 0, 1, 0, 1, true, false);
+            trace.set_scope({-1, -1, 0, -1, -1});
+            trace.record(100003, 0, 1, "draft", 0, 0, 1, 0, 1, false, false);
+        }
+        require(contents(f).find("warmup") == std::string::npos);
+        require(contents(f).find("draft") == std::string::npos);
+        require(contents(f).find(",target,42,0,prefill,0,67\n") != std::string::npos);
+        require(contents(f).find(",target,42,0,decode,68,72\n") != std::string::npos);
+        require(contents(f).find("# end written=2 dropped=0 error=0") != std::string::npos);
+        fclose(f);
         for (uint64_t limit : {ggml_moe_trace::max_records, ggml_moe_trace::max_records + 1}) {
             f = tmpfile();
             require(f != nullptr);

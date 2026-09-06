@@ -6,6 +6,7 @@
 
 #include "common.h"
 #include "llama.h"
+#include "ggml-moe-stats.h"
 #include "llama-spec-features.h"
 #include "log.h"
 #include "sampling.h"
@@ -4677,7 +4678,45 @@ void server_context::process_batch_tokens(int32_t & n_batch) {
             0, 0, 0, // unused
         };
 
-        const int ret = server_decode(ctx, batch_view);
+        // Single-server diagnostic: synchronize both scope boundaries. Warmup,
+        // draft work and multi-sequence batches do not consume the request cap.
+        const bool scoped_trace = ggml_moe_trace_request_scoped();
+        struct trace_guard {
+            llama_context * context;
+            bool enabled;
+            ~trace_guard() {
+                if (enabled) {
+                    llama_synchronize(context);
+                    ggml_moe_trace_set_scope({-1, -1, 0, -1, -1});
+                }
+            }
+        };
+        const int ret = [&]() {
+            if (scoped_trace) {
+                llama_synchronize(ctx);
+                ggml_moe_trace_scope tag = {-1, -1, 0, -1, -1};
+                bool single = batch_view.n_seq_id[0] == 1;
+                const auto seq = batch_view.seq_id[0][0];
+                for (int t = 0; t < n_tokens; ++t) {
+                    single = single && batch_view.n_seq_id[t] == 1 && batch_view.seq_id[t][0] == seq;
+                }
+                if (single) for (const auto & slot : slots) {
+                    if (slot.id != seq || !slot.task) continue;
+                    const bool overlap = server_slot_prompt_batch_overlaps(slot, i, i + n_tokens);
+                    const bool prompt = overlap && slot.prompt_batch_i0 <= i && slot.prompt_batch_i1 >= i + n_tokens;
+                    tag = {slot.id_task, seq, prompt ? 1 : overlap ? 3 : 2,
+                           batch_view.pos[0], batch_view.pos[0]};
+                    for (int t = 1; t < n_tokens; ++t) {
+                        tag.pos_min = std::min(tag.pos_min, batch_view.pos[t]);
+                        tag.pos_max = std::max(tag.pos_max, batch_view.pos[t]);
+                    }
+                    break;
+                }
+                ggml_moe_trace_set_scope(tag);
+            }
+            trace_guard guard{ctx, scoped_trace};
+            return server_decode(ctx, batch_view);
+        }();
         if (ret != 0) {
             if (n_batch == 1 || ret < 0) {
                 int user_cancel = -3;

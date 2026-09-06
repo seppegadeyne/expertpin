@@ -53,6 +53,20 @@ struct ggml_moe_prefetch_stats {
 // struct when the engine has never run).
 void ggml_moe_prefetch_get_stats(struct ggml_moe_prefetch_stats * out);
 
+// Opt-in single-server target batch trace scope. Caller must synchronize the
+// target context before changing scope and after compute, before clearing it.
+// Process-global (like the shadow); concurrent contexts are not supported.
+// phase: 0=unscoped, 1=prefill, 2=decode/target verification, 3=mixed.
+struct ggml_moe_trace_scope {
+    int64_t request_id;
+    int32_t seq_id;
+    int32_t phase;
+    int32_t pos_min;
+    int32_t pos_max;
+};
+bool ggml_moe_trace_request_scoped(void);
+void ggml_moe_trace_set_scope(struct ggml_moe_trace_scope scope);
+
 // Reset all counters to zero (used by tests and at context teardown).
 void ggml_moe_prefetch_reset_stats(void);
 
