@@ -1,0 +1,37 @@
+{
+  "status": "runtime_blocked_before_load",
+  "run": "evidence/clean-mtp-ab/run-20260907T031610-cd4123bcf611408a88757c3dc37eb554",
+  "code_commit": "c1791a2016f11499d224289d0f59e0eaf2706d10",
+  "binary_sha256": "3235529f95aeba4b4a71d4e33608fc0a1f4e6a78d5378616e7b286ca1dc8f279",
+  "binary_unchanged_since_build": true,
+  "guard_available_gib": 39.89297103881836,
+  "guard_gpu_util_pct": 2,
+  "guard_device_vram_gib": 2.37890625,
+  "launcher_budget_gib": 36,
+  "launcher_headroom_gib": 4,
+  "launcher_guard": "WOULD BLOCK",
+  "model_loaded": false,
+  "decode_tok_s": null,
+  "ram_run_peak_gib": null,
+  "vram_run_peak_gib": null,
+  "target_only_run": "not attempted after guard refusal",
+  "no_server_process": true,
+  "qli_stop": "2026-09-07T03:16:13.149941+02:00",
+  "qli_start": "2026-09-07T03:16:17.261561+02:00",
+  "qli_interruption_seconds": 4.11162,
+  "cleanup_errors": [],
+  "next_step": "Repeat guarded MTP4 and target0 with trace only when launcher headroom is sufficient. No budget/guard override.",
+  "tests": {
+    "targeted_passed": 20,
+    "targeted_total": 20,
+    "main_passed": 39,
+    "main_total": 41,
+    "historical_failures": [
+      "test-tokenizer-0-bert-bge",
+      "test-chat-template"
+    ],
+    "analyzer": 7,
+    "harness": 14,
+    "target_only": 6
+  }
+}

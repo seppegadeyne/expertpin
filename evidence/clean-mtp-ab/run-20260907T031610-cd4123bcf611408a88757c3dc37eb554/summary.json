@@ -1,0 +1,26 @@
+{
+  "started": "2026-09-07T03:16:10.995140+02:00",
+  "scope": "expertpin-test-18d5cc01722742018f363b96d4fb1dab.scope",
+  "model_loaded": false,
+  "startup_n_max": 4,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "verifier_trace": true,
+  "qli_stop_requested": "2026-09-07T03:16:13.149941+02:00",
+  "guard": {
+    "mem_available_bytes": 42834751488,
+    "gpu_util_pct": 2,
+    "vram_mib": 2436,
+    "elapsed_s": 0.027574732899665833
+  },
+  "error": "RuntimeError('launcher dry guard blocked/unverified')",
+  "qli_start_requested": "2026-09-07T03:16:17.261561+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-07T03:16:17.375120+02:00",
+  "elapsed_seconds": 6.379996311035939
+}
