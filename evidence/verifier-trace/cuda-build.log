@@ -1,0 +1,24 @@
+[0/1] Re-running CMake...
+-- OpenMP found
+-- Using optimized iqk matrix multiplications
+-- Enabling IQK Flash Attention kernels
+-- Including all IQK FA kernels
+-- CUDA found
+-- Using CUDA architectures: 120
+-- Could NOT find NCCL (missing: NCCL_INCLUDE_DIRS NCCL_LIBRARIES) 
+-- ccache found, compilation results will be cached. Disable with GGML_CCACHE=OFF.
+-- CMAKE_SYSTEM_PROCESSOR: x86_64
+-- x86 detected
+-- ARCH_FLAGS = -march=native
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/seppe/Projects/expertpin/build-sm120
+[1/5] Generating build details from Git
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+==================== NCCL NOT found -> building wihout NCCL support
+-- CUDA Toolkit: 13.3.73
+-- CUDA host compiler is GNU 15.3.0
+
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public/index.html.gz
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public_llamacpp/index_llamacpp.html.gz
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public_llamacpp/loading.html

@@ -1,0 +1,49 @@
+Test project /home/seppe/Projects/expertpin/build-cpu-shadow
+      Start  1: test-analyze-verifier-trace
+ 1/20 Test  #1: test-analyze-verifier-trace ..........   Passed    0.18 sec
+      Start  2: test-gpu-idle-readiness
+ 2/20 Test  #2: test-gpu-idle-readiness ..............   Passed    0.10 sec
+      Start  3: test-trace-run-cleanup
+ 3/20 Test  #3: test-trace-run-cleanup ...............   Passed    0.11 sec
+      Start  4: test-cache-shadow-gates
+ 4/20 Test  #4: test-cache-shadow-gates ..............   Passed    1.54 sec
+      Start  5: test-expert-cache-analysis
+ 5/20 Test  #5: test-expert-cache-analysis ...........   Passed    0.06 sec
+      Start  6: test-expert-bandwidth
+ 6/20 Test  #6: test-expert-bandwidth ................   Passed    0.20 sec
+      Start  7: test-expert-io-observation
+ 7/20 Test  #7: test-expert-io-observation ...........   Passed    0.28 sec
+      Start  8: test-trace-bandwidth
+ 8/20 Test  #8: test-trace-bandwidth .................   Passed    0.39 sec
+      Start 29: test-expert-manifest
+ 9/20 Test #29: test-expert-manifest .................   Passed    0.01 sec
+      Start 30: test-expert-stats
+10/20 Test #30: test-expert-stats ....................   Passed    0.00 sec
+      Start 31: test-expert-cache-lru
+11/20 Test #31: test-expert-cache-lru ................   Passed    0.00 sec
+      Start 32: test-expert-trace
+12/20 Test #32: test-expert-trace ....................   Passed    0.08 sec
+      Start 33: test-server-verifier-trace
+13/20 Test #33: test-server-verifier-trace ...........   Passed    0.00 sec
+      Start 34: test-moe-gpu-trace
+14/20 Test #34: test-moe-gpu-trace ...................   Passed    0.00 sec
+      Start 35: test-cuda-transfer-trace
+15/20 Test #35: test-cuda-transfer-trace .............   Passed    0.00 sec
+      Start 36: test-cuda-transfer-trace-enabled
+16/20 Test #36: test-cuda-transfer-trace-enabled .....   Passed    0.00 sec
+      Start 37: test-cuda-transfer-trace-collision
+17/20 Test #37: test-cuda-transfer-trace-collision ...   Passed    0.00 sec
+      Start 38: test-speculative-shadow
+18/20 Test #38: test-speculative-shadow ..............   Passed    0.00 sec
+      Start 43: test-expert-cpu-bench
+19/20 Test #43: test-expert-cpu-bench ................   Passed   15.23 sec
+      Start 44: test-expert-cache-pressure
+20/20 Test #44: test-expert-cache-pressure ...........   Passed    0.06 sec
+
+100% tests passed out of 20
+
+Label Time Summary:
+main      =  18.27 sec*proc (20 tests)
+python    =  18.09 sec*proc (9 tests)
+
+Total Test time (real) =  18.28 sec

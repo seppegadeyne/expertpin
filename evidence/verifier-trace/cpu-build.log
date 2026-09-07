@@ -1,0 +1,92 @@
+-- OpenMP found
+-- Using optimized iqk matrix multiplications
+-- Enabling IQK Flash Attention kernels
+-- Including all IQK FA kernels
+-- ccache found, compilation results will be cached. Disable with GGML_CCACHE=OFF.
+-- CMAKE_SYSTEM_PROCESSOR: x86_64
+-- x86 detected
+-- ARCH_FLAGS = -march=native
+-- Configuring done (0.2s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/seppe/Projects/expertpin/build-cpu-shadow
+[  0%] Generating build details from Git
+[  1%] Built target cpp-httplib
+[  2%] Built target xxhash
+[  2%] Built target sha256
+[  2%] Built target llama-llava-cli
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[  3%] Built target sha1
+[  4%] Built target test-expert-cache-pressure
+[  5%] Built target llama-gemma3-cli
+[  6%] Built target llama-qwen2vl-cli
+[  7%] Built target llama-minicpmv-cli
+[ 16%] Built target ggml
+[ 16%] Generating build details from Git
+[ 17%] Built target test-moe-gpu-trace
+[ 17%] Built target bench-expert-cpu
+[ 17%] Built target llama-gguf
+[ 18%] Built target test-cuda-transfer-trace
+-- Found Git: /usr/sbin/git (found version "2.55.0")
+[ 19%] Built target llama-gguf-hash
+[ 20%] Built target build_info
+[ 48%] Built target llama
+[ 48%] Built target test-c
+[ 49%] Built target llama-bench-matmult
+[ 49%] Built target llama-quantize-stats
+[ 50%] Built target mtmd
+[ 59%] Built target common
+[ 60%] Built target test-json-partial
+[ 61%] Built target test-chat-auto-parser
+[ 61%] Built target test-tokenizer-0
+[ 62%] Built target test-jinja
+[ 63%] Built target test-chat-template
+[ 64%] Built target test-expert-manifest
+[ 65%] Built target test-regex-partial
+[ 67%] Built target test-expert-cache-lru
+[ 69%] Built target test-peg-parser
+[ 70%] Built target test-expert-trace
+[ 71%] Built target test-expert-stats
+[ 72%] Built target test-server-verifier-trace
+[ 73%] Built target test-speculative-shadow
+[ 74%] Built target test-moe-prefetch-stats
+[ 74%] Built target test-iq4-ks-kt-decode
+[ 75%] Built target llama-cvector-generator
+[ 76%] Built target test-autorelease
+[ 77%] Built target test-model-load-cancel
+[ 77%] Built target llama-baby-llama
+[ 77%] Built target llama-convert-llama2c-to-ggml
+[ 79%] Built target llama-batched
+[ 79%] Built target llama-batched-bench
+[ 80%] Built target llama-export-lora
+[ 80%] Built target llama-embedding
+[ 81%] Built target llama-eval-callback
+[ 81%] Built target llama-gbnf-validator
+[ 82%] Built target llama-gguf-split
+[ 82%] Built target llama-gritlm
+[ 83%] Built target llama-infill
+[ 84%] Built target llama-imatrix
+[ 84%] Built target llama-bench
+[ 85%] Built target llama-lookahead
+[ 85%] Built target llama-lookup
+[ 86%] Built target llama-lookup-create
+[ 87%] Built target llama-lookup-merge
+[ 87%] Built target llama-lookup-stats
+[ 88%] Built target llama-cli
+[ 89%] Built target llama-parallel
+[ 90%] Built target llama-passkey
+[ 90%] Built target llama-perplexity
+[ 91%] Built target llama-quantize
+[ 91%] Built target llama-retrieval
+[ 91%] Built target llama-mtmd-cli
+[ 92%] Built target llama-simple
+[ 95%] Built target llama-server
+[ 95%] Built target llama-spec-bench
+[ 96%] Built target llama-save-load-state
+[ 97%] Built target llama-speculative
+[ 98%] Built target llama-sweep-bench
+[ 98%] Built target llama-tokenize
+[ 99%] Built target llama-vdot
+[100%] Built target llama-q8dot
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public/index.html.gz
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public_llamacpp/index_llamacpp.html.gz
+TARGET_SRCS contains: /home/seppe/Projects/expertpin/examples/server/public_llamacpp/loading.html

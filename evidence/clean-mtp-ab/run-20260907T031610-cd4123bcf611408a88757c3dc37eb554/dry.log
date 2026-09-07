@@ -1,0 +1,14 @@
+GUARD: MemAvailable 39 GiB < budget 36 + 4 GiB headroom
+DRY-RUN plan:
+  binary      : /home/seppe/Projects/expertpin/build-sm120/bin/llama-server (expertpin)
+  model       : /home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf
+  ctx=8192 ncmoe=36 ngl=99 kv=q8_0 threads=16 port=8102
+  draft       : 1
+  manifest    : none (resident=0)
+  cache-shadow: 0 MiB (telemetry only; no eviction)
+  stats-file  : none
+  pinned      : off
+  cache-ram   : 512 MiB
+  RAM-budget  : 36 GiB (cgroup MemoryMax; High 33177 MiB)
+  system      : MemAvailable 39 GiB, VRAM free 29 GiB, gpu-busy=0
+  guards      : WOULD BLOCK
