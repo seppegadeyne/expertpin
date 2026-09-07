@@ -3,6 +3,7 @@
 #include "server-common.h"
 #include "server-task.h"
 #include "server-queue.h"
+#include "server-verifier-trace.h"
 
 #include "common.h"
 #include "llama.h"
@@ -18,6 +19,51 @@
 #include <iostream>
 #include <regex>
 #include <exception>
+#include <cstdlib>
+#include <map>
+
+static bool server_verifier_trace_enabled() {
+    static const bool enabled = [] {
+        const char * value = std::getenv("EXPERTPIN_VERIFIER_TRACE");
+        return value && std::string(value) == "1";
+    }();
+    return enabled;
+}
+
+static void server_verifier_trace_record(const server_slot & slot, int64_t position,
+        int row, int verifier_rows, int assembled_batch_tokens, int logits_row,
+        int32_t proposal, int32_t selected, const char * decision,
+        const server_verifier_logits & raw) {
+    // Called only on the server's serial inference thread; no draft-context hooks.
+    static size_t written = 0;
+    static std::map<int, server_verifier_request_limit> request_limits;
+    if (!server_verifier_in_window(position) || written >= 4096) {
+        return;
+    }
+    if (!request_limits[slot.id].admit(slot.id_task)) {
+        return; // Rewinds cannot consume more than 128 records for this task.
+    }
+    json record = {
+        {"kind", "target_verifier_decision_v1"}, {"task_id", slot.id_task}, {"slot_id", slot.id},
+        {"output_position_1based", position}, {"verifier_row", row}, {"verifier_rows", verifier_rows},
+        {"assembled_batch_tokens", assembled_batch_tokens}, {"logits_row", logits_row},
+        {"proposal_id", proposal < 0 ? json(nullptr) : json(proposal)}, {"selected_id", selected},
+        {"decision", decision}, {"temperature", slot.ctx_sampling->params.temp},
+        {"raw_valid", raw.valid}, {"stage", "sampled_before_commit_and_stop_handling"},
+    };
+    if (raw.valid) {
+        record["raw_argmax_id"] = raw.argmax;
+        record["raw_runner_up_id"] = raw.runner_up;
+        record["raw_top_logit"] = raw.top;
+        record["raw_second_logit"] = raw.second;
+        record["raw_top_margin"] = raw.margin;
+        record["raw_proposal_logit"] = raw.has_proposal ? json(raw.proposal_logit) : json(nullptr);
+    }
+    LOG_TEE("EXPERTPIN_VERIFIER %s\n", record.dump().c_str());
+    if (++written == 4096) {
+        LOG_TEE("EXPERTPIN_VERIFIER_LIMIT 4096\n");
+    }
+}
 
 static void server_prompt_checkpoint_update(server_prompt_checkpoint & ckpt, llama_context * ctx, int id, int64_t n_tokens, llama_pos pos_min, llama_pos pos_max, int32_t offset) {
     ckpt.pos_min = pos_min;
@@ -4269,6 +4315,16 @@ void server_context::speculative_decoding_accept() {
         apply_server_biases(slot);
 
         // the accepted tokens from the speculation
+        std::vector<server_verifier_logits> verifier_raw;
+        if (server_verifier_trace_enabled() && slot.draft_proposal_dists.empty()) {
+            // Snapshot BEFORE sampling: sampling may mutate the model's logit rows.
+            for (size_t i = 0; i < slot.i_batch_dft.size() &&
+                    server_verifier_in_window(slot.n_decoded + i + 1); ++i) {
+                verifier_raw.push_back(server_verifier_summarize(
+                    llama_get_logits_ith(ctx, slot.i_batch_dft[i]), llama_n_vocab(llama_get_model(ctx)),
+                    i < n_draft ? slot.drafted[i] : -1));
+            }
+        }
         std::vector<llama_token> ids;
         try {
             ids = slot.draft_proposal_dists.empty()
@@ -4290,6 +4346,12 @@ void server_context::speculative_decoding_accept() {
         }
 
         std::vector<int32_t> accepted_output_indices;
+        for (size_t i = 0; i < ids.size() && i < verifier_raw.size(); ++i) {
+            const int32_t proposal = i < n_draft ? slot.drafted[i] : -1;
+            server_verifier_trace_record(slot, slot.n_decoded + i + 1, i, slot.i_batch_dft.size(),
+                batch.n_tokens, slot.i_batch_dft[i], proposal, ids[i],
+                server_verifier_decision(i, n_draft, proposal, ids[i]), verifier_raw[i]);
+        }
         if (server_speculative_uses_target_features(slot.params.speculative)) {
             if (!ids.empty()) {
                 accepted_output_indices.assign(slot.i_batch_dft.begin(), slot.i_batch_dft.begin() + ids.size());
@@ -4842,6 +4904,12 @@ void server_context::process_batch_tokens(int32_t & n_batch) {
             apply_server_biases(slot);
 
             llama_token id;
+            server_verifier_logits verifier_raw;
+            const bool trace_token = server_verifier_trace_enabled() && server_verifier_in_window(slot.n_decoded + 1);
+            if (trace_token) {
+                verifier_raw = server_verifier_summarize(llama_get_logits_ith(ctx, tok_idx),
+                    llama_n_vocab(llama_get_model(ctx)), -1);
+            }
             try {
                 id = common_sampler_sample(slot.ctx_sampling, ctx, tok_idx);
                 common_sampler_accept(slot.ctx_sampling, ctx, id, true);
@@ -4857,6 +4925,10 @@ void server_context::process_batch_tokens(int32_t & n_batch) {
                 continue;
             }
 
+            if (trace_token) {
+                server_verifier_trace_record(slot, slot.n_decoded + 1, 0, 1, batch.n_tokens,
+                    tok_idx, -1, id, "target_only", verifier_raw);
+            }
             slot.n_decoded += 1;
             const int64_t t_current = ggml_time_us();
 

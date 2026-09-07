@@ -32,7 +32,7 @@ class CleanMTPTests(unittest.TestCase):
     def test_sanitizes_every_prefix_and_graph_disable(self):
         inherited = {'PATH': '/cpu-only', 'FORCE': '1', 'MANIFEST': 'bad', 'RESIDENT': '99',
                      'EXPERT_STATS_FILE': 'bad', 'EXPERT_CACHE_SIM_MIB': '999',
-                     'LLAMA_ARG_SPEC_AUTOTUNE': '1'}
+                     'LLAMA_ARG_SPEC_AUTOTUNE': '1', 'EXPERTPIN_VERIFIER_TRACE': '1'}
         for prefix in harness.TRACE_PREFIXES:
             for suffix in ('', '_FILE', '_REQUEST_ONLY', '_UNKNOWN_FUTURE_FLAG'):
                 inherited[prefix + suffix] = '1'
@@ -43,6 +43,8 @@ class CleanMTPTests(unittest.TestCase):
         self.assertFalse(any(k.startswith(harness.TRACE_PREFIXES) for k in env))
         self.assertFalse(set(harness.GRAPH_DISABLE) & set(env))
         self.assertNotIn('LLAMA_ARG_SPEC_AUTOTUNE', env)
+        self.assertNotIn('EXPERTPIN_VERIFIER_TRACE', env)
+        self.assertFalse(harness.Run(Path('/unused'), 4).verifier_trace)
         expected = dict(GGML_CUDA_NO_PINNED='1', DRAFT='1', DRAFT_NMAX='4', CTX='8192',
                         NCMOE='36', RAM_BUDGET_GIB='36', CACHE_RAM_MIB='512', FORCE='0',
                         MANIFEST='', RESIDENT='0', EXPERT_CACHE_SIM_MIB='0', EXPERT_STATS_FILE='')

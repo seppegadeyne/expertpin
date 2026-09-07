@@ -41,7 +41,7 @@ def validate_plan(startup_nmax):
 
 def clean_environment(inherited, scope, startup_nmax=4):
     env = {k: v for k, v in inherited.items()
-           if not k.startswith(TRACE_PREFIXES) and k not in GRAPH_DISABLE
+           if not k.startswith(TRACE_PREFIXES) and k not in GRAPH_DISABLE and k != 'EXPERTPIN_VERIFIER_TRACE'
            and not k.startswith('LLAMA_ARG_')}
     validate_plan(startup_nmax)
     env.update(GGML_CUDA_NO_PINNED='1', DRAFT=str(int(startup_nmax != 0)), DRAFT_NMAX=str(startup_nmax),
@@ -158,6 +158,7 @@ class Run:
         self.scope_launched = self.prepared = self.launching = False
         self.pending_signal = None
         self.tokenize_references = []
+        self.verifier_trace = False
         self.start = time.monotonic()
         self.label = 'preflight'
         self.summary = {'started': datetime.now().astimezone().isoformat(), 'scope': self.scope,
@@ -231,6 +232,9 @@ class Run:
         with socket.socket() as sock:
             sock.bind(('127.0.0.1', 8102))  # Refuse an occupied endpoint before host changes.
         env = clean_environment(os.environ, self.scope, self.startup_nmax)
+        if self.verifier_trace:
+            env['EXPERTPIN_VERIFIER_TRACE'] = '1'
+        self.summary['verifier_trace'] = self.verifier_trace
         self.save('environment.json', {k: v for k, v in env.items()
                                       if k not in os.environ or os.environ[k] != v})
         if self.startup_nmax and not Path(env['DRAFT_MODEL']).is_file():
@@ -409,6 +413,8 @@ def main(argv=None):
                         help='repeat twice at this startup/request depth; reload for a different depth')
     parser.add_argument('--tokenize-reference', type=Path, action='append', default=[],
                         help='retokenize saved response fields after generation; not a decode trace')
+    # Explicit opt-in only: clean baselines must not inherit diagnostic tracing.
+    parser.add_argument('--verifier-trace', action='store_true', help='diagnostic first-128 verifier decisions, NOT a clean throughput baseline')
     args = parser.parse_args(argv)
     try:
         validate_plan(args.startup_n_max)
@@ -421,6 +427,7 @@ def main(argv=None):
     out.mkdir()
     run = Run(out, args.startup_n_max)
     run.tokenize_references = args.tokenize_reference
+    run.verifier_trace = args.verifier_trace
     previous = {sig: signal.getsignal(sig) for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGALRM)}
     try:
         for sig in previous:

@@ -3,6 +3,9 @@
 # Measurement validation needs no model, GPU, or third-party Python packages.
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if (Python3_Interpreter_FOUND)
+    add_test(NAME test-analyze-verifier-trace
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-analyze-verifier-trace.py)
+    set_tests_properties(test-analyze-verifier-trace PROPERTIES LABELS "main;python" TIMEOUT 60)
     add_test(NAME test-gpu-idle-readiness
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-gpu-idle-readiness.py)
     set_tests_properties(test-gpu-idle-readiness PROPERTIES LABELS "main;python" TIMEOUT 60)
@@ -242,6 +245,7 @@ llama_build_and_test(test-expert-cache-lru.cpp WORKING_DIRECTORY ${CMAKE_CURRENT
 target_include_directories(test-expert-cache-lru PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
 
 llama_build_and_test(test-expert-trace.cpp)
+llama_build_and_test(test-server-verifier-trace.cpp)
 target_include_directories(test-expert-trace PRIVATE ${PROJECT_SOURCE_DIR}/ggml/src)
 
 add_executable(test-moe-gpu-trace test-moe-gpu-trace.cpp)
