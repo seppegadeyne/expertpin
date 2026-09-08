@@ -162,3 +162,5 @@ a.out
 a.out.*
 .dev
 .github
+# read-only referentie-repo's (AGENTS.md: nooit committen)
+third-party/
