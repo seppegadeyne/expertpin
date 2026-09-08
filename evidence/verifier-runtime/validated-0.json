@@ -1,0 +1,24 @@
+{
+  "directory": "evidence/clean-mtp-ab/run-20260908T031521-7774af1cc46549f28b0afa89da520986",
+  "depth": 0,
+  "traced_tasks": [
+    25,
+    283
+  ],
+  "traced_counts": [
+    128,
+    128
+  ],
+  "tok_s": [
+    12.02751707977899,
+    17.05390238919177
+  ],
+  "ram_peak_gib": 32.404754638671875,
+  "vram_sample_peak_gib": 19.4453125,
+  "swap_sample_peak_gib": 1.2381668090820312,
+  "samples": 83,
+  "tier_a_available_gib": 44.103721618652344,
+  "qli_stop": "2026-09-08T03:15:23.429516+02:00",
+  "qli_start": "2026-09-08T03:17:10.806564+02:00",
+  "cleanup_errors": []
+}

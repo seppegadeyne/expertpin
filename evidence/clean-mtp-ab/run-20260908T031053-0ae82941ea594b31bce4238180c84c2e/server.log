@@ -1,0 +1,995 @@
+Running as unit: expertpin-test-017fdea598b646fd90b4cbf74cfef7cf.scope; invocation ID: fd0e93a1de7f48e6818a4d6c1e5e50f3
+INFO [                    main] build info | tid="140597457309696" timestamp=1788829862 build=4925 commit="60a14628"
+INFO [                    main] system info | tid="140597457309696" timestamp=1788829862 n_threads=16 n_threads_batch=-1 total_threads=32 system_info="AVX = 1 | AVX_VNNI = 1 | AVX2 = 1 | AVX512 = 1 | AVX512_VBMI = 1 | AVX512_VNNI = 1 | AVX512_BF16 = 1 | FMA = 1 | NEON = 0 | SVE = 0 | ARM_FMA = 0 | F16C = 1 | FP16_VA = 0 | WASM_SIMD = 0 | SSE3 = 1 | SSSE3 = 1 | VSX = 0 | MATMUL_INT8 = 0 | "
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 5090, compute capability 12.0, VMM: yes, VRAM: 32146 MiB
+CUDA0: using device CUDA0 - 30177 MiB free
+llama_model_loader: additional 32 GGUFs metadata loaded.
+llama_model_loader: loaded meta data with 67 key-value pairs and 1224 tensors from /home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = qwen4exp
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                     general.sampling.top_k i32              = 20
+llama_model_loader: - kv   3:                     general.sampling.top_p f32              = 0.950000
+llama_model_loader: - kv   4:                      general.sampling.temp f32              = 1.000000
+llama_model_loader: - kv   5:                               general.name str              = Src
+llama_model_loader: - kv   6:                         general.size_label str              = 512x56B
+llama_model_loader: - kv   7:                            general.license str              = other
+llama_model_loader: - kv   8:                       general.license.name str              = qwen-community-1.0
+llama_model_loader: - kv   9:                       general.license.link str              = LICENSE
+llama_model_loader: - kv  10:                               general.tags arr[str,1]       = ["image-text-to-text"]
+llama_model_loader: - kv  11:                       qwen4exp.block_count u32              = 48
+llama_model_loader: - kv  12:                    qwen4exp.context_length u32              = 262144
+llama_model_loader: - kv  13:                  qwen4exp.embedding_length u32              = 2560
+llama_model_loader: - kv  14:              qwen4exp.attention.head_count u32              = 24
+llama_model_loader: - kv  15:           qwen4exp.attention.head_count_kv u32              = 2
+llama_model_loader: - kv  16:           qwen4exp.rope.dimension_sections arr[i32,4]       = [11, 11, 10, 0]
+llama_model_loader: - kv  17:                    qwen4exp.rope.freq_base f32              = 10000000.000000
+llama_model_loader: - kv  18:  qwen4exp.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  19:                      qwen4exp.expert_count u32              = 512
+llama_model_loader: - kv  20:                 qwen4exp.expert_used_count u32              = 10
+llama_model_loader: - kv  21:              qwen4exp.attention.key_length u32              = 256
+llama_model_loader: - kv  22:            qwen4exp.attention.value_length u32              = 256
+llama_model_loader: - kv  23:        qwen4exp.expert_feed_forward_length u32              = 640
+llama_model_loader: - kv  24: qwen4exp.expert_shared_feed_forward_length u32              = 640
+llama_model_loader: - kv  25:                   qwen4exp.ssm.conv_kernel u32              = 4
+llama_model_loader: - kv  26:                    qwen4exp.ssm.state_size u32              = 128
+llama_model_loader: - kv  27:                   qwen4exp.ssm.group_count u32              = 16
+llama_model_loader: - kv  28:                qwen4exp.ssm.time_step_rank u32              = 48
+llama_model_loader: - kv  29:                    qwen4exp.ssm.inner_size u32              = 6144
+llama_model_loader: - kv  30:           qwen4exp.full_attention_interval u32              = 4
+llama_model_loader: - kv  31:              qwen4exp.rope.dimension_count u32              = 64
+llama_model_loader: - kv  32:            qwen4exp.hyper_connection.count u32              = 4
+llama_model_loader: - kv  33:         qwen4exp.hyper_connection.low_rank u32              = 320
+llama_model_loader: - kv  34:      qwen4exp.attention.indexer.head_count u32              = 4
+llama_model_loader: - kv  35:      qwen4exp.attention.indexer.key_length u32              = 128
+llama_model_loader: - kv  36:           qwen4exp.attention.indexer.top_k u32              = 2048
+llama_model_loader: - kv  37:         qwen4exp.attention.compress_ratios arr[i32,48]      = [0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0, 4, ...
+llama_model_loader: - kv  38:                        qwen4exp.ple.layers arr[i32,1]       = [1]
+llama_model_loader: - kv  39:                    qwen4exp.ple.ngram_size u32              = 3
+llama_model_loader: - kv  40:               qwen4exp.ple.heads_per_ngram u32              = 8
+llama_model_loader: - kv  41:                   qwen4exp.ple.conv_kernel u32              = 4
+llama_model_loader: - kv  42:                  qwen4exp.ple.eos_token_id u32              = 248044
+llama_model_loader: - kv  43:                qwen4exp.ple.image_token_id u32              = 248056
+llama_model_loader: - kv  44:  qwen4exp.embedding_length_per_layer_input u32              = 160
+llama_model_loader: - kv  45:             qwen4exp.ple.layer_multipliers arr[u64,3]       = [23703573157769, 20109073645365, 8052...
+llama_model_loader: - kv  46:                  qwen4exp.ple.head_offsets arr[u64,16]      = [0, 20000003, 40000026, 60000059, 800...
+llama_model_loader: - kv  47:              qwen4exp.ple.head_vocab_sizes arr[u64,16]      = [20000003, 20000023, 20000033, 200000...
+llama_model_loader: - kv  48:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  49:                         tokenizer.ggml.pre str              = qwen35
+llama_model_loader: - kv  50:                      tokenizer.ggml.tokens arr[str,248320]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  51:                  tokenizer.ggml.token_type arr[i32,248320]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  52:                      tokenizer.ggml.merges arr[str,247587]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  53:                tokenizer.ggml.eos_token_id u32              = 248046
+llama_model_loader: - kv  54:            tokenizer.ggml.padding_token_id u32              = 248044
+llama_model_loader: - kv  55:                tokenizer.ggml.bos_token_id u32              = 248044
+llama_model_loader: - kv  56:               tokenizer.ggml.add_bos_token bool             = false
+llama_model_loader: - kv  57:                    tokenizer.chat_template str              = {%- set image_count = namespace(value...
+llama_model_loader: - kv  58:               general.quantization_version u32              = 2
+llama_model_loader: - kv  59:                          general.file_type u32              = 28
+llama_model_loader: - kv  60:                      quantize.imatrix.file str              = /imatrix/imatrix-full.gguf
+llama_model_loader: - kv  61:                   quantize.imatrix.dataset str              = /eval/calib_train.txt
+llama_model_loader: - kv  62:             quantize.imatrix.entries_count u32              = 926
+llama_model_loader: - kv  63:              quantize.imatrix.chunks_count u32              = 4000
+llama_model_loader: - kv  64:                                   split.no u16              = 0
+llama_model_loader: - kv  65:                        split.tensors.count i32              = 1224
+llama_model_loader: - kv  66:                                split.count u16              = 33
+llama_model_loader: - type  f32:  388 tensors
+llama_model_loader: - type  f16:    1 tensors
+llama_model_loader: - type q5_1:    1 tensors
+llama_model_loader: - type q8_0:  666 tensors
+llama_model_loader: - type iq4_nl:   48 tensors
+llama_model_loader: - type iq3_s:   24 tensors
+llama_model_loader: - type iq2_s:   72 tensors
+llama_model_loader: - type bf16:   24 tensors
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 248044 ('<|endoftext|>')
+load:   - 248046 ('<|im_end|>')
+load:   - 248063 ('<|fim_pad|>')
+load:   - 248064 ('<|repo_name|>')
+load:   - 248065 ('<|file_sep|>')
+load: special tokens cache size = 33
+load: token to piece cache size = 1.7581 MB
+llm_load_print_meta: format           = GGUF V3 (latest)
+llm_load_print_meta: arch             = qwen4exp
+llm_load_print_meta: n_ctx_train      = 262144
+llm_load_print_meta: n_embd           = 2560
+llm_load_print_meta: n_layer          = 48
+llm_load_print_meta: n_head           = 24
+llm_load_print_meta: n_head_kv        = 2
+llm_load_print_meta: n_rot            = 64
+llm_load_print_meta: n_swa            = 0
+llm_load_print_meta: n_swa_pattern    = 1
+llm_load_print_meta: n_embd_head_k    = 256
+llm_load_print_meta: n_embd_head_v    = 256
+llm_load_print_meta: n_gqa            = 12
+llm_load_print_meta: n_embd_k_gqa     = 512
+llm_load_print_meta: n_embd_v_gqa     = 512
+llm_load_print_meta: f_norm_eps       = 0.0e+00
+llm_load_print_meta: f_norm_rms_eps   = 1.0e-06
+llm_load_print_meta: f_clamp_kqv      = 0.0e+00
+llm_load_print_meta: f_max_alibi_bias = 0.0e+00
+llm_load_print_meta: f_logit_scale    = 0.0e+00
+llm_load_print_meta: n_ff             = 0
+llm_load_print_meta: n_expert         = 512
+llm_load_print_meta: n_expert_used    = 10
+llm_load_print_meta: causal attn      = 1
+llm_load_print_meta: pooling type     = 0
+llm_load_print_meta: rope type        = 40
+llm_load_print_meta: rope scaling     = linear
+llm_load_print_meta: freq_base_train  = 10000000.0
+llm_load_print_meta: freq_scale_train = 1
+llm_load_print_meta: n_ctx_orig_yarn  = 262144
+llm_load_print_meta: rope_finetuned   = unknown
+llm_load_print_meta: mrope sections   = [11, 11, 10, 0]
+llm_load_print_meta: ssm_d_conv       = 4
+llm_load_print_meta: ssm_d_inner      = 6144
+llm_load_print_meta: ssm_d_state      = 128
+llm_load_print_meta: ssm_dt_rank      = 48
+llm_load_print_meta: ssm_n_group      = 16
+llm_load_print_meta: model type       = 125B.A6B
+llm_load_print_meta: model ftype      = IQ2_S - 2.5 bpw
+llm_load_print_meta: model params     = 176.944 B
+llm_load_print_meta: model size       = 88.023 GiB (4.273 BPW) 
+llm_load_print_meta: repeating layers = 86.765 GiB (4.243 BPW, 175.673 B parameters)
+llm_load_print_meta: general.name     = Src
+print_info: vocab type            = BPE
+print_info: n_vocab               = 248320
+print_info: n_merges              = 247587
+print_info: BOS token             = 248044 '<|endoftext|>'
+print_info: EOS token             = 248046 '<|im_end|>'
+print_info: EOT token             = 248046 '<|im_end|>'
+print_info: PAD token             = 248044 '<|endoftext|>'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PRE token         = 248060 '<|fim_prefix|>'
+print_info: FIM SUF token         = 248062 '<|fim_suffix|>'
+print_info: FIM MID token         = 248061 '<|fim_middle|>'
+print_info: FIM PAD token         = 248063 '<|fim_pad|>'
+print_info: FIM REP token         = 248064 '<|repo_name|>'
+print_info: FIM SEP token         = 248065 '<|file_sep|>'
+print_info: EOG token             = 248044 '<|endoftext|>'
+print_info: EOG token             = 248046 '<|im_end|>'
+print_info: EOG token             = 248063 '<|fim_pad|>'
+print_info: EOG token             = 248064 '<|repo_name|>'
+print_info: EOG token             = 248065 '<|file_sep|>'
+print_info: max token length      = 256
+======================================= HAVE_FANCY_SIMD is defined
+Oops: tensor with strange name per_layer_token_embd.weight
+------------------- Layer sizes:
+Layer  0:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer  1:   1253.17,      3.47,   1256.64       80.00  MiB
+Layer  2:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer  3:   1214.53,     11.00,   1225.53       80.00  MiB
+Layer  4:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer  5:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer  6:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer  7:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer  8:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer  9:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 10:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 11:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 12:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 13:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 14:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 15:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 16:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 17:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 18:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 19:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 20:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 21:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 22:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 23:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 24:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 25:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 26:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 27:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 28:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 29:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 30:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 31:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 32:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 33:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 34:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 35:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 36:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 37:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 38:   1044.78,      3.12,   1047.89       80.00  MiB
+Layer 39:   1039.53,     11.00,   1050.53       80.00  MiB
+Layer 40:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer 41:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer 42:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer 43:   1214.53,     11.00,   1225.53       80.00  MiB
+Layer 44:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer 45:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer 46:   1219.78,      3.12,   1222.89       80.00  MiB
+Layer 47:   1214.53,     11.00,   1225.53       80.00  MiB
+Layer 48:    650.82,    405.00,   1055.82 MiB (output layer)
+--------------------------------------------------------------------------
+Total   :  52219.69,    649.57,  52869.27 MiB
+Memory required for model tensors + cache: 53520 MiB
+Memory available on all devices - compute: 29074 MiB
+llm_load_tensors: ggml ctx size =    1.09 MiB
+Tensor blk.12.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.12.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.12.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_up_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_gate_exps.weight (size = 256.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_up_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_gate_exps.weight (size = 343.75 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+llm_load_tensors: offloading 48 repeating layers to GPU
+llm_load_tensors: offloading non-repeating layers to GPU
+llm_load_tensors: offloaded 49/49 layers to GPU
+llm_load_tensors:        CPU buffer size = 36621.27 MiB
+llm_load_tensors:        CPU buffer size =   644.14 MiB
+llm_load_tensors:        CPU buffer size =  1752.69 MiB
+llm_load_tensors:        CPU buffer size =  1832.94 MiB
+llm_load_tensors:        CPU buffer size =  1550.73 MiB
+llm_load_tensors:        CPU buffer size =  1752.69 MiB
+llm_load_tensors:        CPU buffer size =  1819.73 MiB
+llm_load_tensors:        CPU buffer size =  1563.95 MiB
+llm_load_tensors:        CPU buffer size =  1760.66 MiB
+llm_load_tensors:        CPU buffer size =  1811.75 MiB
+llm_load_tensors:        CPU buffer size =  1563.95 MiB
+llm_load_tensors:        CPU buffer size =  1739.47 MiB
+llm_load_tensors:        CPU buffer size =  1824.97 MiB
+llm_load_tensors:        CPU buffer size =  1571.92 MiB
+llm_load_tensors:        CPU buffer size =  1752.69 MiB
+llm_load_tensors:        CPU buffer size =  1832.94 MiB
+llm_load_tensors:        CPU buffer size =  1550.73 MiB
+llm_load_tensors:        CPU buffer size =  1752.69 MiB
+llm_load_tensors:        CPU buffer size =  1819.73 MiB
+llm_load_tensors:        CPU buffer size =  1563.53 MiB
+llm_load_tensors:        CPU buffer size =  1563.53 MiB
+llm_load_tensors:        CPU buffer size =  1656.56 MiB
+llm_load_tensors:        CPU buffer size =  1563.53 MiB
+llm_load_tensors:        CPU buffer size =  1563.53 MiB
+llm_load_tensors:        CPU buffer size =  1145.83 MiB
+llm_load_tensors:      CUDA0 buffer size = 16820.57 MiB
+............................................................
+llama_init_from_model: n_ctx         = 8192
+llama_init_from_model: n_batch       = 2048
+llama_init_from_model: n_ubatch      = 512
+llama_init_from_model: flash_attn    = 1
+llama_init_from_model: attn_max_b    = 256
+llama_init_from_model: fused_moe     = 1
+llama_init_from_model: grouped er    = 0
+llama_init_from_model: fused_up_gate = 1
+llama_init_from_model: fused_mmad    = 1
+llama_init_from_model: rope_cache    = 0
+llama_init_from_model: graph_reuse   = 1
+llama_init_from_model: k_cache_hadam = 0
+llama_init_from_model: v_cache_hadam = 0
+llama_init_from_model: split_mode_graph_scheduling = 0
+llama_init_from_model: reduce_type   = f16
+llama_init_from_model: sched_async   = 0
+llama_init_from_model: ser           = -1, 0
+llama_init_from_model: freq_base     = 10000000.0
+llama_init_from_model: freq_scale    = 1
+llama_kv_cache_init:      CUDA0 KV buffer size =   244.57 MiB
+llama_init_from_model: KV self size  =  102.00 MiB, K (q8_0):   51.00 MiB, V (q8_0):   51.00 MiB
+llama_init_from_model: KV self indexer size =   30.00 MiB (f16)
+llama_init_from_model:        CPU  output buffer size =     0.99 MiB
+llama_init_from_model:      CUDA0 compute buffer size =   530.00 MiB
+llama_init_from_model:  CUDA_Host compute buffer size =    86.59 MiB
+llama_init_from_model: graph nodes  = 5599
+llama_init_from_model: graph splits = 76
+llama_init_from_model: enabling only_active_experts scheduling
+
+
+==================================loading DRAFT model==================================
+
+common_speculative_load_draft_model: MTP draft ignores target CPU-MoE/tensor placement overrides
+common_speculative_load_draft_model: loading draft model '/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf'
+CUDA0: using device CUDA0 - 12429 MiB free
+llama_model_loader: loaded meta data with 52 key-value pairs and 32 tensors from /home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = qwen4exp
+llama_model_loader: - kv   1:       qwen4exp.nextn_shared_target_tensors bool             = true
+llama_model_loader: - kv   2:                               general.type str              = model
+llama_model_loader: - kv   3:                     general.sampling.top_k i32              = 20
+llama_model_loader: - kv   4:                     general.sampling.top_p f32              = 0.950000
+llama_model_loader: - kv   5:                      general.sampling.temp f32              = 1.000000
+llama_model_loader: - kv   6:                               general.name str              = Ckpt_Q38
+llama_model_loader: - kv   7:                         general.size_label str              = 512x95M
+llama_model_loader: - kv   8:                            general.license str              = other
+llama_model_loader: - kv   9:                       general.license.name str              = qwen-community-1.0
+llama_model_loader: - kv  10:                       general.license.link str              = LICENSE
+llama_model_loader: - kv  11:                               general.tags arr[str,1]       = ["image-text-to-text"]
+llama_model_loader: - kv  12:                       qwen4exp.block_count u32              = 49
+llama_model_loader: - kv  13:                    qwen4exp.context_length u32              = 262144
+llama_model_loader: - kv  14:                  qwen4exp.embedding_length u32              = 2560
+llama_model_loader: - kv  15:              qwen4exp.attention.head_count u32              = 24
+llama_model_loader: - kv  16:           qwen4exp.attention.head_count_kv u32              = 2
+llama_model_loader: - kv  17:           qwen4exp.rope.dimension_sections arr[i32,4]       = [11, 11, 10, 0]
+llama_model_loader: - kv  18:                    qwen4exp.rope.freq_base f32              = 10000000.000000
+llama_model_loader: - kv  19:  qwen4exp.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  20:                      qwen4exp.expert_count u32              = 512
+llama_model_loader: - kv  21:                 qwen4exp.expert_used_count u32              = 10
+llama_model_loader: - kv  22:              qwen4exp.attention.key_length u32              = 256
+llama_model_loader: - kv  23:            qwen4exp.attention.value_length u32              = 256
+llama_model_loader: - kv  24:        qwen4exp.expert_feed_forward_length u32              = 640
+llama_model_loader: - kv  25: qwen4exp.expert_shared_feed_forward_length u32              = 640
+llama_model_loader: - kv  26:              qwen4exp.nextn_predict_layers u32              = 1
+llama_model_loader: - kv  27:                   qwen4exp.ssm.conv_kernel u32              = 4
+llama_model_loader: - kv  28:                    qwen4exp.ssm.state_size u32              = 128
+llama_model_loader: - kv  29:                   qwen4exp.ssm.group_count u32              = 16
+llama_model_loader: - kv  30:                qwen4exp.ssm.time_step_rank u32              = 48
+llama_model_loader: - kv  31:                    qwen4exp.ssm.inner_size u32              = 6144
+llama_model_loader: - kv  32:           qwen4exp.full_attention_interval u32              = 4
+llama_model_loader: - kv  33:              qwen4exp.rope.dimension_count u32              = 64
+llama_model_loader: - kv  34:            qwen4exp.hyper_connection.count u32              = 4
+llama_model_loader: - kv  35:         qwen4exp.hyper_connection.low_rank u32              = 320
+llama_model_loader: - kv  36:      qwen4exp.attention.indexer.head_count u32              = 4
+llama_model_loader: - kv  37:      qwen4exp.attention.indexer.key_length u32              = 128
+llama_model_loader: - kv  38:           qwen4exp.attention.indexer.top_k u32              = 2048
+llama_model_loader: - kv  39:         qwen4exp.attention.compress_ratios arr[i32,49]      = [0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0, 4, ...
+llama_model_loader: - kv  40:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  41:                         tokenizer.ggml.pre str              = qwen35
+llama_model_loader: - kv  42:                      tokenizer.ggml.tokens arr[str,248320]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  43:                  tokenizer.ggml.token_type arr[i32,248320]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  44:                      tokenizer.ggml.merges arr[str,247587]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  45:                tokenizer.ggml.eos_token_id u32              = 248046
+llama_model_loader: - kv  46:            tokenizer.ggml.padding_token_id u32              = 248044
+llama_model_loader: - kv  47:                tokenizer.ggml.bos_token_id u32              = 248044
+llama_model_loader: - kv  48:               tokenizer.ggml.add_bos_token bool             = false
+llama_model_loader: - kv  49:                    tokenizer.chat_template str              = {%- set image_count = namespace(value...
+llama_model_loader: - kv  50:               general.quantization_version u32              = 2
+llama_model_loader: - kv  51:                          general.file_type u32              = 15
+llama_model_loader: - type  f32:   11 tensors
+llama_model_loader: - type q5_0:    3 tensors
+llama_model_loader: - type q8_0:    2 tensors
+llama_model_loader: - type q4_K:   12 tensors
+llama_model_loader: - type q6_K:    2 tensors
+llama_model_loader: - type bf16:    2 tensors
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 248044 ('<|endoftext|>')
+load:   - 248046 ('<|im_end|>')
+load:   - 248063 ('<|fim_pad|>')
+load:   - 248064 ('<|repo_name|>')
+load:   - 248065 ('<|file_sep|>')
+load: special tokens cache size = 33
+load: token to piece cache size = 1.7581 MB
+llm_load_print_meta: format           = GGUF V3 (latest)
+llm_load_print_meta: arch             = qwen4exp
+llm_load_print_meta: n_ctx_train      = 262144
+llm_load_print_meta: n_embd           = 2560
+llm_load_print_meta: n_layer          = 49
+llm_load_print_meta: n_head           = 24
+llm_load_print_meta: n_head_kv        = 2
+llm_load_print_meta: n_rot            = 64
+llm_load_print_meta: n_swa            = 0
+llm_load_print_meta: n_swa_pattern    = 1
+llm_load_print_meta: n_embd_head_k    = 256
+llm_load_print_meta: n_embd_head_v    = 256
+llm_load_print_meta: n_gqa            = 12
+llm_load_print_meta: n_embd_k_gqa     = 512
+llm_load_print_meta: n_embd_v_gqa     = 512
+llm_load_print_meta: f_norm_eps       = 0.0e+00
+llm_load_print_meta: f_norm_rms_eps   = 1.0e-06
+llm_load_print_meta: f_clamp_kqv      = 0.0e+00
+llm_load_print_meta: f_max_alibi_bias = 0.0e+00
+llm_load_print_meta: f_logit_scale    = 0.0e+00
+llm_load_print_meta: n_ff             = 0
+llm_load_print_meta: n_expert         = 512
+llm_load_print_meta: n_expert_used    = 10
+llm_load_print_meta: causal attn      = 1
+llm_load_print_meta: pooling type     = 0
+llm_load_print_meta: rope type        = 40
+llm_load_print_meta: rope scaling     = linear
+llm_load_print_meta: freq_base_train  = 10000000.0
+llm_load_print_meta: freq_scale_train = 1
+llm_load_print_meta: n_ctx_orig_yarn  = 262144
+llm_load_print_meta: rope_finetuned   = unknown
+llm_load_print_meta: mrope sections   = [11, 11, 10, 0]
+llm_load_print_meta: ssm_d_conv       = 4
+llm_load_print_meta: ssm_d_inner      = 6144
+llm_load_print_meta: ssm_d_state      = 128
+llm_load_print_meta: ssm_dt_rank      = 48
+llm_load_print_meta: ssm_n_group      = 16
+llm_load_print_meta: model type       = 125B.A6B
+llm_load_print_meta: model ftype      = Q4_K - Medium
+llm_load_print_meta: model params     = 2.607 B
+llm_load_print_meta: model size       = 1.766 GiB (5.818 BPW) 
+llm_load_print_meta: general.name     = Ckpt_Q38
+print_info: vocab type            = BPE
+print_info: n_vocab               = 248320
+print_info: n_merges              = 247587
+print_info: BOS token             = 248044 '<|endoftext|>'
+print_info: EOS token             = 248046 '<|im_end|>'
+print_info: EOT token             = 248046 '<|im_end|>'
+print_info: PAD token             = 248044 '<|endoftext|>'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PRE token         = 248060 '<|fim_prefix|>'
+print_info: FIM SUF token         = 248062 '<|fim_suffix|>'
+print_info: FIM MID token         = 248061 '<|fim_middle|>'
+print_info: FIM PAD token         = 248063 '<|fim_pad|>'
+print_info: FIM REP token         = 248064 '<|repo_name|>'
+print_info: FIM SEP token         = 248065 '<|file_sep|>'
+print_info: EOG token             = 248044 '<|endoftext|>'
+print_info: EOG token             = 248046 '<|im_end|>'
+print_info: EOG token             = 248063 '<|fim_pad|>'
+print_info: EOG token             = 248064 '<|repo_name|>'
+print_info: EOG token             = 248065 '<|file_sep|>'
+print_info: max token length      = 256
+======================================= HAVE_FANCY_SIMD is defined
+------------------- Layer sizes:
+Layer  0:      0.00,      3.12,      3.12        5.00  MiB
+Layer  1:      0.00,      3.12,      3.12        5.00  MiB
+Layer  2:      0.00,      3.12,      3.12        5.00  MiB
+Layer  3:      0.00,     11.00,     11.00        5.00  MiB
+Layer  4:      0.00,      3.12,      3.12        5.00  MiB
+Layer  5:      0.00,      3.12,      3.12        5.00  MiB
+Layer  6:      0.00,      3.12,      3.12        5.00  MiB
+Layer  7:      0.00,     11.00,     11.00        5.00  MiB
+Layer  8:      0.00,      3.12,      3.12        5.00  MiB
+Layer  9:      0.00,      3.12,      3.12        5.00  MiB
+Layer 10:      0.00,      3.12,      3.12        5.00  MiB
+Layer 11:      0.00,     11.00,     11.00        5.00  MiB
+Layer 12:      0.00,      3.12,      3.12        5.00  MiB
+Layer 13:      0.00,      3.12,      3.12        5.00  MiB
+Layer 14:      0.00,      3.12,      3.12        5.00  MiB
+Layer 15:      0.00,     11.00,     11.00        5.00  MiB
+Layer 16:      0.00,      3.12,      3.12        5.00  MiB
+Layer 17:      0.00,      3.12,      3.12        5.00  MiB
+Layer 18:      0.00,      3.12,      3.12        5.00  MiB
+Layer 19:      0.00,     11.00,     11.00        5.00  MiB
+Layer 20:      0.00,      3.12,      3.12        5.00  MiB
+Layer 21:      0.00,      3.12,      3.12        5.00  MiB
+Layer 22:      0.00,      3.12,      3.12        5.00  MiB
+Layer 23:      0.00,     11.00,     11.00        5.00  MiB
+Layer 24:      0.00,      3.12,      3.12        5.00  MiB
+Layer 25:      0.00,      3.12,      3.12        5.00  MiB
+Layer 26:      0.00,      3.12,      3.12        5.00  MiB
+Layer 27:      0.00,     11.00,     11.00        5.00  MiB
+Layer 28:      0.00,      3.12,      3.12        5.00  MiB
+Layer 29:      0.00,      3.12,      3.12        5.00  MiB
+Layer 30:      0.00,      3.12,      3.12        5.00  MiB
+Layer 31:      0.00,     11.00,     11.00        5.00  MiB
+Layer 32:      0.00,      3.12,      3.12        5.00  MiB
+Layer 33:      0.00,      3.12,      3.12        5.00  MiB
+Layer 34:      0.00,      3.12,      3.12        5.00  MiB
+Layer 35:      0.00,     11.00,     11.00        5.00  MiB
+Layer 36:      0.00,      3.12,      3.12        5.00  MiB
+Layer 37:      0.00,      3.12,      3.12        5.00  MiB
+Layer 38:      0.00,      3.12,      3.12        5.00  MiB
+Layer 39:      0.00,     11.00,     11.00        5.00  MiB
+Layer 40:      0.00,      3.12,      3.12        5.00  MiB
+Layer 41:      0.00,      3.12,      3.12        5.00  MiB
+Layer 42:      0.00,      3.12,      3.12        5.00  MiB
+Layer 43:      0.00,     11.00,     11.00        5.00  MiB
+Layer 44:      0.00,      3.12,      3.12        5.00  MiB
+Layer 45:      0.00,      3.12,      3.12        5.00  MiB
+Layer 46:      0.00,      3.12,      3.12        5.00  MiB
+Layer 47:      0.00,     11.00,     11.00        5.00  MiB
+Layer 48:   1808.36,      8.50,   1816.86       80.00  MiB
+Layer 49:      0.00,    405.00,    405.00 MiB (output layer)
+--------------------------------------------------------------------------
+Total   :   1808.36,    657.72,   2466.08 MiB
+Memory required for model tensors + cache: 2466 MiB
+Memory available on all devices - compute: 11326 MiB
+llm_load_tensors: ggml ctx size =    0.14 MiB
+No tensors in buffer type CUDA_Host
+llm_load_tensors: offloading 49 repeating layers to GPU
+llm_load_tensors: offloading non-repeating layers to GPU
+llm_load_tensors: offloaded 50/50 layers to GPU
+llm_load_tensors:      CUDA0 buffer size =  1808.36 MiB
+......
+INFO [                    init] initializing slots | tid="140597457309696" timestamp=1788829918 n_slots=1
+srv          init: MTP needs embeddings on decode, enabling
+srv          init: Exclude reasoning tokens when selecting slot based on similarity: start: <think>, end: </think>
+use `--reasoning-tokens none` to disable.
+INFO [                    init] new slot | tid="140597457309696" timestamp=1788829919 id_slot=0 n_ctx_slot=8192
+llama_init_from_model: n_ctx         = 8192
+llama_init_from_model: n_batch       = 2048
+llama_init_from_model: n_ubatch      = 512
+llama_init_from_model: flash_attn    = 1
+llama_init_from_model: attn_max_b    = 256
+llama_init_from_model: fused_moe     = 1
+llama_init_from_model: grouped er    = 0
+llama_init_from_model: fused_up_gate = 1
+llama_init_from_model: fused_mmad    = 1
+llama_init_from_model: rope_cache    = 0
+llama_init_from_model: graph_reuse   = 1
+llama_init_from_model: k_cache_hadam = 0
+llama_init_from_model: v_cache_hadam = 0
+llama_init_from_model: split_mode_graph_scheduling = 0
+llama_init_from_model: reduce_type   = f16
+llama_init_from_model: sched_async   = 0
+llama_init_from_model: ser           = -1, 0
+llama_init_from_model: freq_base     = 10000000.0
+llama_init_from_model: freq_scale    = 1
+llama_kv_cache_init:      CUDA0 KV buffer size =     8.50 MiB
+llama_init_from_model: KV self size  =    8.50 MiB, K (q8_0):    4.25 MiB, V (q8_0):    4.25 MiB
+llama_init_from_model:        CPU  output buffer size =     0.99 MiB
+llama_init_from_model:      CUDA0 compute buffer size =   510.00 MiB
+llama_init_from_model:  CUDA_Host compute buffer size =    33.01 MiB
+llama_init_from_model: graph nodes  = 115
+llama_init_from_model: graph splits = 2
+llama_init_from_model: enabling only_active_experts scheduling
+llama_spec_ckpt_init: auto checkpoint mode could not preallocate per-step buffers for max_tokens=5; falling back to gpu-fallback
+checkpoint_alloc_shadows:      CUDA0 shadow buffer =   112.57 MiB
+llama_spec_ckpt_init: fixed recurrent checkpoint mode = gpu-fallback
+common_speculative_state_mtp: MTP context ready (n_ctx=8192, constant_draft_positions=false)
+slot         init: id  0 | task -1 | speculative decoding context initialized
+prompt cache is enabled, size limit: 512 MiB
+use `--cache-ram 0` to disable the prompt cache
+init: chat template, example_format: '<|im_start|>system
+Reasoning effort is set to xhigh. Please think carefully through the task, validate key assumptions, consider plausible alternatives, and prioritize correctness, consistency, and clarity in the final answer.
+
+You are a helpful assistant<|im_end|>
+<|im_start|>user
+Hello<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+Hi there<|im_end|>
+<|im_start|>user
+How are you?<|im_end|>
+<|im_start|>assistant
+<think>
+'
+INFO [                    main] model loaded | tid="140597457309696" timestamp=1788829920
+INFO [                    main] HTTP server listening | tid="140597457309696" timestamp=1788829920 n_threads_http="31" port="8102" hostname="127.0.0.1"
+INFO [              slots_idle] all slots are idle | tid="140597457309696" timestamp=1788829920
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=0 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=2 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140587072815104" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34774 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=3 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140587056029696" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34788 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=4 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140587047636992" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34796 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=1 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140587030851584" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=56036 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=7 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140587022458880" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=56032 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=8 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586676543488" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=37538 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140586693328896" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=58928 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=5 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=10 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140587039244288" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=56044 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=14 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586768863232" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=33950 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=9 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=13 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140587064422400" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34784 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140586710114304" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=58900 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=12 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586651365376" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=37568 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=16 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586333028352" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=37586 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=17 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586642972672" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=37572 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=11 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586718507008" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=58902 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140586684936192" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=58934 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=22 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=18 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586281058304" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34300 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=6 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586289451008" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34288 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=23 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586735292416" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=33972 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140586272665600" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34306 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=20 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=15 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586207825920" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34320 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140586701721600" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=58912 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=21 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=19 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586668150784" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=37554 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=25 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586199433216" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=60600 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=24 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586726899712" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=33974 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140586659758080" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34278 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=26 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=27 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140586743685120" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=33960 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140597457309696" timestamp=1788829920 id_task=28 n_idle_slots=1 n_processing_slots=0
+INFO [              slots_idle] all slots are idle | tid="140597457309696" timestamp=1788829920
+INFO [      log_server_request] request | tid="140586752077824" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=34812 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140586760470528" timestamp=1788829920 remote_addr="127.0.0.1" remote_port=33946 status=200 method="GET" path="/health" params={}
+======== Prompt cache: cache size: 0, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.00, cache_ram_similarity: 0.50
+WARN [   launch_slot_with_task] %s
+ | ="ctx_shift is not supported by recurrent model, it will be disabled"
+INFO [   launch_slot_with_task] slot is processing task | tid="140597457309696" timestamp=1788829920 id_slot=0 id_task=29
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140597457309696" timestamp=1788829920 id_slot=0 id_task=29 p0=0
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140597457309696" timestamp=1788829943 id_slot=0 id_task=29 p0=63
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":1,"verifier_row":0,"verifier_rows":1,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":1596,"decision":"target_only","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1596,"raw_runner_up_id":1421,"raw_top_logit":23.28331184387207,"raw_second_logit":16.306303024291992,"raw_top_margin":6.977008819580078,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":2,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":1144,"selected_id":1144,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1144,"raw_runner_up_id":22916,"raw_top_logit":29.56609344482422,"raw_second_logit":18.331682205200195,"raw_top_margin":11.234411239624023,"raw_proposal_logit":29.56609344482422}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":3,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":4087,"selected_id":4087,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":4087,"raw_runner_up_id":5707,"raw_top_logit":24.887630462646484,"raw_second_logit":20.869462966918945,"raw_top_margin":4.018167495727539,"raw_proposal_logit":24.887630462646484}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":4,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":1156,"selected_id":1156,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1156,"raw_runner_up_id":25,"raw_top_logit":25.831974029541016,"raw_second_logit":20.367042541503906,"raw_top_margin":5.464931488037109,"raw_proposal_logit":25.831974029541016}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":5,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":25,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25,"raw_runner_up_id":579,"raw_top_logit":27.341327667236328,"raw_second_logit":25.276615142822266,"raw_top_margin":2.0647125244140625,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":6,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":328,"selected_id":328,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":328,"raw_runner_up_id":79091,"raw_top_logit":24.508472442626953,"raw_second_logit":17.986492156982422,"raw_top_margin":6.521980285644531,"raw_proposal_logit":24.508472442626953}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":7,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":814,"selected_id":814,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":814,"raw_runner_up_id":79091,"raw_top_logit":27.686893463134766,"raw_second_logit":17.54651641845703,"raw_top_margin":10.140377044677734,"raw_proposal_logit":27.686893463134766}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":8,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":20139,"selected_id":20139,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":20139,"raw_runner_up_id":10083,"raw_top_logit":28.19577407836914,"raw_second_logit":18.91666603088379,"raw_top_margin":9.279108047485352,"raw_proposal_logit":28.19577407836914}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":9,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":1204,"selected_id":1204,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1204,"raw_runner_up_id":303,"raw_top_logit":25.91158676147461,"raw_second_logit":15.686983108520508,"raw_top_margin":10.224603652954102,"raw_proposal_logit":25.91158676147461}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":10,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":264,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":264,"raw_runner_up_id":59056,"raw_top_logit":26.34836196899414,"raw_second_logit":12.625333786010742,"raw_top_margin":13.723028182983398,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":11,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":59056,"selected_id":59056,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":59056,"raw_runner_up_id":63471,"raw_top_logit":24.565645217895508,"raw_second_logit":14.463032722473145,"raw_top_margin":10.102612495422363,"raw_proposal_logit":24.565645217895508}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":12,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":6009,"selected_id":6009,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6009,"raw_runner_up_id":59056,"raw_top_logit":24.167978286743164,"raw_second_logit":14.566883087158203,"raw_top_margin":9.601095199584961,"raw_proposal_logit":24.167978286743164}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":13,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":6297,"selected_id":6297,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":35464,"raw_top_logit":25.15683937072754,"raw_second_logit":18.293378829956055,"raw_top_margin":6.863460540771484,"raw_proposal_logit":25.15683937072754}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":14,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":13081,"selected_id":13081,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":13081,"raw_runner_up_id":27930,"raw_top_logit":22.922073364257813,"raw_second_logit":15.215496063232422,"raw_top_margin":7.706577301025391,"raw_proposal_logit":22.922073364257813}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":15,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":21360,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":23683,"raw_top_logit":25.23590850830078,"raw_second_logit":16.0394287109375,"raw_top_margin":9.196479797363281,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":16,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":321,"selected_id":321,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":321,"raw_runner_up_id":40889,"raw_top_logit":24.678497314453125,"raw_second_logit":17.102962493896484,"raw_top_margin":7.575534820556641,"raw_proposal_logit":24.678497314453125}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":17,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":21360,"raw_top_logit":25.535736083984375,"raw_second_logit":17.283138275146484,"raw_top_margin":8.25259780883789,"raw_proposal_logit":25.535736083984375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":18,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":8547,"raw_top_logit":23.896942138671875,"raw_second_logit":12.929906845092773,"raw_top_margin":10.967035293579102,"raw_proposal_logit":23.896942138671875}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":19,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":40889,"selected_id":40889,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":40889,"raw_runner_up_id":3016,"raw_top_logit":22.879817962646484,"raw_second_logit":13.769980430603027,"raw_top_margin":9.109837532043457,"raw_proposal_logit":22.879817962646484}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":20,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":303,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":303,"raw_runner_up_id":11,"raw_top_logit":23.2800235748291,"raw_second_logit":11.160233497619629,"raw_top_margin":12.119790077209473,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":21,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":7472,"selected_id":7472,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7472,"raw_runner_up_id":11346,"raw_top_logit":25.522689819335938,"raw_second_logit":14.8107328414917,"raw_top_margin":10.711956977844238,"raw_proposal_logit":25.522689819335938}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":22,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":1149,"selected_id":1149,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1149,"raw_runner_up_id":13,"raw_top_logit":24.456993103027344,"raw_second_logit":18.60040283203125,"raw_top_margin":5.856590270996094,"raw_proposal_logit":24.456993103027344}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":23,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":14235,"selected_id":14235,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":1165,"raw_top_logit":23.719968795776367,"raw_second_logit":21.667327880859375,"raw_top_margin":2.052640914916992,"raw_proposal_logit":23.719968795776367}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":24,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":22846,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":22846,"raw_runner_up_id":4222,"raw_top_logit":24.6279354095459,"raw_second_logit":23.21802520751953,"raw_top_margin":1.4099102020263672,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":25,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":2193,"selected_id":2193,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":2193,"raw_runner_up_id":7697,"raw_top_logit":26.59103775024414,"raw_second_logit":22.58818244934082,"raw_top_margin":4.00285530090332,"raw_proposal_logit":26.59103775024414}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":26,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":13,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":13,"raw_runner_up_id":25,"raw_top_logit":24.107501983642578,"raw_second_logit":22.914520263671875,"raw_top_margin":1.1929817199707031,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":27,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":90410,"selected_id":90410,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":90410,"raw_runner_up_id":417,"raw_top_logit":21.170303344726563,"raw_second_logit":19.988069534301758,"raw_top_margin":1.1822338104248047,"raw_proposal_logit":21.170303344726563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":28,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":883,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":883,"raw_runner_up_id":380,"raw_top_logit":21.84644889831543,"raw_second_logit":19.687833786010742,"raw_top_margin":2.1586151123046875,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":29,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":380,"selected_id":5861,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":5861,"raw_runner_up_id":380,"raw_top_logit":20.943073272705078,"raw_second_logit":20.285654067993164,"raw_top_margin":0.6574192047119141,"raw_proposal_logit":20.285654067993164}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":30,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":36,"selected_id":36,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":36,"raw_runner_up_id":16849,"raw_top_logit":23.46743392944336,"raw_second_logit":14.460821151733398,"raw_top_margin":9.006612777709961,"raw_proposal_logit":23.46743392944336}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":31,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":318,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":318,"raw_runner_up_id":6009,"raw_top_logit":19.334993362426758,"raw_second_logit":19.18375015258789,"raw_top_margin":0.1512432098388672,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":32,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":44,"selected_id":76,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":76,"raw_runner_up_id":44,"raw_top_logit":25.7624454498291,"raw_second_logit":25.653718948364258,"raw_top_margin":0.10872650146484375,"raw_proposal_logit":25.653718948364258}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":33,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":12370,"selected_id":12370,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":12370,"raw_runner_up_id":20340,"raw_top_logit":25.336809158325195,"raw_second_logit":15.917251586914063,"raw_top_margin":9.419557571411133,"raw_proposal_logit":25.336809158325195}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":34,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":314,"selected_id":314,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":314,"raw_runner_up_id":8404,"raw_top_logit":23.80539894104004,"raw_second_logit":23.794544219970703,"raw_top_margin":0.010854721069335938,"raw_proposal_logit":23.80539894104004}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":35,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":11312,"selected_id":11312,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11312,"raw_runner_up_id":49051,"raw_top_logit":23.6722412109375,"raw_second_logit":14.447681427001953,"raw_top_margin":9.224559783935547,"raw_proposal_logit":23.6722412109375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":36,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":8,"selected_id":8,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":8,"raw_runner_up_id":681,"raw_top_logit":23.79107666015625,"raw_second_logit":20.901187896728516,"raw_top_margin":2.8898887634277344,"raw_proposal_logit":23.79107666015625}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":37,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":42903,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":42903,"raw_runner_up_id":6009,"raw_top_logit":20.39566993713379,"raw_second_logit":19.238000869750977,"raw_top_margin":1.1576690673828125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":38,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":440,"raw_top_logit":21.511871337890625,"raw_second_logit":20.467830657958984,"raw_top_margin":1.0440406799316406,"raw_proposal_logit":21.511871337890625}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":39,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":6009,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6009,"raw_runner_up_id":59056,"raw_top_logit":21.32084846496582,"raw_second_logit":19.390066146850586,"raw_top_margin":1.9307823181152344,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":40,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":45850,"selected_id":6297,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":45850,"raw_top_logit":20.643821716308594,"raw_second_logit":19.479705810546875,"raw_top_margin":1.1641159057617188,"raw_proposal_logit":19.479705810546875}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":41,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":59056,"raw_top_logit":19.770610809326172,"raw_second_logit":19.51291847229004,"raw_top_margin":0.2576923370361328,"raw_proposal_logit":19.770610809326172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":42,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":59056,"selected_id":59056,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":59056,"raw_runner_up_id":21360,"raw_top_logit":20.347431182861328,"raw_second_logit":18.930797576904297,"raw_top_margin":1.4166336059570313,"raw_proposal_logit":20.347431182861328}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":43,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":6009,"selected_id":6297,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":6009,"raw_top_logit":20.168468475341797,"raw_second_logit":18.655818939208984,"raw_top_margin":1.5126495361328125,"raw_proposal_logit":18.655818939208984}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":44,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":303,"raw_top_logit":20.772336959838867,"raw_second_logit":20.611495971679688,"raw_top_margin":0.1608409881591797,"raw_proposal_logit":20.772336959838867}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":45,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":21360,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":67528,"raw_top_logit":21.69786262512207,"raw_second_logit":15.976125717163086,"raw_top_margin":5.721736907958984,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":46,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":321,"selected_id":321,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":321,"raw_runner_up_id":19674,"raw_top_logit":20.742944717407227,"raw_second_logit":20.58956527709961,"raw_top_margin":0.1533794403076172,"raw_proposal_logit":20.742944717407227}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":47,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":35160,"raw_top_logit":25.703907012939453,"raw_second_logit":15.891493797302246,"raw_top_margin":9.812413215637207,"raw_proposal_logit":25.703907012939453}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":48,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":23.090484619140625,"raw_second_logit":13.171481132507324,"raw_top_margin":9.9190034866333,"raw_proposal_logit":23.090484619140625}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":49,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":40889,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":40889,"raw_runner_up_id":61038,"raw_top_logit":20.337886810302734,"raw_second_logit":18.299156188964844,"raw_top_margin":2.0387306213378906,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":50,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":13,"selected_id":13,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":13,"raw_runner_up_id":30,"raw_top_logit":23.574426651000977,"raw_second_logit":21.2443790435791,"raw_top_margin":2.330047607421875,"raw_proposal_logit":23.574426651000977}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":51,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":14235,"selected_id":14235,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":16018,"raw_top_logit":24.43220329284668,"raw_second_logit":22.399818420410156,"raw_top_margin":2.0323848724365234,"raw_proposal_logit":24.43220329284668}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":52,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":10033,"selected_id":10033,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":10033,"raw_runner_up_id":11346,"raw_top_logit":24.555313110351563,"raw_second_logit":22.276588439941406,"raw_top_margin":2.2787246704101563,"raw_proposal_logit":24.555313110351563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":53,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":16456,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":16456,"raw_runner_up_id":11346,"raw_top_logit":20.572647094726563,"raw_second_logit":19.72869873046875,"raw_top_margin":0.8439483642578125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":54,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":13,"selected_id":25,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25,"raw_runner_up_id":13,"raw_top_logit":22.24929428100586,"raw_second_logit":21.748882293701172,"raw_top_margin":0.5004119873046875,"raw_proposal_logit":21.748882293701172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":55,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":59056,"selected_id":11312,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11312,"raw_runner_up_id":59056,"raw_top_logit":18.917755126953125,"raw_second_logit":18.552719116210938,"raw_top_margin":0.3650360107421875,"raw_proposal_logit":18.552719116210938}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":56,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":303,"selected_id":9476,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":9476,"raw_runner_up_id":13914,"raw_top_logit":21.122779846191406,"raw_second_logit":18.065628051757813,"raw_top_margin":3.0571517944335938,"raw_proposal_logit":16.727676391601563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":57,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":303,"selected_id":303,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":303,"raw_runner_up_id":383,"raw_top_logit":21.324186325073242,"raw_second_logit":20.047698974609375,"raw_top_margin":1.2764873504638672,"raw_proposal_logit":21.324186325073242}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":58,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":21360,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":61038,"raw_top_logit":19.097265243530273,"raw_second_logit":18.62114143371582,"raw_top_margin":0.4761238098144531,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":59,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":6297,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":321,"raw_top_logit":19.449831008911133,"raw_second_logit":19.43535041809082,"raw_top_margin":0.0144805908203125,"raw_proposal_logit":17.596498489379883}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":60,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":321,"selected_id":59056,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":59056,"raw_runner_up_id":321,"raw_top_logit":20.716636657714844,"raw_second_logit":20.466590881347656,"raw_top_margin":0.2500457763671875,"raw_proposal_logit":20.466590881347656}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":61,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":1331,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1331,"raw_runner_up_id":11,"raw_top_logit":21.75224494934082,"raw_second_logit":20.96229362487793,"raw_top_margin":0.7899513244628906,"raw_proposal_logit":20.96229362487793}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":62,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":26,"raw_top_logit":22.883533477783203,"raw_second_logit":20.49848175048828,"raw_top_margin":2.385051727294922,"raw_proposal_logit":22.883533477783203}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":63,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":2645,"raw_top_logit":19.683311462402344,"raw_second_logit":18.90868377685547,"raw_top_margin":0.774627685546875,"raw_proposal_logit":19.683311462402344}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":64,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":23.605104446411133,"raw_second_logit":16.3270320892334,"raw_top_margin":7.278072357177734,"raw_proposal_logit":23.605104446411133}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":65,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":23891,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23891,"raw_runner_up_id":430,"raw_top_logit":18.461788177490234,"raw_second_logit":18.313945770263672,"raw_top_margin":0.1478424072265625,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":66,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":3436,"selected_id":3436,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3436,"raw_runner_up_id":11,"raw_top_logit":21.736919403076172,"raw_second_logit":18.865123748779297,"raw_top_margin":2.871795654296875,"raw_proposal_logit":21.736919403076172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":67,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":11,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":6970,"raw_top_logit":20.912704467773438,"raw_second_logit":19.550548553466797,"raw_top_margin":1.3621559143066406,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":68,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6970,"selected_id":21966,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21966,"raw_runner_up_id":40889,"raw_top_logit":19.380367279052734,"raw_second_logit":19.220008850097656,"raw_top_margin":0.16035842895507813,"raw_proposal_logit":18.92885971069336}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":69,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":30,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":12204,"raw_top_logit":19.484516143798828,"raw_second_logit":19.04424285888672,"raw_top_margin":0.4402732849121094,"raw_proposal_logit":19.484516143798828}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":70,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":14235,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":1848,"raw_top_logit":19.178951263427734,"raw_second_logit":18.39426612854004,"raw_top_margin":0.7846851348876953,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":71,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":3579,"selected_id":7472,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7472,"raw_runner_up_id":3579,"raw_top_logit":21.41303062438965,"raw_second_logit":19.739620208740234,"raw_top_margin":1.673410415649414,"raw_proposal_logit":19.739620208740234}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":72,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":13,"selected_id":383,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":383,"raw_runner_up_id":25,"raw_top_logit":20.879165649414063,"raw_second_logit":19.528369903564453,"raw_top_margin":1.3507957458496094,"raw_proposal_logit":18.74176788330078}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":73,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":40889,"selected_id":3016,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3016,"raw_runner_up_id":40889,"raw_top_logit":20.29443359375,"raw_second_logit":19.678569793701172,"raw_top_margin":0.6158638000488281,"raw_proposal_logit":19.678569793701172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":74,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11256,"selected_id":11256,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11256,"raw_runner_up_id":12351,"raw_top_logit":22.361526489257813,"raw_second_logit":18.124439239501953,"raw_top_margin":4.237087249755859,"raw_proposal_logit":22.361526489257813}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":75,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":25,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25,"raw_runner_up_id":11,"raw_top_logit":22.69432830810547,"raw_second_logit":20.547306060791016,"raw_top_margin":2.147022247314453,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":76,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":21360,"selected_id":21360,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":948,"raw_top_logit":19.12329864501953,"raw_second_logit":18.527877807617188,"raw_top_margin":0.5954208374023438,"raw_proposal_logit":19.12329864501953}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":77,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":3016,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3016,"raw_runner_up_id":4062,"raw_top_logit":23.08633041381836,"raw_second_logit":18.904415130615234,"raw_top_margin":4.181915283203125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":78,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":1411,"selected_id":1411,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1411,"raw_runner_up_id":694,"raw_top_logit":19.769386291503906,"raw_second_logit":19.365581512451172,"raw_top_margin":0.4038047790527344,"raw_proposal_logit":19.769386291503906}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":79,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":7560,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7560,"raw_runner_up_id":2706,"raw_top_logit":20.790218353271484,"raw_second_logit":19.45809555053711,"raw_top_margin":1.332122802734375,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":80,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":494,"selected_id":494,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":494,"raw_runner_up_id":6009,"raw_top_logit":21.194978713989258,"raw_second_logit":20.49671173095703,"raw_top_margin":0.6982669830322266,"raw_proposal_logit":21.194978713989258}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":81,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":21966,"raw_top_logit":22.81055450439453,"raw_second_logit":16.17391014099121,"raw_top_margin":6.63664436340332,"raw_proposal_logit":22.81055450439453}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":82,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":12925,"raw_top_logit":26.690711975097656,"raw_second_logit":15.512650489807129,"raw_top_margin":11.178061485290527,"raw_proposal_logit":26.690711975097656}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":83,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":310,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":310,"raw_runner_up_id":1083,"raw_top_logit":20.880653381347656,"raw_second_logit":20.164691925048828,"raw_top_margin":0.7159614562988281,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":84,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6297,"selected_id":21360,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":21966,"raw_top_logit":22.819915771484375,"raw_second_logit":20.307811737060547,"raw_top_margin":2.512104034423828,"raw_proposal_logit":17.508852005004883}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":85,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":11,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":318,"raw_top_logit":21.407703399658203,"raw_second_logit":20.458955764770508,"raw_top_margin":0.9487476348876953,"raw_proposal_logit":19.565521240234375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":86,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":3514,"selected_id":6970,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6970,"raw_runner_up_id":3514,"raw_top_logit":19.91501235961914,"raw_second_logit":19.493173599243164,"raw_top_margin":0.42183876037597656,"raw_proposal_logit":19.493173599243164}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":87,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":75555,"selected_id":3514,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3514,"raw_runner_up_id":75555,"raw_top_logit":19.506610870361328,"raw_second_logit":18.00718116760254,"raw_top_margin":1.499429702758789,"raw_proposal_logit":18.00718116760254}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":88,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":823,"selected_id":823,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":823,"raw_runner_up_id":20782,"raw_top_logit":22.714570999145508,"raw_second_logit":18.153308868408203,"raw_top_margin":4.561262130737305,"raw_proposal_logit":22.714570999145508}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":89,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":436,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":436,"raw_runner_up_id":26,"raw_top_logit":19.591724395751953,"raw_second_logit":19.012237548828125,"raw_top_margin":0.5794868469238281,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":90,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":34810,"selected_id":34810,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":34810,"raw_runner_up_id":28300,"raw_top_logit":23.76070785522461,"raw_second_logit":16.179370880126953,"raw_top_margin":7.581336975097656,"raw_proposal_logit":23.76070785522461}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":91,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":11,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":26,"raw_top_logit":18.472332000732422,"raw_second_logit":18.267669677734375,"raw_top_margin":0.20466232299804688,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":92,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":4831,"selected_id":3203,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3203,"raw_runner_up_id":87363,"raw_top_logit":19.14158058166504,"raw_second_logit":18.64844512939453,"raw_top_margin":0.4931354522705078,"raw_proposal_logit":13.071626663208008}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":93,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":2706,"selected_id":87363,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":87363,"raw_runner_up_id":11,"raw_top_logit":21.769683837890625,"raw_second_logit":18.483654022216797,"raw_top_margin":3.286029815673828,"raw_proposal_logit":16.523818969726563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":94,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":30,"raw_top_logit":21.904510498046875,"raw_second_logit":19.287593841552734,"raw_top_margin":2.6169166564941406,"raw_proposal_logit":21.904510498046875}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":95,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":26370,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":26370,"raw_runner_up_id":8712,"raw_top_logit":18.271543502807617,"raw_second_logit":18.021717071533203,"raw_top_margin":0.24982643127441406,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":96,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":12204,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":12204,"raw_runner_up_id":11,"raw_top_logit":21.44001007080078,"raw_second_logit":19.249357223510742,"raw_top_margin":2.190652847290039,"raw_proposal_logit":19.249357223510742}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":97,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":26,"raw_top_logit":21.26398468017578,"raw_second_logit":20.036418914794922,"raw_top_margin":1.2275657653808594,"raw_proposal_logit":21.26398468017578}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":98,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":8712,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":8712,"raw_runner_up_id":46120,"raw_top_logit":17.732192993164063,"raw_second_logit":16.794837951660156,"raw_top_margin":0.9373550415039063,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":99,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":1187,"selected_id":1187,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1187,"raw_runner_up_id":3882,"raw_top_logit":20.19563102722168,"raw_second_logit":17.998729705810547,"raw_top_margin":2.196901321411133,"raw_proposal_logit":20.19563102722168}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":100,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":11,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":30,"raw_top_logit":20.234394073486328,"raw_second_logit":17.850940704345703,"raw_top_margin":2.383453369140625,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":101,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":4831,"selected_id":81347,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":81347,"raw_runner_up_id":24490,"raw_top_logit":17.079387664794922,"raw_second_logit":16.534666061401367,"raw_top_margin":0.5447216033935547,"raw_proposal_logit":13.882650375366211}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":102,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":13,"raw_top_logit":20.99203872680664,"raw_second_logit":19.24254035949707,"raw_top_margin":1.7494983673095703,"raw_proposal_logit":20.99203872680664}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":103,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":10836,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":10836,"raw_runner_up_id":24490,"raw_top_logit":16.11073875427246,"raw_second_logit":16.104005813598633,"raw_top_margin":0.006732940673828125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":104,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":13,"raw_top_logit":20.797182083129883,"raw_second_logit":19.75997543334961,"raw_top_margin":1.0372066497802734,"raw_proposal_logit":20.797182083129883}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":105,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":2081,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":2081,"raw_runner_up_id":8390,"raw_top_logit":16.7545166015625,"raw_second_logit":16.44154930114746,"raw_top_margin":0.31296730041503906,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":106,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":12269,"selected_id":54794,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":54794,"raw_runner_up_id":12269,"raw_top_logit":19.11641502380371,"raw_second_logit":17.456127166748047,"raw_top_margin":1.660287857055664,"raw_proposal_logit":17.456127166748047}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":107,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":30,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":11,"raw_top_logit":22.200881958007813,"raw_second_logit":20.30768585205078,"raw_top_margin":1.8931961059570313,"raw_proposal_logit":20.30768585205078}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":108,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":14235,"selected_id":23683,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":14235,"raw_top_logit":20.77834701538086,"raw_second_logit":20.26290512084961,"raw_top_margin":0.51544189453125,"raw_proposal_logit":20.26290512084961}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":109,"verifier_row":0,"verifier_rows":3,"assembled_batch_tokens":3,"logits_row":0,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":24.227588653564453,"raw_second_logit":14.065719604492188,"raw_top_margin":10.161869049072266,"raw_proposal_logit":24.227588653564453}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":110,"verifier_row":1,"verifier_rows":3,"assembled_batch_tokens":3,"logits_row":1,"proposal_id":3016,"selected_id":3016,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3016,"raw_runner_up_id":40889,"raw_top_logit":22.404085159301758,"raw_second_logit":16.87023162841797,"raw_top_margin":5.533853530883789,"raw_proposal_logit":22.404085159301758}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":111,"verifier_row":2,"verifier_rows":3,"assembled_batch_tokens":3,"logits_row":2,"proposal_id":null,"selected_id":1411,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1411,"raw_runner_up_id":30,"raw_top_logit":22.708683013916016,"raw_second_logit":20.92043685913086,"raw_top_margin":1.7882461547851563,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":112,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":413,"selected_id":7560,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7560,"raw_runner_up_id":6009,"raw_top_logit":19.34401512145996,"raw_second_logit":18.328943252563477,"raw_top_margin":1.0150718688964844,"raw_proposal_logit":18.248065948486328}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":113,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":494,"selected_id":494,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":494,"raw_runner_up_id":1576,"raw_top_logit":22.805049896240234,"raw_second_logit":16.933778762817383,"raw_top_margin":5.871271133422852,"raw_proposal_logit":22.805049896240234}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":114,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":8434,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":8434,"raw_runner_up_id":1576,"raw_top_logit":20.881547927856445,"raw_second_logit":19.251502990722656,"raw_top_margin":1.630044937133789,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":115,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":5638,"selected_id":5638,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":5638,"raw_runner_up_id":57479,"raw_top_logit":21.080345153808594,"raw_second_logit":20.40969467163086,"raw_top_margin":0.6706504821777344,"raw_proposal_logit":21.080345153808594}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":116,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":57479,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":57479,"raw_runner_up_id":30,"raw_top_logit":21.044342041015625,"raw_second_logit":19.33413314819336,"raw_top_margin":1.7102088928222656,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":117,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":5638,"selected_id":3436,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3436,"raw_runner_up_id":5638,"raw_top_logit":22.345226287841797,"raw_second_logit":20.885910034179688,"raw_top_margin":1.4593162536621094,"raw_proposal_logit":20.885910034179688}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":118,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":30,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":46070,"raw_top_logit":19.344707489013672,"raw_second_logit":18.897953033447266,"raw_top_margin":0.44675445556640625,"raw_proposal_logit":19.344707489013672}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":119,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":2441,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":2441,"raw_runner_up_id":14235,"raw_top_logit":19.813232421875,"raw_second_logit":18.82438850402832,"raw_top_margin":0.9888439178466797,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":120,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6970,"selected_id":413,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":413,"raw_runner_up_id":23683,"raw_top_logit":20.199935913085938,"raw_second_logit":19.215648651123047,"raw_top_margin":0.9842872619628906,"raw_proposal_logit":17.983531951904297}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":121,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":874,"selected_id":23683,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":6009,"raw_top_logit":19.98349380493164,"raw_second_logit":19.735013961791992,"raw_top_margin":0.24847984313964844,"raw_proposal_logit":18.170143127441406}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":122,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":25.346771240234375,"raw_second_logit":18.89537811279297,"raw_top_margin":6.451393127441406,"raw_proposal_logit":25.346771240234375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":123,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":369,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":369,"raw_runner_up_id":6297,"raw_top_logit":20.142820358276367,"raw_second_logit":19.572410583496094,"raw_top_margin":0.5704097747802734,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":124,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6297,"selected_id":6297,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":2136,"raw_top_logit":19.17743682861328,"raw_second_logit":18.555892944335938,"raw_top_margin":0.6215438842773438,"raw_proposal_logit":19.17743682861328}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":125,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":25165,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25165,"raw_runner_up_id":2166,"raw_top_logit":20.815597534179688,"raw_second_logit":19.245576858520508,"raw_top_margin":1.5700206756591797,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":126,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":30,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":321,"raw_top_logit":21.774070739746094,"raw_second_logit":21.187362670898438,"raw_top_margin":0.5867080688476563,"raw_proposal_logit":21.774070739746094}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":127,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":14235,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":6558,"raw_top_logit":21.59412384033203,"raw_second_logit":21.251747131347656,"raw_top_margin":0.342376708984375,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":29,"slot_id":0,"output_position_1based":128,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":22846,"selected_id":381,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":381,"raw_runner_up_id":4563,"raw_top_logit":20.49332046508789,"raw_second_logit":20.299949645996094,"raw_top_margin":0.19337081909179688,"raw_proposal_logit":16.856266021728516}
+slot print_timing: id  0 | task 29 | 
+prompt eval time =   24659.05 ms /    68 tokens (  362.63 ms per token,     2.76 tokens per second)
+       eval time =   71787.56 ms /   256 tokens (  280.42 ms per token,     3.57 tokens per second)
+      total time =   96446.61 ms /   324 tokens
+draft acceptance rate = 0.66480 (  119 accepted /   179 generated)
+INFO [      log_server_request] request | tid="140586191040512" timestamp=1788830016 remote_addr="127.0.0.1" remote_port=60614 status=200 method="POST" path="/v1/chat/completions" params={}
+statistics mtp: #calls(b,g,a) = 1 135 135, #gen drafts = 135, #acc drafts = 82, #gen tokens = 179, #acc tokens = 119, dur(b,g,a) = 0.001, 81.501, 0.063 ms
+slot create_check: id  0 | task 29 | created context checkpoint 1 of 32 (pos_min = 322, pos_max = 322, n_tokens = 323, size = 112.575 MiB, took 25.71 ms)
+INFO [           release_slots] slot released | tid="140597457309696" timestamp=1788830016 id_slot=0 id_task=29 n_ctx=8192 n_past=323 n_system_tokens=0 n_cache_tokens=323 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140597457309696" timestamp=1788830016
+======== Prompt cache: cache size: 323, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.21, cache_ram_similarity: 0.50
+updating prompt cache
+ - saving prompt with length 323, total state size = 117.543 MiB
+prompt cache save took 37.15 ms
+ - looking for better prompt, base f_keep = 0.211, sim = 0.348, n_keep = 0, n_discarded_prompt = 0
+ - cache state: 1 prompts, 230.117 MiB (limits: 512.000 MiB, 0 tokens, 718 est)
+   - prompt 0x55b22d330f00:     323 tokens,       0 discarded, checkpoints:  1,   230.117 MiB
+prompt cache load took 0.03 ms
+INFO [   launch_slot_with_task] slot is processing task | tid="140597457309696" timestamp=1788830016 id_slot=0 id_task=168
+slot apply_checkp: id  0 | task 168 | erased invalidated context checkpoint (pos_min = 322, pos_max = 322, size = 112.575 MiB)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140597457309696" timestamp=1788830016 id_slot=0 id_task=168 p0=0
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140597457309696" timestamp=1788830028 id_slot=0 id_task=168 p0=63
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":1,"verifier_row":0,"verifier_rows":1,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":1596,"decision":"target_only","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1596,"raw_runner_up_id":1421,"raw_top_logit":23.28331184387207,"raw_second_logit":16.306303024291992,"raw_top_margin":6.977008819580078,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":2,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":1144,"selected_id":1144,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1144,"raw_runner_up_id":22916,"raw_top_logit":29.56609344482422,"raw_second_logit":18.331682205200195,"raw_top_margin":11.234411239624023,"raw_proposal_logit":29.56609344482422}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":3,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":4087,"selected_id":4087,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":4087,"raw_runner_up_id":5707,"raw_top_logit":24.887630462646484,"raw_second_logit":20.869462966918945,"raw_top_margin":4.018167495727539,"raw_proposal_logit":24.887630462646484}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":4,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":1156,"selected_id":1156,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1156,"raw_runner_up_id":25,"raw_top_logit":25.831974029541016,"raw_second_logit":20.367042541503906,"raw_top_margin":5.464931488037109,"raw_proposal_logit":25.831974029541016}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":5,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":25,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25,"raw_runner_up_id":579,"raw_top_logit":27.341327667236328,"raw_second_logit":25.276615142822266,"raw_top_margin":2.0647125244140625,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":6,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":328,"selected_id":328,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":328,"raw_runner_up_id":79091,"raw_top_logit":24.508472442626953,"raw_second_logit":17.986492156982422,"raw_top_margin":6.521980285644531,"raw_proposal_logit":24.508472442626953}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":7,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":814,"selected_id":814,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":814,"raw_runner_up_id":79091,"raw_top_logit":27.686893463134766,"raw_second_logit":17.54651641845703,"raw_top_margin":10.140377044677734,"raw_proposal_logit":27.686893463134766}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":8,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":20139,"selected_id":20139,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":20139,"raw_runner_up_id":10083,"raw_top_logit":28.19577407836914,"raw_second_logit":18.91666603088379,"raw_top_margin":9.279108047485352,"raw_proposal_logit":28.19577407836914}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":9,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":1204,"selected_id":1204,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1204,"raw_runner_up_id":303,"raw_top_logit":25.91158676147461,"raw_second_logit":15.686983108520508,"raw_top_margin":10.224603652954102,"raw_proposal_logit":25.91158676147461}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":10,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":264,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":264,"raw_runner_up_id":59056,"raw_top_logit":26.34836196899414,"raw_second_logit":12.625333786010742,"raw_top_margin":13.723028182983398,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":11,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":59056,"selected_id":59056,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":59056,"raw_runner_up_id":63471,"raw_top_logit":24.565645217895508,"raw_second_logit":14.463032722473145,"raw_top_margin":10.102612495422363,"raw_proposal_logit":24.565645217895508}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":12,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":6009,"selected_id":6009,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6009,"raw_runner_up_id":59056,"raw_top_logit":24.167978286743164,"raw_second_logit":14.566883087158203,"raw_top_margin":9.601095199584961,"raw_proposal_logit":24.167978286743164}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":13,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":6297,"selected_id":6297,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":35464,"raw_top_logit":25.15683937072754,"raw_second_logit":18.293378829956055,"raw_top_margin":6.863460540771484,"raw_proposal_logit":25.15683937072754}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":14,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":13081,"selected_id":13081,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":13081,"raw_runner_up_id":27930,"raw_top_logit":22.922073364257813,"raw_second_logit":15.215496063232422,"raw_top_margin":7.706577301025391,"raw_proposal_logit":22.922073364257813}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":15,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":21360,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":23683,"raw_top_logit":25.23590850830078,"raw_second_logit":16.0394287109375,"raw_top_margin":9.196479797363281,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":16,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":321,"selected_id":321,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":321,"raw_runner_up_id":40889,"raw_top_logit":24.678497314453125,"raw_second_logit":17.102962493896484,"raw_top_margin":7.575534820556641,"raw_proposal_logit":24.678497314453125}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":17,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":21360,"raw_top_logit":25.535736083984375,"raw_second_logit":17.283138275146484,"raw_top_margin":8.25259780883789,"raw_proposal_logit":25.535736083984375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":18,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":8547,"raw_top_logit":23.896942138671875,"raw_second_logit":12.929906845092773,"raw_top_margin":10.967035293579102,"raw_proposal_logit":23.896942138671875}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":19,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":40889,"selected_id":40889,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":40889,"raw_runner_up_id":3016,"raw_top_logit":22.879817962646484,"raw_second_logit":13.769980430603027,"raw_top_margin":9.109837532043457,"raw_proposal_logit":22.879817962646484}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":20,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":303,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":303,"raw_runner_up_id":11,"raw_top_logit":23.2800235748291,"raw_second_logit":11.160233497619629,"raw_top_margin":12.119790077209473,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":21,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":7472,"selected_id":7472,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7472,"raw_runner_up_id":11346,"raw_top_logit":25.522689819335938,"raw_second_logit":14.8107328414917,"raw_top_margin":10.711956977844238,"raw_proposal_logit":25.522689819335938}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":22,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":1149,"selected_id":1149,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1149,"raw_runner_up_id":13,"raw_top_logit":24.456993103027344,"raw_second_logit":18.60040283203125,"raw_top_margin":5.856590270996094,"raw_proposal_logit":24.456993103027344}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":23,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":14235,"selected_id":14235,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":1165,"raw_top_logit":23.719968795776367,"raw_second_logit":21.667327880859375,"raw_top_margin":2.052640914916992,"raw_proposal_logit":23.719968795776367}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":24,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":22846,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":22846,"raw_runner_up_id":4222,"raw_top_logit":24.6279354095459,"raw_second_logit":23.21802520751953,"raw_top_margin":1.4099102020263672,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":25,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":2193,"selected_id":2193,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":2193,"raw_runner_up_id":7697,"raw_top_logit":26.59103775024414,"raw_second_logit":22.58818244934082,"raw_top_margin":4.00285530090332,"raw_proposal_logit":26.59103775024414}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":26,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":13,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":13,"raw_runner_up_id":25,"raw_top_logit":24.107501983642578,"raw_second_logit":22.914520263671875,"raw_top_margin":1.1929817199707031,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":27,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":90410,"selected_id":90410,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":90410,"raw_runner_up_id":417,"raw_top_logit":21.170303344726563,"raw_second_logit":19.988069534301758,"raw_top_margin":1.1822338104248047,"raw_proposal_logit":21.170303344726563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":28,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":883,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":883,"raw_runner_up_id":380,"raw_top_logit":21.84644889831543,"raw_second_logit":19.687833786010742,"raw_top_margin":2.1586151123046875,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":29,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":380,"selected_id":5861,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":5861,"raw_runner_up_id":380,"raw_top_logit":20.943073272705078,"raw_second_logit":20.285654067993164,"raw_top_margin":0.6574192047119141,"raw_proposal_logit":20.285654067993164}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":30,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":36,"selected_id":36,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":36,"raw_runner_up_id":16849,"raw_top_logit":23.46743392944336,"raw_second_logit":14.460821151733398,"raw_top_margin":9.006612777709961,"raw_proposal_logit":23.46743392944336}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":31,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":318,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":318,"raw_runner_up_id":6009,"raw_top_logit":19.334993362426758,"raw_second_logit":19.18375015258789,"raw_top_margin":0.1512432098388672,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":32,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":44,"selected_id":76,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":76,"raw_runner_up_id":44,"raw_top_logit":25.7624454498291,"raw_second_logit":25.653718948364258,"raw_top_margin":0.10872650146484375,"raw_proposal_logit":25.653718948364258}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":33,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":12370,"selected_id":12370,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":12370,"raw_runner_up_id":20340,"raw_top_logit":25.336809158325195,"raw_second_logit":15.917251586914063,"raw_top_margin":9.419557571411133,"raw_proposal_logit":25.336809158325195}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":34,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":314,"selected_id":314,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":314,"raw_runner_up_id":8404,"raw_top_logit":23.80539894104004,"raw_second_logit":23.794544219970703,"raw_top_margin":0.010854721069335938,"raw_proposal_logit":23.80539894104004}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":35,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":11312,"selected_id":11312,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11312,"raw_runner_up_id":49051,"raw_top_logit":23.6722412109375,"raw_second_logit":14.447681427001953,"raw_top_margin":9.224559783935547,"raw_proposal_logit":23.6722412109375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":36,"verifier_row":3,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":3,"proposal_id":8,"selected_id":8,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":8,"raw_runner_up_id":681,"raw_top_logit":23.79107666015625,"raw_second_logit":20.901187896728516,"raw_top_margin":2.8898887634277344,"raw_proposal_logit":23.79107666015625}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":37,"verifier_row":4,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":4,"proposal_id":null,"selected_id":42903,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":42903,"raw_runner_up_id":6009,"raw_top_logit":20.39566993713379,"raw_second_logit":19.238000869750977,"raw_top_margin":1.1576690673828125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":38,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":440,"raw_top_logit":21.511871337890625,"raw_second_logit":20.467830657958984,"raw_top_margin":1.0440406799316406,"raw_proposal_logit":21.511871337890625}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":39,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":6009,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6009,"raw_runner_up_id":59056,"raw_top_logit":21.32084846496582,"raw_second_logit":19.390066146850586,"raw_top_margin":1.9307823181152344,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":40,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":45850,"selected_id":6297,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":45850,"raw_top_logit":20.643821716308594,"raw_second_logit":19.479705810546875,"raw_top_margin":1.1641159057617188,"raw_proposal_logit":19.479705810546875}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":41,"verifier_row":0,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":59056,"raw_top_logit":19.770610809326172,"raw_second_logit":19.51291847229004,"raw_top_margin":0.2576923370361328,"raw_proposal_logit":19.770610809326172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":42,"verifier_row":1,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":1,"proposal_id":59056,"selected_id":59056,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":59056,"raw_runner_up_id":21360,"raw_top_logit":20.347431182861328,"raw_second_logit":18.930797576904297,"raw_top_margin":1.4166336059570313,"raw_proposal_logit":20.347431182861328}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":43,"verifier_row":2,"verifier_rows":5,"assembled_batch_tokens":5,"logits_row":2,"proposal_id":6009,"selected_id":6297,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":6009,"raw_top_logit":20.168468475341797,"raw_second_logit":18.655818939208984,"raw_top_margin":1.5126495361328125,"raw_proposal_logit":18.655818939208984}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":44,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":303,"raw_top_logit":20.772336959838867,"raw_second_logit":20.611495971679688,"raw_top_margin":0.1608409881591797,"raw_proposal_logit":20.772336959838867}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":45,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":21360,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":67528,"raw_top_logit":21.69786262512207,"raw_second_logit":15.976125717163086,"raw_top_margin":5.721736907958984,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":46,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":321,"selected_id":321,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":321,"raw_runner_up_id":19674,"raw_top_logit":20.742944717407227,"raw_second_logit":20.58956527709961,"raw_top_margin":0.1533794403076172,"raw_proposal_logit":20.742944717407227}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":47,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":35160,"raw_top_logit":25.703907012939453,"raw_second_logit":15.891493797302246,"raw_top_margin":9.812413215637207,"raw_proposal_logit":25.703907012939453}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":48,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":23.090484619140625,"raw_second_logit":13.171481132507324,"raw_top_margin":9.9190034866333,"raw_proposal_logit":23.090484619140625}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":49,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":40889,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":40889,"raw_runner_up_id":61038,"raw_top_logit":20.337886810302734,"raw_second_logit":18.299156188964844,"raw_top_margin":2.0387306213378906,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":50,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":13,"selected_id":13,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":13,"raw_runner_up_id":30,"raw_top_logit":23.574426651000977,"raw_second_logit":21.2443790435791,"raw_top_margin":2.330047607421875,"raw_proposal_logit":23.574426651000977}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":51,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":14235,"selected_id":14235,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":16018,"raw_top_logit":24.43220329284668,"raw_second_logit":22.399818420410156,"raw_top_margin":2.0323848724365234,"raw_proposal_logit":24.43220329284668}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":52,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":10033,"selected_id":10033,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":10033,"raw_runner_up_id":11346,"raw_top_logit":24.555313110351563,"raw_second_logit":22.276588439941406,"raw_top_margin":2.2787246704101563,"raw_proposal_logit":24.555313110351563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":53,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":16456,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":16456,"raw_runner_up_id":11346,"raw_top_logit":20.572647094726563,"raw_second_logit":19.72869873046875,"raw_top_margin":0.8439483642578125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":54,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":13,"selected_id":25,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25,"raw_runner_up_id":13,"raw_top_logit":22.24929428100586,"raw_second_logit":21.748882293701172,"raw_top_margin":0.5004119873046875,"raw_proposal_logit":21.748882293701172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":55,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":59056,"selected_id":11312,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11312,"raw_runner_up_id":59056,"raw_top_logit":18.917755126953125,"raw_second_logit":18.552719116210938,"raw_top_margin":0.3650360107421875,"raw_proposal_logit":18.552719116210938}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":56,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":303,"selected_id":9476,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":9476,"raw_runner_up_id":13914,"raw_top_logit":21.122779846191406,"raw_second_logit":18.065628051757813,"raw_top_margin":3.0571517944335938,"raw_proposal_logit":16.727676391601563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":57,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":303,"selected_id":303,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":303,"raw_runner_up_id":383,"raw_top_logit":21.324186325073242,"raw_second_logit":20.047698974609375,"raw_top_margin":1.2764873504638672,"raw_proposal_logit":21.324186325073242}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":58,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":21360,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":61038,"raw_top_logit":19.097265243530273,"raw_second_logit":18.62114143371582,"raw_top_margin":0.4761238098144531,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":59,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":6297,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":321,"raw_top_logit":19.449831008911133,"raw_second_logit":19.43535041809082,"raw_top_margin":0.0144805908203125,"raw_proposal_logit":17.596498489379883}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":60,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":321,"selected_id":59056,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":59056,"raw_runner_up_id":321,"raw_top_logit":20.716636657714844,"raw_second_logit":20.466590881347656,"raw_top_margin":0.2500457763671875,"raw_proposal_logit":20.466590881347656}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":61,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":1331,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1331,"raw_runner_up_id":11,"raw_top_logit":21.75224494934082,"raw_second_logit":20.96229362487793,"raw_top_margin":0.7899513244628906,"raw_proposal_logit":20.96229362487793}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":62,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":26,"raw_top_logit":22.883533477783203,"raw_second_logit":20.49848175048828,"raw_top_margin":2.385051727294922,"raw_proposal_logit":22.883533477783203}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":63,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":2645,"raw_top_logit":19.683311462402344,"raw_second_logit":18.90868377685547,"raw_top_margin":0.774627685546875,"raw_proposal_logit":19.683311462402344}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":64,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":23.605104446411133,"raw_second_logit":16.3270320892334,"raw_top_margin":7.278072357177734,"raw_proposal_logit":23.605104446411133}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":65,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":23891,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23891,"raw_runner_up_id":430,"raw_top_logit":18.461788177490234,"raw_second_logit":18.313945770263672,"raw_top_margin":0.1478424072265625,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":66,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":3436,"selected_id":3436,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3436,"raw_runner_up_id":11,"raw_top_logit":21.736919403076172,"raw_second_logit":18.865123748779297,"raw_top_margin":2.871795654296875,"raw_proposal_logit":21.736919403076172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":67,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":11,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":6970,"raw_top_logit":20.912704467773438,"raw_second_logit":19.550548553466797,"raw_top_margin":1.3621559143066406,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":68,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6970,"selected_id":21966,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21966,"raw_runner_up_id":40889,"raw_top_logit":19.380367279052734,"raw_second_logit":19.220008850097656,"raw_top_margin":0.16035842895507813,"raw_proposal_logit":18.92885971069336}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":69,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":30,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":12204,"raw_top_logit":19.484516143798828,"raw_second_logit":19.04424285888672,"raw_top_margin":0.4402732849121094,"raw_proposal_logit":19.484516143798828}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":70,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":14235,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":1848,"raw_top_logit":19.178951263427734,"raw_second_logit":18.39426612854004,"raw_top_margin":0.7846851348876953,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":71,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":3579,"selected_id":7472,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7472,"raw_runner_up_id":3579,"raw_top_logit":21.41303062438965,"raw_second_logit":19.739620208740234,"raw_top_margin":1.673410415649414,"raw_proposal_logit":19.739620208740234}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":72,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":13,"selected_id":383,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":383,"raw_runner_up_id":25,"raw_top_logit":20.879165649414063,"raw_second_logit":19.528369903564453,"raw_top_margin":1.3507957458496094,"raw_proposal_logit":18.74176788330078}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":73,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":40889,"selected_id":3016,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3016,"raw_runner_up_id":40889,"raw_top_logit":20.29443359375,"raw_second_logit":19.678569793701172,"raw_top_margin":0.6158638000488281,"raw_proposal_logit":19.678569793701172}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":74,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11256,"selected_id":11256,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11256,"raw_runner_up_id":12351,"raw_top_logit":22.361526489257813,"raw_second_logit":18.124439239501953,"raw_top_margin":4.237087249755859,"raw_proposal_logit":22.361526489257813}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":75,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":25,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25,"raw_runner_up_id":11,"raw_top_logit":22.69432830810547,"raw_second_logit":20.547306060791016,"raw_top_margin":2.147022247314453,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":76,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":21360,"selected_id":21360,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":948,"raw_top_logit":19.12329864501953,"raw_second_logit":18.527877807617188,"raw_top_margin":0.5954208374023438,"raw_proposal_logit":19.12329864501953}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":77,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":3016,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3016,"raw_runner_up_id":4062,"raw_top_logit":23.08633041381836,"raw_second_logit":18.904415130615234,"raw_top_margin":4.181915283203125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":78,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":1411,"selected_id":1411,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1411,"raw_runner_up_id":694,"raw_top_logit":19.769386291503906,"raw_second_logit":19.365581512451172,"raw_top_margin":0.4038047790527344,"raw_proposal_logit":19.769386291503906}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":79,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":7560,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7560,"raw_runner_up_id":2706,"raw_top_logit":20.790218353271484,"raw_second_logit":19.45809555053711,"raw_top_margin":1.332122802734375,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":80,"verifier_row":0,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":0,"proposal_id":494,"selected_id":494,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":494,"raw_runner_up_id":6009,"raw_top_logit":21.194978713989258,"raw_second_logit":20.49671173095703,"raw_top_margin":0.6982669830322266,"raw_proposal_logit":21.194978713989258}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":81,"verifier_row":1,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":1,"proposal_id":23683,"selected_id":23683,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":21966,"raw_top_logit":22.81055450439453,"raw_second_logit":16.17391014099121,"raw_top_margin":6.63664436340332,"raw_proposal_logit":22.81055450439453}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":82,"verifier_row":2,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":2,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":12925,"raw_top_logit":26.690711975097656,"raw_second_logit":15.512650489807129,"raw_top_margin":11.178061485290527,"raw_proposal_logit":26.690711975097656}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":83,"verifier_row":3,"verifier_rows":4,"assembled_batch_tokens":4,"logits_row":3,"proposal_id":null,"selected_id":310,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":310,"raw_runner_up_id":1083,"raw_top_logit":20.880653381347656,"raw_second_logit":20.164691925048828,"raw_top_margin":0.7159614562988281,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":84,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6297,"selected_id":21360,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":21360,"raw_runner_up_id":21966,"raw_top_logit":22.819915771484375,"raw_second_logit":20.307811737060547,"raw_top_margin":2.512104034423828,"raw_proposal_logit":17.508852005004883}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":85,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":11,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":318,"raw_top_logit":21.407703399658203,"raw_second_logit":20.458955764770508,"raw_top_margin":0.9487476348876953,"raw_proposal_logit":19.565521240234375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":86,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":3514,"selected_id":6970,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6970,"raw_runner_up_id":3514,"raw_top_logit":19.91501235961914,"raw_second_logit":19.493173599243164,"raw_top_margin":0.42183876037597656,"raw_proposal_logit":19.493173599243164}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":87,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":75555,"selected_id":3514,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3514,"raw_runner_up_id":75555,"raw_top_logit":19.506610870361328,"raw_second_logit":18.00718116760254,"raw_top_margin":1.499429702758789,"raw_proposal_logit":18.00718116760254}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":88,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":823,"selected_id":823,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":823,"raw_runner_up_id":20782,"raw_top_logit":22.714570999145508,"raw_second_logit":18.153308868408203,"raw_top_margin":4.561262130737305,"raw_proposal_logit":22.714570999145508}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":89,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":436,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":436,"raw_runner_up_id":26,"raw_top_logit":19.591724395751953,"raw_second_logit":19.012237548828125,"raw_top_margin":0.5794868469238281,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":90,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":34810,"selected_id":34810,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":34810,"raw_runner_up_id":28300,"raw_top_logit":23.76070785522461,"raw_second_logit":16.179370880126953,"raw_top_margin":7.581336975097656,"raw_proposal_logit":23.76070785522461}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":91,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":11,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":26,"raw_top_logit":18.472332000732422,"raw_second_logit":18.267669677734375,"raw_top_margin":0.20466232299804688,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":92,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":4831,"selected_id":3203,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3203,"raw_runner_up_id":87363,"raw_top_logit":19.14158058166504,"raw_second_logit":18.64844512939453,"raw_top_margin":0.4931354522705078,"raw_proposal_logit":13.071626663208008}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":93,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":2706,"selected_id":87363,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":87363,"raw_runner_up_id":11,"raw_top_logit":21.769683837890625,"raw_second_logit":18.483654022216797,"raw_top_margin":3.286029815673828,"raw_proposal_logit":16.523818969726563}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":94,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":30,"raw_top_logit":21.904510498046875,"raw_second_logit":19.287593841552734,"raw_top_margin":2.6169166564941406,"raw_proposal_logit":21.904510498046875}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":95,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":26370,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":26370,"raw_runner_up_id":8712,"raw_top_logit":18.271543502807617,"raw_second_logit":18.021717071533203,"raw_top_margin":0.24982643127441406,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":96,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":12204,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":12204,"raw_runner_up_id":11,"raw_top_logit":21.44001007080078,"raw_second_logit":19.249357223510742,"raw_top_margin":2.190652847290039,"raw_proposal_logit":19.249357223510742}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":97,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":26,"raw_top_logit":21.26398468017578,"raw_second_logit":20.036418914794922,"raw_top_margin":1.2275657653808594,"raw_proposal_logit":21.26398468017578}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":98,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":8712,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":8712,"raw_runner_up_id":46120,"raw_top_logit":17.732192993164063,"raw_second_logit":16.794837951660156,"raw_top_margin":0.9373550415039063,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":99,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":1187,"selected_id":1187,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1187,"raw_runner_up_id":3882,"raw_top_logit":20.19563102722168,"raw_second_logit":17.998729705810547,"raw_top_margin":2.196901321411133,"raw_proposal_logit":20.19563102722168}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":100,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":11,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":30,"raw_top_logit":20.234394073486328,"raw_second_logit":17.850940704345703,"raw_top_margin":2.383453369140625,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":101,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":4831,"selected_id":81347,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":81347,"raw_runner_up_id":24490,"raw_top_logit":17.079387664794922,"raw_second_logit":16.534666061401367,"raw_top_margin":0.5447216033935547,"raw_proposal_logit":13.882650375366211}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":102,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":13,"raw_top_logit":20.99203872680664,"raw_second_logit":19.24254035949707,"raw_top_margin":1.7494983673095703,"raw_proposal_logit":20.99203872680664}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":103,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":10836,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":10836,"raw_runner_up_id":24490,"raw_top_logit":16.11073875427246,"raw_second_logit":16.104005813598633,"raw_top_margin":0.006732940673828125,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":104,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":11,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":11,"raw_runner_up_id":13,"raw_top_logit":20.797182083129883,"raw_second_logit":19.75997543334961,"raw_top_margin":1.0372066497802734,"raw_proposal_logit":20.797182083129883}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":105,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":2081,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":2081,"raw_runner_up_id":8390,"raw_top_logit":16.7545166015625,"raw_second_logit":16.44154930114746,"raw_top_margin":0.31296730041503906,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":106,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":12269,"selected_id":54794,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":54794,"raw_runner_up_id":12269,"raw_top_logit":19.11641502380371,"raw_second_logit":17.456127166748047,"raw_top_margin":1.660287857055664,"raw_proposal_logit":17.456127166748047}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":107,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":11,"selected_id":30,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":11,"raw_top_logit":22.200881958007813,"raw_second_logit":20.30768585205078,"raw_top_margin":1.8931961059570313,"raw_proposal_logit":20.30768585205078}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":108,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":14235,"selected_id":23683,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":14235,"raw_top_logit":20.77834701538086,"raw_second_logit":20.26290512084961,"raw_top_margin":0.51544189453125,"raw_proposal_logit":20.26290512084961}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":109,"verifier_row":0,"verifier_rows":3,"assembled_batch_tokens":3,"logits_row":0,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":24.227588653564453,"raw_second_logit":14.065719604492188,"raw_top_margin":10.161869049072266,"raw_proposal_logit":24.227588653564453}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":110,"verifier_row":1,"verifier_rows":3,"assembled_batch_tokens":3,"logits_row":1,"proposal_id":3016,"selected_id":3016,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3016,"raw_runner_up_id":40889,"raw_top_logit":22.404085159301758,"raw_second_logit":16.87023162841797,"raw_top_margin":5.533853530883789,"raw_proposal_logit":22.404085159301758}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":111,"verifier_row":2,"verifier_rows":3,"assembled_batch_tokens":3,"logits_row":2,"proposal_id":null,"selected_id":1411,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":1411,"raw_runner_up_id":30,"raw_top_logit":22.708683013916016,"raw_second_logit":20.92043685913086,"raw_top_margin":1.7882461547851563,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":112,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":413,"selected_id":7560,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7560,"raw_runner_up_id":6009,"raw_top_logit":19.34401512145996,"raw_second_logit":18.328943252563477,"raw_top_margin":1.0150718688964844,"raw_proposal_logit":18.248065948486328}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":113,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":494,"selected_id":494,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":494,"raw_runner_up_id":1576,"raw_top_logit":22.805049896240234,"raw_second_logit":16.933778762817383,"raw_top_margin":5.871271133422852,"raw_proposal_logit":22.805049896240234}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":114,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":8434,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":8434,"raw_runner_up_id":1576,"raw_top_logit":20.881547927856445,"raw_second_logit":19.251502990722656,"raw_top_margin":1.630044937133789,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":115,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":5638,"selected_id":5638,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":5638,"raw_runner_up_id":57479,"raw_top_logit":21.080345153808594,"raw_second_logit":20.40969467163086,"raw_top_margin":0.6706504821777344,"raw_proposal_logit":21.080345153808594}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":116,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":57479,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":57479,"raw_runner_up_id":30,"raw_top_logit":21.044342041015625,"raw_second_logit":19.33413314819336,"raw_top_margin":1.7102088928222656,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":117,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":5638,"selected_id":3436,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":3436,"raw_runner_up_id":5638,"raw_top_logit":22.345226287841797,"raw_second_logit":20.885910034179688,"raw_top_margin":1.4593162536621094,"raw_proposal_logit":20.885910034179688}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":118,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":30,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":46070,"raw_top_logit":19.344707489013672,"raw_second_logit":18.897953033447266,"raw_top_margin":0.44675445556640625,"raw_proposal_logit":19.344707489013672}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":119,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":2441,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":2441,"raw_runner_up_id":14235,"raw_top_logit":19.813232421875,"raw_second_logit":18.82438850402832,"raw_top_margin":0.9888439178466797,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":120,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6970,"selected_id":413,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":413,"raw_runner_up_id":23683,"raw_top_logit":20.199935913085938,"raw_second_logit":19.215648651123047,"raw_top_margin":0.9842872619628906,"raw_proposal_logit":17.983531951904297}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":121,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":874,"selected_id":23683,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":23683,"raw_runner_up_id":6009,"raw_top_logit":19.98349380493164,"raw_second_logit":19.735013961791992,"raw_top_margin":0.24847984313964844,"raw_proposal_logit":18.170143127441406}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":122,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":7575,"selected_id":7575,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":7575,"raw_runner_up_id":7227,"raw_top_logit":25.346771240234375,"raw_second_logit":18.89537811279297,"raw_top_margin":6.451393127441406,"raw_proposal_logit":25.346771240234375}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":123,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":369,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":369,"raw_runner_up_id":6297,"raw_top_logit":20.142820358276367,"raw_second_logit":19.572410583496094,"raw_top_margin":0.5704097747802734,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":124,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":6297,"selected_id":6297,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":6297,"raw_runner_up_id":2136,"raw_top_logit":19.17743682861328,"raw_second_logit":18.555892944335938,"raw_top_margin":0.6215438842773438,"raw_proposal_logit":19.17743682861328}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":125,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":25165,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":25165,"raw_runner_up_id":2166,"raw_top_logit":20.815597534179688,"raw_second_logit":19.245576858520508,"raw_top_margin":1.5700206756591797,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":126,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":30,"selected_id":30,"decision":"accepted","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":30,"raw_runner_up_id":321,"raw_top_logit":21.774070739746094,"raw_second_logit":21.187362670898438,"raw_top_margin":0.5867080688476563,"raw_proposal_logit":21.774070739746094}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":127,"verifier_row":1,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":1,"proposal_id":null,"selected_id":14235,"decision":"bonus","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":14235,"raw_runner_up_id":6558,"raw_top_logit":21.59412384033203,"raw_second_logit":21.251747131347656,"raw_top_margin":0.342376708984375,"raw_proposal_logit":null}
+EXPERTPIN_VERIFIER {"kind":"target_verifier_decision_v1","task_id":168,"slot_id":0,"output_position_1based":128,"verifier_row":0,"verifier_rows":2,"assembled_batch_tokens":2,"logits_row":0,"proposal_id":22846,"selected_id":381,"decision":"rejected","temperature":0.0,"raw_valid":true,"stage":"sampled_before_commit_and_stop_handling","raw_argmax_id":381,"raw_runner_up_id":4563,"raw_top_logit":20.49332046508789,"raw_second_logit":20.299949645996094,"raw_top_margin":0.19337081909179688,"raw_proposal_logit":16.856266021728516}
+slot print_timing: id  0 | task 168 | 
+prompt eval time =   13201.73 ms /    68 tokens (  194.14 ms per token,     5.15 tokens per second)
+       eval time =   48246.52 ms /   256 tokens (  188.46 ms per token,     5.31 tokens per second)
+      total time =   61448.25 ms /   324 tokens
+draft acceptance rate = 0.66480 (  119 accepted /   179 generated)
+statistics mtp: #calls(b,g,a) = 2 270 270, #gen drafts = 270, #acc drafts = 164, #gen tokens = 358, #acc tokens = 238, dur(b,g,a) = 0.002, 161.318, 0.118 ms
+INFO [      log_server_request] request | tid="140586182647808" timestamp=1788830078 remote_addr="127.0.0.1" remote_port=44766 status=200 method="POST" path="/v1/chat/completions" params={}
+slot create_check: id  0 | task 168 | created context checkpoint 1 of 32 (pos_min = 322, pos_max = 322, n_tokens = 323, size = 112.575 MiB, took 26.78 ms)
+INFO [           release_slots] slot released | tid="140597457309696" timestamp=1788830078 id_slot=0 id_task=168 n_ctx=8192 n_past=323 n_system_tokens=0 n_cache_tokens=323 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140597457309696" timestamp=1788830078
+INFO [              slots_idle] all slots are idle | tid="140597457309696" timestamp=1788830078
+~ggml_backend_cuda_context: have 2 graphs
+~ggml_backend_cuda_context: have 150 graphs

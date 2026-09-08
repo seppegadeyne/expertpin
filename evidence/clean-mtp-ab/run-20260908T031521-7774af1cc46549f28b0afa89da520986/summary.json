@@ -1,0 +1,79 @@
+{
+  "started": "2026-09-08T03:15:21.303515+02:00",
+  "scope": "expertpin-test-5bf431dfc5164a5ea4cf3facd6000624.scope",
+  "model_loaded": true,
+  "startup_n_max": 0,
+  "sequence": [
+    0,
+    0
+  ],
+  "requests": [
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 10648.064,
+        "prompt_per_token_ms": 156.58917647058823,
+        "prompt_per_second": 6.386137423666875,
+        "predicted_n": 256,
+        "predicted_ms": 21284.526,
+        "predicted_per_token_ms": 83.1426796875,
+        "predicted_per_second": 12.02751707977899,
+        "n_ctx": 8192,
+        "n_past": 323
+      },
+      "acceptance_fraction": null,
+      "label": "01-nmax0",
+      "n_max": 0,
+      "wall_seconds": 32.58989855006803
+    },
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 6714.67,
+        "prompt_per_token_ms": 98.74514705882353,
+        "prompt_per_second": 10.127079960742671,
+        "predicted_n": 256,
+        "predicted_ms": 15011.227,
+        "predicted_per_token_ms": 58.63760546875,
+        "predicted_per_second": 17.05390238919177,
+        "n_ctx": 8192,
+        "n_past": 323
+      },
+      "acceptance_fraction": null,
+      "label": "02-nmax0",
+      "n_max": 0,
+      "wall_seconds": 22.425830801017582
+    }
+  ],
+  "status": "completed",
+  "verifier_trace": true,
+  "qli_stop_requested": "2026-09-08T03:15:23.429516+02:00",
+  "guard": {
+    "mem_available_bytes": 47356010496,
+    "gpu_util_pct": 0,
+    "vram_mib": 1466,
+    "elapsed_s": 0.028519101906567812
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-08T03:17:10.806564+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-08T03:17:10.950352+02:00",
+  "elapsed_seconds": 109.64685942500364
+}
