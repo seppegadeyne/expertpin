@@ -1,0 +1,80 @@
+[
+  {
+    "depth": 4,
+    "repeat": 1,
+    "position": 34,
+    "target_id": 8404,
+    "proposal_id": 314,
+    "mtp_selected_id": 314,
+    "decision": "accepted",
+    "target_batch": 1,
+    "mtp_batch": 5,
+    "target_margin": 0.12239837646484375,
+    "mtp_margin": 0.010854721069335938
+  },
+  {
+    "depth": 4,
+    "repeat": 2,
+    "position": 34,
+    "target_id": 8404,
+    "proposal_id": 314,
+    "mtp_selected_id": 314,
+    "decision": "accepted",
+    "target_batch": 1,
+    "mtp_batch": 5,
+    "target_margin": 0.12239837646484375,
+    "mtp_margin": 0.010854721069335938
+  },
+  {
+    "depth": 8,
+    "repeat": 1,
+    "position": 43,
+    "target_id": 11,
+    "proposal_id": 539,
+    "mtp_selected_id": 303,
+    "decision": "rejected",
+    "target_batch": 1,
+    "mtp_batch": 2,
+    "target_margin": 0.09635734558105469,
+    "mtp_margin": 0.16043853759765625
+  },
+  {
+    "depth": 8,
+    "repeat": 2,
+    "position": 43,
+    "target_id": 11,
+    "proposal_id": 539,
+    "mtp_selected_id": 303,
+    "decision": "rejected",
+    "target_batch": 1,
+    "mtp_batch": 2,
+    "target_margin": 0.09635734558105469,
+    "mtp_margin": 0.16043853759765625
+  },
+  {
+    "depth": 16,
+    "repeat": 1,
+    "position": 54,
+    "target_id": 11312,
+    "proposal_id": 59056,
+    "mtp_selected_id": 59056,
+    "decision": "accepted",
+    "target_batch": 1,
+    "mtp_batch": 2,
+    "target_margin": 0.1190338134765625,
+    "mtp_margin": 0.6612167358398438
+  },
+  {
+    "depth": 16,
+    "repeat": 2,
+    "position": 54,
+    "target_id": 11312,
+    "proposal_id": 59056,
+    "mtp_selected_id": 59056,
+    "decision": "accepted",
+    "target_batch": 1,
+    "mtp_batch": 2,
+    "target_margin": 0.1190338134765625,
+    "mtp_margin": 0.6612167358398438
+  }
+]

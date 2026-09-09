@@ -1,0 +1,13 @@
+test_accept_reject_bonus (__main__.TraceTests.test_accept_reject_bonus) ... ok
+test_complete (__main__.TraceTests.test_complete) ... ok
+test_full_artifacts_and_negative_mutations (__main__.TraceTests.test_full_artifacts_and_negative_mutations) ... ok
+test_invalid_mtp_depth (__main__.TraceTests.test_invalid_mtp_depth) ... ok
+test_rejects_bad_decision_invalid_raw_and_non_greedy (__main__.TraceTests.test_rejects_bad_decision_invalid_raw_and_non_greedy) ... ok
+test_rejects_missing_duplicate_and_cap (__main__.TraceTests.test_rejects_missing_duplicate_and_cap) ... ok
+test_source_artifact_validation (__main__.TraceTests.test_source_artifact_validation) ... ok
+test_strict_raw_and_row_invariants (__main__.TraceTests.test_strict_raw_and_row_invariants) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.153s
+
+OK

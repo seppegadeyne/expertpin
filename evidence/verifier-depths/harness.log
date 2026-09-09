@@ -1,0 +1,38 @@
+/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260909T030354-63fb0b250bbe4852acf55e8aecf8c3d3
+{
+  "started": "2026-09-09T03:03:54.702196+02:00",
+  "scope": "expertpin-test-e8fdc47534a34e7c8879f48efc82992e.scope",
+  "model_loaded": false,
+  "startup_n_max": 16,
+  "sequence": [
+    16,
+    16
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "error": "TimeoutError('injected work deadline')",
+  "qli_start_requested": "2026-09-09T03:03:54.704350+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-09T03:03:54.704374+02:00",
+  "elapsed_seconds": 0.0021818559980602004
+}
+test_budget_limits_and_oom (__main__.CleanMTPTests.test_budget_limits_and_oom) ... ok
+test_cgroup_population_readback (__main__.CleanMTPTests.test_cgroup_population_readback) ... ok
+test_cleanup_exact_scope_and_restore_despite_failures (__main__.CleanMTPTests.test_cleanup_exact_scope_and_restore_despite_failures) ... ok
+test_deadline_blocks_before_budget_commands (__main__.CleanMTPTests.test_deadline_blocks_before_budget_commands) ... ok
+test_main_failure_runs_finally_and_saves_failure (__main__.CleanMTPTests.test_main_failure_runs_finally_and_saves_failure) ... ok
+test_matching_startup_and_request_depth (__main__.CleanMTPTests.test_matching_startup_and_request_depth) ... ok
+test_rejects_short_long_eos_empty_and_bad_timings (__main__.CleanMTPTests.test_rejects_short_long_eos_empty_and_bad_timings) ... ok
+test_sanitizes_every_prefix_and_graph_disable (__main__.CleanMTPTests.test_sanitizes_every_prefix_and_graph_disable) ... ok
+test_sequence_only_nmax_changes (__main__.CleanMTPTests.test_sequence_only_nmax_changes) ... ok
+test_signal_registration (__main__.CleanMTPTests.test_signal_registration) ... ok
+test_spawn_defers_signal_until_handle_registered (__main__.CleanMTPTests.test_spawn_defers_signal_until_handle_registered) ... ok
+test_terminate_escalates_and_reaps (__main__.CleanMTPTests.test_terminate_escalates_and_reaps) ... ok
+test_uuid_scope_and_work_bound (__main__.CleanMTPTests.test_uuid_scope_and_work_bound) ... ok
+test_valid_completion_retains_full_timings (__main__.CleanMTPTests.test_valid_completion_retains_full_timings) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.256s
+
+OK

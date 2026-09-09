@@ -1,0 +1,362 @@
+{
+  "runs": [
+    {
+      "directory": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca",
+      "depth": 8,
+      "scope": "expertpin-test-00b30d7e55fd484f8472b051e0938650.scope",
+      "tok_s": [
+        23.951472819101447,
+        41.10386352232815
+      ],
+      "ram_peak_gib": 32.40587615966797,
+      "vram_sample_peak_gib": 22.1220703125,
+      "swap_sample_peak_gib": 1.5617752075195312,
+      "samples": 48,
+      "tier_a_available_gib": 46.720741271972656,
+      "gpu_preflight_util": 0,
+      "qli_stop": "2026-09-09T03:10:43.006898+02:00",
+      "qli_start": "2026-09-09T03:11:49.811545+02:00",
+      "qli_interruption_seconds": 66.804647,
+      "cleanup_errors": [],
+      "traced_tasks": [
+        19,
+        159
+      ],
+      "traced_counts": [
+        128,
+        128
+      ],
+      "repeat": {
+        "selected_id": true,
+        "proposal_id": true,
+        "decision": true,
+        "raw_argmax_id": true,
+        "raw_runner_up_id": true,
+        "raw_top_logit": true,
+        "raw_second_logit": true,
+        "raw_top_margin": true
+      },
+      "raw_argmax_mismatch_count": 0,
+      "first_differences": [
+        {
+          "position_1based": 43,
+          "target": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 25,
+            "slot_id": 0,
+            "output_position_1based": 43,
+            "verifier_row": 0,
+            "verifier_rows": 1,
+            "assembled_batch_tokens": 1,
+            "logits_row": 0,
+            "proposal_id": null,
+            "selected_id": 11,
+            "decision": "target_only",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 11,
+            "raw_runner_up_id": 303,
+            "raw_top_logit": 20.523439407348633,
+            "raw_second_logit": 20.427082061767578,
+            "raw_top_margin": 0.09635734558105469,
+            "raw_proposal_logit": null
+          },
+          "mtp": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 19,
+            "slot_id": 0,
+            "output_position_1based": 43,
+            "verifier_row": 0,
+            "verifier_rows": 2,
+            "assembled_batch_tokens": 2,
+            "logits_row": 0,
+            "proposal_id": 539,
+            "selected_id": 303,
+            "decision": "rejected",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 303,
+            "raw_runner_up_id": 11,
+            "raw_top_logit": 21.04416847229004,
+            "raw_second_logit": 20.883729934692383,
+            "raw_top_margin": 0.16043853759765625,
+            "raw_proposal_logit": 19.883548736572266
+          }
+        },
+        {
+          "position_1based": 43,
+          "target": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 283,
+            "slot_id": 0,
+            "output_position_1based": 43,
+            "verifier_row": 0,
+            "verifier_rows": 1,
+            "assembled_batch_tokens": 1,
+            "logits_row": 0,
+            "proposal_id": null,
+            "selected_id": 11,
+            "decision": "target_only",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 11,
+            "raw_runner_up_id": 303,
+            "raw_top_logit": 20.523439407348633,
+            "raw_second_logit": 20.427082061767578,
+            "raw_top_margin": 0.09635734558105469,
+            "raw_proposal_logit": null
+          },
+          "mtp": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 159,
+            "slot_id": 0,
+            "output_position_1based": 43,
+            "verifier_row": 0,
+            "verifier_rows": 2,
+            "assembled_batch_tokens": 2,
+            "logits_row": 0,
+            "proposal_id": 539,
+            "selected_id": 303,
+            "decision": "rejected",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 303,
+            "raw_runner_up_id": 11,
+            "raw_top_logit": 21.04416847229004,
+            "raw_second_logit": 20.883729934692383,
+            "raw_top_margin": 0.16043853759765625,
+            "raw_proposal_logit": 19.883548736572266
+          }
+        }
+      ]
+    },
+    {
+      "directory": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53",
+      "depth": 16,
+      "scope": "expertpin-test-54632d6e713c46688a09690c1b007573.scope",
+      "tok_s": [
+        28.10417162515007,
+        40.99966799878218
+      ],
+      "ram_peak_gib": 32.41091537475586,
+      "vram_sample_peak_gib": 22.1220703125,
+      "swap_sample_peak_gib": 0.7414474487304688,
+      "samples": 44,
+      "tier_a_available_gib": 49.46865463256836,
+      "gpu_preflight_util": 0,
+      "qli_stop": "2026-09-09T03:12:41.929135+02:00",
+      "qli_start": "2026-09-09T03:13:43.290132+02:00",
+      "qli_interruption_seconds": 61.360997,
+      "cleanup_errors": [],
+      "traced_tasks": [
+        19,
+        159
+      ],
+      "traced_counts": [
+        128,
+        128
+      ],
+      "repeat": {
+        "selected_id": true,
+        "proposal_id": true,
+        "decision": true,
+        "raw_argmax_id": true,
+        "raw_runner_up_id": true,
+        "raw_top_logit": true,
+        "raw_second_logit": true,
+        "raw_top_margin": true
+      },
+      "raw_argmax_mismatch_count": 0,
+      "first_differences": [
+        {
+          "position_1based": 54,
+          "target": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 25,
+            "slot_id": 0,
+            "output_position_1based": 54,
+            "verifier_row": 0,
+            "verifier_rows": 1,
+            "assembled_batch_tokens": 1,
+            "logits_row": 0,
+            "proposal_id": null,
+            "selected_id": 11312,
+            "decision": "target_only",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 11312,
+            "raw_runner_up_id": 59056,
+            "raw_top_logit": 19.10329818725586,
+            "raw_second_logit": 18.984264373779297,
+            "raw_top_margin": 0.1190338134765625,
+            "raw_proposal_logit": null
+          },
+          "mtp": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 19,
+            "slot_id": 0,
+            "output_position_1based": 54,
+            "verifier_row": 0,
+            "verifier_rows": 2,
+            "assembled_batch_tokens": 2,
+            "logits_row": 0,
+            "proposal_id": 59056,
+            "selected_id": 59056,
+            "decision": "accepted",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 59056,
+            "raw_runner_up_id": 11312,
+            "raw_top_logit": 19.56123924255371,
+            "raw_second_logit": 18.900022506713867,
+            "raw_top_margin": 0.6612167358398438,
+            "raw_proposal_logit": 19.56123924255371
+          }
+        },
+        {
+          "position_1based": 54,
+          "target": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 283,
+            "slot_id": 0,
+            "output_position_1based": 54,
+            "verifier_row": 0,
+            "verifier_rows": 1,
+            "assembled_batch_tokens": 1,
+            "logits_row": 0,
+            "proposal_id": null,
+            "selected_id": 11312,
+            "decision": "target_only",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 11312,
+            "raw_runner_up_id": 59056,
+            "raw_top_logit": 19.10329818725586,
+            "raw_second_logit": 18.984264373779297,
+            "raw_top_margin": 0.1190338134765625,
+            "raw_proposal_logit": null
+          },
+          "mtp": {
+            "kind": "target_verifier_decision_v1",
+            "task_id": 159,
+            "slot_id": 0,
+            "output_position_1based": 54,
+            "verifier_row": 0,
+            "verifier_rows": 2,
+            "assembled_batch_tokens": 2,
+            "logits_row": 0,
+            "proposal_id": 59056,
+            "selected_id": 59056,
+            "decision": "accepted",
+            "temperature": 0.0,
+            "raw_valid": true,
+            "stage": "sampled_before_commit_and_stop_handling",
+            "raw_argmax_id": 59056,
+            "raw_runner_up_id": 11312,
+            "raw_top_logit": 19.56123924255371,
+            "raw_second_logit": 18.900022506713867,
+            "raw_top_margin": 0.6612167358398438,
+            "raw_proposal_logit": 19.56123924255371
+          }
+        }
+      ]
+    }
+  ],
+  "historical_target": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260908T031521-7774af1cc46549f28b0afa89da520986",
+  "historical_comparisons": [
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/01-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154624-e839af6e2bb4471bb04525b626e6fa33/01-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/01-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154624-e839af6e2bb4471bb04525b626e6fa33/02-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/01-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161517-2c1eb221aa234812a933801b15ea5d06/01-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/01-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161517-2c1eb221aa234812a933801b15ea5d06/02-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/02-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154624-e839af6e2bb4471bb04525b626e6fa33/01-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/02-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154624-e839af6e2bb4471bb04525b626e6fa33/02-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/02-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161517-2c1eb221aa234812a933801b15ea5d06/01-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031040-985ef1c0463044cdb5e4637559f186ca/02-nmax8-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161517-2c1eb221aa234812a933801b15ea5d06/02-nmax8-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/01-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154910-11b11df013ea42cc9e7c09a0a1fcb0ad/01-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/01-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154910-11b11df013ea42cc9e7c09a0a1fcb0ad/02-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/01-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161217-e1d70c565cee4ea3a67bfbf72aa153e0/01-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/01-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161217-e1d70c565cee4ea3a67bfbf72aa153e0/02-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/02-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154910-11b11df013ea42cc9e7c09a0a1fcb0ad/01-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/02-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T154910-11b11df013ea42cc9e7c09a0a1fcb0ad/02-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/02-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161217-e1d70c565cee4ea3a67bfbf72aa153e0/01-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    },
+    {
+      "source": "evidence/clean-mtp-ab/run-20260909T031239-422f72d154c8411ea86bb8a64177dd53/02-nmax16-response.json",
+      "reference": "/home/seppe/Projects/expertpin/evidence/clean-mtp-ab/run-20260906T161217-e1d70c565cee4ea3a67bfbf72aa153e0/02-nmax16-response.json",
+      "exact_fields_equal_including_presence": true
+    }
+  ],
+  "historical_comparison_count": 16,
+  "all_exact_fields_equal": true,
+  "binary_sha256_before_and_after": "3235529f95aeba4b4a71d4e33608fc0a1f4e6a78d5378616e7b286ca1dc8f279",
+  "historical_untraced_binary_differs": true,
+  "model_hashes_recomputed": false,
+  "diagnostic_best_tok_s": 41.10386352232815,
+  "gap_to_20_tok_s": -21.103863522328147
+}
