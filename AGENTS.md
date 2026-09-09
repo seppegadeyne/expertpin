@@ -10,6 +10,7 @@
 
 ## Werkafspraken
 
+- Taal: ALLE GitHub-content van deze repo is Engels — issues, issue-comments, PR-beschrijvingen, reviews, releases en commit-messages. Nederlands alléén in lokale, ongepubliceerde notities (state-file, lokale logs, mails naar Seppe). Bestaande NL-berichten worden bij ontdekking naar het Engels vertaald (GitHub bewaart de edit-history, dus niets gaat verloren).
 - Commits: Engels, conventional style (`feat:`, `fix:`, `docs:`, `test:`, `refactor:`).
 - Push naar `origin main`; nooit force-push op main (op eigen feature-branches mag geschiedenis herschreven worden).
 - Tests: bestaande unit tests (o.a. `test-expert-manifest`) moeten altijd groen blijven; nieuw gedrag krijgt eigen tests (TDD waar haalbaar).
