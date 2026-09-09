@@ -89,11 +89,13 @@ def first_difference(left, right):
     return None
 
 
-def analyze(target_dir, mtp_dir):
+def analyze(target_dir, mtp_dir, *, mtp_depth=4):
+    if type(mtp_depth) is not int or mtp_depth not in (4, 8, 16):
+        raise ValueError('MTP comparison depth must be 4, 8 or 16')
     harness = harness_module()
     output = {'kind': 'original_verifier_prefix_comparison', 'runs': []}
     all_rows = []
-    for directory, depth in ((target_dir, 0), (mtp_dir, 4)):
+    for directory, depth in ((target_dir, 0), (mtp_dir, mtp_depth)):
         summary = json.loads((directory / 'summary.json').read_text())
         if (summary['status'] != 'completed' or summary['startup_n_max'] != depth
                 or not summary['verifier_trace'] or summary['cleanup_errors']
@@ -138,6 +140,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('target', type=Path)
     parser.add_argument('mtp', type=Path)
+    parser.add_argument('--mtp-depth', type=int, choices=(4, 8, 16), default=4,
+                        help='expected MTP startup/request depth (default: 4)')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    args.output.write_text(json.dumps(analyze(args.target, args.mtp), indent=2, allow_nan=False) + '\n')
+    args.output.write_text(json.dumps(analyze(args.target, args.mtp, mtp_depth=args.mtp_depth), indent=2, allow_nan=False) + '\n')

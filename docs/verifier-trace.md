@@ -23,6 +23,10 @@ Only the ID-match verifier is instrumented; distribution-based verification
 is deliberately not represented as equivalent greedy acceptance.
 
 Run `scripts/analyze-verifier-trace.py TARGET_RUN MTP4_RUN --output FILE` offline.
+For MTP8 or MTP16, pass `--mtp-depth 8` or `--mtp-depth 16` explicitly. The
+default remains 4; mismatched startup depths, request labels, payloads and
+response counters are rejected. This is still a pairwise prefix comparison,
+not a controlled same-state replay or a cross-run throughput ranking.
 It requires two complete first-128 traces per successful guarded run, rejects
 cap/incomplete/invalid rows, and compares original selected IDs. Source request
 and response JSON and server logs remain authoritative. Compare exact response

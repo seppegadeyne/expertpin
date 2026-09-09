@@ -74,12 +74,18 @@ class TraceTests(unittest.TestCase):
                 (directory / 'server.log').write_text(text(rows()))
             with self.assertRaises(ValueError): trace.analyze(target, mtp)
 
+    def test_invalid_mtp_depth(self):
+        for depth in (0, 1, 32, True, 8.0, '8'):
+            with self.subTest(depth=depth), self.assertRaises(ValueError):
+                trace.analyze(Path('missing-target'), Path('missing-mtp'), mtp_depth=depth)
+
     def test_full_artifacts_and_negative_mutations(self):
-        for mutation in ('none', 'payload', 'missing_response', 'no_mtp'):
-            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as tmp:
+        for mtp_depth, mutation in ((d, m) for d in (4, 8, 16)
+                                  for m in ('none', 'payload', 'missing_response', 'no_mtp', 'wrong_depth')):
+            with self.subTest(depth=mtp_depth, mutation=mutation), tempfile.TemporaryDirectory() as tmp:
                 dirs = [Path(tmp) / 'target', Path(tmp) / 'mtp']
                 harness = trace.harness_module()
-                for directory, depth in zip(dirs, (0, 4)):
+                for directory, depth in zip(dirs, (0, mtp_depth)):
                     directory.mkdir()
                     requests = []
                     for index in (1, 2):
@@ -98,6 +104,8 @@ class TraceTests(unittest.TestCase):
                         requests.append(dict(harness.validate_completion(response, depth), label=label, n_max=depth))
                     summary = dict(status='completed', startup_n_max=depth, verifier_trace=True,
                         cleanup_errors=[], scope_stopped_verified=True, qli_status='active', requests=requests)
+                    if mutation == 'wrong_depth' and depth:
+                        summary['startup_n_max'] = 16 if depth != 16 else 8
                     (directory / 'summary.json').write_text(json.dumps(summary))
                     records = rows()
                     if depth and mutation != 'no_mtp':
@@ -106,9 +114,14 @@ class TraceTests(unittest.TestCase):
                                 raw_proposal_logit=2.0, verifier_rows=2, assembled_batch_tokens=2)
                     (directory / 'server.log').write_text(text(records))
                 if mutation == 'none':
-                    self.assertEqual(trace.analyze(*dirs)['first_differences'], [None, None])
+                    result = trace.analyze(*dirs, mtp_depth=mtp_depth)
+                    self.assertEqual(result['first_differences'], [None, None])
+                    self.assertEqual(result['runs'][1]['depth'], mtp_depth)
+                    if mtp_depth == 4:
+                        self.assertEqual(trace.analyze(*dirs), result)
                 else:
-                    with self.assertRaises((ValueError, FileNotFoundError)): trace.analyze(*dirs)
+                    with self.assertRaises((ValueError, FileNotFoundError)):
+                        trace.analyze(*dirs, mtp_depth=mtp_depth)
 
 
 if __name__ == '__main__': unittest.main()
