@@ -48,6 +48,9 @@ def main():
         with socket.socket() as sock:
             sock.bind(('127.0.0.1', 8102))
         env = harness.clean_environment(os.environ, run.scope, 4, 'ps-iq2xxs')
+        # Hermes requires a >=64K reported context; 64K is proven within
+        # budget on this checkpoint (context ladder evidence 2026-09-11).
+        env['CTX'] = '65536'
         run.save('environment.json', {k: v for k, v in env.items()
                                       if k not in os.environ or os.environ[k] != v})
         run.prepared = True
