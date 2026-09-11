@@ -1,0 +1,48 @@
+{
+  "kind": "ud-q4kxl-dev-evaluation-20260911",
+  "question": "Is UD-Q4_K_XL the right dev checkpoint for agentic CODE work (vs ps-iq2xxs which loops)?",
+  "method": "Existing gates re-run with EXPERTPIN_NCMOE=40 (UD needs 4 extra CPU-MoE layers to fit 28 GiB VRAM; NCMOE=36 peaked 28.15 GiB and the guard refused fail-closed) + the new code-precision gate: an agent must WRITE a small script, RUN it, and the gate probes the ARTIFACT independently (not the agent self-report). Reasoning off (the new dev default).",
+  "verdict": "UD-Q4_K_XL WINS for agentic code work",
+  "results": {
+    "throughput_2x256": {
+      "ps": [
+        31.5,
+        50.19
+      ],
+      "ud": [
+        13.26,
+        35.44
+      ],
+      "note": "UD slower but >20 warm target"
+    },
+    "vram_peak_gib": {
+      "ps": 18.64,
+      "ud": 23.21,
+      "cap": 28,
+      "note": "UD requires NCMOE=40"
+    },
+    "toolcall_gate": {
+      "ps": "PASS",
+      "ud": "PASS"
+    },
+    "needle_gate_3pos": {
+      "ps": "PASS",
+      "ud": "PASS (3/3, walls 89-117 s at 2K)"
+    },
+    "code_precision_gate": {
+      "ps": "FAIL \u2014 command flattened to one line (exit 2), script never existed, model still answered the marker: EXACT reproduction of the real-use loop failure",
+      "ud": "PASS \u2014 script written with real newlines + required for-loop, ran clean, printed exactly code-gate-ok-7391 (independent artifact probe; runner died on the pre-fix start-clock bug while the orphan client completed \u2014 probe + transcript preserved)"
+    }
+  },
+  "recommendation": "Switch the Expertpin dev provider default to UD-Q4_K_XL (NCMOE=40, reasoning off) for agentic code work; keep ps-iq2xxs for throughput-critical non-code tasks.",
+  "open_items": [
+    "formal clean re-run of the UD code gate with the fixed runner (nice-to-have; artifact proof stands)",
+    "multi-hour dev soak on UD"
+  ],
+  "iterations_preserved": [
+    "175519: NCMOE=36 VRAM 28.15 guard-refused",
+    "180159: GPU idle gate (qli auto-restart)",
+    "190305/193023: start-clock bug killed runner at ~896 s; orphan client finished 193023-task",
+    "192247: GPU idle gate (Brave)"
+  ]
+}
