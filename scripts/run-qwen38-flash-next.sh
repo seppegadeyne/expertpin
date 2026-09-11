@@ -86,6 +86,10 @@ if [ "$guard_fail" = "1" ] && [ "$FORCE" != "1" ] && [ "$DRY" != "1" ]; then
   exit 2
 fi
 
+# --- optional reasoning switch (default on for benchmarks; the dev launcher
+# defaults to off — see scripts/serve-dev-qwen38.sh) ---
+REASONING="${REASONING:-auto}"
+
 # --- optional MTP draft model ---
 DRAFT_ARGS=()
 if [ "${DRAFT:-0}" = "1" ] && [ -f "$DRAFT_MODEL" ]; then
@@ -135,6 +139,7 @@ exec systemd-run --user --scope --unit="${EXPERTPIN_SCOPE_UNIT:-expertpin-test-$
   -m "$MODEL" \
   -a "Qwen3.8-Flash-Next-IQ2_XXS" \
   --jinja \
+  --reasoning "$REASONING" \
   -ngl "$NGL" \
   --n-cpu-moe "$NCMOE" \
   -c "$CTX" \
