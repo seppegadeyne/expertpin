@@ -1,0 +1,1389 @@
+Running as unit: expertpin-test-e8165c3bd6c8472d9668141a48006c7e.scope; invocation ID: 57248060bed14ec0a4dad902d76e3ab4
+INFO [                    main] build info | tid="140231455662080" timestamp=1789127170 build=4925 commit="60a14628"
+INFO [                    main] system info | tid="140231455662080" timestamp=1789127170 n_threads=16 n_threads_batch=-1 total_threads=32 system_info="AVX = 1 | AVX_VNNI = 1 | AVX2 = 1 | AVX512 = 1 | AVX512_VBMI = 1 | AVX512_VNNI = 1 | AVX512_BF16 = 1 | FMA = 1 | NEON = 0 | SVE = 0 | ARM_FMA = 0 | F16C = 1 | FP16_VA = 0 | WASM_SIMD = 0 | SSE3 = 1 | SSSE3 = 1 | VSX = 0 | MATMUL_INT8 = 0 | "
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 5090, compute capability 12.0, VMM: yes, VRAM: 32146 MiB
+CUDA0: using device CUDA0 - 29520 MiB free
+llama_model_loader: loaded meta data with 60 key-value pairs and 1224 tensors from /home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = qwen4exp
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                     general.sampling.top_k i32              = 20
+llama_model_loader: - kv   3:                     general.sampling.top_p f32              = 0.950000
+llama_model_loader: - kv   4:                      general.sampling.temp f32              = 1.000000
+llama_model_loader: - kv   5:                               general.name str              = Src
+llama_model_loader: - kv   6:                         general.size_label str              = 512x56B
+llama_model_loader: - kv   7:                       qwen4exp.block_count u32              = 48
+llama_model_loader: - kv   8:                    qwen4exp.context_length u32              = 262144
+llama_model_loader: - kv   9:                  qwen4exp.embedding_length u32              = 2560
+llama_model_loader: - kv  10:              qwen4exp.attention.head_count u32              = 24
+llama_model_loader: - kv  11:           qwen4exp.attention.head_count_kv u32              = 2
+llama_model_loader: - kv  12:           qwen4exp.rope.dimension_sections arr[i32,4]       = [11, 11, 10, 0]
+llama_model_loader: - kv  13:                    qwen4exp.rope.freq_base f32              = 10000000.000000
+llama_model_loader: - kv  14:  qwen4exp.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  15:                      qwen4exp.expert_count u32              = 512
+llama_model_loader: - kv  16:                 qwen4exp.expert_used_count u32              = 10
+llama_model_loader: - kv  17:              qwen4exp.attention.key_length u32              = 256
+llama_model_loader: - kv  18:            qwen4exp.attention.value_length u32              = 256
+llama_model_loader: - kv  19:        qwen4exp.expert_feed_forward_length u32              = 640
+llama_model_loader: - kv  20: qwen4exp.expert_shared_feed_forward_length u32              = 640
+llama_model_loader: - kv  21:                   qwen4exp.ssm.conv_kernel u32              = 4
+llama_model_loader: - kv  22:                    qwen4exp.ssm.state_size u32              = 128
+llama_model_loader: - kv  23:                   qwen4exp.ssm.group_count u32              = 16
+llama_model_loader: - kv  24:                qwen4exp.ssm.time_step_rank u32              = 48
+llama_model_loader: - kv  25:                    qwen4exp.ssm.inner_size u32              = 6144
+llama_model_loader: - kv  26:           qwen4exp.full_attention_interval u32              = 4
+llama_model_loader: - kv  27:              qwen4exp.rope.dimension_count u32              = 64
+llama_model_loader: - kv  28:            qwen4exp.hyper_connection.count u32              = 4
+llama_model_loader: - kv  29:         qwen4exp.hyper_connection.low_rank u32              = 320
+llama_model_loader: - kv  30:      qwen4exp.attention.indexer.head_count u32              = 4
+llama_model_loader: - kv  31:      qwen4exp.attention.indexer.key_length u32              = 128
+llama_model_loader: - kv  32:           qwen4exp.attention.indexer.top_k u32              = 2048
+llama_model_loader: - kv  33:         qwen4exp.attention.compress_ratios arr[i32,48]      = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+llama_model_loader: - kv  34:                        qwen4exp.ple.layers arr[i32,1]       = [1]
+llama_model_loader: - kv  35:                    qwen4exp.ple.ngram_size u32              = 3
+llama_model_loader: - kv  36:               qwen4exp.ple.heads_per_ngram u32              = 8
+llama_model_loader: - kv  37:                   qwen4exp.ple.conv_kernel u32              = 4
+llama_model_loader: - kv  38:                  qwen4exp.ple.eos_token_id u32              = 248044
+llama_model_loader: - kv  39:                qwen4exp.ple.image_token_id u32              = 248056
+llama_model_loader: - kv  40:  qwen4exp.embedding_length_per_layer_input u32              = 160
+llama_model_loader: - kv  41:             qwen4exp.ple.layer_multipliers arr[u64,3]       = [23703573157769, 20109073645365, 8052...
+llama_model_loader: - kv  42:                  qwen4exp.ple.head_offsets arr[u64,16]      = [0, 20000003, 40000026, 60000059, 800...
+llama_model_loader: - kv  43:              qwen4exp.ple.head_vocab_sizes arr[u64,16]      = [20000003, 20000023, 20000033, 200000...
+llama_model_loader: - kv  44:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  45:                         tokenizer.ggml.pre str              = qwen35
+llama_model_loader: - kv  46:                      tokenizer.ggml.tokens arr[str,248320]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  47:                  tokenizer.ggml.token_type arr[i32,248320]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  48:                      tokenizer.ggml.merges arr[str,247587]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  49:                tokenizer.ggml.eos_token_id u32              = 248046
+llama_model_loader: - kv  50:            tokenizer.ggml.padding_token_id u32              = 248044
+llama_model_loader: - kv  51:                tokenizer.ggml.bos_token_id u32              = 248044
+llama_model_loader: - kv  52:               tokenizer.ggml.add_bos_token bool             = false
+llama_model_loader: - kv  53:                    tokenizer.chat_template str              = {%- set image_count = namespace(value...
+llama_model_loader: - kv  54:               general.quantization_version u32              = 2
+llama_model_loader: - kv  55:                          general.file_type u32              = 19
+llama_model_loader: - kv  56:                      quantize.imatrix.file str              = imatrix_unsloth.gguf
+llama_model_loader: - kv  57:                   quantize.imatrix.dataset str              = unsloth_calibration_Qwen3.8-Flash-Nex...
+llama_model_loader: - kv  58:             quantize.imatrix.entries_count u32              = 926
+llama_model_loader: - kv  59:              quantize.imatrix.chunks_count u32              = 45
+llama_model_loader: - type  f32:  388 tensors
+llama_model_loader: - type  f16:    1 tensors
+llama_model_loader: - type q4_0:   51 tensors
+llama_model_loader: - type q8_0:   15 tensors
+llama_model_loader: - type q2_K:    3 tensors
+llama_model_loader: - type q4_K:   48 tensors
+llama_model_loader: - type q6_K:    1 tensors
+llama_model_loader: - type iq2_xxs:  551 tensors
+llama_model_loader: - type iq4_nl:  142 tensors
+llama_model_loader: - type bf16:   24 tensors
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 248044 ('<|endoftext|>')
+load:   - 248046 ('<|im_end|>')
+load:   - 248063 ('<|fim_pad|>')
+load:   - 248064 ('<|repo_name|>')
+load:   - 248065 ('<|file_sep|>')
+load: special tokens cache size = 33
+load: token to piece cache size = 1.7581 MB
+llm_load_print_meta: format           = GGUF V3 (latest)
+llm_load_print_meta: arch             = qwen4exp
+llm_load_print_meta: n_ctx_train      = 262144
+llm_load_print_meta: n_embd           = 2560
+llm_load_print_meta: n_layer          = 48
+llm_load_print_meta: n_head           = 24
+llm_load_print_meta: n_head_kv        = 2
+llm_load_print_meta: n_rot            = 64
+llm_load_print_meta: n_swa            = 0
+llm_load_print_meta: n_swa_pattern    = 1
+llm_load_print_meta: n_embd_head_k    = 256
+llm_load_print_meta: n_embd_head_v    = 256
+llm_load_print_meta: n_gqa            = 12
+llm_load_print_meta: n_embd_k_gqa     = 512
+llm_load_print_meta: n_embd_v_gqa     = 512
+llm_load_print_meta: f_norm_eps       = 0.0e+00
+llm_load_print_meta: f_norm_rms_eps   = 1.0e-06
+llm_load_print_meta: f_clamp_kqv      = 0.0e+00
+llm_load_print_meta: f_max_alibi_bias = 0.0e+00
+llm_load_print_meta: f_logit_scale    = 0.0e+00
+llm_load_print_meta: n_ff             = 0
+llm_load_print_meta: n_expert         = 512
+llm_load_print_meta: n_expert_used    = 10
+llm_load_print_meta: causal attn      = 1
+llm_load_print_meta: pooling type     = 0
+llm_load_print_meta: rope type        = 40
+llm_load_print_meta: rope scaling     = linear
+llm_load_print_meta: freq_base_train  = 10000000.0
+llm_load_print_meta: freq_scale_train = 1
+llm_load_print_meta: n_ctx_orig_yarn  = 262144
+llm_load_print_meta: rope_finetuned   = unknown
+llm_load_print_meta: mrope sections   = [11, 11, 10, 0]
+llm_load_print_meta: ssm_d_conv       = 4
+llm_load_print_meta: ssm_d_inner      = 6144
+llm_load_print_meta: ssm_d_state      = 128
+llm_load_print_meta: ssm_dt_rank      = 48
+llm_load_print_meta: ssm_n_group      = 16
+llm_load_print_meta: model type       = 125B.A6B
+llm_load_print_meta: model ftype      = IQ2_XXS - 2.0625 bpw
+llm_load_print_meta: model params     = 176.944 B
+llm_load_print_meta: model size       = 70.041 GiB (3.400 BPW) 
+llm_load_print_meta: repeating layers = 68.926 GiB (3.370 BPW, 175.673 B parameters)
+llm_load_print_meta: general.name     = Src
+print_info: vocab type            = BPE
+print_info: n_vocab               = 248320
+print_info: n_merges              = 247587
+print_info: BOS token             = 248044 '<|endoftext|>'
+print_info: EOS token             = 248046 '<|im_end|>'
+print_info: EOT token             = 248046 '<|im_end|>'
+print_info: PAD token             = 248044 '<|endoftext|>'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PRE token         = 248060 '<|fim_prefix|>'
+print_info: FIM SUF token         = 248062 '<|fim_suffix|>'
+print_info: FIM MID token         = 248061 '<|fim_middle|>'
+print_info: FIM PAD token         = 248063 '<|fim_pad|>'
+print_info: FIM REP token         = 248064 '<|repo_name|>'
+print_info: FIM SEP token         = 248065 '<|file_sep|>'
+print_info: EOG token             = 248044 '<|endoftext|>'
+print_info: EOG token             = 248046 '<|im_end|>'
+print_info: EOG token             = 248063 '<|fim_pad|>'
+print_info: EOG token             = 248064 '<|repo_name|>'
+print_info: EOG token             = 248065 '<|file_sep|>'
+print_info: max token length      = 256
+======================================= HAVE_FANCY_SIMD is defined
+Oops: tensor with strange name per_layer_token_embd.weight
+------------------- Layer sizes:
+Layer  0:    896.65,      3.12,    899.77       80.00  MiB
+Layer  1:    904.91,      3.47,    908.37       80.00  MiB
+Layer  2:    896.65,      3.12,    899.77       80.00  MiB
+Layer  3:    902.24,    272.00,   1174.24       80.00  MiB
+Layer  4:    896.43,      3.12,    899.55       80.00  MiB
+Layer  5:    896.43,      3.12,    899.55       80.00  MiB
+Layer  6:    896.43,      3.12,    899.55       80.00  MiB
+Layer  7:    902.24,    272.00,   1174.24       80.00  MiB
+Layer  8:    896.43,      3.12,    899.55       80.00  MiB
+Layer  9:    896.43,      3.12,    899.55       80.00  MiB
+Layer 10:    896.43,      3.12,    899.55       80.00  MiB
+Layer 11:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 12:    896.43,      3.12,    899.55       80.00  MiB
+Layer 13:    896.43,      3.12,    899.55       80.00  MiB
+Layer 14:    896.43,      3.12,    899.55       80.00  MiB
+Layer 15:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 16:    896.43,      3.12,    899.55       80.00  MiB
+Layer 17:    896.43,      3.12,    899.55       80.00  MiB
+Layer 18:    896.43,      3.12,    899.55       80.00  MiB
+Layer 19:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 20:    896.43,      3.12,    899.55       80.00  MiB
+Layer 21:    896.43,      3.12,    899.55       80.00  MiB
+Layer 22:    896.43,      3.12,    899.55       80.00  MiB
+Layer 23:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 24:    896.43,      3.12,    899.55       80.00  MiB
+Layer 25:    896.43,      3.12,    899.55       80.00  MiB
+Layer 26:    896.43,      3.12,    899.55       80.00  MiB
+Layer 27:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 28:    896.43,      3.12,    899.55       80.00  MiB
+Layer 29:    896.43,      3.12,    899.55       80.00  MiB
+Layer 30:    896.43,      3.12,    899.55       80.00  MiB
+Layer 31:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 32:    896.43,      3.12,    899.55       80.00  MiB
+Layer 33:    896.43,      3.12,    899.55       80.00  MiB
+Layer 34:    896.43,      3.12,    899.55       80.00  MiB
+Layer 35:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 36:    896.43,      3.12,    899.55       80.00  MiB
+Layer 37:    896.43,      3.12,    899.55       80.00  MiB
+Layer 38:    896.43,      3.12,    899.55       80.00  MiB
+Layer 39:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 40:    896.43,      3.12,    899.55       80.00  MiB
+Layer 41:    896.43,      3.12,    899.55       80.00  MiB
+Layer 42:    896.43,      3.12,    899.55       80.00  MiB
+Layer 43:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 44:    896.43,      3.12,    899.55       80.00  MiB
+Layer 45:    896.43,      3.12,    899.55       80.00  MiB
+Layer 46:    896.43,      3.12,    899.55       80.00  MiB
+Layer 47:    902.24,    272.00,   1174.24       80.00  MiB
+Layer 48:    650.82,    405.00,   1055.82 MiB (output layer)
+--------------------------------------------------------------------------
+Total   :  43107.47,   3781.57,  46889.04 MiB
+Memory required for model tensors + cache: 47540 MiB
+Memory available on all devices - compute: 28420 MiB
+llm_load_tensors: ggml ctx size =    1.09 MiB
+Tensor blk.12.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.12.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.12.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+llm_load_tensors: offloading 48 repeating layers to GPU
+llm_load_tensors: offloading non-repeating layers to GPU
+llm_load_tensors: offloaded 49/49 layers to GPU
+llm_load_tensors:        CPU buffer size = 71061.98 MiB
+llm_load_tensors:      CUDA0 buffer size = 12708.33 MiB
+.............................................................
+llama_init_from_model: n_ctx         = 262144
+llama_init_from_model: n_batch       = 2048
+llama_init_from_model: n_ubatch      = 512
+llama_init_from_model: flash_attn    = 1
+llama_init_from_model: attn_max_b    = 256
+llama_init_from_model: fused_moe     = 1
+llama_init_from_model: grouped er    = 0
+llama_init_from_model: fused_up_gate = 1
+llama_init_from_model: fused_mmad    = 1
+llama_init_from_model: rope_cache    = 0
+llama_init_from_model: graph_reuse   = 1
+llama_init_from_model: k_cache_hadam = 0
+llama_init_from_model: v_cache_hadam = 0
+llama_init_from_model: split_mode_graph_scheduling = 0
+llama_init_from_model: reduce_type   = f16
+llama_init_from_model: sched_async   = 0
+llama_init_from_model: ser           = -1, 0
+llama_init_from_model: freq_base     = 10000000.0
+llama_init_from_model: freq_scale    = 1
+llama_kv_cache_init:      CUDA0 KV buffer size =  3376.57 MiB
+llama_init_from_model: KV self size  = 3264.00 MiB, K (q8_0): 1632.00 MiB, V (q8_0): 1632.00 MiB
+llama_init_from_model:        CPU  output buffer size =     0.95 MiB
+llama_init_from_model:      CUDA0 compute buffer size =   495.00 MiB
+llama_init_from_model:  CUDA_Host compute buffer size =   261.04 MiB
+llama_init_from_model: graph nodes  = 5273
+llama_init_from_model: graph splits = 76
+llama_init_from_model: enabling only_active_experts scheduling
+INFO [                    init] initializing slots | tid="140231455662080" timestamp=1789127205 n_slots=1
+srv          init: Exclude reasoning tokens when selecting slot based on similarity: start: <think>, end: </think>
+use `--reasoning-tokens none` to disable.
+INFO [                    init] new slot | tid="140231455662080" timestamp=1789127206 id_slot=0 n_ctx_slot=262144
+prompt cache is enabled, size limit: 512 MiB
+use `--cache-ram 0` to disable the prompt cache
+init: chat template, example_format: '<|im_start|>system
+Reasoning effort is set to xhigh. Please think carefully through the task, validate key assumptions, consider plausible alternatives, and prioritize correctness, consistency, and clarity in the final answer.
+
+You are a helpful assistant<|im_end|>
+<|im_start|>user
+Hello<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+Hi there<|im_end|>
+<|im_start|>user
+How are you?<|im_end|>
+<|im_start|>assistant
+<think>
+'
+INFO [                    main] model loaded | tid="140231455662080" timestamp=1789127206
+INFO [                    main] HTTP server listening | tid="140231455662080" timestamp=1789127206 n_threads_http="31" port="8102" hostname="127.0.0.1"
+INFO [              slots_idle] all slots are idle | tid="140231455662080" timestamp=1789127206
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=0 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=3 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220909428736" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=49760 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=2 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220901036032" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=49786 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=4 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220892643328" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=49770 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=1 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220867465216" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=54878 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=5 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220884250624" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=49802 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=6 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220875857920" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=49804 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140220859072512" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=54894 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=7 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220850679808" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=54904 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=8 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=9 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220842287104" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=54908 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=10 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220833894400" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=54916 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=11 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220825501696" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=56842 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=12 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220817108992" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=56844 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=13 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220808716288" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=56858 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=14 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220800323584" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=56870 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=15 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220791930880" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=56884 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=16 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220783538176" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=44926 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=17 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140220775145472" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=44936 status=200 method="GET" path="/health" params={}
+INFO [              slots_idle] all slots are idle | tid="140231455662080" timestamp=1789127206
+INFO [      log_server_request] request | tid="140220766752768" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=44938 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140231455662080" timestamp=1789127206 id_task=18 n_idle_slots=1 n_processing_slots=0
+INFO [              slots_idle] all slots are idle | tid="140231455662080" timestamp=1789127206
+INFO [      log_server_request] request | tid="140220758360064" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=44942 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140220749967360" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=44958 status=200 method="POST" path="/tokenize" params={}
+INFO [      log_server_request] request | tid="140220741574656" timestamp=1789127206 remote_addr="127.0.0.1" remote_port=44974 status=200 method="POST" path="/tokenize" params={}
+======== Prompt cache: cache size: 0, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.00, cache_ram_similarity: 0.50
+WARN [   launch_slot_with_task] %s
+ | ="ctx_shift is not supported by recurrent model, it will be disabled"
+INFO [   launch_slot_with_task] slot is processing task | tid="140231455662080" timestamp=1789127207 id_slot=0 id_task=19
+======== Cache: cache_size = 0, n_past =  0, n_past_prompt = 0
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127207 id_slot=0 id_task=19 p0=0
+slot create_check: id  0 | task 19 | created context checkpoint 1 of 32 (pos_min = 2047, pos_max = 2047, n_tokens = 2048, size = 112.588 MiB, took 56.46 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127212 id_slot=0 id_task=19 p0=2048
+slot create_check: id  0 | task 19 | created context checkpoint 2 of 32 (pos_min = 4095, pos_max = 4095, n_tokens = 4096, size = 112.603 MiB, took 80.49 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127216 id_slot=0 id_task=19 p0=4096
+slot create_check: id  0 | task 19 | created context checkpoint 3 of 32 (pos_min = 6143, pos_max = 6143, n_tokens = 6144, size = 112.619 MiB, took 77.14 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127220 id_slot=0 id_task=19 p0=6144
+slot create_check: id  0 | task 19 | created context checkpoint 4 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 112.635 MiB, took 76.81 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127224 id_slot=0 id_task=19 p0=8192
+slot create_check: id  0 | task 19 | created context checkpoint 5 of 32 (pos_min = 10239, pos_max = 10239, n_tokens = 10240, size = 112.650 MiB, took 64.07 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127228 id_slot=0 id_task=19 p0=10240
+slot create_check: id  0 | task 19 | created context checkpoint 6 of 32 (pos_min = 12287, pos_max = 12287, n_tokens = 12288, size = 112.666 MiB, took 40.72 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127232 id_slot=0 id_task=19 p0=12288
+slot create_check: id  0 | task 19 | created context checkpoint 7 of 32 (pos_min = 14335, pos_max = 14335, n_tokens = 14336, size = 112.682 MiB, took 33.71 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127236 id_slot=0 id_task=19 p0=14336
+slot create_check: id  0 | task 19 | created context checkpoint 8 of 32 (pos_min = 16383, pos_max = 16383, n_tokens = 16384, size = 112.697 MiB, took 35.08 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127240 id_slot=0 id_task=19 p0=16384
+slot create_check: id  0 | task 19 | created context checkpoint 9 of 32 (pos_min = 18431, pos_max = 18431, n_tokens = 18432, size = 112.713 MiB, took 32.79 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127244 id_slot=0 id_task=19 p0=18432
+slot create_check: id  0 | task 19 | created context checkpoint 10 of 32 (pos_min = 20479, pos_max = 20479, n_tokens = 20480, size = 112.728 MiB, took 222.32 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127248 id_slot=0 id_task=19 p0=20480
+slot create_check: id  0 | task 19 | created context checkpoint 11 of 32 (pos_min = 22527, pos_max = 22527, n_tokens = 22528, size = 112.744 MiB, took 34.10 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127252 id_slot=0 id_task=19 p0=22528
+slot create_check: id  0 | task 19 | created context checkpoint 12 of 32 (pos_min = 24575, pos_max = 24575, n_tokens = 24576, size = 112.760 MiB, took 31.43 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127256 id_slot=0 id_task=19 p0=24576
+slot create_check: id  0 | task 19 | created context checkpoint 13 of 32 (pos_min = 26623, pos_max = 26623, n_tokens = 26624, size = 112.775 MiB, took 37.12 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127260 id_slot=0 id_task=19 p0=26624
+slot create_check: id  0 | task 19 | created context checkpoint 14 of 32 (pos_min = 28671, pos_max = 28671, n_tokens = 28672, size = 112.791 MiB, took 51.89 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127263 id_slot=0 id_task=19 p0=28672
+slot create_check: id  0 | task 19 | created context checkpoint 15 of 32 (pos_min = 30719, pos_max = 30719, n_tokens = 30720, size = 112.807 MiB, took 18.41 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127267 id_slot=0 id_task=19 p0=30720
+slot create_check: id  0 | task 19 | created context checkpoint 16 of 32 (pos_min = 32767, pos_max = 32767, n_tokens = 32768, size = 112.822 MiB, took 16.69 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127271 id_slot=0 id_task=19 p0=32768
+slot create_check: id  0 | task 19 | created context checkpoint 17 of 32 (pos_min = 34815, pos_max = 34815, n_tokens = 34816, size = 112.838 MiB, took 25.01 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127275 id_slot=0 id_task=19 p0=34816
+slot create_check: id  0 | task 19 | created context checkpoint 18 of 32 (pos_min = 36863, pos_max = 36863, n_tokens = 36864, size = 112.853 MiB, took 31.24 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127278 id_slot=0 id_task=19 p0=36864
+slot create_check: id  0 | task 19 | created context checkpoint 19 of 32 (pos_min = 38911, pos_max = 38911, n_tokens = 38912, size = 112.869 MiB, took 26.42 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127282 id_slot=0 id_task=19 p0=38912
+slot create_check: id  0 | task 19 | created context checkpoint 20 of 32 (pos_min = 40959, pos_max = 40959, n_tokens = 40960, size = 112.885 MiB, took 32.80 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127286 id_slot=0 id_task=19 p0=40960
+slot create_check: id  0 | task 19 | created context checkpoint 21 of 32 (pos_min = 43007, pos_max = 43007, n_tokens = 43008, size = 112.900 MiB, took 37.17 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127290 id_slot=0 id_task=19 p0=43008
+slot create_check: id  0 | task 19 | created context checkpoint 22 of 32 (pos_min = 45055, pos_max = 45055, n_tokens = 45056, size = 112.916 MiB, took 43.60 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127293 id_slot=0 id_task=19 p0=45056
+slot create_check: id  0 | task 19 | created context checkpoint 23 of 32 (pos_min = 47103, pos_max = 47103, n_tokens = 47104, size = 112.932 MiB, took 47.31 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127297 id_slot=0 id_task=19 p0=47104
+slot create_check: id  0 | task 19 | created context checkpoint 24 of 32 (pos_min = 49151, pos_max = 49151, n_tokens = 49152, size = 112.947 MiB, took 39.63 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127301 id_slot=0 id_task=19 p0=49152
+slot create_check: id  0 | task 19 | created context checkpoint 25 of 32 (pos_min = 51199, pos_max = 51199, n_tokens = 51200, size = 112.963 MiB, took 38.53 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127305 id_slot=0 id_task=19 p0=51200
+slot create_check: id  0 | task 19 | created context checkpoint 26 of 32 (pos_min = 53247, pos_max = 53247, n_tokens = 53248, size = 112.978 MiB, took 50.63 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127308 id_slot=0 id_task=19 p0=53248
+slot create_check: id  0 | task 19 | created context checkpoint 27 of 32 (pos_min = 55295, pos_max = 55295, n_tokens = 55296, size = 112.994 MiB, took 127.59 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127312 id_slot=0 id_task=19 p0=55296
+slot create_check: id  0 | task 19 | created context checkpoint 28 of 32 (pos_min = 57343, pos_max = 57343, n_tokens = 57344, size = 113.010 MiB, took 17.75 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127316 id_slot=0 id_task=19 p0=57344
+slot create_check: id  0 | task 19 | created context checkpoint 29 of 32 (pos_min = 59391, pos_max = 59391, n_tokens = 59392, size = 113.025 MiB, took 18.60 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127320 id_slot=0 id_task=19 p0=59392
+slot create_check: id  0 | task 19 | created context checkpoint 30 of 32 (pos_min = 61439, pos_max = 61439, n_tokens = 61440, size = 113.041 MiB, took 27.01 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127324 id_slot=0 id_task=19 p0=61440
+slot create_check: id  0 | task 19 | created context checkpoint 31 of 32 (pos_min = 63487, pos_max = 63487, n_tokens = 63488, size = 113.057 MiB, took 21.24 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127328 id_slot=0 id_task=19 p0=63488
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 65535, pos_max = 65535, n_tokens = 65536, size = 113.072 MiB, took 423.27 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127332 id_slot=0 id_task=19 p0=65536
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 4095, pos_max = 4095, n_tokens = 4096, size = 112.603 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 67583, pos_max = 67583, n_tokens = 67584, size = 113.088 MiB, took 11.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127336 id_slot=0 id_task=19 p0=67584
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 112.635 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 69631, pos_max = 69631, n_tokens = 69632, size = 113.103 MiB, took 11.06 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127340 id_slot=0 id_task=19 p0=69632
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 12287, pos_max = 12287, n_tokens = 12288, size = 112.666 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 71679, pos_max = 71679, n_tokens = 71680, size = 113.119 MiB, took 11.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127344 id_slot=0 id_task=19 p0=71680
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 16383, pos_max = 16383, n_tokens = 16384, size = 112.697 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 73727, pos_max = 73727, n_tokens = 73728, size = 113.135 MiB, took 11.23 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127348 id_slot=0 id_task=19 p0=73728
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 20479, pos_max = 20479, n_tokens = 20480, size = 112.728 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 75775, pos_max = 75775, n_tokens = 75776, size = 113.150 MiB, took 11.03 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127352 id_slot=0 id_task=19 p0=75776
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 24575, pos_max = 24575, n_tokens = 24576, size = 112.760 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 77823, pos_max = 77823, n_tokens = 77824, size = 113.166 MiB, took 10.76 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127356 id_slot=0 id_task=19 p0=77824
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 28671, pos_max = 28671, n_tokens = 28672, size = 112.791 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 79871, pos_max = 79871, n_tokens = 79872, size = 113.182 MiB, took 10.98 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127360 id_slot=0 id_task=19 p0=79872
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 32767, pos_max = 32767, n_tokens = 32768, size = 112.822 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 81919, pos_max = 81919, n_tokens = 81920, size = 113.197 MiB, took 11.15 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127363 id_slot=0 id_task=19 p0=81920
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 36863, pos_max = 36863, n_tokens = 36864, size = 112.853 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 83967, pos_max = 83967, n_tokens = 83968, size = 113.213 MiB, took 10.80 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127367 id_slot=0 id_task=19 p0=83968
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 40959, pos_max = 40959, n_tokens = 40960, size = 112.885 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 86015, pos_max = 86015, n_tokens = 86016, size = 113.228 MiB, took 10.72 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127371 id_slot=0 id_task=19 p0=86016
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 45055, pos_max = 45055, n_tokens = 45056, size = 112.916 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 88063, pos_max = 88063, n_tokens = 88064, size = 113.244 MiB, took 11.16 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127375 id_slot=0 id_task=19 p0=88064
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 49151, pos_max = 49151, n_tokens = 49152, size = 112.947 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 90111, pos_max = 90111, n_tokens = 90112, size = 113.260 MiB, took 11.05 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127379 id_slot=0 id_task=19 p0=90112
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 53247, pos_max = 53247, n_tokens = 53248, size = 112.978 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 92159, pos_max = 92159, n_tokens = 92160, size = 113.275 MiB, took 11.09 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127383 id_slot=0 id_task=19 p0=92160
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 57343, pos_max = 57343, n_tokens = 57344, size = 113.010 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 94207, pos_max = 94207, n_tokens = 94208, size = 113.291 MiB, took 10.97 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127387 id_slot=0 id_task=19 p0=94208
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 61439, pos_max = 61439, n_tokens = 61440, size = 113.041 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 96255, pos_max = 96255, n_tokens = 96256, size = 113.307 MiB, took 12.16 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127391 id_slot=0 id_task=19 p0=96256
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 65535, pos_max = 65535, n_tokens = 65536, size = 113.072 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 98303, pos_max = 98303, n_tokens = 98304, size = 113.322 MiB, took 12.31 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127395 id_slot=0 id_task=19 p0=98304
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 69631, pos_max = 69631, n_tokens = 69632, size = 113.103 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 100351, pos_max = 100351, n_tokens = 100352, size = 113.338 MiB, took 11.81 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127399 id_slot=0 id_task=19 p0=100352
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 73727, pos_max = 73727, n_tokens = 73728, size = 113.135 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 102399, pos_max = 102399, n_tokens = 102400, size = 113.353 MiB, took 11.53 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127403 id_slot=0 id_task=19 p0=102400
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 77823, pos_max = 77823, n_tokens = 77824, size = 113.166 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 104447, pos_max = 104447, n_tokens = 104448, size = 113.369 MiB, took 10.45 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127407 id_slot=0 id_task=19 p0=104448
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 81919, pos_max = 81919, n_tokens = 81920, size = 113.197 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 106495, pos_max = 106495, n_tokens = 106496, size = 113.385 MiB, took 11.68 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127411 id_slot=0 id_task=19 p0=106496
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 86015, pos_max = 86015, n_tokens = 86016, size = 113.228 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 108543, pos_max = 108543, n_tokens = 108544, size = 113.400 MiB, took 11.45 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127415 id_slot=0 id_task=19 p0=108544
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 90111, pos_max = 90111, n_tokens = 90112, size = 113.260 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 110591, pos_max = 110591, n_tokens = 110592, size = 113.416 MiB, took 11.09 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127419 id_slot=0 id_task=19 p0=110592
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 94207, pos_max = 94207, n_tokens = 94208, size = 113.291 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 112639, pos_max = 112639, n_tokens = 112640, size = 113.432 MiB, took 11.18 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127423 id_slot=0 id_task=19 p0=112640
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 98303, pos_max = 98303, n_tokens = 98304, size = 113.322 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 114687, pos_max = 114687, n_tokens = 114688, size = 113.447 MiB, took 11.31 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127427 id_slot=0 id_task=19 p0=114688
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 102399, pos_max = 102399, n_tokens = 102400, size = 113.353 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 116735, pos_max = 116735, n_tokens = 116736, size = 113.463 MiB, took 11.50 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127431 id_slot=0 id_task=19 p0=116736
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 106495, pos_max = 106495, n_tokens = 106496, size = 113.385 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 118783, pos_max = 118783, n_tokens = 118784, size = 113.478 MiB, took 11.20 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127435 id_slot=0 id_task=19 p0=118784
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 110591, pos_max = 110591, n_tokens = 110592, size = 113.416 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 120831, pos_max = 120831, n_tokens = 120832, size = 113.494 MiB, took 11.16 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127439 id_slot=0 id_task=19 p0=120832
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 114687, pos_max = 114687, n_tokens = 114688, size = 113.447 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 122879, pos_max = 122879, n_tokens = 122880, size = 113.510 MiB, took 11.33 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127443 id_slot=0 id_task=19 p0=122880
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 118783, pos_max = 118783, n_tokens = 118784, size = 113.478 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 124927, pos_max = 124927, n_tokens = 124928, size = 113.525 MiB, took 12.15 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127447 id_slot=0 id_task=19 p0=124928
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 122879, pos_max = 122879, n_tokens = 122880, size = 113.510 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 126975, pos_max = 126975, n_tokens = 126976, size = 113.541 MiB, took 11.56 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127452 id_slot=0 id_task=19 p0=126976
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 124927, pos_max = 124927, n_tokens = 124928, size = 113.525 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 129023, pos_max = 129023, n_tokens = 129024, size = 113.557 MiB, took 11.88 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127456 id_slot=0 id_task=19 p0=129024
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 126975, pos_max = 126975, n_tokens = 126976, size = 113.541 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 131071, pos_max = 131071, n_tokens = 131072, size = 113.572 MiB, took 12.31 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127460 id_slot=0 id_task=19 p0=131072
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 6143, pos_max = 6143, n_tokens = 6144, size = 112.619 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 133119, pos_max = 133119, n_tokens = 133120, size = 113.588 MiB, took 219.88 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127464 id_slot=0 id_task=19 p0=133120
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 131071, pos_max = 131071, n_tokens = 131072, size = 113.572 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 135167, pos_max = 135167, n_tokens = 135168, size = 113.603 MiB, took 11.19 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127468 id_slot=0 id_task=19 p0=135168
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 133119, pos_max = 133119, n_tokens = 133120, size = 113.588 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 137215, pos_max = 137215, n_tokens = 137216, size = 113.619 MiB, took 11.24 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127472 id_slot=0 id_task=19 p0=137216
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 135167, pos_max = 135167, n_tokens = 135168, size = 113.603 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 139263, pos_max = 139263, n_tokens = 139264, size = 113.635 MiB, took 11.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127477 id_slot=0 id_task=19 p0=139264
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 14335, pos_max = 14335, n_tokens = 14336, size = 112.682 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 141311, pos_max = 141311, n_tokens = 141312, size = 113.650 MiB, took 188.91 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127481 id_slot=0 id_task=19 p0=141312
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 139263, pos_max = 139263, n_tokens = 139264, size = 113.635 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 143359, pos_max = 143359, n_tokens = 143360, size = 113.666 MiB, took 11.22 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127485 id_slot=0 id_task=19 p0=143360
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 141311, pos_max = 141311, n_tokens = 141312, size = 113.650 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 145407, pos_max = 145407, n_tokens = 145408, size = 113.682 MiB, took 12.57 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127489 id_slot=0 id_task=19 p0=145408
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 143359, pos_max = 143359, n_tokens = 143360, size = 113.666 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 147455, pos_max = 147455, n_tokens = 147456, size = 113.697 MiB, took 12.63 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127494 id_slot=0 id_task=19 p0=147456
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 22527, pos_max = 22527, n_tokens = 22528, size = 112.744 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 149503, pos_max = 149503, n_tokens = 149504, size = 113.713 MiB, took 11.94 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127498 id_slot=0 id_task=19 p0=149504
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 147455, pos_max = 147455, n_tokens = 147456, size = 113.697 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 151551, pos_max = 151551, n_tokens = 151552, size = 113.728 MiB, took 12.07 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127502 id_slot=0 id_task=19 p0=151552
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 149503, pos_max = 149503, n_tokens = 149504, size = 113.713 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 153599, pos_max = 153599, n_tokens = 153600, size = 113.744 MiB, took 12.11 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127507 id_slot=0 id_task=19 p0=153600
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 151551, pos_max = 151551, n_tokens = 151552, size = 113.728 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 155647, pos_max = 155647, n_tokens = 155648, size = 113.760 MiB, took 11.64 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127511 id_slot=0 id_task=19 p0=155648
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 30719, pos_max = 30719, n_tokens = 30720, size = 112.807 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 157695, pos_max = 157695, n_tokens = 157696, size = 113.775 MiB, took 11.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127515 id_slot=0 id_task=19 p0=157696
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 155647, pos_max = 155647, n_tokens = 155648, size = 113.760 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 159743, pos_max = 159743, n_tokens = 159744, size = 113.791 MiB, took 11.77 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127519 id_slot=0 id_task=19 p0=159744
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 157695, pos_max = 157695, n_tokens = 157696, size = 113.775 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 161791, pos_max = 161791, n_tokens = 161792, size = 113.807 MiB, took 11.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127523 id_slot=0 id_task=19 p0=161792
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 159743, pos_max = 159743, n_tokens = 159744, size = 113.791 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 163839, pos_max = 163839, n_tokens = 163840, size = 113.822 MiB, took 12.13 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127528 id_slot=0 id_task=19 p0=163840
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 38911, pos_max = 38911, n_tokens = 38912, size = 112.869 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 165887, pos_max = 165887, n_tokens = 165888, size = 113.838 MiB, took 11.51 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127532 id_slot=0 id_task=19 p0=165888
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 163839, pos_max = 163839, n_tokens = 163840, size = 113.822 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 167935, pos_max = 167935, n_tokens = 167936, size = 113.853 MiB, took 12.12 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127536 id_slot=0 id_task=19 p0=167936
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 165887, pos_max = 165887, n_tokens = 165888, size = 113.838 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 169983, pos_max = 169983, n_tokens = 169984, size = 113.869 MiB, took 13.32 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127541 id_slot=0 id_task=19 p0=169984
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 167935, pos_max = 167935, n_tokens = 167936, size = 113.853 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 172031, pos_max = 172031, n_tokens = 172032, size = 113.885 MiB, took 11.82 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127545 id_slot=0 id_task=19 p0=172032
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 47103, pos_max = 47103, n_tokens = 47104, size = 112.932 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 174079, pos_max = 174079, n_tokens = 174080, size = 113.900 MiB, took 11.53 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127549 id_slot=0 id_task=19 p0=174080
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 172031, pos_max = 172031, n_tokens = 172032, size = 113.885 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 176127, pos_max = 176127, n_tokens = 176128, size = 113.916 MiB, took 11.95 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127554 id_slot=0 id_task=19 p0=176128
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 174079, pos_max = 174079, n_tokens = 174080, size = 113.900 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 178175, pos_max = 178175, n_tokens = 178176, size = 113.932 MiB, took 11.77 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127558 id_slot=0 id_task=19 p0=178176
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 176127, pos_max = 176127, n_tokens = 176128, size = 113.916 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 180223, pos_max = 180223, n_tokens = 180224, size = 113.947 MiB, took 12.56 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127562 id_slot=0 id_task=19 p0=180224
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 55295, pos_max = 55295, n_tokens = 55296, size = 112.994 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 182271, pos_max = 182271, n_tokens = 182272, size = 113.963 MiB, took 12.20 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127567 id_slot=0 id_task=19 p0=182272
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 180223, pos_max = 180223, n_tokens = 180224, size = 113.947 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 184319, pos_max = 184319, n_tokens = 184320, size = 113.978 MiB, took 12.46 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127571 id_slot=0 id_task=19 p0=184320
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 182271, pos_max = 182271, n_tokens = 182272, size = 113.963 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 186367, pos_max = 186367, n_tokens = 186368, size = 113.994 MiB, took 11.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127576 id_slot=0 id_task=19 p0=186368
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 184319, pos_max = 184319, n_tokens = 184320, size = 113.978 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 188415, pos_max = 188415, n_tokens = 188416, size = 114.010 MiB, took 12.31 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127580 id_slot=0 id_task=19 p0=188416
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 63487, pos_max = 63487, n_tokens = 63488, size = 113.057 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 190463, pos_max = 190463, n_tokens = 190464, size = 114.025 MiB, took 11.76 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127584 id_slot=0 id_task=19 p0=190464
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 188415, pos_max = 188415, n_tokens = 188416, size = 114.010 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 192511, pos_max = 192511, n_tokens = 192512, size = 114.041 MiB, took 11.68 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127589 id_slot=0 id_task=19 p0=192512
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 190463, pos_max = 190463, n_tokens = 190464, size = 114.025 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 194559, pos_max = 194559, n_tokens = 194560, size = 114.057 MiB, took 11.96 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127593 id_slot=0 id_task=19 p0=194560
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 192511, pos_max = 192511, n_tokens = 192512, size = 114.041 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 196607, pos_max = 196607, n_tokens = 196608, size = 114.072 MiB, took 12.22 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127598 id_slot=0 id_task=19 p0=196608
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 71679, pos_max = 71679, n_tokens = 71680, size = 113.119 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 198655, pos_max = 198655, n_tokens = 198656, size = 114.088 MiB, took 11.76 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127602 id_slot=0 id_task=19 p0=198656
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 196607, pos_max = 196607, n_tokens = 196608, size = 114.072 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 200703, pos_max = 200703, n_tokens = 200704, size = 114.103 MiB, took 11.39 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127606 id_slot=0 id_task=19 p0=200704
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 198655, pos_max = 198655, n_tokens = 198656, size = 114.088 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 202751, pos_max = 202751, n_tokens = 202752, size = 114.119 MiB, took 11.68 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127611 id_slot=0 id_task=19 p0=202752
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 200703, pos_max = 200703, n_tokens = 200704, size = 114.103 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 204799, pos_max = 204799, n_tokens = 204800, size = 114.135 MiB, took 12.81 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127615 id_slot=0 id_task=19 p0=204800
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 79871, pos_max = 79871, n_tokens = 79872, size = 113.182 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 206847, pos_max = 206847, n_tokens = 206848, size = 114.150 MiB, took 12.02 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127620 id_slot=0 id_task=19 p0=206848
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 204799, pos_max = 204799, n_tokens = 204800, size = 114.135 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 208895, pos_max = 208895, n_tokens = 208896, size = 114.166 MiB, took 11.96 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127624 id_slot=0 id_task=19 p0=208896
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 206847, pos_max = 206847, n_tokens = 206848, size = 114.150 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 210943, pos_max = 210943, n_tokens = 210944, size = 114.182 MiB, took 11.84 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127628 id_slot=0 id_task=19 p0=210944
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 208895, pos_max = 208895, n_tokens = 208896, size = 114.166 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 212991, pos_max = 212991, n_tokens = 212992, size = 114.197 MiB, took 11.95 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127633 id_slot=0 id_task=19 p0=212992
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 88063, pos_max = 88063, n_tokens = 88064, size = 113.244 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 215039, pos_max = 215039, n_tokens = 215040, size = 114.213 MiB, took 12.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127637 id_slot=0 id_task=19 p0=215040
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 212991, pos_max = 212991, n_tokens = 212992, size = 114.197 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 217087, pos_max = 217087, n_tokens = 217088, size = 114.228 MiB, took 11.93 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127642 id_slot=0 id_task=19 p0=217088
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 215039, pos_max = 215039, n_tokens = 215040, size = 114.213 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 219135, pos_max = 219135, n_tokens = 219136, size = 114.244 MiB, took 12.48 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127646 id_slot=0 id_task=19 p0=219136
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 217087, pos_max = 217087, n_tokens = 217088, size = 114.228 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 221183, pos_max = 221183, n_tokens = 221184, size = 114.260 MiB, took 12.01 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127651 id_slot=0 id_task=19 p0=221184
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 96255, pos_max = 96255, n_tokens = 96256, size = 113.307 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 223231, pos_max = 223231, n_tokens = 223232, size = 114.275 MiB, took 12.25 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127655 id_slot=0 id_task=19 p0=223232
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 221183, pos_max = 221183, n_tokens = 221184, size = 114.260 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 225279, pos_max = 225279, n_tokens = 225280, size = 114.291 MiB, took 12.21 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127660 id_slot=0 id_task=19 p0=225280
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 223231, pos_max = 223231, n_tokens = 223232, size = 114.275 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 227327, pos_max = 227327, n_tokens = 227328, size = 114.307 MiB, took 12.30 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127664 id_slot=0 id_task=19 p0=227328
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 225279, pos_max = 225279, n_tokens = 225280, size = 114.291 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 229375, pos_max = 229375, n_tokens = 229376, size = 114.322 MiB, took 11.96 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127669 id_slot=0 id_task=19 p0=229376
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 104447, pos_max = 104447, n_tokens = 104448, size = 113.369 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 231423, pos_max = 231423, n_tokens = 231424, size = 114.338 MiB, took 12.13 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127674 id_slot=0 id_task=19 p0=231424
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 229375, pos_max = 229375, n_tokens = 229376, size = 114.322 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 233471, pos_max = 233471, n_tokens = 233472, size = 114.353 MiB, took 11.73 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127678 id_slot=0 id_task=19 p0=233472
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 231423, pos_max = 231423, n_tokens = 231424, size = 114.338 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 235519, pos_max = 235519, n_tokens = 235520, size = 114.369 MiB, took 12.65 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127683 id_slot=0 id_task=19 p0=235520
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 233471, pos_max = 233471, n_tokens = 233472, size = 114.353 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 237567, pos_max = 237567, n_tokens = 237568, size = 114.385 MiB, took 12.59 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127688 id_slot=0 id_task=19 p0=237568
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 112639, pos_max = 112639, n_tokens = 112640, size = 113.432 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 239615, pos_max = 239615, n_tokens = 239616, size = 114.400 MiB, took 12.11 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127692 id_slot=0 id_task=19 p0=239616
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 237567, pos_max = 237567, n_tokens = 237568, size = 114.385 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 241663, pos_max = 241663, n_tokens = 241664, size = 114.416 MiB, took 12.26 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127697 id_slot=0 id_task=19 p0=241664
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 239615, pos_max = 239615, n_tokens = 239616, size = 114.400 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 243711, pos_max = 243711, n_tokens = 243712, size = 114.432 MiB, took 12.33 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127701 id_slot=0 id_task=19 p0=243712
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 241663, pos_max = 241663, n_tokens = 241664, size = 114.416 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 245759, pos_max = 245759, n_tokens = 245760, size = 114.447 MiB, took 12.75 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127706 id_slot=0 id_task=19 p0=245760
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 243711, pos_max = 243711, n_tokens = 243712, size = 114.432 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 247807, pos_max = 247807, n_tokens = 247808, size = 114.463 MiB, took 11.88 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127711 id_slot=0 id_task=19 p0=247808
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 245759, pos_max = 245759, n_tokens = 245760, size = 114.447 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 249855, pos_max = 249855, n_tokens = 249856, size = 114.478 MiB, took 11.90 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127715 id_slot=0 id_task=19 p0=249856
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 247807, pos_max = 247807, n_tokens = 247808, size = 114.463 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 251903, pos_max = 251903, n_tokens = 251904, size = 114.494 MiB, took 12.24 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127720 id_slot=0 id_task=19 p0=251904
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 249855, pos_max = 249855, n_tokens = 249856, size = 114.478 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 253951, pos_max = 253951, n_tokens = 253952, size = 114.510 MiB, took 11.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127725 id_slot=0 id_task=19 p0=253952
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 116735, pos_max = 116735, n_tokens = 116736, size = 113.463 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 254858, pos_max = 254858, n_tokens = 254859, size = 114.517 MiB, took 14.17 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127727 id_slot=0 id_task=19 p0=254859
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 253951, pos_max = 253951, n_tokens = 253952, size = 114.510 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 254864, pos_max = 254864, n_tokens = 254865, size = 114.517 MiB, took 11.12 ms)
+slot print_timing: id  0 | task 19 | 
+prompt eval time =  520277.45 ms / 254864 tokens (    2.04 ms per token,   489.86 tokens per second)
+       eval time =    3417.63 ms /   102 tokens (   33.51 ms per token,    29.85 tokens per second)
+      total time =  523695.08 ms / 254966 tokens
+INFO [      log_server_request] request | tid="140220733181952" timestamp=1789127730 remote_addr="127.0.0.1" remote_port=44980 status=200 method="POST" path="/v1/chat/completions" params={}
+slot create_check: id  0 | task 19 | erasing old context checkpoint (pos_min = 254858, pos_max = 254858, n_tokens = 254859, size = 114.517 MiB)
+slot create_check: id  0 | task 19 | created context checkpoint 32 of 32 (pos_min = 254964, pos_max = 254964, n_tokens = 254965, size = 114.517 MiB, took 11.94 ms)
+INFO [           release_slots] slot released | tid="140231455662080" timestamp=1789127730 id_slot=0 id_task=19 n_ctx=262144 n_past=254965 n_system_tokens=0 n_cache_tokens=254965 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140231455662080" timestamp=1789127730
+======== Prompt cache: cache size: 254965, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.49, cache_ram_similarity: 0.50
+updating prompt cache
+ - saving prompt with length 254965, total state size = 3289.130 MiB
+prompt cache save took 23453.77 ms
+ - looking for better prompt, base f_keep = 0.491, sim = 0.491, n_keep = 0, n_discarded_prompt = 0
+ - cache state: 1 prompts, 6923.548 MiB (limits: 512.000 MiB, 0 tokens, 18854 est)
+   - prompt 0x55af74bab030:  254965 tokens,       0 discarded, checkpoints: 32,  6923.548 MiB
+prompt cache load took 57.47 ms
+INFO [   launch_slot_with_task] slot is processing task | tid="140231455662080" timestamp=1789127755 id_slot=0 id_task=247
+======== Cache: cache_size = 254965, n_past =  125128, n_past_prompt = 125128
+cache :  reviewed quarterly.
+
+Facility note 6732: the door maintenance is reviewed quarterly.
+
+Facility note 6733:
+prompt:  reviewed quarterly.
+
+Project Aurora maintains a private access code for internal audits. The code is 7391. It is listed here for completeness
+slot apply_checkp: id  0 | task 247 | n_past = 125128, slot.prompt.tokens.size() = 254965, seq_id = 0, pos_min = 254964
+slot apply_checkp: id  0 | task 247 | restored context checkpoint took  266.27 ms (pos_min = 120831, pos_max = 120831, n_tokens = 120832, n_past = 120832, size = 113.494 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 129023, pos_max = 129023, size = 113.557 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 137215, pos_max = 137215, size = 113.619 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 145407, pos_max = 145407, size = 113.682 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 153599, pos_max = 153599, size = 113.744 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 161791, pos_max = 161791, size = 113.807 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 169983, pos_max = 169983, size = 113.869 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 178175, pos_max = 178175, size = 113.932 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 186367, pos_max = 186367, size = 113.994 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 194559, pos_max = 194559, size = 114.057 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 202751, pos_max = 202751, size = 114.119 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 210943, pos_max = 210943, size = 114.182 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 219135, pos_max = 219135, size = 114.244 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 227327, pos_max = 227327, size = 114.307 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 235519, pos_max = 235519, size = 114.369 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 251903, pos_max = 251903, size = 114.494 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 254864, pos_max = 254864, size = 114.517 MiB)
+slot apply_checkp: id  0 | task 247 | erased invalidated context checkpoint (pos_min = 254964, pos_max = 254964, size = 114.517 MiB)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127756 id_slot=0 id_task=247 p0=120832
+slot create_check: id  0 | task 247 | created context checkpoint 16 of 32 (pos_min = 122879, pos_max = 122879, n_tokens = 122880, size = 113.510 MiB, took 11.05 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127760 id_slot=0 id_task=247 p0=122880
+slot create_check: id  0 | task 247 | created context checkpoint 17 of 32 (pos_min = 124927, pos_max = 124927, n_tokens = 124928, size = 113.525 MiB, took 17.37 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127764 id_slot=0 id_task=247 p0=124928
+slot create_check: id  0 | task 247 | created context checkpoint 18 of 32 (pos_min = 126975, pos_max = 126975, n_tokens = 126976, size = 113.541 MiB, took 466.02 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127768 id_slot=0 id_task=247 p0=126976
+slot create_check: id  0 | task 247 | created context checkpoint 19 of 32 (pos_min = 129023, pos_max = 129023, n_tokens = 129024, size = 113.557 MiB, took 458.69 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127773 id_slot=0 id_task=247 p0=129024
+slot create_check: id  0 | task 247 | created context checkpoint 20 of 32 (pos_min = 131071, pos_max = 131071, n_tokens = 131072, size = 113.572 MiB, took 204.75 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127778 id_slot=0 id_task=247 p0=131072
+slot create_check: id  0 | task 247 | created context checkpoint 21 of 32 (pos_min = 133119, pos_max = 133119, n_tokens = 133120, size = 113.588 MiB, took 202.30 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127782 id_slot=0 id_task=247 p0=133120
+slot create_check: id  0 | task 247 | created context checkpoint 22 of 32 (pos_min = 135167, pos_max = 135167, n_tokens = 135168, size = 113.603 MiB, took 207.64 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127786 id_slot=0 id_task=247 p0=135168
+slot create_check: id  0 | task 247 | created context checkpoint 23 of 32 (pos_min = 137215, pos_max = 137215, n_tokens = 137216, size = 113.619 MiB, took 759.74 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127791 id_slot=0 id_task=247 p0=137216
+slot create_check: id  0 | task 247 | created context checkpoint 24 of 32 (pos_min = 139263, pos_max = 139263, n_tokens = 139264, size = 113.635 MiB, took 26.42 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127796 id_slot=0 id_task=247 p0=139264
+slot create_check: id  0 | task 247 | created context checkpoint 25 of 32 (pos_min = 141311, pos_max = 141311, n_tokens = 141312, size = 113.650 MiB, took 28.19 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127800 id_slot=0 id_task=247 p0=141312
+slot create_check: id  0 | task 247 | created context checkpoint 26 of 32 (pos_min = 143359, pos_max = 143359, n_tokens = 143360, size = 113.666 MiB, took 10.90 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127805 id_slot=0 id_task=247 p0=143360
+slot create_check: id  0 | task 247 | created context checkpoint 27 of 32 (pos_min = 145407, pos_max = 145407, n_tokens = 145408, size = 113.682 MiB, took 11.26 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127809 id_slot=0 id_task=247 p0=145408
+slot create_check: id  0 | task 247 | created context checkpoint 28 of 32 (pos_min = 147455, pos_max = 147455, n_tokens = 147456, size = 113.697 MiB, took 11.55 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127813 id_slot=0 id_task=247 p0=147456
+slot create_check: id  0 | task 247 | created context checkpoint 29 of 32 (pos_min = 149503, pos_max = 149503, n_tokens = 149504, size = 113.713 MiB, took 11.56 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127817 id_slot=0 id_task=247 p0=149504
+slot create_check: id  0 | task 247 | created context checkpoint 30 of 32 (pos_min = 151551, pos_max = 151551, n_tokens = 151552, size = 113.728 MiB, took 13.75 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127822 id_slot=0 id_task=247 p0=151552
+slot create_check: id  0 | task 247 | created context checkpoint 31 of 32 (pos_min = 153599, pos_max = 153599, n_tokens = 153600, size = 113.744 MiB, took 11.26 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127826 id_slot=0 id_task=247 p0=153600
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 155647, pos_max = 155647, n_tokens = 155648, size = 113.760 MiB, took 16.51 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127830 id_slot=0 id_task=247 p0=155648
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 122879, pos_max = 122879, n_tokens = 122880, size = 113.510 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 157695, pos_max = 157695, n_tokens = 157696, size = 113.775 MiB, took 12.31 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127834 id_slot=0 id_task=247 p0=157696
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 126975, pos_max = 126975, n_tokens = 126976, size = 113.541 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 159743, pos_max = 159743, n_tokens = 159744, size = 113.791 MiB, took 19.37 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127839 id_slot=0 id_task=247 p0=159744
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 131071, pos_max = 131071, n_tokens = 131072, size = 113.572 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 161791, pos_max = 161791, n_tokens = 161792, size = 113.807 MiB, took 11.71 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127844 id_slot=0 id_task=247 p0=161792
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 135167, pos_max = 135167, n_tokens = 135168, size = 113.603 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 163839, pos_max = 163839, n_tokens = 163840, size = 113.822 MiB, took 11.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127848 id_slot=0 id_task=247 p0=163840
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 139263, pos_max = 139263, n_tokens = 139264, size = 113.635 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 165887, pos_max = 165887, n_tokens = 165888, size = 113.838 MiB, took 15.13 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127852 id_slot=0 id_task=247 p0=165888
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 143359, pos_max = 143359, n_tokens = 143360, size = 113.666 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 167935, pos_max = 167935, n_tokens = 167936, size = 113.853 MiB, took 11.82 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127857 id_slot=0 id_task=247 p0=167936
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 147455, pos_max = 147455, n_tokens = 147456, size = 113.697 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 169983, pos_max = 169983, n_tokens = 169984, size = 113.869 MiB, took 12.43 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127861 id_slot=0 id_task=247 p0=169984
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 151551, pos_max = 151551, n_tokens = 151552, size = 113.728 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 172031, pos_max = 172031, n_tokens = 172032, size = 113.885 MiB, took 12.19 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127865 id_slot=0 id_task=247 p0=172032
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 155647, pos_max = 155647, n_tokens = 155648, size = 113.760 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 174079, pos_max = 174079, n_tokens = 174080, size = 113.900 MiB, took 13.10 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127870 id_slot=0 id_task=247 p0=174080
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 159743, pos_max = 159743, n_tokens = 159744, size = 113.791 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 176127, pos_max = 176127, n_tokens = 176128, size = 113.916 MiB, took 12.89 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127874 id_slot=0 id_task=247 p0=176128
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 163839, pos_max = 163839, n_tokens = 163840, size = 113.822 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 178175, pos_max = 178175, n_tokens = 178176, size = 113.932 MiB, took 11.81 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127879 id_slot=0 id_task=247 p0=178176
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 167935, pos_max = 167935, n_tokens = 167936, size = 113.853 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 180223, pos_max = 180223, n_tokens = 180224, size = 113.947 MiB, took 11.80 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127883 id_slot=0 id_task=247 p0=180224
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 172031, pos_max = 172031, n_tokens = 172032, size = 113.885 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 182271, pos_max = 182271, n_tokens = 182272, size = 113.963 MiB, took 13.98 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127887 id_slot=0 id_task=247 p0=182272
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 176127, pos_max = 176127, n_tokens = 176128, size = 113.916 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 184319, pos_max = 184319, n_tokens = 184320, size = 113.978 MiB, took 12.73 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127892 id_slot=0 id_task=247 p0=184320
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 180223, pos_max = 180223, n_tokens = 180224, size = 113.947 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 186367, pos_max = 186367, n_tokens = 186368, size = 113.994 MiB, took 11.87 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127896 id_slot=0 id_task=247 p0=186368
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 184319, pos_max = 184319, n_tokens = 184320, size = 113.978 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 188415, pos_max = 188415, n_tokens = 188416, size = 114.010 MiB, took 11.73 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127900 id_slot=0 id_task=247 p0=188416
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 186367, pos_max = 186367, n_tokens = 186368, size = 113.994 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 190463, pos_max = 190463, n_tokens = 190464, size = 114.025 MiB, took 11.67 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127905 id_slot=0 id_task=247 p0=190464
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 188415, pos_max = 188415, n_tokens = 188416, size = 114.010 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 192511, pos_max = 192511, n_tokens = 192512, size = 114.041 MiB, took 11.84 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127909 id_slot=0 id_task=247 p0=192512
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 124927, pos_max = 124927, n_tokens = 124928, size = 113.525 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 194559, pos_max = 194559, n_tokens = 194560, size = 114.057 MiB, took 17.41 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127914 id_slot=0 id_task=247 p0=194560
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 192511, pos_max = 192511, n_tokens = 192512, size = 114.041 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 196607, pos_max = 196607, n_tokens = 196608, size = 114.072 MiB, took 12.14 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127918 id_slot=0 id_task=247 p0=196608
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 194559, pos_max = 194559, n_tokens = 194560, size = 114.057 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 198655, pos_max = 198655, n_tokens = 198656, size = 114.088 MiB, took 12.48 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127923 id_slot=0 id_task=247 p0=198656
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 196607, pos_max = 196607, n_tokens = 196608, size = 114.072 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 200703, pos_max = 200703, n_tokens = 200704, size = 114.103 MiB, took 11.88 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127927 id_slot=0 id_task=247 p0=200704
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 133119, pos_max = 133119, n_tokens = 133120, size = 113.588 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 202751, pos_max = 202751, n_tokens = 202752, size = 114.119 MiB, took 18.27 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127932 id_slot=0 id_task=247 p0=202752
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 200703, pos_max = 200703, n_tokens = 200704, size = 114.103 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 204799, pos_max = 204799, n_tokens = 204800, size = 114.135 MiB, took 14.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127936 id_slot=0 id_task=247 p0=204800
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 202751, pos_max = 202751, n_tokens = 202752, size = 114.119 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 206847, pos_max = 206847, n_tokens = 206848, size = 114.150 MiB, took 12.41 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127941 id_slot=0 id_task=247 p0=206848
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 204799, pos_max = 204799, n_tokens = 204800, size = 114.135 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 208895, pos_max = 208895, n_tokens = 208896, size = 114.166 MiB, took 12.56 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127946 id_slot=0 id_task=247 p0=208896
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 141311, pos_max = 141311, n_tokens = 141312, size = 113.650 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 210943, pos_max = 210943, n_tokens = 210944, size = 114.182 MiB, took 21.70 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127950 id_slot=0 id_task=247 p0=210944
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 208895, pos_max = 208895, n_tokens = 208896, size = 114.166 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 212991, pos_max = 212991, n_tokens = 212992, size = 114.197 MiB, took 13.00 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127955 id_slot=0 id_task=247 p0=212992
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 210943, pos_max = 210943, n_tokens = 210944, size = 114.182 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 215039, pos_max = 215039, n_tokens = 215040, size = 114.213 MiB, took 12.93 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127960 id_slot=0 id_task=247 p0=215040
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 212991, pos_max = 212991, n_tokens = 212992, size = 114.197 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 217087, pos_max = 217087, n_tokens = 217088, size = 114.228 MiB, took 11.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127965 id_slot=0 id_task=247 p0=217088
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 149503, pos_max = 149503, n_tokens = 149504, size = 113.713 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 219135, pos_max = 219135, n_tokens = 219136, size = 114.244 MiB, took 12.75 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127969 id_slot=0 id_task=247 p0=219136
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 217087, pos_max = 217087, n_tokens = 217088, size = 114.228 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 221183, pos_max = 221183, n_tokens = 221184, size = 114.260 MiB, took 12.20 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127974 id_slot=0 id_task=247 p0=221184
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 219135, pos_max = 219135, n_tokens = 219136, size = 114.244 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 223231, pos_max = 223231, n_tokens = 223232, size = 114.275 MiB, took 12.12 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127978 id_slot=0 id_task=247 p0=223232
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 221183, pos_max = 221183, n_tokens = 221184, size = 114.260 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 225279, pos_max = 225279, n_tokens = 225280, size = 114.291 MiB, took 12.14 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127983 id_slot=0 id_task=247 p0=225280
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 157695, pos_max = 157695, n_tokens = 157696, size = 113.775 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 227327, pos_max = 227327, n_tokens = 227328, size = 114.307 MiB, took 12.58 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127988 id_slot=0 id_task=247 p0=227328
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 225279, pos_max = 225279, n_tokens = 225280, size = 114.291 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 229375, pos_max = 229375, n_tokens = 229376, size = 114.322 MiB, took 12.12 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127992 id_slot=0 id_task=247 p0=229376
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 227327, pos_max = 227327, n_tokens = 227328, size = 114.307 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 231423, pos_max = 231423, n_tokens = 231424, size = 114.338 MiB, took 12.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789127997 id_slot=0 id_task=247 p0=231424
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 229375, pos_max = 229375, n_tokens = 229376, size = 114.322 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 233471, pos_max = 233471, n_tokens = 233472, size = 114.353 MiB, took 12.13 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128002 id_slot=0 id_task=247 p0=233472
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 165887, pos_max = 165887, n_tokens = 165888, size = 113.838 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 235519, pos_max = 235519, n_tokens = 235520, size = 114.369 MiB, took 22.11 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128006 id_slot=0 id_task=247 p0=235520
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 233471, pos_max = 233471, n_tokens = 233472, size = 114.353 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 237567, pos_max = 237567, n_tokens = 237568, size = 114.385 MiB, took 14.27 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128011 id_slot=0 id_task=247 p0=237568
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 235519, pos_max = 235519, n_tokens = 235520, size = 114.369 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 239615, pos_max = 239615, n_tokens = 239616, size = 114.400 MiB, took 13.01 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128016 id_slot=0 id_task=247 p0=239616
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 237567, pos_max = 237567, n_tokens = 237568, size = 114.385 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 241663, pos_max = 241663, n_tokens = 241664, size = 114.416 MiB, took 12.74 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128021 id_slot=0 id_task=247 p0=241664
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 174079, pos_max = 174079, n_tokens = 174080, size = 113.900 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 243711, pos_max = 243711, n_tokens = 243712, size = 114.432 MiB, took 18.23 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128025 id_slot=0 id_task=247 p0=243712
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 241663, pos_max = 241663, n_tokens = 241664, size = 114.416 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 245759, pos_max = 245759, n_tokens = 245760, size = 114.447 MiB, took 12.02 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128030 id_slot=0 id_task=247 p0=245760
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 243711, pos_max = 243711, n_tokens = 243712, size = 114.432 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 247807, pos_max = 247807, n_tokens = 247808, size = 114.463 MiB, took 12.86 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128035 id_slot=0 id_task=247 p0=247808
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 245759, pos_max = 245759, n_tokens = 245760, size = 114.447 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 249855, pos_max = 249855, n_tokens = 249856, size = 114.478 MiB, took 13.74 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128040 id_slot=0 id_task=247 p0=249856
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 247807, pos_max = 247807, n_tokens = 247808, size = 114.463 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 251903, pos_max = 251903, n_tokens = 251904, size = 114.494 MiB, took 12.34 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128044 id_slot=0 id_task=247 p0=251904
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 249855, pos_max = 249855, n_tokens = 249856, size = 114.478 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 253951, pos_max = 253951, n_tokens = 253952, size = 114.510 MiB, took 12.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128049 id_slot=0 id_task=247 p0=253952
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 251903, pos_max = 251903, n_tokens = 251904, size = 114.494 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 254858, pos_max = 254858, n_tokens = 254859, size = 114.517 MiB, took 12.23 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128051 id_slot=0 id_task=247 p0=254859
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 253951, pos_max = 253951, n_tokens = 253952, size = 114.510 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 254864, pos_max = 254864, n_tokens = 254865, size = 114.517 MiB, took 12.13 ms)
+slot print_timing: id  0 | task 247 | 
+prompt eval time =  296296.38 ms / 134032 tokens (    2.21 ms per token,   452.36 tokens per second)
+       eval time =    3809.01 ms /   108 tokens (   35.27 ms per token,    28.35 tokens per second)
+      total time =  300105.40 ms / 134140 tokens
+INFO [      log_server_request] request | tid="140220724789248" timestamp=1789128055 remote_addr="127.0.0.1" remote_port=47390 status=200 method="POST" path="/v1/chat/completions" params={}
+slot create_check: id  0 | task 247 | erasing old context checkpoint (pos_min = 254858, pos_max = 254858, n_tokens = 254859, size = 114.517 MiB)
+slot create_check: id  0 | task 247 | created context checkpoint 32 of 32 (pos_min = 254970, pos_max = 254970, n_tokens = 254971, size = 114.517 MiB, took 12.20 ms)
+INFO [           release_slots] slot released | tid="140231455662080" timestamp=1789128055 id_slot=0 id_task=247 n_ctx=262144 n_past=254971 n_system_tokens=0 n_cache_tokens=254971 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140231455662080" timestamp=1789128055
+======== Prompt cache: cache size: 254971, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.09, cache_ram_similarity: 0.50
+updating prompt cache
+ - saving prompt with length 254971, total state size = 3289.205 MiB
+prompt cache save took 9991.38 ms
+ - looking for better prompt, base f_keep = 0.095, sim = 0.095, n_keep = 0, n_discarded_prompt = 0
+ - cache size limit reached, removing oldest entry (size = 6923.548 MiB)
+ - cache state: 1 prompts, 6923.310 MiB (limits: 512.000 MiB, 0 tokens, 18855 est)
+   - prompt 0x55af74ba9290:  254971 tokens,       0 discarded, checkpoints: 32,  6923.310 MiB
+prompt cache load took 423.46 ms
+INFO [   launch_slot_with_task] slot is processing task | tid="140231455662080" timestamp=1789128066 id_slot=0 id_task=422
+======== Cache: cache_size = 254971, n_past =  24170, n_past_prompt = 24170
+cache : 5 checklist.
+
+Facility note 1347: the loading dock scheduling follows the 2025 checklist.
+
+Facility note
+prompt: 5 checklist.
+
+Project Aurora maintains a private access code for internal audits. The code is 7391. It is listed here for completeness
+slot apply_checkp: id  0 | task 422 | n_past = 24170, slot.prompt.tokens.size() = 254971, seq_id = 0, pos_min = 254970
+slot apply_checkp: id  0 | task 422 | restored context checkpoint took  27.79 ms (pos_min = 18431, pos_max = 18431, n_tokens = 18432, n_past = 18432, size = 112.713 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 26623, pos_max = 26623, size = 112.775 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 34815, pos_max = 34815, size = 112.838 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 43007, pos_max = 43007, size = 112.900 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 51199, pos_max = 51199, size = 112.963 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 59391, pos_max = 59391, size = 113.025 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 67583, pos_max = 67583, size = 113.088 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 75775, pos_max = 75775, size = 113.150 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 83967, pos_max = 83967, size = 113.213 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 92159, pos_max = 92159, size = 113.275 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 100351, pos_max = 100351, size = 113.338 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 108543, pos_max = 108543, size = 113.400 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 120831, pos_max = 120831, size = 113.494 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 129023, pos_max = 129023, size = 113.557 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 137215, pos_max = 137215, size = 113.619 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 145407, pos_max = 145407, size = 113.682 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 153599, pos_max = 153599, size = 113.744 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 161791, pos_max = 161791, size = 113.807 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 169983, pos_max = 169983, size = 113.869 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 178175, pos_max = 178175, size = 113.932 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 182271, pos_max = 182271, size = 113.963 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 190463, pos_max = 190463, size = 114.025 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 198655, pos_max = 198655, size = 114.088 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 206847, pos_max = 206847, size = 114.150 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 215039, pos_max = 215039, size = 114.213 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 223231, pos_max = 223231, size = 114.275 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 231423, pos_max = 231423, size = 114.338 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 239615, pos_max = 239615, size = 114.400 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 254864, pos_max = 254864, size = 114.517 MiB)
+slot apply_checkp: id  0 | task 422 | erased invalidated context checkpoint (pos_min = 254970, pos_max = 254970, size = 114.517 MiB)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128066 id_slot=0 id_task=422 p0=18432
+slot create_check: id  0 | task 422 | created context checkpoint 4 of 32 (pos_min = 20479, pos_max = 20479, n_tokens = 20480, size = 112.728 MiB, took 112.57 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128076 id_slot=0 id_task=422 p0=20480
+slot create_check: id  0 | task 422 | created context checkpoint 5 of 32 (pos_min = 22527, pos_max = 22527, n_tokens = 22528, size = 112.744 MiB, took 95.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128081 id_slot=0 id_task=422 p0=22528
+slot create_check: id  0 | task 422 | created context checkpoint 6 of 32 (pos_min = 24575, pos_max = 24575, n_tokens = 24576, size = 112.760 MiB, took 76.95 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128087 id_slot=0 id_task=422 p0=24576
+slot create_check: id  0 | task 422 | created context checkpoint 7 of 32 (pos_min = 26623, pos_max = 26623, n_tokens = 26624, size = 112.775 MiB, took 468.39 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128092 id_slot=0 id_task=422 p0=26624
+slot create_check: id  0 | task 422 | created context checkpoint 8 of 32 (pos_min = 28671, pos_max = 28671, n_tokens = 28672, size = 112.791 MiB, took 440.10 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128097 id_slot=0 id_task=422 p0=28672
+slot create_check: id  0 | task 422 | created context checkpoint 9 of 32 (pos_min = 30719, pos_max = 30719, n_tokens = 30720, size = 112.807 MiB, took 466.45 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128101 id_slot=0 id_task=422 p0=30720
+slot create_check: id  0 | task 422 | created context checkpoint 10 of 32 (pos_min = 32767, pos_max = 32767, n_tokens = 32768, size = 112.822 MiB, took 505.31 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128106 id_slot=0 id_task=422 p0=32768
+slot create_check: id  0 | task 422 | created context checkpoint 11 of 32 (pos_min = 34815, pos_max = 34815, n_tokens = 34816, size = 112.838 MiB, took 480.62 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128110 id_slot=0 id_task=422 p0=34816
+slot create_check: id  0 | task 422 | created context checkpoint 12 of 32 (pos_min = 36863, pos_max = 36863, n_tokens = 36864, size = 112.853 MiB, took 376.02 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128115 id_slot=0 id_task=422 p0=36864
+slot create_check: id  0 | task 422 | created context checkpoint 13 of 32 (pos_min = 38911, pos_max = 38911, n_tokens = 38912, size = 112.869 MiB, took 379.60 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128120 id_slot=0 id_task=422 p0=38912
+slot create_check: id  0 | task 422 | created context checkpoint 14 of 32 (pos_min = 40959, pos_max = 40959, n_tokens = 40960, size = 112.885 MiB, took 460.39 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128124 id_slot=0 id_task=422 p0=40960
+slot create_check: id  0 | task 422 | created context checkpoint 15 of 32 (pos_min = 43007, pos_max = 43007, n_tokens = 43008, size = 112.900 MiB, took 502.98 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128129 id_slot=0 id_task=422 p0=43008
+slot create_check: id  0 | task 422 | created context checkpoint 16 of 32 (pos_min = 45055, pos_max = 45055, n_tokens = 45056, size = 112.916 MiB, took 335.49 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128133 id_slot=0 id_task=422 p0=45056
+slot create_check: id  0 | task 422 | created context checkpoint 17 of 32 (pos_min = 47103, pos_max = 47103, n_tokens = 47104, size = 112.932 MiB, took 456.63 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128137 id_slot=0 id_task=422 p0=47104
+slot create_check: id  0 | task 422 | created context checkpoint 18 of 32 (pos_min = 49151, pos_max = 49151, n_tokens = 49152, size = 112.947 MiB, took 814.95 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128142 id_slot=0 id_task=422 p0=49152
+slot create_check: id  0 | task 422 | created context checkpoint 19 of 32 (pos_min = 51199, pos_max = 51199, n_tokens = 51200, size = 112.963 MiB, took 330.26 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128146 id_slot=0 id_task=422 p0=51200
+slot create_check: id  0 | task 422 | created context checkpoint 20 of 32 (pos_min = 53247, pos_max = 53247, n_tokens = 53248, size = 112.978 MiB, took 30.83 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128151 id_slot=0 id_task=422 p0=53248
+slot create_check: id  0 | task 422 | created context checkpoint 21 of 32 (pos_min = 55295, pos_max = 55295, n_tokens = 55296, size = 112.994 MiB, took 16.41 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128155 id_slot=0 id_task=422 p0=55296
+slot create_check: id  0 | task 422 | created context checkpoint 22 of 32 (pos_min = 57343, pos_max = 57343, n_tokens = 57344, size = 113.010 MiB, took 20.70 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128159 id_slot=0 id_task=422 p0=57344
+slot create_check: id  0 | task 422 | created context checkpoint 23 of 32 (pos_min = 59391, pos_max = 59391, n_tokens = 59392, size = 113.025 MiB, took 20.99 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128163 id_slot=0 id_task=422 p0=59392
+slot create_check: id  0 | task 422 | created context checkpoint 24 of 32 (pos_min = 61439, pos_max = 61439, n_tokens = 61440, size = 113.041 MiB, took 16.92 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128167 id_slot=0 id_task=422 p0=61440
+slot create_check: id  0 | task 422 | created context checkpoint 25 of 32 (pos_min = 63487, pos_max = 63487, n_tokens = 63488, size = 113.057 MiB, took 22.18 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128171 id_slot=0 id_task=422 p0=63488
+slot create_check: id  0 | task 422 | created context checkpoint 26 of 32 (pos_min = 65535, pos_max = 65535, n_tokens = 65536, size = 113.072 MiB, took 19.75 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128174 id_slot=0 id_task=422 p0=65536
+slot create_check: id  0 | task 422 | created context checkpoint 27 of 32 (pos_min = 67583, pos_max = 67583, n_tokens = 67584, size = 113.088 MiB, took 20.76 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128178 id_slot=0 id_task=422 p0=67584
+slot create_check: id  0 | task 422 | created context checkpoint 28 of 32 (pos_min = 69631, pos_max = 69631, n_tokens = 69632, size = 113.103 MiB, took 21.43 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128182 id_slot=0 id_task=422 p0=69632
+slot create_check: id  0 | task 422 | created context checkpoint 29 of 32 (pos_min = 71679, pos_max = 71679, n_tokens = 71680, size = 113.119 MiB, took 23.21 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128186 id_slot=0 id_task=422 p0=71680
+slot create_check: id  0 | task 422 | created context checkpoint 30 of 32 (pos_min = 73727, pos_max = 73727, n_tokens = 73728, size = 113.135 MiB, took 22.08 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128190 id_slot=0 id_task=422 p0=73728
+slot create_check: id  0 | task 422 | created context checkpoint 31 of 32 (pos_min = 75775, pos_max = 75775, n_tokens = 75776, size = 113.150 MiB, took 522.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128194 id_slot=0 id_task=422 p0=75776
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 77823, pos_max = 77823, n_tokens = 77824, size = 113.166 MiB, took 132.90 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128198 id_slot=0 id_task=422 p0=77824
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 20479, pos_max = 20479, n_tokens = 20480, size = 112.728 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 79871, pos_max = 79871, n_tokens = 79872, size = 113.182 MiB, took 11.06 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128202 id_slot=0 id_task=422 p0=79872
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 24575, pos_max = 24575, n_tokens = 24576, size = 112.760 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 81919, pos_max = 81919, n_tokens = 81920, size = 113.197 MiB, took 14.79 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128206 id_slot=0 id_task=422 p0=81920
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 28671, pos_max = 28671, n_tokens = 28672, size = 112.791 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 83967, pos_max = 83967, n_tokens = 83968, size = 113.213 MiB, took 14.02 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128210 id_slot=0 id_task=422 p0=83968
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 32767, pos_max = 32767, n_tokens = 32768, size = 112.822 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 86015, pos_max = 86015, n_tokens = 86016, size = 113.228 MiB, took 22.86 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128214 id_slot=0 id_task=422 p0=86016
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 36863, pos_max = 36863, n_tokens = 36864, size = 112.853 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 88063, pos_max = 88063, n_tokens = 88064, size = 113.244 MiB, took 11.74 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128218 id_slot=0 id_task=422 p0=88064
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 40959, pos_max = 40959, n_tokens = 40960, size = 112.885 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 90111, pos_max = 90111, n_tokens = 90112, size = 113.260 MiB, took 11.90 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128222 id_slot=0 id_task=422 p0=90112
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 45055, pos_max = 45055, n_tokens = 45056, size = 112.916 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 92159, pos_max = 92159, n_tokens = 92160, size = 113.275 MiB, took 11.36 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128226 id_slot=0 id_task=422 p0=92160
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 49151, pos_max = 49151, n_tokens = 49152, size = 112.947 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 94207, pos_max = 94207, n_tokens = 94208, size = 113.291 MiB, took 18.33 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128230 id_slot=0 id_task=422 p0=94208
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 53247, pos_max = 53247, n_tokens = 53248, size = 112.978 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 96255, pos_max = 96255, n_tokens = 96256, size = 113.307 MiB, took 25.52 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128234 id_slot=0 id_task=422 p0=96256
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 57343, pos_max = 57343, n_tokens = 57344, size = 113.010 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 98303, pos_max = 98303, n_tokens = 98304, size = 113.322 MiB, took 23.74 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128238 id_slot=0 id_task=422 p0=98304
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 61439, pos_max = 61439, n_tokens = 61440, size = 113.041 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 100351, pos_max = 100351, n_tokens = 100352, size = 113.338 MiB, took 16.57 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128242 id_slot=0 id_task=422 p0=100352
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 65535, pos_max = 65535, n_tokens = 65536, size = 113.072 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 102399, pos_max = 102399, n_tokens = 102400, size = 113.353 MiB, took 24.57 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128246 id_slot=0 id_task=422 p0=102400
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 69631, pos_max = 69631, n_tokens = 69632, size = 113.103 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 104447, pos_max = 104447, n_tokens = 104448, size = 113.369 MiB, took 32.62 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128250 id_slot=0 id_task=422 p0=104448
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 73727, pos_max = 73727, n_tokens = 73728, size = 113.135 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 106495, pos_max = 106495, n_tokens = 106496, size = 113.385 MiB, took 23.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128254 id_slot=0 id_task=422 p0=106496
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 77823, pos_max = 77823, n_tokens = 77824, size = 113.166 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 108543, pos_max = 108543, n_tokens = 108544, size = 113.400 MiB, took 24.38 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128258 id_slot=0 id_task=422 p0=108544
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 81919, pos_max = 81919, n_tokens = 81920, size = 113.197 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 110591, pos_max = 110591, n_tokens = 110592, size = 113.416 MiB, took 11.77 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128262 id_slot=0 id_task=422 p0=110592
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 86015, pos_max = 86015, n_tokens = 86016, size = 113.228 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 112639, pos_max = 112639, n_tokens = 112640, size = 113.432 MiB, took 16.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128266 id_slot=0 id_task=422 p0=112640
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 90111, pos_max = 90111, n_tokens = 90112, size = 113.260 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 114687, pos_max = 114687, n_tokens = 114688, size = 113.447 MiB, took 13.43 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128270 id_slot=0 id_task=422 p0=114688
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 94207, pos_max = 94207, n_tokens = 94208, size = 113.291 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 116735, pos_max = 116735, n_tokens = 116736, size = 113.463 MiB, took 18.79 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128274 id_slot=0 id_task=422 p0=116736
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 98303, pos_max = 98303, n_tokens = 98304, size = 113.322 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 118783, pos_max = 118783, n_tokens = 118784, size = 113.478 MiB, took 24.01 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128279 id_slot=0 id_task=422 p0=118784
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 102399, pos_max = 102399, n_tokens = 102400, size = 113.353 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 120831, pos_max = 120831, n_tokens = 120832, size = 113.494 MiB, took 24.80 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128283 id_slot=0 id_task=422 p0=120832
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 106495, pos_max = 106495, n_tokens = 106496, size = 113.385 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 122879, pos_max = 122879, n_tokens = 122880, size = 113.510 MiB, took 24.61 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128287 id_slot=0 id_task=422 p0=122880
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 110591, pos_max = 110591, n_tokens = 110592, size = 113.416 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 124927, pos_max = 124927, n_tokens = 124928, size = 113.525 MiB, took 14.13 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128291 id_slot=0 id_task=422 p0=124928
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 114687, pos_max = 114687, n_tokens = 114688, size = 113.447 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 126975, pos_max = 126975, n_tokens = 126976, size = 113.541 MiB, took 11.89 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128295 id_slot=0 id_task=422 p0=126976
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 118783, pos_max = 118783, n_tokens = 118784, size = 113.478 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 129023, pos_max = 129023, n_tokens = 129024, size = 113.557 MiB, took 20.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128299 id_slot=0 id_task=422 p0=129024
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 122879, pos_max = 122879, n_tokens = 122880, size = 113.510 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 131071, pos_max = 131071, n_tokens = 131072, size = 113.572 MiB, took 21.73 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128303 id_slot=0 id_task=422 p0=131072
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 126975, pos_max = 126975, n_tokens = 126976, size = 113.541 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 133119, pos_max = 133119, n_tokens = 133120, size = 113.588 MiB, took 11.72 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128307 id_slot=0 id_task=422 p0=133120
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 131071, pos_max = 131071, n_tokens = 131072, size = 113.572 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 135167, pos_max = 135167, n_tokens = 135168, size = 113.603 MiB, took 18.93 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128311 id_slot=0 id_task=422 p0=135168
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 133119, pos_max = 133119, n_tokens = 133120, size = 113.588 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 137215, pos_max = 137215, n_tokens = 137216, size = 113.619 MiB, took 11.93 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128316 id_slot=0 id_task=422 p0=137216
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 135167, pos_max = 135167, n_tokens = 135168, size = 113.603 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 139263, pos_max = 139263, n_tokens = 139264, size = 113.635 MiB, took 15.74 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128320 id_slot=0 id_task=422 p0=139264
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 22527, pos_max = 22527, n_tokens = 22528, size = 112.744 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 141311, pos_max = 141311, n_tokens = 141312, size = 113.650 MiB, took 19.86 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128324 id_slot=0 id_task=422 p0=141312
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 139263, pos_max = 139263, n_tokens = 139264, size = 113.635 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 143359, pos_max = 143359, n_tokens = 143360, size = 113.666 MiB, took 12.62 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128328 id_slot=0 id_task=422 p0=143360
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 141311, pos_max = 141311, n_tokens = 141312, size = 113.650 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 145407, pos_max = 145407, n_tokens = 145408, size = 113.682 MiB, took 11.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128332 id_slot=0 id_task=422 p0=145408
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 143359, pos_max = 143359, n_tokens = 143360, size = 113.666 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 147455, pos_max = 147455, n_tokens = 147456, size = 113.697 MiB, took 11.53 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128336 id_slot=0 id_task=422 p0=147456
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 30719, pos_max = 30719, n_tokens = 30720, size = 112.807 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 149503, pos_max = 149503, n_tokens = 149504, size = 113.713 MiB, took 90.30 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128341 id_slot=0 id_task=422 p0=149504
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 147455, pos_max = 147455, n_tokens = 147456, size = 113.697 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 151551, pos_max = 151551, n_tokens = 151552, size = 113.728 MiB, took 11.30 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128345 id_slot=0 id_task=422 p0=151552
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 149503, pos_max = 149503, n_tokens = 149504, size = 113.713 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 153599, pos_max = 153599, n_tokens = 153600, size = 113.744 MiB, took 11.59 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128349 id_slot=0 id_task=422 p0=153600
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 151551, pos_max = 151551, n_tokens = 151552, size = 113.728 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 155647, pos_max = 155647, n_tokens = 155648, size = 113.760 MiB, took 11.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128353 id_slot=0 id_task=422 p0=155648
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 38911, pos_max = 38911, n_tokens = 38912, size = 112.869 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 157695, pos_max = 157695, n_tokens = 157696, size = 113.775 MiB, took 63.39 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128357 id_slot=0 id_task=422 p0=157696
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 155647, pos_max = 155647, n_tokens = 155648, size = 113.760 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 159743, pos_max = 159743, n_tokens = 159744, size = 113.791 MiB, took 11.94 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128362 id_slot=0 id_task=422 p0=159744
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 157695, pos_max = 157695, n_tokens = 157696, size = 113.775 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 161791, pos_max = 161791, n_tokens = 161792, size = 113.807 MiB, took 11.49 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128366 id_slot=0 id_task=422 p0=161792
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 159743, pos_max = 159743, n_tokens = 159744, size = 113.791 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 163839, pos_max = 163839, n_tokens = 163840, size = 113.822 MiB, took 11.54 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128370 id_slot=0 id_task=422 p0=163840
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 47103, pos_max = 47103, n_tokens = 47104, size = 112.932 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 165887, pos_max = 165887, n_tokens = 165888, size = 113.838 MiB, took 182.98 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128374 id_slot=0 id_task=422 p0=165888
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 163839, pos_max = 163839, n_tokens = 163840, size = 113.822 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 167935, pos_max = 167935, n_tokens = 167936, size = 113.853 MiB, took 11.98 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128379 id_slot=0 id_task=422 p0=167936
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 165887, pos_max = 165887, n_tokens = 165888, size = 113.838 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 169983, pos_max = 169983, n_tokens = 169984, size = 113.869 MiB, took 11.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128383 id_slot=0 id_task=422 p0=169984
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 167935, pos_max = 167935, n_tokens = 167936, size = 113.853 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 172031, pos_max = 172031, n_tokens = 172032, size = 113.885 MiB, took 11.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128387 id_slot=0 id_task=422 p0=172032
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 55295, pos_max = 55295, n_tokens = 55296, size = 112.994 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 174079, pos_max = 174079, n_tokens = 174080, size = 113.900 MiB, took 156.00 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128392 id_slot=0 id_task=422 p0=174080
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 172031, pos_max = 172031, n_tokens = 172032, size = 113.885 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 176127, pos_max = 176127, n_tokens = 176128, size = 113.916 MiB, took 11.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128396 id_slot=0 id_task=422 p0=176128
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 174079, pos_max = 174079, n_tokens = 174080, size = 113.900 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 178175, pos_max = 178175, n_tokens = 178176, size = 113.932 MiB, took 12.69 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128400 id_slot=0 id_task=422 p0=178176
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 176127, pos_max = 176127, n_tokens = 176128, size = 113.916 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 180223, pos_max = 180223, n_tokens = 180224, size = 113.947 MiB, took 11.79 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128404 id_slot=0 id_task=422 p0=180224
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 63487, pos_max = 63487, n_tokens = 63488, size = 113.057 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 182271, pos_max = 182271, n_tokens = 182272, size = 113.963 MiB, took 77.40 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128409 id_slot=0 id_task=422 p0=182272
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 180223, pos_max = 180223, n_tokens = 180224, size = 113.947 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 184319, pos_max = 184319, n_tokens = 184320, size = 113.978 MiB, took 12.61 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128413 id_slot=0 id_task=422 p0=184320
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 182271, pos_max = 182271, n_tokens = 182272, size = 113.963 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 186367, pos_max = 186367, n_tokens = 186368, size = 113.994 MiB, took 12.64 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128418 id_slot=0 id_task=422 p0=186368
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 184319, pos_max = 184319, n_tokens = 184320, size = 113.978 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 188415, pos_max = 188415, n_tokens = 188416, size = 114.010 MiB, took 11.57 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128422 id_slot=0 id_task=422 p0=188416
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 71679, pos_max = 71679, n_tokens = 71680, size = 113.119 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 190463, pos_max = 190463, n_tokens = 190464, size = 114.025 MiB, took 25.28 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128426 id_slot=0 id_task=422 p0=190464
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 188415, pos_max = 188415, n_tokens = 188416, size = 114.010 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 192511, pos_max = 192511, n_tokens = 192512, size = 114.041 MiB, took 11.60 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128431 id_slot=0 id_task=422 p0=192512
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 190463, pos_max = 190463, n_tokens = 190464, size = 114.025 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 194559, pos_max = 194559, n_tokens = 194560, size = 114.057 MiB, took 12.45 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128435 id_slot=0 id_task=422 p0=194560
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 192511, pos_max = 192511, n_tokens = 192512, size = 114.041 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 196607, pos_max = 196607, n_tokens = 196608, size = 114.072 MiB, took 11.86 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128439 id_slot=0 id_task=422 p0=196608
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 79871, pos_max = 79871, n_tokens = 79872, size = 113.182 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 198655, pos_max = 198655, n_tokens = 198656, size = 114.088 MiB, took 15.85 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128444 id_slot=0 id_task=422 p0=198656
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 196607, pos_max = 196607, n_tokens = 196608, size = 114.072 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 200703, pos_max = 200703, n_tokens = 200704, size = 114.103 MiB, took 12.02 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128448 id_slot=0 id_task=422 p0=200704
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 198655, pos_max = 198655, n_tokens = 198656, size = 114.088 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 202751, pos_max = 202751, n_tokens = 202752, size = 114.119 MiB, took 11.70 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128453 id_slot=0 id_task=422 p0=202752
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 200703, pos_max = 200703, n_tokens = 200704, size = 114.103 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 204799, pos_max = 204799, n_tokens = 204800, size = 114.135 MiB, took 11.70 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128457 id_slot=0 id_task=422 p0=204800
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 88063, pos_max = 88063, n_tokens = 88064, size = 113.244 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 206847, pos_max = 206847, n_tokens = 206848, size = 114.150 MiB, took 12.14 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128461 id_slot=0 id_task=422 p0=206848
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 204799, pos_max = 204799, n_tokens = 204800, size = 114.135 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 208895, pos_max = 208895, n_tokens = 208896, size = 114.166 MiB, took 12.88 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128466 id_slot=0 id_task=422 p0=208896
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 206847, pos_max = 206847, n_tokens = 206848, size = 114.150 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 210943, pos_max = 210943, n_tokens = 210944, size = 114.182 MiB, took 12.38 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128470 id_slot=0 id_task=422 p0=210944
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 208895, pos_max = 208895, n_tokens = 208896, size = 114.166 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 212991, pos_max = 212991, n_tokens = 212992, size = 114.197 MiB, took 11.93 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128475 id_slot=0 id_task=422 p0=212992
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 96255, pos_max = 96255, n_tokens = 96256, size = 113.307 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 215039, pos_max = 215039, n_tokens = 215040, size = 114.213 MiB, took 18.98 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128479 id_slot=0 id_task=422 p0=215040
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 212991, pos_max = 212991, n_tokens = 212992, size = 114.197 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 217087, pos_max = 217087, n_tokens = 217088, size = 114.228 MiB, took 12.03 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128484 id_slot=0 id_task=422 p0=217088
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 215039, pos_max = 215039, n_tokens = 215040, size = 114.213 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 219135, pos_max = 219135, n_tokens = 219136, size = 114.244 MiB, took 13.15 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128488 id_slot=0 id_task=422 p0=219136
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 217087, pos_max = 217087, n_tokens = 217088, size = 114.228 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 221183, pos_max = 221183, n_tokens = 221184, size = 114.260 MiB, took 12.04 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128493 id_slot=0 id_task=422 p0=221184
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 104447, pos_max = 104447, n_tokens = 104448, size = 113.369 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 223231, pos_max = 223231, n_tokens = 223232, size = 114.275 MiB, took 25.06 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128497 id_slot=0 id_task=422 p0=223232
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 221183, pos_max = 221183, n_tokens = 221184, size = 114.260 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 225279, pos_max = 225279, n_tokens = 225280, size = 114.291 MiB, took 12.43 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128502 id_slot=0 id_task=422 p0=225280
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 223231, pos_max = 223231, n_tokens = 223232, size = 114.275 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 227327, pos_max = 227327, n_tokens = 227328, size = 114.307 MiB, took 22.51 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128507 id_slot=0 id_task=422 p0=227328
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 225279, pos_max = 225279, n_tokens = 225280, size = 114.291 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 229375, pos_max = 229375, n_tokens = 229376, size = 114.322 MiB, took 12.83 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128511 id_slot=0 id_task=422 p0=229376
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 112639, pos_max = 112639, n_tokens = 112640, size = 113.432 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 231423, pos_max = 231423, n_tokens = 231424, size = 114.338 MiB, took 16.92 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128516 id_slot=0 id_task=422 p0=231424
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 229375, pos_max = 229375, n_tokens = 229376, size = 114.322 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 233471, pos_max = 233471, n_tokens = 233472, size = 114.353 MiB, took 13.59 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128521 id_slot=0 id_task=422 p0=233472
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 231423, pos_max = 231423, n_tokens = 231424, size = 114.338 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 235519, pos_max = 235519, n_tokens = 235520, size = 114.369 MiB, took 17.16 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128525 id_slot=0 id_task=422 p0=235520
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 233471, pos_max = 233471, n_tokens = 233472, size = 114.353 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 237567, pos_max = 237567, n_tokens = 237568, size = 114.385 MiB, took 12.21 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128530 id_slot=0 id_task=422 p0=237568
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 120831, pos_max = 120831, n_tokens = 120832, size = 113.494 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 239615, pos_max = 239615, n_tokens = 239616, size = 114.400 MiB, took 21.77 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128534 id_slot=0 id_task=422 p0=239616
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 237567, pos_max = 237567, n_tokens = 237568, size = 114.385 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 241663, pos_max = 241663, n_tokens = 241664, size = 114.416 MiB, took 12.17 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128539 id_slot=0 id_task=422 p0=241664
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 239615, pos_max = 239615, n_tokens = 239616, size = 114.400 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 243711, pos_max = 243711, n_tokens = 243712, size = 114.432 MiB, took 19.61 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128544 id_slot=0 id_task=422 p0=243712
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 241663, pos_max = 241663, n_tokens = 241664, size = 114.416 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 245759, pos_max = 245759, n_tokens = 245760, size = 114.447 MiB, took 12.40 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128548 id_slot=0 id_task=422 p0=245760
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 243711, pos_max = 243711, n_tokens = 243712, size = 114.432 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 247807, pos_max = 247807, n_tokens = 247808, size = 114.463 MiB, took 14.51 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128553 id_slot=0 id_task=422 p0=247808
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 245759, pos_max = 245759, n_tokens = 245760, size = 114.447 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 249855, pos_max = 249855, n_tokens = 249856, size = 114.478 MiB, took 13.29 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128558 id_slot=0 id_task=422 p0=249856
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 247807, pos_max = 247807, n_tokens = 247808, size = 114.463 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 251903, pos_max = 251903, n_tokens = 251904, size = 114.494 MiB, took 13.51 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128562 id_slot=0 id_task=422 p0=251904
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 249855, pos_max = 249855, n_tokens = 249856, size = 114.478 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 253951, pos_max = 253951, n_tokens = 253952, size = 114.510 MiB, took 13.44 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128567 id_slot=0 id_task=422 p0=253952
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 124927, pos_max = 124927, n_tokens = 124928, size = 113.525 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 254858, pos_max = 254858, n_tokens = 254859, size = 114.517 MiB, took 17.11 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140231455662080" timestamp=1789128569 id_slot=0 id_task=422 p0=254859
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 253951, pos_max = 253951, n_tokens = 253952, size = 114.510 MiB)
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 254864, pos_max = 254864, n_tokens = 254865, size = 114.517 MiB, took 12.45 ms)
+slot print_timing: id  0 | task 422 | 
+prompt eval time =  503296.15 ms / 236432 tokens (    2.13 ms per token,   469.77 tokens per second)
+       eval time =    4833.75 ms /   136 tokens (   35.54 ms per token,    28.14 tokens per second)
+      total time =  508129.90 ms / 236568 tokens
+slot create_check: id  0 | task 422 | erasing old context checkpoint (pos_min = 254858, pos_max = 254858, n_tokens = 254859, size = 114.517 MiB)
+INFO [      log_server_request] request | tid="140220716396544" timestamp=1789128574 remote_addr="127.0.0.1" remote_port=45532 status=200 method="POST" path="/v1/chat/completions" params={}
+slot create_check: id  0 | task 422 | created context checkpoint 32 of 32 (pos_min = 254998, pos_max = 254998, n_tokens = 254999, size = 114.518 MiB, took 15.10 ms)
+INFO [           release_slots] slot released | tid="140231455662080" timestamp=1789128574 id_slot=0 id_task=422 n_ctx=262144 n_past=254999 n_system_tokens=0 n_cache_tokens=254999 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140231455662080" timestamp=1789128574
+INFO [              slots_idle] all slots are idle | tid="140231455662080" timestamp=1789128575
+~ggml_backend_cuda_context: have 150 graphs
