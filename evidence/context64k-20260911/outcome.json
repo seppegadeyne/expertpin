@@ -1,0 +1,129 @@
+{
+  "kind": "context64k-20260911",
+  "question": "Does ps-iq2xxs serve 64K context (Seppe product acceptance minimum) with correct needle recall at start/middle/end, within 40/28 budgets?",
+  "method": "Needle-gate harness with SERVER_CTX / NEEDLE_TARGET_TOKENS / budget env overrides (468455ca); stepped ladder 16K->32K->64K on one host day; ps-iq2xxs target-only; same needle/question/code as the 2K gate; durations follow the extended GPU-time mandate (~12:15). Binary SHA 3235529f... unchanged.",
+  "verdict": "PASS \u2014 64K served, 9/9 recall across the ladder",
+  "ladder": [
+    {
+      "haystack_tokens": 15269,
+      "run_dir": "run-20260911T122210-9e3131d0db5e4c27ae7d02eeca93b58c",
+      "positions": {
+        "end": {
+          "recalled": true,
+          "wall_seconds": 33.6
+        },
+        "middle": {
+          "recalled": true,
+          "wall_seconds": 19.4
+        },
+        "start": {
+          "recalled": true,
+          "wall_seconds": 33.7
+        }
+      },
+      "ram_peak_gib": 32.419,
+      "vram_peak_gib": 16.138,
+      "swap_peak_gib": 1.716,
+      "samples": 116,
+      "memory_events_final": [
+        "low",
+        "0",
+        "high",
+        "140863",
+        "max",
+        "0",
+        "oom",
+        "0",
+        "oom_kill",
+        "0",
+        "oom_group_kill",
+        "0",
+        "sock_throttled",
+        "11"
+      ]
+    },
+    {
+      "haystack_tokens": 30920,
+      "run_dir": "run-20260911T122812-e2b0961106d24b1e83cb00662f7f2637",
+      "positions": {
+        "end": {
+          "recalled": true,
+          "wall_seconds": 62.2
+        },
+        "middle": {
+          "recalled": true,
+          "wall_seconds": 35.7
+        },
+        "start": {
+          "recalled": true,
+          "wall_seconds": 55.1
+        }
+      },
+      "ram_peak_gib": 32.409,
+      "vram_peak_gib": 16.574,
+      "swap_peak_gib": 1.094,
+      "samples": 174,
+      "memory_events_final": [
+        "low",
+        "0",
+        "high",
+        "77496",
+        "max",
+        "0",
+        "oom",
+        "0",
+        "oom_kill",
+        "0",
+        "oom_group_kill",
+        "0",
+        "sock_throttled",
+        "22"
+      ]
+    },
+    {
+      "haystack_tokens": 61401,
+      "run_dir": "run-20260911T123612-d31f68b0a58f4af1a9c8c3c8a25ac87e",
+      "positions": {
+        "end": {
+          "recalled": true,
+          "wall_seconds": 123.4
+        },
+        "middle": {
+          "recalled": true,
+          "wall_seconds": 85.6
+        },
+        "start": {
+          "recalled": true,
+          "wall_seconds": 133.5
+        }
+      },
+      "ram_peak_gib": 32.413,
+      "vram_peak_gib": 17.139,
+      "swap_peak_gib": 7.491,
+      "samples": 363,
+      "memory_events_final": [
+        "low",
+        "0",
+        "high",
+        "172604",
+        "max",
+        "0",
+        "oom",
+        "0",
+        "oom_kill",
+        "0",
+        "oom_group_kill",
+        "0",
+        "sock_throttled",
+        "1"
+      ]
+    }
+  ],
+  "k_convention": "K = 1024 tokens; prompt_tokens are tokenizer-exact counts from the server (15269/30920/61401 including chat template and question), CTX values 16384/32768/65536 are the configured server context windows.",
+  "limitations": [
+    "single needle per position, n=1, greedy temp 0",
+    "264K NOT tested (separate goal; CTX 262144 needs its own slice)",
+    "recall measured, not generation quality at depth",
+    "Hermes end-to-end at 64K not yet tested (next slice)"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "recalled": true,
+  "content": "7391",
+  "label": "02-middle",
+  "step": "middle",
+  "wall_seconds": 19.40866407798603,
+  "prompt_tokens": 15269,
+  "completion_tokens": 112
+}

@@ -1,0 +1,57 @@
+{
+  "started": "2026-09-11T12:22:10.578002+02:00",
+  "scope": "expertpin-test-2937bf656b3b41c297d4c419dc629701.scope",
+  "model_loaded": true,
+  "startup_n_max": 0,
+  "gate": "needle",
+  "checkpoint": "ps-iq2xxs",
+  "sequence": [
+    "end",
+    "middle",
+    "start"
+  ],
+  "requests": [
+    {
+      "recalled": true,
+      "content": "7391",
+      "label": "01-end",
+      "step": "end",
+      "wall_seconds": 33.64773537000292,
+      "prompt_tokens": 15269,
+      "completion_tokens": 82
+    },
+    {
+      "recalled": true,
+      "content": "7391",
+      "label": "02-middle",
+      "step": "middle",
+      "wall_seconds": 19.40866407798603,
+      "prompt_tokens": 15269,
+      "completion_tokens": 112
+    },
+    {
+      "recalled": true,
+      "content": "7391",
+      "label": "03-start",
+      "step": "start",
+      "wall_seconds": 33.65535962101421,
+      "prompt_tokens": 15269,
+      "completion_tokens": 125
+    }
+  ],
+  "status": "completed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T12:22:12.655387+02:00",
+  "guard": {
+    "mem_available_bytes": 45342179328,
+    "gpu_util_pct": 3,
+    "vram_mib": 2113,
+    "elapsed_s": 0.047693687985884026
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T12:24:25.526620+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-11T12:24:26.134283+02:00",
+  "elapsed_seconds": 135.5562972589978
+}
