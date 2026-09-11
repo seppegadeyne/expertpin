@@ -16,10 +16,13 @@
 # MemAvailable is too low, this refuses to start — check qli manually.
 set -euo pipefail
 
-MODEL_DIR="${MODEL_DIR:-$HOME/Models/qwen3.8-flash-next-ps-iq2xxs}"
-MODEL="${MODEL:-$MODEL_DIR/Qwen3.8-Flash-Next-IQ2_XXS.gguf}"
+# Default dev checkpoint: UD-Q4_K_XL — won the code-precision gate where
+# IQ2_XXS failed (evidence/dev-serving-20260911/ud-evaluation-outcome.json,
+# 2026-09-11). Override with MODEL_DIR/MODEL to serve another checkpoint.
+MODEL_DIR="${MODEL_DIR:-$HOME/Models/qwen3.8-flash-next/UD-Q4_K_XL}"
+MODEL="${MODEL:-$MODEL_DIR/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf}"
 CTX="${CTX:-65536}"
-NCMOE="${NCMOE:-36}"
+NCMOE="${NCMOE:-40}"  # UD-Q4_K_XL needs 40 CPU-MoE layers to stay under 28 GiB VRAM
 NGL="${NGL:-99}"
 THREADS="${THREADS:-16}"
 PORT="${PORT:-8102}"
@@ -78,7 +81,7 @@ REASONING="${REASONING:-off}"
 
 exec "$BIN_DIR/llama-server" \
   -m "$MODEL" \
-  -a "Qwen3.8-Flash-Next-IQ2_XXS" \
+  -a "Qwen3.8-Flash-Next" \
   --jinja \
   --reasoning "$REASONING" \
   -ngl "$NGL" \
