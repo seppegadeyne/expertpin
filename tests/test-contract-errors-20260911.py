@@ -62,10 +62,10 @@ class ErrorPathTests(unittest.TestCase):
             harness.validate_plan(4, 'reference', 'errors')
 
     def test_error_verdict_requires_all_three(self):
-        ok = {'overflow': {'status': 400}, 'bad-tool-choice': {'status': 400}, 'missing-messages': {'status': 400}}
+        ok = {'overflow': {'status': 500}, 'bad-tool-choice': {'status': 400}, 'missing-messages': {'status': 400}}
         self.assertEqual(harness.errors_verdict(ok)['gate'], 'PASS')
         partial = dict(ok)
-        partial['missing-messages'] = {'status': 500}
+        partial['missing-messages'] = {'status': 200}  # a 2xx body is never a valid error observation
         verdict = harness.errors_verdict(partial)
         self.assertEqual(verdict['gate'], 'FAIL')
         self.assertTrue(any('missing-messages' in f for f in verdict['failures']))
