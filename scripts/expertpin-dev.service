@@ -1,0 +1,22 @@
+[Unit]
+Description=expertpin dev-serving: qwen3.8-flash-next ps-iq2xxs for Hermes
+# Resident OpenAI-compatible endpoint on 127.0.0.1:8102/v1.
+# Guards live in the launcher (scripts/serve-dev-qwen38.sh): if the host is
+# too busy the unit exits 2 and Restart=always retries with backoff.
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Projects/expertpin
+ExecStart=%h/Projects/expertpin/scripts/serve-dev-qwen38.sh
+Environment=CTX=65536
+Environment=PORT=8102
+MemoryHigh=33G
+MemoryMax=36G
+MemorySwapMax=16G
+Restart=always
+RestartSec=30
+# The launcher's own guards refuse to start while the host is busy; the
+# backoff above turns that into "start when the host frees up".
+
+[Install]
+WantedBy=default.target

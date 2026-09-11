@@ -1,0 +1,25 @@
+{
+  "kind": "dev-serving-resident-20260911",
+  "question": "Does a resident systemd user unit around the guarded launcher serve Hermes dev sessions with fast warm reuse, within budget caps, without touching the miner?",
+  "method": "scripts/serve-dev-qwen38.sh (dev launcher: same guard philosophy as the benchmark launcher, CTX 65536, no drafter by default, no qli interruption — dev coexists with the miner) + scripts/expertpin-dev.service (systemd user unit, MemoryHigh 33G / MemoryMax 36G / MemorySwapMax 16G, Restart=always backoff).",
+  "verdict": "PASS — resident serving proven with warm reuse",
+  "evidence": {
+    "first_query_cold": "84.4 s wall (session 20260911_165914_e79502, includes model-contact + shell tool)",
+    "second_query_warm": "15.9 s wall on the SAME server instance (no restart), exact answer 'dev-serving-check-2'",
+    "unit_state_during": "active, NRestarts=0, listening 127.0.0.1:8102",
+    "memory_current_during_gib": 32.1,
+    "memory_peak_gib": 33.0,
+    "cgroup_caps": "MemoryHigh=33G MemoryMax=36G MemorySwapMax=16G",
+    "miner": "qli.service stayed ACTIVE throughout (coexistence proven); GPU util 0% between queries, VRAM 17379 MiB during serving",
+    "host_after_stop": "qli active, VRAM back to 2357 MiB, MemAvailable 45 GiB — night cycle unblocked"
+  },
+  "iteration": "first start failed: --keep-alive 0 is not a flag in this llama-server build (usage printed); removed — slots persist across requests anyway, as the warm reuse proves",
+  "notes": [
+    "Unit is NOT enabled by default (opt-in: systemctl --user enable --now expertpin-dev.service) so it cannot conflict with the 03:00 benchmark cycle or the miner schedule.",
+    "The launcher refuses to start while the host is busy (guards) and systemd retries every 30 s — self-healing start when the host frees up."
+  ],
+  "limitations": [
+    "two-query warm proof, not a multi-hour soak",
+    "dev coexistence with the miner measured only at idle GPU util; a mining GPU would fail the launcher guard by design (VRAM check)"
+  ]
+}

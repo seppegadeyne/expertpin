@@ -68,10 +68,18 @@ Measured on this host (2026-09-11, ps-iq2xxs @ CTX 65536, nmax4/MTP):
 - A 2-turn shell-tool agent task: ~63 s turn 1, ~4 s resumed turn 2
   (prompt-cache reuse).
 
-## 4. Resident serving (follow-up work)
+## 4. Resident serving (BUILT and proven 2026-09-11)
 
-The E2E runner (evidence/hermes-e2e-20260911/run-e2e.py) starts and stops
-the server per run. For daily dev use, wrap the launcher in a systemd user
-unit with the same cgroup caps and keep it resident — the protocol pieces
-(qli coordination, guards) are in scripts/run-qwen38-flash-next.sh and the
-harness lineage. Not yet built; tracked in issue #3.
+```bash
+cp scripts/expertpin-dev.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now expertpin-dev.service   # opt-in; NOT auto-enabled
+```
+
+The unit runs scripts/serve-dev-qwen38.sh (dev launcher: same guards,
+CTX 65536, no drafter, does NOT stop the miner) under MemoryHigh 33G /
+MemoryMax 36G / MemorySwapMax 16G with self-healing restarts. Proven: a
+cold agent query takes ~84 s; a warm query on the same instance ~16 s.
+Stop with `systemctl --user stop expertpin-dev.service` before benchmark
+cycles (the 03:00 cron depends on host headroom). Evidence:
+evidence/dev-serving-20260911/.
