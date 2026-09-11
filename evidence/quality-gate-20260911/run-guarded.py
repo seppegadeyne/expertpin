@@ -60,7 +60,7 @@ NEEDLE_PARAGRAPH = ('Project Aurora maintains a private access code. The code is
 NEEDLE_QUESTION = ('According to the reference document above, what is the private access code '
                    'of Project Aurora? Answer with the four-digit code only.')
 NEEDLE_CODE = '7391'
-NEEDLE_TOKENS = 256
+NEEDLE_TOKENS = 512
 NEEDLE_TARGET_TOKENS = 2048
 NEEDLE_TOKEN_TOLERANCE = 0.10
 NEEDLE_POSITIONS = {'start': 0.1, 'middle': 0.5, 'end': 0.9}
