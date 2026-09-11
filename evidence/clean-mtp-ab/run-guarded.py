@@ -32,21 +32,35 @@ RAM_BUDGET_GIB = 36
 PROMPT = 'Explain how a bounded expert cache handles RAM and NVMe misses in detail.'
 TRACE_PREFIXES = ('GGML_MOE_TRACE', 'GGML_MOE_GPU_TRACE', 'GGML_CUDA_TRANSFER_TRACE')
 GRAPH_DISABLE = ('GGML_CUDA_DISABLE_GRAPHS', 'GGML_CUDA_NO_GRAPHS')
+# Checkpoint aliases for A/B: shared drafter, identical serving configuration;
+# only MODEL_DIR/MODEL differ. The reference is the 197 GiB AD-4.27bpw Q4_K_M
+# shard set; ps-iq2xxs is PeasantSmith's community 75.2 GiB IQ2_XXS GGUF
+# (SHA-256 verified 2026-09-11 against the HF model card before first load).
+CHECKPOINTS = {
+    'reference': ('/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64',
+                  'Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf'),
+    'ps-iq2xxs': ('/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs',
+                  'Qwen3.8-Flash-Next-IQ2_XXS.gguf'),
+}
+DEFAULT_CHECKPOINT = 'reference'
 
 
-def validate_plan(startup_nmax):
+def validate_plan(startup_nmax, checkpoint=DEFAULT_CHECKPOINT):
     if type(startup_nmax) is not int or startup_nmax not in (0, 4, 8, 16):
         raise ValueError('startup n_max must be 0 (target-only), 4, 8 or 16')
+    if checkpoint not in CHECKPOINTS:
+        raise ValueError('unknown checkpoint: ' + repr(checkpoint))
 
 
-def clean_environment(inherited, scope, startup_nmax=4):
+def clean_environment(inherited, scope, startup_nmax=4, checkpoint=DEFAULT_CHECKPOINT):
     env = {k: v for k, v in inherited.items()
            if not k.startswith(TRACE_PREFIXES) and k not in GRAPH_DISABLE and k != 'EXPERTPIN_VERIFIER_TRACE'
            and not k.startswith('LLAMA_ARG_')}
-    validate_plan(startup_nmax)
+    validate_plan(startup_nmax, checkpoint)
+    model_dir, model_name = CHECKPOINTS[checkpoint]
     env.update(GGML_CUDA_NO_PINNED='1', DRAFT=str(int(startup_nmax != 0)), DRAFT_NMAX=str(startup_nmax),
                DRAFT_MODEL='/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf',
-               MODEL_DIR='/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64',
+               MODEL_DIR=model_dir, MODEL=model_dir + '/' + model_name,
                CTX='8192', NCMOE='36', NGL='99', THREADS='16', KVT='q8_0',
                RAM_BUDGET_GIB='36', GPU_NEED_GIB='24', CACHE_RAM_MIB='512',
                PORT='8102', BIN_DIR=str(ROOT / 'build-sm120/bin'), FORCE='0', PINNED='0',
@@ -148,9 +162,11 @@ def terminate(child):
 
 class Run:
     """Small ownership container: no subprocesses or writes until execute()."""
-    def __init__(self, out, startup_nmax):
+    def __init__(self, out, startup_nmax, checkpoint=DEFAULT_CHECKPOINT):
+        validate_plan(startup_nmax, checkpoint)
         self.out = out
         self.startup_nmax = startup_nmax
+        self.checkpoint = checkpoint
         self.sequence = (startup_nmax, startup_nmax)
         self.scope = 'expertpin-test-' + uuid.uuid4().hex + '.scope'
         self.proc = self.request = self.server_log = None
@@ -163,6 +179,7 @@ class Run:
         self.label = 'preflight'
         self.summary = {'started': datetime.now().astimezone().isoformat(), 'scope': self.scope,
                         'model_loaded': False, 'startup_n_max': startup_nmax,
+                        'checkpoint': checkpoint,
                         'sequence': list(self.sequence), 'requests': [], 'status': 'blocked_or_failed'}
 
     def save(self, name, data):
@@ -231,12 +248,14 @@ class Run:
             raise RuntimeError('pre-existing expertpin scope')
         with socket.socket() as sock:
             sock.bind(('127.0.0.1', 8102))  # Refuse an occupied endpoint before host changes.
-        env = clean_environment(os.environ, self.scope, self.startup_nmax)
+        env = clean_environment(os.environ, self.scope, self.startup_nmax, self.checkpoint)
         if self.verifier_trace:
             env['EXPERTPIN_VERIFIER_TRACE'] = '1'
         self.summary['verifier_trace'] = self.verifier_trace
         self.save('environment.json', {k: v for k, v in env.items()
                                       if k not in os.environ or os.environ[k] != v})
+        if not Path(env['MODEL']).is_file():
+            raise RuntimeError('checkpoint model file missing: ' + env['MODEL'])
         if self.startup_nmax and not Path(env['DRAFT_MODEL']).is_file():
             raise RuntimeError('required draft model missing')
         self.prepared = True  # Restore even a partially failed preparation.
@@ -411,6 +430,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--startup-n-max', type=int, choices=(0, 4, 8, 16), default=4,
                         help='repeat twice at this startup/request depth; reload for a different depth')
+    parser.add_argument('--checkpoint', choices=sorted(CHECKPOINTS), default=DEFAULT_CHECKPOINT,
+                        help='A/B checkpoint alias: reference 197 GiB Q4_K_M shards vs ps-iq2xxs 75.2 GiB IQ2_XXS')
     parser.add_argument('--tokenize-reference', type=Path, action='append', default=[],
                         help='retokenize saved response fields after generation; not a decode trace')
     # Explicit opt-in only: clean baselines must not inherit diagnostic tracing.
@@ -425,7 +446,7 @@ def main(argv=None):
         return 2
     out = Path(__file__).resolve().parent / ('run-' + datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + uuid.uuid4().hex)
     out.mkdir()
-    run = Run(out, args.startup_n_max)
+    run = Run(out, args.startup_n_max, args.checkpoint)
     run.tokenize_references = args.tokenize_reference
     run.verifier_trace = args.verifier_trace
     previous = {sig: signal.getsignal(sig) for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGALRM)}

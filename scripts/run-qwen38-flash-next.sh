@@ -35,7 +35,7 @@ set -euo pipefail
 
 # --- defaults (all overridable via environment) ---
 MODEL_DIR="${MODEL_DIR:-$HOME/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64}"
-MODEL="$MODEL_DIR/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf"
+MODEL="${MODEL:-$MODEL_DIR/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf}"
 DRAFT_MODEL="${DRAFT_MODEL:-$HOME/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf}"
 DRAFT_NMAX="${DRAFT_NMAX:-4}"
 MANIFEST="${MANIFEST:-}"

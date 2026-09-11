@@ -213,6 +213,37 @@ class CleanMTPTests(unittest.TestCase):
             with self.assertRaises(TimeoutError):
                 run.sample()
 
+    def test_checkpoint_aliases_map_models_and_share_drafter(self):
+        for name in harness.CHECKPOINTS:
+            env = harness.clean_environment({'PATH': '/cpu-only'}, 's.scope', 4, name)
+            model_dir, model_name = harness.CHECKPOINTS[name]
+            self.assertEqual(env['MODEL_DIR'], model_dir)
+            self.assertEqual(env['MODEL'], model_dir + '/' + model_name)
+        drafter = {harness.clean_environment({}, 's.scope', 4, n)['DRAFT_MODEL']
+                   for n in harness.CHECKPOINTS}
+        self.assertEqual(len(drafter), 1)
+        reference = harness.clean_environment({}, 's.scope', 4, 'reference')
+        legacy = harness.clean_environment({}, 's.scope', 4)
+        self.assertEqual(reference, legacy)
+        ps = harness.clean_environment({}, 's.scope', 4, 'ps-iq2xxs')
+        for key in set(reference) - {'MODEL', 'MODEL_DIR'}:
+            self.assertEqual(reference[key], ps[key], key)
+        with self.assertRaises(ValueError):
+            harness.clean_environment({}, 's.scope', 4, 'not-a-checkpoint')
+
+    def test_run_records_checkpoint_and_main_rejects_unknown(self):
+        for name in harness.CHECKPOINTS:
+            run = harness.Run(Path('/unused'), 4, name)
+            self.assertEqual(run.summary['checkpoint'], name)
+        self.assertEqual(harness.Run(Path('/unused'), 4).summary['checkpoint'],
+                         harness.DEFAULT_CHECKPOINT)
+        with self.assertRaises(SystemExit) as caught:
+            harness.main(['--checkpoint', 'bogus'])
+        self.assertEqual(caught.exception.code, 2)
+        with self.assertRaises(SystemExit) as caught:
+            harness.main(['--help'])
+        self.assertEqual(caught.exception.code, 0)
+
     def test_uuid_scope_and_work_bound(self):
         a, b = harness.Run(Path('/unused'), 16), harness.Run(Path('/unused'), 16)
         self.assertNotEqual(a.scope, b.scope)
