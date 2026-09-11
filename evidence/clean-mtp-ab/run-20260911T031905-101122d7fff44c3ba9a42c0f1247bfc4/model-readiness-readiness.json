@@ -1,0 +1,26 @@
+[
+  {
+    "mem_available_bytes": 43568988160,
+    "gpu_util_pct": 100,
+    "vram_mib": 2048,
+    "elapsed_s": 0.02738805301487446
+  },
+  {
+    "mem_available_bytes": 43560837120,
+    "gpu_util_pct": 100,
+    "vram_mib": 2048,
+    "elapsed_s": 2.0554100789886434
+  },
+  {
+    "mem_available_bytes": 43566268416,
+    "gpu_util_pct": 13,
+    "vram_mib": 2048,
+    "elapsed_s": 4.083496898005251
+  },
+  {
+    "mem_available_bytes": 43553390592,
+    "gpu_util_pct": 0,
+    "vram_mib": 2048,
+    "elapsed_s": 6.12374601099873
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "kind": "checkpoint A/B — same-day guarded comparison",
+  "date": "2026-09-11",
+  "binary_sha256": "3235529f95aeba4b4a71d4e33608fc0a1f4e6a78d5378616e7b286ca1dc8f279",
+  "code_commit": "3cb0f8258960f6840334fe4836a9d0ba69f68cdc",
+  "harness": "evidence/clean-mtp-ab/run-guarded.py --checkpoint {ps-iq2xxs,reference} --startup-n-max 4",
+  "fixed_config": {
+    "ctx": 8192, "n_max": 4, "requests_per_run": 2, "tokens": 256,
+    "prompt_tokens": 68, "temperature": 0.0, "seed": 42, "cache_prompt": false,
+    "ignore_eos": true, "ncmoe": 36, "ngl": 99, "threads": 16, "kv": "q8_0",
+    "drafter": "shared mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf",
+    "ram_budget_gib": 36, "no_pinned": true, "port": 8102
+  },
+  "ab_provenance": "environment.json diff between runs: only MODEL/MODEL_DIR and scope UUID differ",
+  "runs": {
+    "ps-iq2xxs": {
+      "run_dir": "run-20260911T031905-101122d7fff44c3ba9a42c0f1247bfc4",
+      "model": "/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf",
+      "model_size_bytes": 75216526912,
+      "status": "completed",
+      "decode_tok_s": [31.499969484404563, 50.1913939012751],
+      "prompt_tok_s": [38.27324621291857, 204.3078919932338],
+      "acceptance_fraction": 0.6705202312138728,
+      "cgroup_memory_peak_bytes": 34793923840,
+      "cgroup_memory_peak_gib": 32.40229797363281,
+      "vram_peak_mib": 19073,
+      "vram_peak_gib": 18.62646484375,
+      "samples": 43,
+      "tier_a_at_load": {"mem_available_gib": 40.58, "gpu_util_pct": 0}
+    },
+    "reference": {
+      "run_dir": "run-20260911T032256-a5f8584e56ba41c996be86a575a90c19",
+      "model": "/home/seppe/Models/qwen3.8-flash-next/AD-4.27bpw-Q4_K_M-M64/Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf",
+      "model_shard_set_bytes_du": 94525394976,
+      "status": "completed",
+      "decode_tok_s": [21.857714475408024, 44.33157594423226],
+      "prompt_tok_s": [10.887842730875905, 117.84788956959524],
+      "acceptance_fraction": 0.664804469273743,
+      "cgroup_memory_peak_bytes": 34796220416,
+      "cgroup_memory_peak_gib": 32.4044189453125,
+      "vram_peak_mib": 23213,
+      "vram_peak_gib": 22.6982421875,
+      "samples": 53,
+      "tier_a_at_load": {"mem_available_gib": 45.31, "gpu_util_pct": 0}
+    }
+  },
+  "verdicts": {
+    "budgets": "Both runs: cgroup peak ~32.40 GiB <= 40 GiB (MemoryMax 36G), VRAM peak 18.63/22.67 GiB <= 28 GiB, zero max/oom/oom_kill events, swap <= 0.52 GiB.",
+    "goal_20_tok_s": "Second (warm) request of each run: ps-iq2xxs 50.19, reference 44.33 tok/s — both >= 20 within budgets. First (cold) requests: 31.50 / 21.86 tok/s — also >= 20.",
+    "ab_delta": "Warm decode ps-iq2xxs 50.19 vs reference 44.33 tok/s (+13%); cold 31.50 vs 21.86 (+44%). Same acceptance regime (~0.67). Not a multi-seed/multi-prompt study: n=1 prompt, n=2 requests per arm.",
+    "host_state_confound": "HISTORICAL runs of the same reference config measured 6.48/8.49 tok/s (2026-09-06) and 8.37/10.88 (2026-09-06 reverse order). Today both checkpoints are 2.6-6.7x faster than the historical reference numbers under an identical harness. Today's host state: MemAvailable 40.6-48.6 GiB at guard, swap 0.25-0.52 GiB during runs vs historical 1.2-2.2 GiB swap and 42-46 GiB MemAvailable. The speed difference vs history is therefore dominated by host memory state (page cache/swap), not by code. The same-day A/B (both arms today, minutes apart) is the only clean comparison; the PS checkpoint's win is real but modest (+13% warm).",
+    "not_proven": "Sustained throughput at depth/long decode, 64K/264K context, quality parity of IQ2_XXS vs Q4_K_M, tool-calling correctness, Hermes end-to-end. Cold-start latency of the 75 GB file on a truly cold page cache is NOT measured (page cache was warm from a previous download)."
+  },
+  "next_steps": [
+    "Repeat A/B with 2x512 or 2x1024 tokens to check sustained decode beyond warm-up.",
+    "IQ2_XXS quality gate: tool-calling JSON correctness + needle-recall before any default switch (community claims unverified).",
+    "Re-run A/B after a controlled cold cache (posix_fadvise DONTNEED on the model files) to bound worst-case first-token latency.",
+    "64K context benchmark on ps-iq2xxs within 40/28 budgets (KV q8_0)."
+  ]
+}
