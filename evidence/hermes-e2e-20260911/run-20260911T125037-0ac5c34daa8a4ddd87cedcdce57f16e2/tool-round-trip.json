@@ -1,0 +1,118 @@
+{
+  "round1": {
+    "choices": [
+      {
+        "finish_reason": "tool_calls",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "reasoning_content": "The user wants me to call get_weather for Ghent in celsius, then report the temperature value. I'll make the call now.\n",
+          "tool_calls": [
+            {
+              "type": "function",
+              "function": {
+                "name": "get_weather",
+                "arguments": "{\"city\":\"Ghent\",\"unit\":\"celsius\"}"
+              },
+              "id": "KDEbde6JemH6LuUCGBIN0Z3rxOZSEK3c"
+            }
+          ]
+        }
+      }
+    ],
+    "created": 1789123874,
+    "model": "Qwen3.8-Flash-Next-IQ2_XXS.gguf",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 71,
+      "prompt_tokens": 411,
+      "total_tokens": 482,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-E04LyttSRiAptlD9Hz0HSwzNzh5Ai1Ox",
+    "timings": {
+      "prompt_n": 411,
+      "prompt_ms": 864.695,
+      "prompt_per_token_ms": 2.103880778588808,
+      "prompt_per_second": 475.3121042679789,
+      "predicted_n": 71,
+      "predicted_ms": 1202.337,
+      "predicted_per_token_ms": 16.934323943661973,
+      "predicted_per_second": 59.05166355189934,
+      "n_ctx": 8192,
+      "n_past": 481
+    }
+  },
+  "round2_request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "You have access to the get_weather tool. Do not answer from memory. Use the get_weather tool to fetch the current weather in Ghent. Call get_weather with city \"Ghent\" and unit \"celsius\". After you receive the tool result, answer the user and include the numeric temperature value in your final answer."
+      },
+      {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "KDEbde6JemH6LuUCGBIN0Z3rxOZSEK3c",
+            "type": "function",
+            "function": {
+              "name": "get_weather",
+              "arguments": "{\"city\":\"Ghent\",\"unit\":\"celsius\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "KDEbde6JemH6LuUCGBIN0Z3rxOZSEK3c",
+        "content": "{\"city\": \"Ghent\", \"unit\": \"celsius\", \"temperature_c\": 17.5, \"condition\": \"cloudy\"}"
+      }
+    ],
+    "max_tokens": 512,
+    "temperature": 0.0,
+    "seed": 42,
+    "stream": false,
+    "cache_prompt": false
+  },
+  "round2": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The current weather in Ghent is **17.5\u00b0C** and cloudy.",
+          "reasoning_content": "The tool returned the current weather in Ghent: temperature 17.5\u00b0C, cloudy. I need to present this clearly with the numeric value.\n"
+        }
+      }
+    ],
+    "created": 1789123876,
+    "model": "Qwen3.8-Flash-Next-IQ2_XXS.gguf",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 52,
+      "prompt_tokens": 205,
+      "total_tokens": 257,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-Cil5iHmwKg57UMRaGliI9vuMdaInrMsO",
+    "timings": {
+      "prompt_n": 205,
+      "prompt_ms": 601.638,
+      "prompt_per_token_ms": 2.934819512195122,
+      "prompt_per_second": 340.73645614140065,
+      "predicted_n": 52,
+      "predicted_ms": 983.236,
+      "predicted_per_token_ms": 18.908384615384616,
+      "predicted_per_second": 52.886590808310515,
+      "n_ctx": 8192,
+      "n_past": 256
+    }
+  }
+}

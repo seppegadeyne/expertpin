@@ -1,0 +1,8 @@
+{
+  "model_ids": [
+    "/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf"
+  ],
+  "label": "01-models",
+  "step": "models",
+  "wall_seconds": 0.0
+}

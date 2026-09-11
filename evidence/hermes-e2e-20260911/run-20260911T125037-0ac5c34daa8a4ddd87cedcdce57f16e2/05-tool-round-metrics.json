@@ -1,0 +1,8 @@
+{
+  "call_id": "KDEbde6JemH6LuUCGBIN0Z3rxOZSEK3c",
+  "round1_finish": "tool_calls",
+  "round2_finish": "stop",
+  "label": "05-tool-round",
+  "step": "tool-round",
+  "wall_seconds": 3.787
+}

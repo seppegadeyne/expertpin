@@ -1,0 +1,47 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "The user wants me to call get_weather for Ghent in celsius, then report the temperature value. I'll make the call now.\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_weather",
+              "arguments": "{\"city\":\"Ghent\",\"unit\":\"celsius\"}"
+            },
+            "id": "KDEbde6JemH6LuUCGBIN0Z3rxOZSEK3c"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1789123874,
+  "model": "Qwen3.8-Flash-Next-IQ2_XXS.gguf",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 71,
+    "prompt_tokens": 411,
+    "total_tokens": 482,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-E04LyttSRiAptlD9Hz0HSwzNzh5Ai1Ox",
+  "timings": {
+    "prompt_n": 411,
+    "prompt_ms": 864.695,
+    "prompt_per_token_ms": 2.103880778588808,
+    "prompt_per_second": 475.3121042679789,
+    "predicted_n": 71,
+    "predicted_ms": 1202.337,
+    "predicted_per_token_ms": 16.934323943661973,
+    "predicted_per_second": 59.05166355189934,
+    "n_ctx": 8192,
+    "n_past": 481
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "You have access to the get_weather tool. Do not answer from memory. Use the get_weather tool to fetch the current weather in Ghent. Call get_weather with city \"Ghent\" and unit \"celsius\". After you receive the tool result, answer the user and include the numeric temperature value in your final answer."
+    }
+  ],
+  "max_tokens": 512,
+  "temperature": 0.0,
+  "seed": 42,
+  "stream": true,
+  "cache_prompt": false,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "Get the current weather for a city.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "enum": [
+                "Ghent",
+                "Brussels",
+                "Antwerp"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "enum": [
+                "celsius",
+                "fahrenheit"
+              ]
+            }
+          },
+          "required": [
+            "city",
+            "unit"
+          ]
+        }
+      }
+    }
+  ],
+  "tool_choice": "required"
+}

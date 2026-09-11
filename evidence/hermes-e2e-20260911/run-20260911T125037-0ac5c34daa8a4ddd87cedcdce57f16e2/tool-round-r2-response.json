@@ -1,0 +1,37 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The current weather in Ghent is **17.5\u00b0C** and cloudy.",
+        "reasoning_content": "The tool returned the current weather in Ghent: temperature 17.5\u00b0C, cloudy. I need to present this clearly with the numeric value.\n"
+      }
+    }
+  ],
+  "created": 1789123876,
+  "model": "Qwen3.8-Flash-Next-IQ2_XXS.gguf",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 52,
+    "prompt_tokens": 205,
+    "total_tokens": 257,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-Cil5iHmwKg57UMRaGliI9vuMdaInrMsO",
+  "timings": {
+    "prompt_n": 205,
+    "prompt_ms": 601.638,
+    "prompt_per_token_ms": 2.934819512195122,
+    "prompt_per_second": 340.73645614140065,
+    "predicted_n": 52,
+    "predicted_ms": 983.236,
+    "predicted_per_token_ms": 18.908384615384616,
+    "predicted_per_second": 52.886590808310515,
+    "n_ctx": 8192,
+    "n_past": 256
+  }
+}

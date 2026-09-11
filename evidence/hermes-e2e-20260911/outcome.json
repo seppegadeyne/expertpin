@@ -1,0 +1,60 @@
+{
+  "kind": "hermes-e2e-contract-20260911",
+  "question": "Does the local ps-iq2xxs endpoint satisfy the OpenAI API contract Hermes depends on (mandate items 5-6)?",
+  "method": "--gate contract (e84ddcd5): GET /v1/models; non-streaming plain completion; SSE streaming plain; SSE streaming forced tool call (tool_choice string required); full two-round tool trip with call-id linkage. Target-only, temp0/seed42; binary SHA 3235529f... unchanged.",
+  "verdict": "PASS \u2014 all 5 contract steps green",
+  "steps": [
+    {
+      "model_ids": [
+        "/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf"
+      ],
+      "step": "models",
+      "wall_seconds": 0.0,
+      "label": "01-models"
+    },
+    {
+      "finish_reason": "stop",
+      "wall_seconds": 2.008,
+      "step": "plain",
+      "label": "02-plain"
+    },
+    {
+      "finish_reason": "stop",
+      "wall_seconds": 0.904,
+      "step": "stream-plain",
+      "label": "03-stream-plain"
+    },
+    {
+      "finish_reason": "tool_calls",
+      "streamed_tool_calls": 10,
+      "wall_seconds": 2.721,
+      "step": "stream-tool",
+      "label": "04-stream-tool"
+    },
+    {
+      "call_id": "KDEbde6JemH6LuUCGBIN0Z3rxOZSEK3c",
+      "round1_finish": "tool_calls",
+      "round2_finish": "stop",
+      "step": "tool-round",
+      "wall_seconds": 3.787,
+      "label": "05-tool-round"
+    }
+  ],
+  "budgets": {
+    "ram_peak_gib": 32.41,
+    "vram_peak_gib": 15.944,
+    "samples": 19,
+    "memory_events_zero": true
+  },
+  "notes": [
+    "model id is the GGUF path (llama.cpp convention) \u2014 Hermes config must use this exact id",
+    "streamed tool call arrived as 10 indexed deltas assembling name+arguments incrementally",
+    "round-2 tool message referencing the emitted call id produced a clean stop answer (finish stop)",
+    "this validates the API SURFACE; a full Hermes-agent run against this endpoint (real tool execution) remains the final E2E step"
+  ],
+  "limitations": [
+    "single scenario per step, greedy decoding",
+    "no tool_choice object-form (silently degrades in this server build \u2014 documented); Hermes must send string forms",
+    "no error-path contract tests (context overflow, invalid schema) yet \u2014 mandate item 5 also asks predictable error handling; separate slice"
+  ]
+}
