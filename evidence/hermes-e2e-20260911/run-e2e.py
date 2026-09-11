@@ -100,7 +100,8 @@ def main():
         # --- the actual E2E step: a real hermes agent run against the model ---
         summary['hermes_invocation'] = 'hermes chat -q <shell-tool task>'
         (out / 'task.txt').write_text(TASK)
-        client_env = dict(os.environ, HERMES_HOME=str(E2E_HOME))
+        client_env = dict(os.environ, HERMES_HOME=str(E2E_HOME),
+                          EXPERTPIN_LOCAL_KEY='local-e2e-dummy')
         began = time.monotonic()
         run.label = 'hermes-e2e'
         run.sample()
@@ -114,8 +115,17 @@ def main():
         (out / 'hermes-exit.txt').write_text(str(client.returncode))
         summary['hermes_returncode'] = client.returncode
         summary['hermes_wall_seconds'] = round(wall, 1)
-        summary['hermes_stdout_has_marker'] = 'hermes-e2e-ok' in client.stdout
-        summary['status'] = 'completed' if client.returncode == 0 and summary['hermes_stdout_has_marker'] else 'client_failed'
+        stdout = client.stdout
+        # Guard against the false positive where the marker only appears in
+        # the echoed Query: require it AFTER the query echo, plus evidence of
+        # an actual tool execution (shell) in the transcript.
+        after_query = stdout.split('\n', 1)[1] if '\n' in stdout else ''
+        summary['hermes_stdout_has_marker'] = 'hermes-e2e-ok' in after_query
+        summary['hermes_ran_shell_tool'] = ('shell' in stdout.lower() and
+                                            ('printf' in stdout or 'command' in stdout.lower()))
+        summary['status'] = 'completed' if (client.returncode == 0
+                                           and summary['hermes_stdout_has_marker']
+                                           and summary['hermes_ran_shell_tool']) else 'client_failed'
         (out / 'e2e-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     except BaseException as error:
         summary['error'] = repr(error)
