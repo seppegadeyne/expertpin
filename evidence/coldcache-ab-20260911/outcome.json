@@ -1,0 +1,42 @@
+{
+  "kind": "coldcache-ab-20260911",
+  "question": "Worst-case first tokens after a controlled page-cache drop (POSIX_FADV_DONTNEED) on ps-iq2xxs vs warm, within 40/28 budgets",
+  "method": "Sustained-decode harness lineage + --cold-cache flag (7d14cc14): whole-file POSIX_FADV_DONTNEED on the 75,216,526,912-byte GGUF via read-only fd, requested AFTER the Tier A guard and BEFORE the dry check/scope launch; identical config both arms (ps-iq2xxs, nmax4/DRAFT1, seed42/temp0, 68-token prompt, 2x256 decode, cache_prompt false); only the fadvise differs (cold_cache summary flag + cache_drop record). Binary SHA 3235529f... unchanged.",
+  "verdict": "AMBIGUOUS-LEANING-NO-COLD-PENALTY",
+  "arms": {
+    "cold": {
+      "run_dir": "run-20260911T115540-14451cece95546798950b38027e82606",
+      "cache_drop": {"fadvise_completed": true, "bytes": 75216526912},
+      "requests": [
+        {"label": "01-nmax4", "predicted_per_second": 35.537, "predicted_ms": 7202, "prompt_ms": 1601, "acceptance": 0.671},
+        {"label": "02-nmax4", "predicted_per_second": 49.449, "predicted_ms": 5177, "prompt_ms": 373, "acceptance": 0.671}
+      ],
+      "load_to_ready_s": 36,
+      "ram_peak_gib": 32.407, "vram_peak_gib": 18.891
+    },
+    "warm": {
+      "run_dir": "run-20260911T120004-fd7cae9e53684b4f9da4899e5c14d554",
+      "cache_drop": null,
+      "requests": [
+        {"label": "01-nmax4", "predicted_per_second": 43.564, "predicted_ms": 5876, "prompt_ms": 904, "acceptance": 0.671}
+        ,
+        {"label": "02-nmax4", "predicted_per_second": 50.397, "predicted_ms": 5080, "prompt_ms": 285, "acceptance": 0.671}
+      ],
+      "load_to_ready_s": 32,
+      "ram_peak_gib": 32.407, "vram_peak_gib": 18.813
+    }
+  },
+  "budgets": {"ram_cap_gib": 40, "vram_cap_gib": 28, "memory_events_max_oom_kill": 0, "both_arms_all_green": true},
+  "honest_reading": [
+    "The fadvise call completed on the exact file and byte count, and the cold arm stayed within every budget.",
+    "BUT the cold state was NOT verified (no mincore residency snapshot before load): DONTNEED is advisory, the loader mmaps and may fault only a subset, and other same-day runs left the host page cache rich. The load-to-ready delta is 36 s vs 32 s (4 s, ~12%) and first-request decode 35.5 vs 43.6 tok/s (~19% slower).",
+    "Therefore this is evidence of a bounded worst-case-behavior under an advisory drop, NOT proof of a fully cold load. A future slice can add the mincore residency check (scripts/expert_bw_calib.py lineage) before the launcher to prove coldness.",
+    "Key practical result stands: even the slower cold-arm request is 35.5 tok/s — far above the 20 tok/s floor."
+  ],
+  "limitations": [
+    "advisory drop, residency not verified",
+    "n=1 per arm, single prompt, same-day host state",
+    "no NVMe bandwidth measurement in this slice",
+    "warm arm ran second; host state evolved slightly between arms (4.5 min apart)"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "started": "2026-09-11T11:55:40.195644+02:00",
+  "scope": "expertpin-test-61281222f90c489aac2b2347baa7d851.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ps-iq2xxs",
+  "cold_cache": true,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 1601.234,
+        "prompt_per_token_ms": 23.54755882352941,
+        "prompt_per_second": 42.46724713564663,
+        "predicted_n": 256,
+        "predicted_ms": 7202.495,
+        "predicted_per_token_ms": 28.13474609375,
+        "predicted_per_second": 35.5432388359867,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 173,
+        "draft_n_accepted": 116,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 139,
+            "draft_n_accepted": 89
+          },
+          {
+            "depth": 2,
+            "draft_n": 16,
+            "draft_n_accepted": 13
+          },
+          {
+            "depth": 3,
+            "draft_n": 10,
+            "draft_n_accepted": 8
+          },
+          {
+            "depth": 4,
+            "draft_n": 8,
+            "draft_n_accepted": 6
+          }
+        ]
+      },
+      "acceptance_fraction": 0.6705202312138728,
+      "label": "01-nmax4",
+      "n_max": 4,
+      "wall_seconds": 9.214161429990781
+    },
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 372.672,
+        "prompt_per_token_ms": 5.480470588235295,
+        "prompt_per_second": 182.46608277520176,
+        "predicted_n": 256,
+        "predicted_ms": 5176.649,
+        "predicted_per_token_ms": 20.22128515625,
+        "predicted_per_second": 49.45284101742266,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 173,
+        "draft_n_accepted": 116,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 139,
+            "draft_n_accepted": 89
+          },
+          {
+            "depth": 2,
+            "draft_n": 16,
+            "draft_n_accepted": 13
+          },
+          {
+            "depth": 3,
+            "draft_n": 10,
+            "draft_n_accepted": 8
+          },
+          {
+            "depth": 4,
+            "draft_n": 8,
+            "draft_n_accepted": 6
+          }
+        ]
+      },
+      "acceptance_fraction": 0.6705202312138728,
+      "label": "02-nmax4",
+      "n_max": 4,
+      "wall_seconds": 6.158019373979187
+    }
+  ],
+  "status": "completed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T11:55:42.269653+02:00",
+  "guard": {
+    "mem_available_bytes": 45307183104,
+    "gpu_util_pct": 1,
+    "vram_mib": 2227,
+    "elapsed_s": 0.045837937999749556
+  },
+  "cache_drop": {
+    "fadvise_completed": true,
+    "bytes": 75216526912,
+    "file": "/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf"
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T11:56:36.218757+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-11T11:56:36.840044+02:00",
+  "elapsed_seconds": 56.644417370000156
+}
