@@ -1,0 +1,23 @@
+[gpu-host-prep] before: MemAvailable=46.9 GiB
+== Hermes-stack RAM per eigenaar (RSS KiB -> MiB) ==
+      241 MiB (  1 procs)  hermes-overig
+      234 MiB (  1 procs)  gateway[straffesites]
+      227 MiB (  1 procs)  gateway[verhuurwinkel]
+      205 MiB (  1 procs)  gateway[voltti]
+      192 MiB (  1 procs)  gateway[expertpin]
+      191 MiB (  1 procs)  gateway[neuraxon]
+      191 MiB (  1 procs)  gateway[polymarket]
+       64 MiB (  6 procs)  mcp[practical]
+       64 MiB ( 10 procs)  mcp[figma]
+       39 MiB ( 12 procs)  dev-serve/http
+       32 MiB (  8 procs)  browser-harness-daemons
+       15 MiB (  6 procs)  mcp[chrome]
+     1696 MiB  TOTAAL hermes-stack
+
+stale browser_harness daemons (> 48h): 0 procs, 0 MiB RSS
+
+               total        used        free      shared  buff/cache   available
+Mem:              60          13          15           0          34          46
+Swap:             60           8          51
+[gpu-host-prep] headless-chromium.service draaide al niet
+[gpu-host-prep] after: MemAvailable=46.9 GiB
