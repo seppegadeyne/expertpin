@@ -1,0 +1,40 @@
+{
+  "started": "2026-09-11T11:01:46.221262+02:00",
+  "scope": "expertpin-test-52d6bab63861481cbf4cb5743540bc3c.scope",
+  "model_loaded": true,
+  "startup_n_max": 0,
+  "gate": "needle",
+  "checkpoint": "reference",
+  "sequence": [
+    "end",
+    "middle",
+    "start"
+  ],
+  "requests": [
+    {
+      "recalled": true,
+      "content": "7391",
+      "label": "01-end",
+      "step": "end",
+      "wall_seconds": 28.518109744007234,
+      "prompt_tokens": 2151,
+      "completion_tokens": 260
+    }
+  ],
+  "status": "blocked_or_failed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T11:01:48.297361+02:00",
+  "guard": {
+    "mem_available_bytes": 47286415360,
+    "gpu_util_pct": 2,
+    "vram_mib": 2046,
+    "elapsed_s": 0.03951206000056118
+  },
+  "error": "RuntimeError(\"completion is not a single 'stop' choice\")",
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T11:03:27.187529+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-11T11:03:27.780934+02:00",
+  "elapsed_seconds": 101.55970016098581
+}

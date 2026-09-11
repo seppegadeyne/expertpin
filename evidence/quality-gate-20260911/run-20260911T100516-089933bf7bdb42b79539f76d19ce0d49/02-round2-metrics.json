@@ -1,8 +1,0 @@
-{
-  "content": "The current weather in Ghent is cloudy, with a temperature of **17.5\u00b0C**.",
-  "label": "02-round2",
-  "step": "round2",
-  "wall_seconds": 5.110203243995784,
-  "prompt_tokens": 205,
-  "completion_tokens": 70
-}

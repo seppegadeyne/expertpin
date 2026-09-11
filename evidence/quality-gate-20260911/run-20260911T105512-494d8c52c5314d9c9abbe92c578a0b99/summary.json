@@ -1,0 +1,21 @@
+{
+  "started": "2026-09-11T10:55:12.271199+02:00",
+  "scope": "expertpin-test-42bc75235bff46c5a382414f323099b9.scope",
+  "model_loaded": false,
+  "startup_n_max": 0,
+  "gate": "needle",
+  "checkpoint": "reference",
+  "sequence": [
+    "end",
+    "middle",
+    "start"
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "error": "OSError(98, 'Address already in use')",
+  "qli_start_requested": "2026-09-11T10:55:12.301266+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-11T10:55:12.306025+02:00",
+  "elapsed_seconds": 0.03483964499901049
+}

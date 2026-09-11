@@ -1,0 +1,105 @@
+{
+  "kind": "needle-recall-gate-ab-20260911",
+  "question": "Does the PS IQ2_XXS checkpoint recall a single four-digit code planted at start/middle/end of a ~2K-token haystack, compared to the reference checkpoint, within 40/28 budgets?",
+  "method": "Guarded harness --gate needle (target-only DRAFT=0): deterministic filler haystack sized via /tokenize to ~2048 tokens (measured 2151 prompt tokens incl. template), needle at 10%/50%/90%, question asks for the code only, NEEDLE_TOKENS=512, temp 0 seed 42. Final scenario = neutral needle wording (d3fe9fc2); two earlier wording/budget iterations preserved as evidence.",
+  "verdict": "PASS",
+  "per_checkpoint": {
+    "ps-iq2xxs": {
+      "verdict": "PASS",
+      "failures": [],
+      "positions": {
+        "end": {
+          "recalled": true,
+          "content": "7391",
+          "wall_seconds": 9.19,
+          "prompt_tokens": 2146,
+          "completion_tokens": 102
+        },
+        "middle": {
+          "recalled": true,
+          "content": "7391",
+          "wall_seconds": 7.16,
+          "prompt_tokens": 2146,
+          "completion_tokens": 120
+        },
+        "start": {
+          "recalled": true,
+          "content": "7391",
+          "wall_seconds": 6.15,
+          "prompt_tokens": 2146,
+          "completion_tokens": 102
+        }
+      }
+    },
+    "reference": {
+      "verdict": "PASS",
+      "failures": [],
+      "positions": {
+        "end": {
+          "recalled": true,
+          "content": "7391",
+          "wall_seconds": 25.46,
+          "prompt_tokens": 2146,
+          "completion_tokens": 131
+        },
+        "middle": {
+          "recalled": true,
+          "content": "7391",
+          "wall_seconds": 13.27,
+          "prompt_tokens": 2146,
+          "completion_tokens": 253
+        },
+        "start": {
+          "recalled": true,
+          "content": "7391",
+          "wall_seconds": 9.19,
+          "prompt_tokens": 2146,
+          "completion_tokens": 97
+        }
+      }
+    }
+  },
+  "budgets": {
+    "ps-iq2xxs": {
+      "ram_peak_gib": 32.407,
+      "vram_peak_gib": 15.982,
+      "swap_peak_gib": 0.634,
+      "samples": 46
+    },
+    "reference": {
+      "ram_peak_gib": 32.409,
+      "vram_peak_gib": 20.097,
+      "swap_peak_gib": 1.067,
+      "samples": 77
+    },
+    "caps": {
+      "ram_gib": 40,
+      "vram_gib": 28
+    }
+  },
+  "iterations": [
+    {
+      "commit": "eb71b914",
+      "needle_tokens": 256,
+      "result": "ps 3/3 recall; reference burned 256 tokens on compliance deliberation about the archivist clause, finish_reason=length (fail-closed, preserved run-20260911T104906)"
+    },
+    {
+      "commit": "bde348f8",
+      "needle_tokens": 512,
+      "result": "ps 3/3; reference 01-end ok, 02-middle again length-deliberation (run-20260911T110146)"
+    },
+    {
+      "commit": "d3fe9fc2",
+      "needle_tokens": 512,
+      "wording": "neutral",
+      "result": "ps 3/3 (run-20260911T110728), reference 3/3 (run-20260911T110905) \u2014 counted verdicts"
+    }
+  ],
+  "limitations": [
+    "single needle, single depth (~2K tokens): NOT a 64K/264K long-context proof",
+    "n=1 per position, greedy temp 0",
+    "no multi-needle/RULER-style aggregation or variable haystack density",
+    "prefix-cache reuse between positions is partial only (needle insertion breaks the common prefix)",
+    "two gate-iteration failures were scenario artifacts (token budget / wording), not checkpoint recall failures \u2014 reasoning in both preserved runs shows the code was located"
+  ]
+}
