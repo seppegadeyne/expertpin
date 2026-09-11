@@ -1,0 +1,591 @@
+Running as unit: expertpin-test-614ce33df8744b1ebf0785f589e63db1.scope; invocation ID: 7b3be443b0314e3dae91ccce85400eed
+INFO [                    main] build info | tid="140449002016768" timestamp=1789122494 build=4925 commit="60a14628"
+INFO [                    main] system info | tid="140449002016768" timestamp=1789122494 n_threads=16 n_threads_batch=-1 total_threads=32 system_info="AVX = 1 | AVX_VNNI = 1 | AVX2 = 1 | AVX512 = 1 | AVX512_VBMI = 1 | AVX512_VNNI = 1 | AVX512_BF16 = 1 | FMA = 1 | NEON = 0 | SVE = 0 | ARM_FMA = 0 | F16C = 1 | FP16_VA = 0 | WASM_SIMD = 0 | SSE3 = 1 | SSSE3 = 1 | VSX = 0 | MATMUL_INT8 = 0 | "
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 5090, compute capability 12.0, VMM: yes, VRAM: 32146 MiB
+CUDA0: using device CUDA0 - 29389 MiB free
+llama_model_loader: loaded meta data with 60 key-value pairs and 1224 tensors from /home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = qwen4exp
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                     general.sampling.top_k i32              = 20
+llama_model_loader: - kv   3:                     general.sampling.top_p f32              = 0.950000
+llama_model_loader: - kv   4:                      general.sampling.temp f32              = 1.000000
+llama_model_loader: - kv   5:                               general.name str              = Src
+llama_model_loader: - kv   6:                         general.size_label str              = 512x56B
+llama_model_loader: - kv   7:                       qwen4exp.block_count u32              = 48
+llama_model_loader: - kv   8:                    qwen4exp.context_length u32              = 262144
+llama_model_loader: - kv   9:                  qwen4exp.embedding_length u32              = 2560
+llama_model_loader: - kv  10:              qwen4exp.attention.head_count u32              = 24
+llama_model_loader: - kv  11:           qwen4exp.attention.head_count_kv u32              = 2
+llama_model_loader: - kv  12:           qwen4exp.rope.dimension_sections arr[i32,4]       = [11, 11, 10, 0]
+llama_model_loader: - kv  13:                    qwen4exp.rope.freq_base f32              = 10000000.000000
+llama_model_loader: - kv  14:  qwen4exp.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  15:                      qwen4exp.expert_count u32              = 512
+llama_model_loader: - kv  16:                 qwen4exp.expert_used_count u32              = 10
+llama_model_loader: - kv  17:              qwen4exp.attention.key_length u32              = 256
+llama_model_loader: - kv  18:            qwen4exp.attention.value_length u32              = 256
+llama_model_loader: - kv  19:        qwen4exp.expert_feed_forward_length u32              = 640
+llama_model_loader: - kv  20: qwen4exp.expert_shared_feed_forward_length u32              = 640
+llama_model_loader: - kv  21:                   qwen4exp.ssm.conv_kernel u32              = 4
+llama_model_loader: - kv  22:                    qwen4exp.ssm.state_size u32              = 128
+llama_model_loader: - kv  23:                   qwen4exp.ssm.group_count u32              = 16
+llama_model_loader: - kv  24:                qwen4exp.ssm.time_step_rank u32              = 48
+llama_model_loader: - kv  25:                    qwen4exp.ssm.inner_size u32              = 6144
+llama_model_loader: - kv  26:           qwen4exp.full_attention_interval u32              = 4
+llama_model_loader: - kv  27:              qwen4exp.rope.dimension_count u32              = 64
+llama_model_loader: - kv  28:            qwen4exp.hyper_connection.count u32              = 4
+llama_model_loader: - kv  29:         qwen4exp.hyper_connection.low_rank u32              = 320
+llama_model_loader: - kv  30:      qwen4exp.attention.indexer.head_count u32              = 4
+llama_model_loader: - kv  31:      qwen4exp.attention.indexer.key_length u32              = 128
+llama_model_loader: - kv  32:           qwen4exp.attention.indexer.top_k u32              = 2048
+llama_model_loader: - kv  33:         qwen4exp.attention.compress_ratios arr[i32,48]      = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+llama_model_loader: - kv  34:                        qwen4exp.ple.layers arr[i32,1]       = [1]
+llama_model_loader: - kv  35:                    qwen4exp.ple.ngram_size u32              = 3
+llama_model_loader: - kv  36:               qwen4exp.ple.heads_per_ngram u32              = 8
+llama_model_loader: - kv  37:                   qwen4exp.ple.conv_kernel u32              = 4
+llama_model_loader: - kv  38:                  qwen4exp.ple.eos_token_id u32              = 248044
+llama_model_loader: - kv  39:                qwen4exp.ple.image_token_id u32              = 248056
+llama_model_loader: - kv  40:  qwen4exp.embedding_length_per_layer_input u32              = 160
+llama_model_loader: - kv  41:             qwen4exp.ple.layer_multipliers arr[u64,3]       = [23703573157769, 20109073645365, 8052...
+llama_model_loader: - kv  42:                  qwen4exp.ple.head_offsets arr[u64,16]      = [0, 20000003, 40000026, 60000059, 800...
+llama_model_loader: - kv  43:              qwen4exp.ple.head_vocab_sizes arr[u64,16]      = [20000003, 20000023, 20000033, 200000...
+llama_model_loader: - kv  44:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  45:                         tokenizer.ggml.pre str              = qwen35
+llama_model_loader: - kv  46:                      tokenizer.ggml.tokens arr[str,248320]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  47:                  tokenizer.ggml.token_type arr[i32,248320]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  48:                      tokenizer.ggml.merges arr[str,247587]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  49:                tokenizer.ggml.eos_token_id u32              = 248046
+llama_model_loader: - kv  50:            tokenizer.ggml.padding_token_id u32              = 248044
+llama_model_loader: - kv  51:                tokenizer.ggml.bos_token_id u32              = 248044
+llama_model_loader: - kv  52:               tokenizer.ggml.add_bos_token bool             = false
+llama_model_loader: - kv  53:                    tokenizer.chat_template str              = {%- set image_count = namespace(value...
+llama_model_loader: - kv  54:               general.quantization_version u32              = 2
+llama_model_loader: - kv  55:                          general.file_type u32              = 19
+llama_model_loader: - kv  56:                      quantize.imatrix.file str              = imatrix_unsloth.gguf
+llama_model_loader: - kv  57:                   quantize.imatrix.dataset str              = unsloth_calibration_Qwen3.8-Flash-Nex...
+llama_model_loader: - kv  58:             quantize.imatrix.entries_count u32              = 926
+llama_model_loader: - kv  59:              quantize.imatrix.chunks_count u32              = 45
+llama_model_loader: - type  f32:  388 tensors
+llama_model_loader: - type  f16:    1 tensors
+llama_model_loader: - type q4_0:   51 tensors
+llama_model_loader: - type q8_0:   15 tensors
+llama_model_loader: - type q2_K:    3 tensors
+llama_model_loader: - type q4_K:   48 tensors
+llama_model_loader: - type q6_K:    1 tensors
+llama_model_loader: - type iq2_xxs:  551 tensors
+llama_model_loader: - type iq4_nl:  142 tensors
+llama_model_loader: - type bf16:   24 tensors
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 248044 ('<|endoftext|>')
+load:   - 248046 ('<|im_end|>')
+load:   - 248063 ('<|fim_pad|>')
+load:   - 248064 ('<|repo_name|>')
+load:   - 248065 ('<|file_sep|>')
+load: special tokens cache size = 33
+load: token to piece cache size = 1.7581 MB
+llm_load_print_meta: format           = GGUF V3 (latest)
+llm_load_print_meta: arch             = qwen4exp
+llm_load_print_meta: n_ctx_train      = 262144
+llm_load_print_meta: n_embd           = 2560
+llm_load_print_meta: n_layer          = 48
+llm_load_print_meta: n_head           = 24
+llm_load_print_meta: n_head_kv        = 2
+llm_load_print_meta: n_rot            = 64
+llm_load_print_meta: n_swa            = 0
+llm_load_print_meta: n_swa_pattern    = 1
+llm_load_print_meta: n_embd_head_k    = 256
+llm_load_print_meta: n_embd_head_v    = 256
+llm_load_print_meta: n_gqa            = 12
+llm_load_print_meta: n_embd_k_gqa     = 512
+llm_load_print_meta: n_embd_v_gqa     = 512
+llm_load_print_meta: f_norm_eps       = 0.0e+00
+llm_load_print_meta: f_norm_rms_eps   = 1.0e-06
+llm_load_print_meta: f_clamp_kqv      = 0.0e+00
+llm_load_print_meta: f_max_alibi_bias = 0.0e+00
+llm_load_print_meta: f_logit_scale    = 0.0e+00
+llm_load_print_meta: n_ff             = 0
+llm_load_print_meta: n_expert         = 512
+llm_load_print_meta: n_expert_used    = 10
+llm_load_print_meta: causal attn      = 1
+llm_load_print_meta: pooling type     = 0
+llm_load_print_meta: rope type        = 40
+llm_load_print_meta: rope scaling     = linear
+llm_load_print_meta: freq_base_train  = 10000000.0
+llm_load_print_meta: freq_scale_train = 1
+llm_load_print_meta: n_ctx_orig_yarn  = 262144
+llm_load_print_meta: rope_finetuned   = unknown
+llm_load_print_meta: mrope sections   = [11, 11, 10, 0]
+llm_load_print_meta: ssm_d_conv       = 4
+llm_load_print_meta: ssm_d_inner      = 6144
+llm_load_print_meta: ssm_d_state      = 128
+llm_load_print_meta: ssm_dt_rank      = 48
+llm_load_print_meta: ssm_n_group      = 16
+llm_load_print_meta: model type       = 125B.A6B
+llm_load_print_meta: model ftype      = IQ2_XXS - 2.0625 bpw
+llm_load_print_meta: model params     = 176.944 B
+llm_load_print_meta: model size       = 70.041 GiB (3.400 BPW) 
+llm_load_print_meta: repeating layers = 68.926 GiB (3.370 BPW, 175.673 B parameters)
+llm_load_print_meta: general.name     = Src
+print_info: vocab type            = BPE
+print_info: n_vocab               = 248320
+print_info: n_merges              = 247587
+print_info: BOS token             = 248044 '<|endoftext|>'
+print_info: EOS token             = 248046 '<|im_end|>'
+print_info: EOT token             = 248046 '<|im_end|>'
+print_info: PAD token             = 248044 '<|endoftext|>'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PRE token         = 248060 '<|fim_prefix|>'
+print_info: FIM SUF token         = 248062 '<|fim_suffix|>'
+print_info: FIM MID token         = 248061 '<|fim_middle|>'
+print_info: FIM PAD token         = 248063 '<|fim_pad|>'
+print_info: FIM REP token         = 248064 '<|repo_name|>'
+print_info: FIM SEP token         = 248065 '<|file_sep|>'
+print_info: EOG token             = 248044 '<|endoftext|>'
+print_info: EOG token             = 248046 '<|im_end|>'
+print_info: EOG token             = 248063 '<|fim_pad|>'
+print_info: EOG token             = 248064 '<|repo_name|>'
+print_info: EOG token             = 248065 '<|file_sep|>'
+print_info: max token length      = 256
+======================================= HAVE_FANCY_SIMD is defined
+Oops: tensor with strange name per_layer_token_embd.weight
+------------------- Layer sizes:
+Layer  0:    896.65,      3.12,    899.77       80.00  MiB
+Layer  1:    904.91,      3.47,    908.37       80.00  MiB
+Layer  2:    896.65,      3.12,    899.77       80.00  MiB
+Layer  3:    902.24,     34.00,    936.24       80.00  MiB
+Layer  4:    896.43,      3.12,    899.55       80.00  MiB
+Layer  5:    896.43,      3.12,    899.55       80.00  MiB
+Layer  6:    896.43,      3.12,    899.55       80.00  MiB
+Layer  7:    902.24,     34.00,    936.24       80.00  MiB
+Layer  8:    896.43,      3.12,    899.55       80.00  MiB
+Layer  9:    896.43,      3.12,    899.55       80.00  MiB
+Layer 10:    896.43,      3.12,    899.55       80.00  MiB
+Layer 11:    902.24,     34.00,    936.24       80.00  MiB
+Layer 12:    896.43,      3.12,    899.55       80.00  MiB
+Layer 13:    896.43,      3.12,    899.55       80.00  MiB
+Layer 14:    896.43,      3.12,    899.55       80.00  MiB
+Layer 15:    902.24,     34.00,    936.24       80.00  MiB
+Layer 16:    896.43,      3.12,    899.55       80.00  MiB
+Layer 17:    896.43,      3.12,    899.55       80.00  MiB
+Layer 18:    896.43,      3.12,    899.55       80.00  MiB
+Layer 19:    902.24,     34.00,    936.24       80.00  MiB
+Layer 20:    896.43,      3.12,    899.55       80.00  MiB
+Layer 21:    896.43,      3.12,    899.55       80.00  MiB
+Layer 22:    896.43,      3.12,    899.55       80.00  MiB
+Layer 23:    902.24,     34.00,    936.24       80.00  MiB
+Layer 24:    896.43,      3.12,    899.55       80.00  MiB
+Layer 25:    896.43,      3.12,    899.55       80.00  MiB
+Layer 26:    896.43,      3.12,    899.55       80.00  MiB
+Layer 27:    902.24,     34.00,    936.24       80.00  MiB
+Layer 28:    896.43,      3.12,    899.55       80.00  MiB
+Layer 29:    896.43,      3.12,    899.55       80.00  MiB
+Layer 30:    896.43,      3.12,    899.55       80.00  MiB
+Layer 31:    902.24,     34.00,    936.24       80.00  MiB
+Layer 32:    896.43,      3.12,    899.55       80.00  MiB
+Layer 33:    896.43,      3.12,    899.55       80.00  MiB
+Layer 34:    896.43,      3.12,    899.55       80.00  MiB
+Layer 35:    902.24,     34.00,    936.24       80.00  MiB
+Layer 36:    896.43,      3.12,    899.55       80.00  MiB
+Layer 37:    896.43,      3.12,    899.55       80.00  MiB
+Layer 38:    896.43,      3.12,    899.55       80.00  MiB
+Layer 39:    902.24,     34.00,    936.24       80.00  MiB
+Layer 40:    896.43,      3.12,    899.55       80.00  MiB
+Layer 41:    896.43,      3.12,    899.55       80.00  MiB
+Layer 42:    896.43,      3.12,    899.55       80.00  MiB
+Layer 43:    902.24,     34.00,    936.24       80.00  MiB
+Layer 44:    896.43,      3.12,    899.55       80.00  MiB
+Layer 45:    896.43,      3.12,    899.55       80.00  MiB
+Layer 46:    896.43,      3.12,    899.55       80.00  MiB
+Layer 47:    902.24,     34.00,    936.24       80.00  MiB
+Layer 48:    650.82,    405.00,   1055.82 MiB (output layer)
+--------------------------------------------------------------------------
+Total   :  43107.47,    925.57,  44033.04 MiB
+Memory required for model tensors + cache: 44684 MiB
+Memory available on all devices - compute: 28289 MiB
+llm_load_tensors: ggml ctx size =    1.09 MiB
+Tensor blk.12.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.12.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.12.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.13.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.14.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.15.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.16.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.17.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.18.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.19.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.20.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.21.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.22.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.23.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.24.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.25.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.26.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.27.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.28.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.29.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.30.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.31.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.32.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.33.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.34.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.35.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.36.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.37.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.38.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.39.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.40.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.41.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.42.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.43.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.44.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.45.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.46.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_up_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_gate_exps.weight (size = 206.25 MiB) buffer type overridden to CUDA_Host
+Tensor blk.47.ffn_down_exps.weight (size = 450.00 MiB) buffer type overridden to CUDA_Host
+llm_load_tensors: offloading 48 repeating layers to GPU
+llm_load_tensors: offloading non-repeating layers to GPU
+llm_load_tensors: offloaded 49/49 layers to GPU
+llm_load_tensors:        CPU buffer size = 71061.98 MiB
+llm_load_tensors:      CUDA0 buffer size = 12708.33 MiB
+...............................................................
+llama_init_from_model: n_ctx         = 32768
+llama_init_from_model: n_batch       = 2048
+llama_init_from_model: n_ubatch      = 512
+llama_init_from_model: flash_attn    = 1
+llama_init_from_model: attn_max_b    = 256
+llama_init_from_model: fused_moe     = 1
+llama_init_from_model: grouped er    = 0
+llama_init_from_model: fused_up_gate = 1
+llama_init_from_model: fused_mmad    = 1
+llama_init_from_model: rope_cache    = 0
+llama_init_from_model: graph_reuse   = 1
+llama_init_from_model: k_cache_hadam = 0
+llama_init_from_model: v_cache_hadam = 0
+llama_init_from_model: split_mode_graph_scheduling = 0
+llama_init_from_model: reduce_type   = f16
+llama_init_from_model: sched_async   = 0
+llama_init_from_model: ser           = -1, 0
+llama_init_from_model: freq_base     = 10000000.0
+llama_init_from_model: freq_scale    = 1
+llama_kv_cache_init:      CUDA0 KV buffer size =   520.57 MiB
+llama_init_from_model: KV self size  =  408.00 MiB, K (q8_0):  204.00 MiB, V (q8_0):  204.00 MiB
+llama_init_from_model:        CPU  output buffer size =     0.95 MiB
+llama_init_from_model:      CUDA0 compute buffer size =   495.00 MiB
+llama_init_from_model:  CUDA_Host compute buffer size =    82.04 MiB
+llama_init_from_model: graph nodes  = 5273
+llama_init_from_model: graph splits = 76
+llama_init_from_model: enabling only_active_experts scheduling
+INFO [                    init] initializing slots | tid="140449002016768" timestamp=1789122524 n_slots=1
+srv          init: Exclude reasoning tokens when selecting slot based on similarity: start: <think>, end: </think>
+use `--reasoning-tokens none` to disable.
+INFO [                    init] new slot | tid="140449002016768" timestamp=1789122524 id_slot=0 n_ctx_slot=32768
+prompt cache is enabled, size limit: 512 MiB
+use `--cache-ram 0` to disable the prompt cache
+init: chat template, example_format: '<|im_start|>system
+Reasoning effort is set to xhigh. Please think carefully through the task, validate key assumptions, consider plausible alternatives, and prioritize correctness, consistency, and clarity in the final answer.
+
+You are a helpful assistant<|im_end|>
+<|im_start|>user
+Hello<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+Hi there<|im_end|>
+<|im_start|>user
+How are you?<|im_end|>
+<|im_start|>assistant
+<think>
+'
+INFO [                    main] model loaded | tid="140449002016768" timestamp=1789122524
+INFO [                    main] HTTP server listening | tid="140449002016768" timestamp=1789122524 n_threads_http="31" port="8102" hostname="127.0.0.1"
+INFO [              slots_idle] all slots are idle | tid="140449002016768" timestamp=1789122524
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=0 n_idle_slots=1 n_processing_slots=0
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=1 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438889660416" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=47790 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=3 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438864482304" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=53302 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=2 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438872875008" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=47800 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=4 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438856089600" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=53318 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=5 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438881267712" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=47796 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=6 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438847696896" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=53330 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=7 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438830911488" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=53342 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=8 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438839304192" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=51772 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=9 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438822518784" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=51778 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=11 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438814126080" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=51794 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=10 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438797340672" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=51808 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=12 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438805733376" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=51806 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=13 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438788947968" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=33760 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122524 id_task=14 n_idle_slots=1 n_processing_slots=0
+INFO [      log_server_request] request | tid="140438772162560" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=33770 status=200 method="GET" path="/health" params={}
+INFO [              slots_idle] all slots are idle | tid="140449002016768" timestamp=1789122524
+INFO [      log_server_request] request | tid="140438780555264" timestamp=1789122524 remote_addr="127.0.0.1" remote_port=33774 status=200 method="GET" path="/health" params={}
+INFO [     process_single_task] slot data | tid="140449002016768" timestamp=1789122525 id_task=15 n_idle_slots=1 n_processing_slots=0
+INFO [              slots_idle] all slots are idle | tid="140449002016768" timestamp=1789122525
+INFO [      log_server_request] request | tid="140438763769856" timestamp=1789122525 remote_addr="127.0.0.1" remote_port=33776 status=200 method="GET" path="/health" params={}
+INFO [      log_server_request] request | tid="140438755377152" timestamp=1789122525 remote_addr="127.0.0.1" remote_port=33784 status=200 method="POST" path="/tokenize" params={}
+INFO [      log_server_request] request | tid="140438746984448" timestamp=1789122525 remote_addr="127.0.0.1" remote_port=33798 status=200 method="POST" path="/tokenize" params={}
+======== Prompt cache: cache size: 0, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.00, cache_ram_similarity: 0.50
+WARN [   launch_slot_with_task] %s
+ | ="ctx_shift is not supported by recurrent model, it will be disabled"
+INFO [   launch_slot_with_task] slot is processing task | tid="140449002016768" timestamp=1789122525 id_slot=0 id_task=16
+======== Cache: cache_size = 0, n_past =  0, n_past_prompt = 0
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122525 id_slot=0 id_task=16 p0=0
+slot create_check: id  0 | task 16 | created context checkpoint 1 of 32 (pos_min = 2047, pos_max = 2047, n_tokens = 2048, size = 112.588 MiB, took 102.87 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122529 id_slot=0 id_task=16 p0=2048
+slot create_check: id  0 | task 16 | created context checkpoint 2 of 32 (pos_min = 4095, pos_max = 4095, n_tokens = 4096, size = 112.603 MiB, took 70.51 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122533 id_slot=0 id_task=16 p0=4096
+slot create_check: id  0 | task 16 | created context checkpoint 3 of 32 (pos_min = 6143, pos_max = 6143, n_tokens = 6144, size = 112.619 MiB, took 89.63 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122537 id_slot=0 id_task=16 p0=6144
+slot create_check: id  0 | task 16 | created context checkpoint 4 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 112.635 MiB, took 322.12 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122541 id_slot=0 id_task=16 p0=8192
+slot create_check: id  0 | task 16 | created context checkpoint 5 of 32 (pos_min = 10239, pos_max = 10239, n_tokens = 10240, size = 112.650 MiB, took 127.63 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122545 id_slot=0 id_task=16 p0=10240
+slot create_check: id  0 | task 16 | created context checkpoint 6 of 32 (pos_min = 12287, pos_max = 12287, n_tokens = 12288, size = 112.666 MiB, took 34.42 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122548 id_slot=0 id_task=16 p0=12288
+slot create_check: id  0 | task 16 | created context checkpoint 7 of 32 (pos_min = 14335, pos_max = 14335, n_tokens = 14336, size = 112.682 MiB, took 34.38 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122552 id_slot=0 id_task=16 p0=14336
+slot create_check: id  0 | task 16 | created context checkpoint 8 of 32 (pos_min = 16383, pos_max = 16383, n_tokens = 16384, size = 112.697 MiB, took 34.33 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122556 id_slot=0 id_task=16 p0=16384
+slot create_check: id  0 | task 16 | created context checkpoint 9 of 32 (pos_min = 18431, pos_max = 18431, n_tokens = 18432, size = 112.713 MiB, took 16.46 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122560 id_slot=0 id_task=16 p0=18432
+slot create_check: id  0 | task 16 | created context checkpoint 10 of 32 (pos_min = 20479, pos_max = 20479, n_tokens = 20480, size = 112.728 MiB, took 16.02 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122564 id_slot=0 id_task=16 p0=20480
+slot create_check: id  0 | task 16 | created context checkpoint 11 of 32 (pos_min = 22527, pos_max = 22527, n_tokens = 22528, size = 112.744 MiB, took 16.83 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122567 id_slot=0 id_task=16 p0=22528
+slot create_check: id  0 | task 16 | created context checkpoint 12 of 32 (pos_min = 24575, pos_max = 24575, n_tokens = 24576, size = 112.760 MiB, took 17.58 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122571 id_slot=0 id_task=16 p0=24576
+slot create_check: id  0 | task 16 | created context checkpoint 13 of 32 (pos_min = 26623, pos_max = 26623, n_tokens = 26624, size = 112.775 MiB, took 17.59 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122575 id_slot=0 id_task=16 p0=26624
+slot create_check: id  0 | task 16 | created context checkpoint 14 of 32 (pos_min = 28671, pos_max = 28671, n_tokens = 28672, size = 112.791 MiB, took 17.98 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122579 id_slot=0 id_task=16 p0=28672
+slot create_check: id  0 | task 16 | created context checkpoint 15 of 32 (pos_min = 30719, pos_max = 30719, n_tokens = 30720, size = 112.807 MiB, took 15.48 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122582 id_slot=0 id_task=16 p0=30720
+slot create_check: id  0 | task 16 | created context checkpoint 16 of 32 (pos_min = 30914, pos_max = 30914, n_tokens = 30915, size = 112.808 MiB, took 19.23 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122583 id_slot=0 id_task=16 p0=30915
+slot print_timing: id  0 | task 16 | 
+prompt eval time =   58119.19 ms / 30920 tokens (    1.88 ms per token,   532.01 tokens per second)
+       eval time =    3481.34 ms /   161 tokens (   21.62 ms per token,    46.25 tokens per second)
+      total time =   61600.53 ms / 31081 tokens
+INFO [      log_server_request] request | tid="140438738591744" timestamp=1789122586 remote_addr="127.0.0.1" remote_port=33812 status=200 method="POST" path="/v1/chat/completions" params={}
+slot create_check: id  0 | task 16 | created context checkpoint 17 of 32 (pos_min = 31079, pos_max = 31079, n_tokens = 31080, size = 112.809 MiB, took 275.03 ms)
+INFO [           release_slots] slot released | tid="140449002016768" timestamp=1789122587 id_slot=0 id_task=16 n_ctx=32768 n_past=31080 n_system_tokens=0 n_cache_tokens=31080 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140449002016768" timestamp=1789122587
+======== Prompt cache: cache size: 31080, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.49, cache_ram_similarity: 0.50
+updating prompt cache
+ - saving prompt with length 31080, total state size = 499.792 MiB
+prompt cache save took 1772.94 ms
+ - looking for better prompt, base f_keep = 0.486, sim = 0.486, n_keep = 0, n_discarded_prompt = 0
+ - cache state: 1 prompts, 2415.866 MiB (limits: 512.000 MiB, 0 tokens, 6586 est)
+   - prompt 0x55e28dc71bc0:   31080 tokens,       0 discarded, checkpoints: 17,  2415.866 MiB
+prompt cache load took 2.45 ms
+INFO [   launch_slot_with_task] slot is processing task | tid="140449002016768" timestamp=1789122589 id_slot=0 id_task=194
+======== Cache: cache_size = 31080, n_past =  15042, n_past_prompt = 15042
+cache :  reviewed quarterly.
+
+Facility note 853: the inventory rotation was audited last month.
+
+Facility note 854:
+prompt:  reviewed quarterly.
+
+Project Aurora maintains a private access code for internal audits. The code is 7391. It is listed here for completeness
+slot apply_checkp: id  0 | task 194 | n_past = 15042, slot.prompt.tokens.size() = 31080, seq_id = 0, pos_min = 31079
+slot apply_checkp: id  0 | task 194 | restored context checkpoint took  7.01 ms (pos_min = 14335, pos_max = 14335, n_tokens = 14336, n_past = 14336, size = 112.682 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 16383, pos_max = 16383, size = 112.697 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 18431, pos_max = 18431, size = 112.713 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 20479, pos_max = 20479, size = 112.728 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 22527, pos_max = 22527, size = 112.744 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 24575, pos_max = 24575, size = 112.760 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 26623, pos_max = 26623, size = 112.775 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 28671, pos_max = 28671, size = 112.791 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 30719, pos_max = 30719, size = 112.807 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 30914, pos_max = 30914, size = 112.808 MiB)
+slot apply_checkp: id  0 | task 194 | erased invalidated context checkpoint (pos_min = 31079, pos_max = 31079, size = 112.809 MiB)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122589 id_slot=0 id_task=194 p0=14336
+slot create_check: id  0 | task 194 | created context checkpoint 8 of 32 (pos_min = 16383, pos_max = 16383, n_tokens = 16384, size = 112.697 MiB, took 10.89 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122593 id_slot=0 id_task=194 p0=16384
+slot create_check: id  0 | task 194 | created context checkpoint 9 of 32 (pos_min = 18431, pos_max = 18431, n_tokens = 18432, size = 112.713 MiB, took 10.96 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122596 id_slot=0 id_task=194 p0=18432
+slot create_check: id  0 | task 194 | created context checkpoint 10 of 32 (pos_min = 20479, pos_max = 20479, n_tokens = 20480, size = 112.728 MiB, took 10.77 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122600 id_slot=0 id_task=194 p0=20480
+slot create_check: id  0 | task 194 | created context checkpoint 11 of 32 (pos_min = 22527, pos_max = 22527, n_tokens = 22528, size = 112.744 MiB, took 10.94 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122604 id_slot=0 id_task=194 p0=22528
+slot create_check: id  0 | task 194 | created context checkpoint 12 of 32 (pos_min = 24575, pos_max = 24575, n_tokens = 24576, size = 112.760 MiB, took 10.66 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122608 id_slot=0 id_task=194 p0=24576
+slot create_check: id  0 | task 194 | created context checkpoint 13 of 32 (pos_min = 26623, pos_max = 26623, n_tokens = 26624, size = 112.775 MiB, took 10.81 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122611 id_slot=0 id_task=194 p0=26624
+slot create_check: id  0 | task 194 | created context checkpoint 14 of 32 (pos_min = 28671, pos_max = 28671, n_tokens = 28672, size = 112.791 MiB, took 10.68 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122615 id_slot=0 id_task=194 p0=28672
+slot create_check: id  0 | task 194 | created context checkpoint 15 of 32 (pos_min = 30719, pos_max = 30719, n_tokens = 30720, size = 112.807 MiB, took 10.53 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122619 id_slot=0 id_task=194 p0=30720
+slot create_check: id  0 | task 194 | created context checkpoint 16 of 32 (pos_min = 30914, pos_max = 30914, n_tokens = 30915, size = 112.808 MiB, took 57.57 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122619 id_slot=0 id_task=194 p0=30915
+slot print_timing: id  0 | task 194 | 
+prompt eval time =   30335.73 ms / 16584 tokens (    1.83 ms per token,   546.68 tokens per second)
+       eval time =    3258.07 ms /   154 tokens (   21.16 ms per token,    47.27 tokens per second)
+      total time =   33593.80 ms / 16738 tokens
+INFO [      log_server_request] request | tid="140438730199040" timestamp=1789122622 remote_addr="127.0.0.1" remote_port=37238 status=200 method="POST" path="/v1/chat/completions" params={}
+slot create_check: id  0 | task 194 | created context checkpoint 17 of 32 (pos_min = 31072, pos_max = 31072, n_tokens = 31073, size = 112.809 MiB, took 34.52 ms)
+INFO [           release_slots] slot released | tid="140449002016768" timestamp=1789122623 id_slot=0 id_task=194 n_ctx=32768 n_past=31073 n_system_tokens=0 n_cache_tokens=31073 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140449002016768" timestamp=1789122623
+======== Prompt cache: cache size: 31073, n_keep: 0, n_discarded_prompt: 0, cache_ram_n_min: 0, f_keep: 0.10, cache_ram_similarity: 0.50
+updating prompt cache
+ - saving prompt with length 31073, total state size = 499.704 MiB
+prompt cache save took 852.67 ms
+ - looking for better prompt, base f_keep = 0.096, sim = 0.096, n_keep = 0, n_discarded_prompt = 0
+ - cache size limit reached, removing oldest entry (size = 2415.866 MiB)
+ - cache state: 1 prompts, 2415.779 MiB (limits: 512.000 MiB, 0 tokens, 6585 est)
+   - prompt 0x55e28dc6fe20:   31073 tokens,       0 discarded, checkpoints: 17,  2415.779 MiB
+prompt cache load took 39.11 ms
+INFO [   launch_slot_with_task] slot is processing task | tid="140449002016768" timestamp=1789122624 id_slot=0 id_task=358
+======== Cache: cache_size = 31073, n_past =  2969, n_past_prompt = 2969
+cache :  facilities group.
+
+Facility note 171: the loading dock scheduling is handled by the facilities group.
+
+Facility note 17
+prompt:  facilities group.
+
+Project Aurora maintains a private access code for internal audits. The code is 7391. It is listed here for completeness
+slot apply_checkp: id  0 | task 358 | n_past = 2969, slot.prompt.tokens.size() = 31073, seq_id = 0, pos_min = 31072
+slot apply_checkp: id  0 | task 358 | restored context checkpoint took  6.57 ms (pos_min = 2047, pos_max = 2047, n_tokens = 2048, n_past = 2048, size = 112.588 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 4095, pos_max = 4095, size = 112.603 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 6143, pos_max = 6143, size = 112.619 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, size = 112.635 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 10239, pos_max = 10239, size = 112.650 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 12287, pos_max = 12287, size = 112.666 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 14335, pos_max = 14335, size = 112.682 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 16383, pos_max = 16383, size = 112.697 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 18431, pos_max = 18431, size = 112.713 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 20479, pos_max = 20479, size = 112.728 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 22527, pos_max = 22527, size = 112.744 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 24575, pos_max = 24575, size = 112.760 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 26623, pos_max = 26623, size = 112.775 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 28671, pos_max = 28671, size = 112.791 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 30719, pos_max = 30719, size = 112.807 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 30914, pos_max = 30914, size = 112.808 MiB)
+slot apply_checkp: id  0 | task 358 | erased invalidated context checkpoint (pos_min = 31072, pos_max = 31072, size = 112.809 MiB)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122624 id_slot=0 id_task=358 p0=2048
+slot create_check: id  0 | task 358 | created context checkpoint 2 of 32 (pos_min = 4095, pos_max = 4095, n_tokens = 4096, size = 112.603 MiB, took 10.64 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122627 id_slot=0 id_task=358 p0=4096
+slot create_check: id  0 | task 358 | created context checkpoint 3 of 32 (pos_min = 6143, pos_max = 6143, n_tokens = 6144, size = 112.619 MiB, took 10.91 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122631 id_slot=0 id_task=358 p0=6144
+slot create_check: id  0 | task 358 | created context checkpoint 4 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 112.635 MiB, took 10.55 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122634 id_slot=0 id_task=358 p0=8192
+slot create_check: id  0 | task 358 | created context checkpoint 5 of 32 (pos_min = 10239, pos_max = 10239, n_tokens = 10240, size = 112.650 MiB, took 10.78 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122638 id_slot=0 id_task=358 p0=10240
+slot create_check: id  0 | task 358 | created context checkpoint 6 of 32 (pos_min = 12287, pos_max = 12287, n_tokens = 12288, size = 112.666 MiB, took 10.92 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122642 id_slot=0 id_task=358 p0=12288
+slot create_check: id  0 | task 358 | created context checkpoint 7 of 32 (pos_min = 14335, pos_max = 14335, n_tokens = 14336, size = 112.682 MiB, took 10.72 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122645 id_slot=0 id_task=358 p0=14336
+slot create_check: id  0 | task 358 | created context checkpoint 8 of 32 (pos_min = 16383, pos_max = 16383, n_tokens = 16384, size = 112.697 MiB, took 10.50 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122649 id_slot=0 id_task=358 p0=16384
+slot create_check: id  0 | task 358 | created context checkpoint 9 of 32 (pos_min = 18431, pos_max = 18431, n_tokens = 18432, size = 112.713 MiB, took 10.88 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122653 id_slot=0 id_task=358 p0=18432
+slot create_check: id  0 | task 358 | created context checkpoint 10 of 32 (pos_min = 20479, pos_max = 20479, n_tokens = 20480, size = 112.728 MiB, took 10.73 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122656 id_slot=0 id_task=358 p0=20480
+slot create_check: id  0 | task 358 | created context checkpoint 11 of 32 (pos_min = 22527, pos_max = 22527, n_tokens = 22528, size = 112.744 MiB, took 11.09 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122660 id_slot=0 id_task=358 p0=22528
+slot create_check: id  0 | task 358 | created context checkpoint 12 of 32 (pos_min = 24575, pos_max = 24575, n_tokens = 24576, size = 112.760 MiB, took 10.82 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122664 id_slot=0 id_task=358 p0=24576
+slot create_check: id  0 | task 358 | created context checkpoint 13 of 32 (pos_min = 26623, pos_max = 26623, n_tokens = 26624, size = 112.775 MiB, took 10.40 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122668 id_slot=0 id_task=358 p0=26624
+slot create_check: id  0 | task 358 | created context checkpoint 14 of 32 (pos_min = 28671, pos_max = 28671, n_tokens = 28672, size = 112.791 MiB, took 10.73 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122671 id_slot=0 id_task=358 p0=28672
+slot create_check: id  0 | task 358 | created context checkpoint 15 of 32 (pos_min = 30719, pos_max = 30719, n_tokens = 30720, size = 112.807 MiB, took 10.95 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122675 id_slot=0 id_task=358 p0=30720
+slot create_check: id  0 | task 358 | created context checkpoint 16 of 32 (pos_min = 30914, pos_max = 30914, n_tokens = 30915, size = 112.808 MiB, took 10.66 ms)
+INFO [    batch_pending_prompt] kv cache rm [p0, end) | tid="140449002016768" timestamp=1789122675 id_slot=0 id_task=358 p0=30915
+slot print_timing: id  0 | task 358 | 
+prompt eval time =   51767.00 ms / 28872 tokens (    1.79 ms per token,   557.73 tokens per second)
+       eval time =    1976.47 ms /    95 tokens (   20.80 ms per token,    48.07 tokens per second)
+      total time =   53743.47 ms / 28967 tokens
+INFO [      log_server_request] request | tid="140438721806336" timestamp=1789122677 remote_addr="127.0.0.1" remote_port=55272 status=200 method="POST" path="/v1/chat/completions" params={}
+slot create_check: id  0 | task 358 | created context checkpoint 17 of 32 (pos_min = 31013, pos_max = 31013, n_tokens = 31014, size = 112.809 MiB, took 10.69 ms)
+INFO [           release_slots] slot released | tid="140449002016768" timestamp=1789122677 id_slot=0 id_task=358 n_ctx=32768 n_past=31014 n_system_tokens=0 n_cache_tokens=31014 truncated=false
+INFO [              slots_idle] all slots are idle | tid="140449002016768" timestamp=1789122677
+INFO [              slots_idle] all slots are idle | tid="140449002016768" timestamp=1789122678
+~ggml_backend_cuda_context: have 150 graphs
