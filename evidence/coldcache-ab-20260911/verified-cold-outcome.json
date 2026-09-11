@@ -1,0 +1,38 @@
+{
+  "kind": "verified-cold-20260911",
+  "question": "Is the cold-cache arm measurably cold (mincore residency), and what is the decode speed from a verified-cold state?",
+  "method": "Cold-cache harness with whole-file batched mincore verification (d09d914c): drop -> snapshot (18,363,410 pages, 4096B each) -> COLD/NOT_COLD against 10% threshold, then the standard 2x256 decode. ps-iq2xxs, nmax4, binary SHA 3235529f... unchanged.",
+  "verdict": "COLD VERIFIED \u2014 0/18,363,410 pages resident (ratio 0.0)",
+  "measured": {
+    "resident_pages": 0,
+    "pages": 18363410,
+    "resident_ratio": 0.0,
+    "requests": [
+      {
+        "label": "01-nmax4",
+        "tok_s": 33.27,
+        "prompt_ms": 1962.3
+      },
+      {
+        "label": "02-nmax4",
+        "tok_s": 50.75,
+        "prompt_ms": 302.2
+      }
+    ]
+  },
+  "readings": [
+    "33.27 tok/s first decode from a PROVEN cold state (0 resident pages), 50.75 warm \u2014 the 20 tok/s floor holds even verified-cold.",
+    "This retroactively validates the earlier advisory-drop arm (115540): its 35.54 tok/s was genuinely a cold-load result; DONTNEED on this file/kernel does evict fully.",
+    "Load still only took ~36 s cold (mmap loader faults only what it needs)."
+  ],
+  "budgets": {
+    "ram_peak_gib": 32.405,
+    "vram_peak_gib": 18.682,
+    "samples": 38
+  },
+  "limitations": [
+    "snapshot is not atomic; residency between snapshot and load start could change (nothing else was reading the file)",
+    "n=1 verified-cold run; single prompt",
+    "mincore observes page-cache residency, not GPU L2 or other host caches"
+  ]
+}

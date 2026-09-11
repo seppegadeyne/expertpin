@@ -1,0 +1,146 @@
+{
+  "started": "2026-09-11T13:38:52.388286+02:00",
+  "scope": "expertpin-test-f012b67281c04b5d81ecd3d6cce445fa.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ps-iq2xxs",
+  "cold_cache": true,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 1962.318,
+        "prompt_per_token_ms": 28.857617647058824,
+        "prompt_per_second": 34.65289519843369,
+        "predicted_n": 256,
+        "predicted_ms": 7694.795,
+        "predicted_per_token_ms": 30.05779296875,
+        "predicted_per_second": 33.26924239047304,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 173,
+        "draft_n_accepted": 116,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 139,
+            "draft_n_accepted": 89
+          },
+          {
+            "depth": 2,
+            "draft_n": 16,
+            "draft_n_accepted": 13
+          },
+          {
+            "depth": 3,
+            "draft_n": 10,
+            "draft_n_accepted": 8
+          },
+          {
+            "depth": 4,
+            "draft_n": 8,
+            "draft_n_accepted": 6
+          }
+        ]
+      },
+      "acceptance_fraction": 0.6705202312138728,
+      "label": "01-nmax4",
+      "n_max": 4,
+      "wall_seconds": 10.214032375020906
+    },
+    {
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 68,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 68,
+        "prompt_ms": 302.232,
+        "prompt_per_token_ms": 4.444588235294118,
+        "prompt_per_second": 224.99272082373804,
+        "predicted_n": 256,
+        "predicted_ms": 5044.691,
+        "predicted_per_token_ms": 19.70582421875,
+        "predicted_per_second": 50.7464183633844,
+        "n_ctx": 8192,
+        "n_past": 323,
+        "draft_n": 173,
+        "draft_n_accepted": 116,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 139,
+            "draft_n_accepted": 89
+          },
+          {
+            "depth": 2,
+            "draft_n": 16,
+            "draft_n_accepted": 13
+          },
+          {
+            "depth": 3,
+            "draft_n": 10,
+            "draft_n_accepted": 8
+          },
+          {
+            "depth": 4,
+            "draft_n": 8,
+            "draft_n_accepted": 6
+          }
+        ]
+      },
+      "acceptance_fraction": 0.6705202312138728,
+      "label": "02-nmax4",
+      "n_max": 4,
+      "wall_seconds": 6.155752521997783
+    }
+  ],
+  "status": "completed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T13:38:54.465805+02:00",
+  "guard": {
+    "mem_available_bytes": 47927808000,
+    "gpu_util_pct": 0,
+    "vram_mib": 2033,
+    "elapsed_s": 0.046698143996763974
+  },
+  "cache_drop": {
+    "fadvise_completed": true,
+    "bytes": 75216526912,
+    "file": "/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf"
+  },
+  "residency": {
+    "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+    "pages": 18363410,
+    "resident_pages": 0,
+    "error": null,
+    "page_size": 4096,
+    "file": "/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf"
+  },
+  "residency_verdict": {
+    "verdict": "COLD",
+    "resident_ratio": 0.0
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T13:39:49.669641+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-11T13:39:50.291730+02:00",
+  "elapsed_seconds": 57.90345892298501
+}
