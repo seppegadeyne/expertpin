@@ -13,6 +13,7 @@ import json
 import math
 import os
 from pathlib import Path
+import posix
 import signal
 import socket
 import subprocess
@@ -25,7 +26,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[2]
 PREP = '/home/seppe/.hermes/profiles/expertpin/scripts/gpu-host-prep.sh'
 DEPTHS = (4, 8, 16)
-TOKENS = 256
+TOKENS = int(os.environ.get('SUSTAINED_TOKENS', '256'))
 WORK_SECONDS = 660  # Reserve >3 minutes of the 15-minute bound for bounded cleanup.
 REQUEST_SECONDS = 180
 RAM_BUDGET_GIB = 36
@@ -43,49 +44,9 @@ CHECKPOINTS = {
                   'Qwen3.8-Flash-Next-IQ2_XXS.gguf'),
 }
 DEFAULT_CHECKPOINT = 'reference'
-# Tool-call JSON quality gate (state-file "VOLGENDE" item 2, first half):
-# does the checkpoint still produce schema-exact tool calls and a clean
-# follow-up answer after a tool round? Target-only (DRAFT=0) so gate quality
-# measures checkpoint quantization, not drafter interaction. Both checkpoints
-# run the identical scenario; the verdict is per-checkpoint PASS/FAIL.
-GATES = ('throughput', 'toolcall', 'needle')
-TOOLCALL_TOKENS = 512
-TOOLCALL_TOKENS_ROUND2 = 512
-# Needle-recall gate (quality gate second half): one code needle at
-# start/middle/end of a deterministic filler haystack sized ~NEEDLE_TARGET
-# tokens via the /tokenize endpoint. Positions run end->middle->start so each
-# request shares the previous prefix and cache_prompt=True can reuse it.
-NEEDLE_PARAGRAPH = ('Project Aurora maintains a private access code for internal audits. '
-                    'The code is 7391. It is listed here for completeness of the records.')
-NEEDLE_QUESTION = ('According to the reference document above, what is the private access code '
-                   'of Project Aurora? Answer with the four-digit code only.')
-NEEDLE_CODE = '7391'
-NEEDLE_TOKENS = 512
-NEEDLE_TARGET_TOKENS = 2048
-NEEDLE_TOKEN_TOLERANCE = 0.10
-NEEDLE_POSITIONS = {'start': 0.1, 'middle': 0.5, 'end': 0.9}
-NEEDLE_REQUEST_SECONDS = 300
-NEEDLE_WORK_SECONDS = 960
-TOOL_SCHEMA = {
-    'type': 'object',
-    'properties': {
-        'city': {'type': 'string', 'enum': ['Ghent', 'Brussels', 'Antwerp']},
-        'unit': {'type': 'string', 'enum': ['celsius', 'fahrenheit']},
-    },
-    'required': ['city', 'unit'],
-}
-TOOL_RESULT = {'city': 'Ghent', 'unit': 'celsius', 'temperature_c': 17.5, 'condition': 'cloudy'}
 
 
-def validate_plan(startup_nmax, checkpoint=DEFAULT_CHECKPOINT, gate='throughput'):
-    if gate not in GATES:
-        raise ValueError('unknown gate: ' + repr(gate))
-    if gate in ('toolcall', 'needle'):
-        if startup_nmax != 0:
-            raise ValueError(gate + ' gate requires --startup-n-max 0 (target-only)')
-        if checkpoint not in CHECKPOINTS:
-            raise ValueError('unknown checkpoint: ' + repr(checkpoint))
-        return
+def validate_plan(startup_nmax, checkpoint=DEFAULT_CHECKPOINT):
     if type(startup_nmax) is not int or startup_nmax not in (0, 4, 8, 16):
         raise ValueError('startup n_max must be 0 (target-only), 4, 8 or 16')
     if checkpoint not in CHECKPOINTS:
@@ -125,215 +86,6 @@ def output_fields(data):
     if any(v is not None and not isinstance(v, str) for v in result.values()):
         raise ValueError('non-text response field')
     return result
-
-
-def toolcall_payload():
-    """Forced single-tool call: exact name, schema-valid arguments, tool_call id.
-
-    tool_choice is the STRING "required", not the OpenAI object form: this
-    server build parses tool_choice via json_value(..., std::string) and would
-    silently degrade an object to "auto" (server-common.h json_value +
-    server-common.cpp:651). With exactly one tool bound, "required" is
-    equivalent to forcing get_weather (grammar min_calls=1)."""
-    prompt = ('You have access to the get_weather tool. Do not answer from memory. '
-              'Use the get_weather tool to fetch the current weather in Ghent. '
-              'Call get_weather with city "Ghent" and unit "celsius". '
-              'After you receive the tool result, answer the user and include the '
-              'numeric temperature value in your final answer.')
-    return {'messages': [{'role': 'user', 'content': prompt}],
-            'max_tokens': TOOLCALL_TOKENS, 'temperature': 0.0, 'seed': 42,
-            'stream': False, 'cache_prompt': False,
-            'tools': [{'type': 'function', 'function': {
-                'name': 'get_weather', 'description': 'Get the current weather for a city.',
-                'parameters': TOOL_SCHEMA}}],
-            'tool_choice': 'required'}
-
-
-def toolcall_round2_payload(round1_payload, tool_call_id, arguments, tool_result_json):
-    """Feed the tool result back and ask for a plain final answer (no tools bound)."""
-    if not isinstance(tool_call_id, str) or not tool_call_id.strip():
-        raise ValueError('empty tool_call_id')
-    parsed = json.loads(arguments) if isinstance(arguments, str) else arguments
-    if not isinstance(parsed, dict) or sorted(parsed) != sorted(TOOL_SCHEMA['required']):
-        raise ValueError('round-1 arguments do not satisfy the tool schema keys')
-    if parsed.get('city') != tool_result_json.get('city'):
-        raise ValueError('round-1 arguments city does not match the tool result')
-    messages = [dict(m) for m in round1_payload['messages']]
-    messages.append({'role': 'assistant', 'content': None, 'tool_calls': [{
-        'id': tool_call_id, 'type': 'function',
-        'function': {'name': 'get_weather', 'arguments': arguments}}]})
-    messages.append({'role': 'tool', 'tool_call_id': tool_call_id,
-                     'content': json.dumps(tool_result_json)})
-    return {'messages': messages, 'max_tokens': TOOLCALL_TOKENS_ROUND2,
-            'temperature': 0.0, 'seed': 42, 'stream': False, 'cache_prompt': False}
-
-
-def _validated_choice(data, expected_finish):
-    if not isinstance(data, dict) or 'error' in data:
-        raise RuntimeError('invalid/error completion')
-    usage, choices, timings = data.get('usage'), data.get('choices'), data.get('timings')
-    if (not isinstance(usage, dict) or type(usage.get('completion_tokens')) is not int
-            or usage['completion_tokens'] <= 0 or not isinstance(choices, list)
-            or len(choices) != 1 or not isinstance(choices[0], dict)
-            or choices[0].get('finish_reason') != expected_finish):
-        raise RuntimeError(f'completion is not a single {expected_finish!r} choice')
-    if not isinstance(timings, dict):
-        raise RuntimeError('missing timings')
-    for key in ('prompt_ms', 'predicted_ms', 'predicted_per_second'):
-        value = timings.get(key)
-        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
-            raise RuntimeError('invalid timing: ' + key)
-    message = choices[0].get('message')
-    if not isinstance(message, dict):
-        raise RuntimeError('missing message')
-    return message
-
-
-def validate_toolcall(data):
-    """Round 1: exactly one get_weather call, arguments exact per TOOL_SCHEMA."""
-    message = _validated_choice(data, 'tool_calls')
-    calls = message.get('tool_calls')
-    if not isinstance(calls, list) or len(calls) != 1:
-        raise RuntimeError('expected exactly one tool call')
-    call = calls[0]
-    function = call.get('function') if isinstance(call, dict) else None
-    if not isinstance(function, dict) or function.get('name') != 'get_weather':
-        raise RuntimeError('tool call is not get_weather')
-    call_id = call.get('id')
-    if not isinstance(call_id, str) or not call_id.strip():
-        raise RuntimeError('missing tool_call id')
-    if call.get('type') not in (None, 'function'):
-        raise RuntimeError('unexpected tool call type')
-    try:
-        arguments = json.loads(function.get('arguments', ''))
-    except (json.JSONDecodeError, TypeError):
-        raise RuntimeError('tool call arguments are not valid JSON') from None
-    if not isinstance(arguments, dict):
-        raise RuntimeError('tool call arguments are not a JSON object')
-    if sorted(arguments) != sorted(TOOL_SCHEMA['required']):
-        raise RuntimeError('tool call arguments keys do not match the schema exactly')
-    if arguments['city'] != 'Ghent' or arguments['unit'] != 'celsius':
-        raise RuntimeError('tool call argument values are wrong')
-    return {'tool_name': function['name'], 'arguments': arguments, 'tool_call_id': call_id}
-
-
-def validate_round2(data):
-    """Round 2: clean stop with non-empty text; no new tool calls."""
-    message = _validated_choice(data, 'stop')
-    content = message.get('content')
-    if not isinstance(content, str) or not content.strip():
-        raise RuntimeError('round-2 answer is empty')
-    if message.get('tool_calls') is not None:
-        raise RuntimeError('round-2 answer contains unexpected tool calls')
-    return {'content': content}
-
-
-def gate_verdict(results):
-    """Per-checkpoint PASS requires both rounds valid with the exact scenario values."""
-    failures = []
-    for name, result in sorted(results.items()):
-        if not isinstance(result, dict) or 'round1' not in result or 'round2' not in result:
-            failures.append(f'{name}: incomplete rounds')
-            continue
-        first = result['round1']
-        if (first.get('tool_name') != 'get_weather'
-                or first.get('arguments') != {'city': 'Ghent', 'unit': 'celsius'}
-                or not isinstance(first.get('tool_call_id'), str)):
-            failures.append(f'{name}: round-1 tool call not exact')
-        if not isinstance(result['round2'].get('content'), str) or not result['round2']['content'].strip():
-            failures.append(f'{name}: round-2 answer empty')
-        elif '17' not in result['round2']['content']:
-            failures.append(f'{name}: round-2 answer does not reflect the tool result')
-    return {'gate': 'PASS' if not failures else 'FAIL', 'failures': failures,
-            'per_checkpoint': {k: dict(v, verdict='PASS') if 'round1' in v and 'round2' in v
-                               and v['round1'].get('tool_name') == 'get_weather'
-                               and v['round1'].get('arguments') == {'city': 'Ghent', 'unit': 'celsius'}
-                               and isinstance(v['round2'].get('content'), str)
-                               and v['round2']['content'].strip()
-                               and '17' in v['round2']['content']
-                               else dict(v, verdict='FAIL') for k, v in sorted(results.items())}}
-
-
-_HAYSTACK_TOPICS = ('inventory rotation', 'shelf labeling', 'loading dock scheduling', 'climate control',
-                    'delivery routes', 'pallet repair', 'safety inspections', 'visitor badging',
-                    'furniture placement', 'cleaning rosters', 'signage updates', 'door maintenance')
-_HAYSTACK_ACTIONS = ('is reviewed quarterly', 'was audited last month', 'follows the 2025 checklist',
-                     'requires two signatures', 'is handled by the facilities group', 'was paused in spring',
-                     'resumed in summer', 'is documented separately', 'has its own binder',
-                     'was discussed in the morning meeting')
-
-
-def build_haystack(paragraph_count):
-    """Deterministic, code-free filler paragraphs (no digits, no Aurora)."""
-    if type(paragraph_count) is not int or paragraph_count <= 0:
-        raise ValueError('paragraph_count must be a positive int')
-    paragraphs = []
-    for index in range(paragraph_count):
-        topic = _HAYSTACK_TOPICS[index % len(_HAYSTACK_TOPICS)]
-        action = _HAYSTACK_ACTIONS[(index // len(_HAYSTACK_TOPICS)) % len(_HAYSTACK_ACTIONS)]
-        paragraphs.append(f'Facility note {index + 1}: the {topic} {action}.')
-    return paragraphs
-
-
-def insert_needle(paragraphs, position):
-    """Return (paragraphs_with_needle, index); exactly one needle paragraph."""
-    if position not in NEEDLE_POSITIONS:
-        raise ValueError('unknown needle position: ' + repr(position))
-    index = round(len(paragraphs) * NEEDLE_POSITIONS[position])
-    index = min(max(index, 0), len(paragraphs))
-    with_needle = list(paragraphs)
-    with_needle.insert(index, NEEDLE_PARAGRAPH)
-    return with_needle, index
-
-
-def size_haystack(post, target_tokens=NEEDLE_TARGET_TOKENS):
-    """Grow the haystack until tokenize() reports the target token count.
-
-    `post(endpoint, body)` must return {'tokens': [...]} for /tokenize with
-    {'content': text, 'add_special': False}. Bounded to 6 calls."""
-    if type(target_tokens) is not int or target_tokens <= 0:
-        raise ValueError('target_tokens must be a positive int')
-    count = max(1, target_tokens // 40)
-    for _ in range(6):
-        paragraphs = build_haystack(count)
-        text = '\n\n'.join(paragraphs)
-        result = post('tokenize', {'content': text, 'add_special': False})
-        tokens = result.get('tokens') if isinstance(result, dict) else None
-        if not isinstance(tokens, list):
-            raise RuntimeError('tokenize returned no token list')
-        if abs(len(tokens) - target_tokens) <= target_tokens * NEEDLE_TOKEN_TOLERANCE:
-            return paragraphs
-        count = max(1, round(count * target_tokens / max(len(tokens), 1)))
-    raise RuntimeError('haystack sizing did not converge')
-
-
-def needle_payload(paragraphs):
-    content = '\n\n'.join(paragraphs) + '\n\n' + NEEDLE_QUESTION
-    return {'messages': [{'role': 'user', 'content': content}],
-            'max_tokens': NEEDLE_TOKENS, 'temperature': 0.0, 'seed': 42,
-            'stream': False, 'cache_prompt': True}
-
-
-def validate_needle(data):
-    """Clean stop, non-empty text, and the exact code present in the answer."""
-    message = _validated_choice(data, 'stop')
-    content = message.get('content')
-    if not isinstance(content, str) or not content.strip():
-        raise RuntimeError('needle answer is empty')
-    if message.get('tool_calls') is not None:
-        raise RuntimeError('needle answer contains unexpected tool calls')
-    return {'recalled': NEEDLE_CODE in content, 'content': content}
-
-
-def needle_verdict(results):
-    """PASS requires recall at start, middle and end."""
-    failures = []
-    for position, fraction in sorted(NEEDLE_POSITIONS.items()):
-        entry = results.get(position)
-        if not isinstance(entry, dict) or not entry.get('recalled'):
-            failures.append(f'{position}: code not recalled')
-    return {'gate': 'PASS' if not failures else 'FAIL', 'failures': failures,
-            'positions': dict(results)}
 
 
 def validate_completion(data, nmax):
@@ -396,6 +148,26 @@ def validate_budget(point):
         raise RuntimeError('cgroup memory pressure/OOM event')
 
 
+def drop_model_cache(path):
+    """Best-effort whole-file POSIX_FADV_DONTNEED via a read-only fd.
+
+    Requests the kernel to evict clean page-cache pages of the model file so
+    the following load reads from storage. DONTNEED is advisory only: the
+    cold state is NOT verified (see the mincore discussion in
+    scripts/expert_bw_calib.py). Fails closed on a missing/irregular file;
+    the caller must abort before host changes on any OSError."""
+    path = Path(path)
+    if not path.is_file():
+        raise ValueError('model file missing for cache drop: ' + str(path))
+    size = path.stat().st_size
+    fd = os.open(path, os.O_RDONLY)
+    try:
+        os.posix_fadvise(fd, 0, size, posix.POSIX_FADV_DONTNEED)
+    finally:
+        os.close(fd)
+    return {'fadvise_completed': True, 'bytes': size, 'file': str(path)}
+
+
 def terminate(child):
     if child is not None:
         if child.poll() is None:
@@ -411,22 +183,13 @@ def terminate(child):
 
 class Run:
     """Small ownership container: no subprocesses or writes until execute()."""
-    def __init__(self, out, startup_nmax, checkpoint=DEFAULT_CHECKPOINT, gate='throughput'):
-        validate_plan(startup_nmax, checkpoint, gate)
+    def __init__(self, out, startup_nmax, checkpoint=DEFAULT_CHECKPOINT, cold_cache=False):
+        validate_plan(startup_nmax, checkpoint)
         self.out = out
         self.startup_nmax = startup_nmax
         self.checkpoint = checkpoint
-        self.gate = gate
-        if gate == 'toolcall':
-            self.sequence = ('round1', 'round2')
-        elif gate == 'needle':
-            # end -> middle -> start: every request shares the previous prefix,
-            # so the server prompt cache (cache_prompt=True) can reuse it.
-            self.sequence = ('end', 'middle', 'start')
-        else:
-            self.sequence = (startup_nmax, startup_nmax)
-        self.request_seconds = NEEDLE_REQUEST_SECONDS if gate == 'needle' else REQUEST_SECONDS
-        self.work_seconds = NEEDLE_WORK_SECONDS if gate == 'needle' else WORK_SECONDS
+        self.cold_cache = cold_cache
+        self.sequence = (startup_nmax, startup_nmax)
         self.scope = 'expertpin-test-' + uuid.uuid4().hex + '.scope'
         self.proc = self.request = self.server_log = None
         self.cgroup_path = None
@@ -436,12 +199,10 @@ class Run:
         self.verifier_trace = False
         self.start = time.monotonic()
         self.label = 'preflight'
-        self.round1_validated = None
-        self.haystack_paragraphs = None
         self.summary = {'started': datetime.now().astimezone().isoformat(), 'scope': self.scope,
                         'model_loaded': False, 'startup_n_max': startup_nmax,
-                        'gate': gate,
                         'checkpoint': checkpoint,
+                        'cold_cache': cold_cache,
                         'sequence': list(self.sequence), 'requests': [], 'status': 'blocked_or_failed'}
 
     def save(self, name, data):
@@ -475,7 +236,7 @@ class Run:
             self.interrupt(self.pending_signal, None)
 
     def sample(self):
-        if time.monotonic() - self.start >= self.work_seconds:
+        if time.monotonic() - self.start >= WORK_SECONDS:
             raise TimeoutError('work deadline; cleanup reserve begins')
         raw = self.command(['nvidia-smi', '--query-gpu=utilization.gpu,memory.used',
                             '--format=csv,noheader,nounits'], 'gpu-latest')
@@ -535,6 +296,12 @@ class Run:
         self.summary['guard'] = idle
         if not (0 <= idle['gpu_util_pct'] < 5 and idle['mem_available_bytes'] >= 34 * 1024**3):
             raise RuntimeError('Tier A host guard blocked')
+        if self.cold_cache:
+            # After the GPU guard is green and BEFORE the dry check/scope
+            # launch: drop the model file from the page cache so the model
+            # load below reads from storage (advisory; not verified cold).
+            self.summary['cache_drop'] = drop_model_cache(env['MODEL'])
+            self.save('summary.json', self.summary)
         launch = ['bash', str(ROOT / 'scripts/run-qwen38-flash-next.sh')]
         dry = subprocess.run(launch, env=dict(env, DRY='1'), capture_output=True, text=True, timeout=30)
         (self.out / 'dry.log').write_text(dry.stdout + dry.stderr)
@@ -553,7 +320,7 @@ class Run:
         else:
             raise RuntimeError('own scope never became active')
         self.label = 'model-load'
-        deadline = min(self.start + self.work_seconds, time.monotonic() + 360)
+        deadline = min(self.start + WORK_SECONDS, time.monotonic() + 360)
         while time.monotonic() < deadline:
             self.sample()
             try:
@@ -566,36 +333,17 @@ class Run:
         else:
             raise TimeoutError('health readiness timeout')
         self.summary['model_loaded'] = True
-        for index, step in enumerate(self.sequence, 1):
-            if self.gate == 'toolcall':
-                label = f'{index:02d}-{step}'
-                if step == 'round1':
-                    body = toolcall_payload()
-                else:
-                    if self.round1_validated is None:
-                        raise RuntimeError('round2 requires a validated round1')
-                    body = toolcall_round2_payload(
-                        toolcall_payload(), self.round1_validated['tool_call_id'],
-                        json.dumps(self.round1_validated['arguments']), TOOL_RESULT)
-            elif self.gate == 'needle':
-                label = f'{index:02d}-{step}'
-                if self.haystack_paragraphs is None:
-                    self.haystack_paragraphs = size_haystack(self.tokenize_post)
-                paragraphs, _ = insert_needle(self.haystack_paragraphs, step)
-                body = needle_payload(paragraphs)
-            else:
-                label = f'{index:02d}-nmax{step}'
-                body = payload(step)
-            self.label = label
-            remaining = min(self.request_seconds, self.start + self.work_seconds - time.monotonic())
+        for index, nmax in enumerate(self.sequence, 1):
+            self.label = f'{index:02d}-nmax{nmax}'
+            remaining = min(REQUEST_SECONDS, self.start + WORK_SECONDS - time.monotonic())
             if remaining <= 1:
                 raise TimeoutError('no request budget remains')
-            request_path = self.out / (label + '-request.json')
-            response_path = self.out / (label + '-response.json')
-            self.save(request_path.name, body)
+            request_path = self.out / (self.label + '-request.json')
+            response_path = self.out / (self.label + '-response.json')
+            self.save(request_path.name, payload(nmax))
             began = time.monotonic()
             self.sample()
-            with response_path.open('x') as response, (self.out / (label + '-curl.log')).open('x') as error:
+            with response_path.open('x') as response, (self.out / (self.label + '-curl.log')).open('x') as error:
                 self.request = self.spawn(['curl', '--silent', '--show-error', '--fail-with-body',
                                            '--connect-timeout', '5', '--max-time', str(remaining),
                                            '-H', 'Content-Type: application/json', '--data-binary', '@' + str(request_path),
@@ -609,28 +357,8 @@ class Run:
                 if self.request.wait(timeout=5):
                     raise RuntimeError('completion HTTP/curl failure: ' + self.label)
             self.sample()
-            if self.gate == 'toolcall':
-                data = json.loads(response_path.read_text())
-                if step == 'round1':
-                    self.round1_validated = validate_toolcall(data)
-                    result = dict(self.round1_validated, label=label, step=step,
-                                  wall_seconds=time.monotonic() - began,
-                                  prompt_tokens=data.get('usage', {}).get('prompt_tokens'),
-                                  completion_tokens=data.get('usage', {}).get('completion_tokens'))
-                else:
-                    result = dict(validate_round2(data), label=label, step=step,
-                                  wall_seconds=time.monotonic() - began,
-                                  prompt_tokens=data.get('usage', {}).get('prompt_tokens'),
-                                  completion_tokens=data.get('usage', {}).get('completion_tokens'))
-            elif self.gate == 'needle':
-                data = json.loads(response_path.read_text())
-                result = dict(validate_needle(data), label=label, step=step,
-                              wall_seconds=time.monotonic() - began,
-                              prompt_tokens=data.get('usage', {}).get('prompt_tokens'),
-                              completion_tokens=data.get('usage', {}).get('completion_tokens'))
-            else:
-                result = validate_completion(json.loads(response_path.read_text()), step)
-                result.update(label=label, n_max=step, wall_seconds=time.monotonic() - began)
+            result = validate_completion(json.loads(response_path.read_text()), nmax)
+            result.update(label=self.label, n_max=nmax, wall_seconds=time.monotonic() - began)
             self.save(self.label + '-metrics.json', result)
             self.summary['requests'].append(result)
             self.save('summary.json', self.summary)
@@ -668,14 +396,6 @@ class Run:
         # prefix/length and null differences; retain exact source fields here.
         self.save('retokenized.json', {'kind': 'retokenized_fields_not_decode_trace',
                                       'records': records})
-
-    def tokenize_post(self, endpoint, body):
-        """Bounded POST to /tokenize used by size_haystack; enforces budgets."""
-        self.sample()
-        request = urllib.request.Request('http://127.0.0.1:8102/' + endpoint,
-            data=json.dumps(body).encode(), headers={'Content-Type': 'application/json'})
-        with urllib.request.urlopen(request, timeout=10) as response:
-            return json.load(response)
 
     def own_scope_empty(self):
         cg = self.command(['systemctl', '--user', 'show', self.scope, '-p', 'ControlGroup', '--value'],
@@ -739,19 +459,18 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--startup-n-max', type=int, choices=(0, 4, 8, 16), default=4,
                         help='repeat twice at this startup/request depth; reload for a different depth')
-    parser.add_argument('--gate', choices=GATES, default='throughput',
-                        help='throughput: 2x256-token clean MTP benchmark; toolcall: forced get_weather '
-                             'round-trip quality gate (target-only, no drafter); needle: code recall at '
-                             'start/middle/end of a ~2K-token haystack (target-only)')
     parser.add_argument('--checkpoint', choices=sorted(CHECKPOINTS), default=DEFAULT_CHECKPOINT,
                         help='A/B checkpoint alias: reference 197 GiB Q4_K_M shards vs ps-iq2xxs 75.2 GiB IQ2_XXS')
+    parser.add_argument('--cold-cache', action='store_true',
+                        help='request POSIX_FADV_DONTNEED on the model file after the GPU guard, '
+                             'before launch (advisory; cold state NOT verified)')
     parser.add_argument('--tokenize-reference', type=Path, action='append', default=[],
                         help='retokenize saved response fields after generation; not a decode trace')
     # Explicit opt-in only: clean baselines must not inherit diagnostic tracing.
     parser.add_argument('--verifier-trace', action='store_true', help='diagnostic first-128 verifier decisions, NOT a clean throughput baseline')
     args = parser.parse_args(argv)
     try:
-        validate_plan(args.startup_n_max, args.checkpoint, args.gate)
+        validate_plan(args.startup_n_max)
         for path in args.tokenize_reference:
             output_fields(json.loads(path.read_text()))
     except ValueError as error:
@@ -759,14 +478,14 @@ def main(argv=None):
         return 2
     out = Path(__file__).resolve().parent / ('run-' + datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + uuid.uuid4().hex)
     out.mkdir()
-    run = Run(out, args.startup_n_max, args.checkpoint, args.gate)
+    run = Run(out, args.startup_n_max, args.checkpoint, cold_cache=args.cold_cache)
     run.tokenize_references = args.tokenize_reference
     run.verifier_trace = args.verifier_trace
     previous = {sig: signal.getsignal(sig) for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGALRM)}
     try:
         for sig in previous:
             signal.signal(sig, run.interrupt)
-        signal.alarm(run.work_seconds)
+        signal.alarm(WORK_SECONDS)
         run.execute()
     except BaseException as error:
         run.summary['error'] = repr(error)
