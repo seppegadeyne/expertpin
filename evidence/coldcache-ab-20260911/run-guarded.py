@@ -168,6 +168,81 @@ def drop_model_cache(path):
     return {'fadvise_completed': True, 'bytes': size, 'file': str(path)}
 
 
+def residency_snapshot(path, batch_pages=65536):
+    """Bounded whole-file mincore residency snapshot (pages resident in the
+    page cache), using the proven expert_bw_calib technique: PROT_NONE
+    MAP_SHARED mapping + batched mincore vectors. Snapshot only — not atomic;
+    residency can change during/after the syscalls. Requires an owned regular
+    file (Linux may mask mincore for foreign files)."""
+    path = Path(path)
+    if not path.is_file():
+        raise ValueError('model file missing for residency snapshot: ' + str(path))
+    import ctypes
+    import stat
+    page = os.sysconf('SC_PAGESIZE')
+    size = path.stat().st_size
+    fd = os.open(path, os.O_RDONLY)
+    try:
+        info = os.fstat(fd)
+        if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid():
+            raise ValueError('residency snapshot requires an owned regular file')
+        pages = (size + page - 1) // page
+        libc = ctypes.CDLL(None, use_errno=True)
+        libc.mmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_int,
+                              ctypes.c_int, ctypes.c_int, ctypes.c_long]
+        libc.mmap.restype = ctypes.c_void_p
+        libc.mincore.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_void_p]
+        libc.mincore.restype = ctypes.c_int
+        libc.munmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+        libc.munmap.restype = ctypes.c_int
+        addr = libc.mmap(None, size, 0, 1, fd, 0)  # PROT_NONE, MAP_SHARED
+        if addr == ctypes.c_void_p(-1).value:
+            errno = ctypes.get_errno()
+            raise OSError(errno, os.strerror(errno))
+        resident = 0
+        try:
+            for start in range(0, pages, batch_pages):
+                count = min(batch_pages, pages - start)
+                vec = (ctypes.c_ubyte * count)()
+                if libc.mincore(addr + start * page, count * page, vec):
+                    errno = ctypes.get_errno()
+                    raise OSError(errno, os.strerror(errno))
+                resident += sum(value & 1 for value in vec)
+        finally:
+            if libc.munmap(addr, size):
+                errno = ctypes.get_errno()
+                raise OSError(errno, os.strerror(errno))
+        return {'method': 'mincore PROT_NONE MAP_SHARED (whole file, batched)',
+                'pages': pages, 'resident_pages': resident, 'error': None,
+                'page_size': page, 'file': str(path)}
+    finally:
+        os.close(fd)
+
+
+def classify_residency(resident_pages, pages, max_resident_ratio):
+    if pages == 0:
+        return {'verdict': 'EMPTY', 'resident_ratio': None}
+    ratio = resident_pages / pages
+    return {'verdict': 'COLD' if ratio <= max_resident_ratio else 'NOT_COLD',
+            'resident_ratio': round(ratio, 6)}
+
+
+def verified_cold_report(path, max_resident_ratio=0.10):
+    """Drop + snapshot + classify: converts an advisory DONTNEED into a
+    measured cold-state report. NEVER silently claims coldness: the verdict
+    reflects the measured ratio against the threshold."""
+    dropped = drop_model_cache(path)
+    snapshot = residency_snapshot(path)
+    if snapshot['error'] is not None:
+        return {'verified_cold': False, 'verdict': 'UNKNOWN', 'drop': dropped,
+                'snapshot': snapshot}
+    verdict = classify_residency(snapshot['resident_pages'], snapshot['pages'],
+                                 max_resident_ratio)
+    return {'verified_cold': verdict['verdict'] == 'COLD', 'verdict': verdict['verdict'],
+            'resident_ratio': verdict['resident_ratio'], 'drop': dropped,
+            'snapshot': snapshot}
+
+
 def terminate(child):
     if child is not None:
         if child.poll() is None:
@@ -299,8 +374,14 @@ class Run:
         if self.cold_cache:
             # After the GPU guard is green and BEFORE the dry check/scope
             # launch: drop the model file from the page cache so the model
-            # load below reads from storage (advisory; not verified cold).
+            # load below reads from storage, then MEASURE the residency so
+            # the coldness claim is verified rather than advisory.
             self.summary['cache_drop'] = drop_model_cache(env['MODEL'])
+            snapshot = residency_snapshot(env['MODEL'])
+            self.summary['residency'] = snapshot
+            verdict = classify_residency(snapshot['resident_pages'], snapshot['pages'],
+                                         max_resident_ratio=0.10)
+            self.summary['residency_verdict'] = verdict
             self.save('summary.json', self.summary)
         launch = ['bash', str(ROOT / 'scripts/run-qwen38-flash-next.sh')]
         dry = subprocess.run(launch, env=dict(env, DRY='1'), capture_output=True, text=True, timeout=30)
