@@ -1,0 +1,8 @@
+{
+  "status": 500,
+  "error_type": "server_error",
+  "message_head": "Invalid tool_choice: bogus-choice",
+  "wall_seconds": 0.017,
+  "label": "02-bad-tool-choice",
+  "step": "bad-tool-choice"
+}

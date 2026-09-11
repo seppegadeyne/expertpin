@@ -1017,7 +1017,8 @@ class Run:
                 return None
         attempt('request-stop', lambda: terminate(self.request))
         if self.scope_launched:
-            attempt('scope-stop', lambda: self.command(['systemctl', '--user', 'stop', self.scope], 'scope-stop'))
+            # 32 GiB mmap server may need >10 s to stop; bounded but roomy.
+            attempt('scope-stop', lambda: self.command(['systemctl', '--user', 'stop', self.scope], 'scope-stop', timeout=60))
             state = attempt('scope-state', lambda: self.command(['systemctl', '--user', 'is-active', self.scope], 'scope-state', check=False))
             empty = attempt('scope-empty', self.own_scope_empty)
             if state not in ('inactive', 'failed', 'unknown') or empty is not True:

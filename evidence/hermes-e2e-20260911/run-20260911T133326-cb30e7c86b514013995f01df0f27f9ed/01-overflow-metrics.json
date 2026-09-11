@@ -1,0 +1,8 @@
+{
+  "status": 500,
+  "error_type": "server_error",
+  "message_head": "the request exceeds the available context size, try increasing it",
+  "wall_seconds": 0.057,
+  "label": "01-overflow",
+  "step": "overflow"
+}

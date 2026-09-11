@@ -1,0 +1,47 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "Check the weather in Ghent."
+    }
+  ],
+  "max_tokens": 64,
+  "temperature": 0.0,
+  "seed": 42,
+  "stream": false,
+  "cache_prompt": false,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "Get weather.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "enum": [
+                "Ghent",
+                "Brussels",
+                "Antwerp"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "enum": [
+                "celsius",
+                "fahrenheit"
+              ]
+            }
+          },
+          "required": [
+            "city",
+            "unit"
+          ]
+        }
+      }
+    }
+  ],
+  "tool_choice": "bogus-choice"
+}

@@ -1,0 +1,6 @@
+{
+  "max_tokens": 32,
+  "temperature": 0.0,
+  "seed": 42,
+  "stream": false
+}

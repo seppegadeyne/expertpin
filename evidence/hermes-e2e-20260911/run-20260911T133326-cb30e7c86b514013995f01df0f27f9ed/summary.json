@@ -1,0 +1,56 @@
+{
+  "started": "2026-09-11T13:33:26.454843+02:00",
+  "scope": "expertpin-test-9773d5ef95dc46bfaa2c602ba81315e6.scope",
+  "model_loaded": true,
+  "startup_n_max": 0,
+  "gate": "errors",
+  "checkpoint": "ps-iq2xxs",
+  "sequence": [
+    "overflow",
+    "bad-tool-choice",
+    "missing-messages"
+  ],
+  "requests": [
+    {
+      "status": 500,
+      "error_type": "server_error",
+      "message_head": "the request exceeds the available context size, try increasing it",
+      "wall_seconds": 0.057,
+      "label": "01-overflow",
+      "step": "overflow"
+    },
+    {
+      "status": 500,
+      "error_type": "server_error",
+      "message_head": "Invalid tool_choice: bogus-choice",
+      "wall_seconds": 0.017,
+      "label": "02-bad-tool-choice",
+      "step": "bad-tool-choice"
+    },
+    {
+      "status": 500,
+      "error_type": "server_error",
+      "message_head": "'messages' is required",
+      "wall_seconds": 0.016,
+      "label": "03-missing-messages",
+      "step": "missing-messages"
+    }
+  ],
+  "status": "cleanup_failed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T13:33:28.545402+02:00",
+  "guard": {
+    "mem_available_bytes": 47304945664,
+    "gpu_util_pct": 1,
+    "vram_mib": 2081,
+    "elapsed_s": 0.040682688006199896
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T13:34:13.958191+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [
+    "scope-stop: Command '['systemctl', '--user', 'stop', 'expertpin-test-9773d5ef95dc46bfaa2c602ba81315e6.scope']' timed out after 10 seconds"
+  ],
+  "finished": "2026-09-11T13:34:14.446123+02:00",
+  "elapsed_seconds": 47.99129752701265
+}

@@ -1,0 +1,10 @@
+{
+  "http_status": 500,
+  "body": {
+    "error": {
+      "code": 500,
+      "message": "Invalid tool_choice: bogus-choice",
+      "type": "server_error"
+    }
+  }
+}

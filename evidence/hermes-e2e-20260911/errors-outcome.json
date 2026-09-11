@@ -1,0 +1,42 @@
+{
+  "kind": "error-path-contract-20260911",
+  "question": "Does the endpoint fail predictably on malformed/oversized requests (mandate item 5)?",
+  "method": "--gate errors (597c0da5 + 8d3fcff3 + 687b6a1b): three probes against the live ps-iq2xxs endpoint; every response must be a JSON {\"error\": {...}} envelope with 4xx/5xx status and a non-empty message.",
+  "verdict": "PASS \u2014 all three error paths return predictable envelopes",
+  "observed": {
+    "overflow": {
+      "status": 500,
+      "error_type": "server_error",
+      "message_head": "the request exceeds the available context size, try increasing it",
+      "wall_seconds": 0.057
+    },
+    "bad-tool-choice": {
+      "status": 500,
+      "error_type": "server_error",
+      "message_head": "Invalid tool_choice: bogus-choice",
+      "wall_seconds": 0.017
+    },
+    "missing-messages": {
+      "status": 500,
+      "error_type": "server_error",
+      "message_head": "'messages' is required",
+      "wall_seconds": 0.016
+    }
+  },
+  "findings": [
+    "context-overflow is classified ERROR_TYPE_SERVER -> HTTP 500 {\"code\":500,\"type\":\"server_error\"} (server-context.cpp:3983), not a 4xx like OpenAI. Predictable, but the Hermes client must treat 500+context-size message as a context-management signal, not a transient retry.",
+    "invalid tool_choice string -> 500 \"Invalid tool_choice: bogus-choice\" (thrown at common/chat.cpp:263; surfaces via the same envelope).",
+    "missing messages -> 500 \"'messages' is required\".",
+    "First run (132751) aborted fail-closed on the 4xx assumption with only the overflow probe done \u2014 preserved; assumption corrected in 8d3fcff3 after source verification; this run is the counted evidence."
+  ],
+  "budgets": {
+    "ram_peak_gib": 32.405,
+    "vram_peak_gib": 15.794,
+    "samples": 21
+  },
+  "limitations": [
+    "three probes, one request each; not an exhaustive invalid-input matrix",
+    "error RESPONSES validated; no streaming-error-path test yet (SSE mid-stream error frame)",
+    "cleanup-timeout cosmetic issue: scope-stop needed >10 s; SIGKILL escalation verified the scope gone; harness widened to 60 s for future runs"
+  ]
+}

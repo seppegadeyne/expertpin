@@ -1,0 +1,32 @@
+{
+  "started": "2026-09-11T13:27:51.288586+02:00",
+  "scope": "expertpin-test-c2e2b39d90d445a4b31f4bc9c5d86855.scope",
+  "model_loaded": true,
+  "startup_n_max": 0,
+  "gate": "errors",
+  "checkpoint": "ps-iq2xxs",
+  "sequence": [
+    "overflow",
+    "bad-tool-choice",
+    "missing-messages"
+  ],
+  "requests": [],
+  "status": "cleanup_failed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T13:27:53.374397+02:00",
+  "guard": {
+    "mem_available_bytes": 45869461504,
+    "gpu_util_pct": 2,
+    "vram_mib": 2158,
+    "elapsed_s": 0.047713803010992706
+  },
+  "error": "RuntimeError('expected a 4xx client-error status, got 500')",
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T13:28:50.985254+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [
+    "scope-stop: Command '['systemctl', '--user', 'stop', 'expertpin-test-c2e2b39d90d445a4b31f4bc9c5d86855.scope']' timed out after 10 seconds"
+  ],
+  "finished": "2026-09-11T13:28:51.612142+02:00",
+  "elapsed_seconds": 60.32357212397619
+}
