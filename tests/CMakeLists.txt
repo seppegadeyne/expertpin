@@ -18,6 +18,9 @@ if (Python3_Interpreter_FOUND)
     add_test(NAME test-hermes-e2e-20260911
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-hermes-e2e-20260911.py)
     set_tests_properties(test-hermes-e2e-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
+    add_test(NAME test-contract-errors-20260911
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-contract-errors-20260911.py)
+    set_tests_properties(test-contract-errors-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
     add_test(NAME test-gpu-idle-readiness
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-gpu-idle-readiness.py)
     set_tests_properties(test-gpu-idle-readiness PROPERTIES LABELS "main;python" TIMEOUT 60)

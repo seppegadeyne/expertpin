@@ -48,7 +48,7 @@ DEFAULT_CHECKPOINT = 'reference'
 # follow-up answer after a tool round? Target-only (DRAFT=0) so gate quality
 # measures checkpoint quantization, not drafter interaction. Both checkpoints
 # run the identical scenario; the verdict is per-checkpoint PASS/FAIL.
-GATES = ('throughput', 'toolcall', 'needle', 'contract')
+GATES = ('throughput', 'toolcall', 'needle', 'contract', 'errors')
 TOOLCALL_TOKENS = 512
 TOOLCALL_TOKENS_ROUND2 = 512
 # Needle-recall gate (quality gate second half): one code needle at
@@ -80,7 +80,7 @@ TOOL_RESULT = {'city': 'Ghent', 'unit': 'celsius', 'temperature_c': 17.5, 'condi
 def validate_plan(startup_nmax, checkpoint=DEFAULT_CHECKPOINT, gate='throughput'):
     if gate not in GATES:
         raise ValueError('unknown gate: ' + repr(gate))
-    if gate in ('toolcall', 'needle', 'contract'):
+    if gate in ('toolcall', 'needle', 'contract', 'errors'):
         if startup_nmax != 0:
             raise ValueError(gate + ' gate requires --startup-n-max 0 (target-only)')
         if checkpoint not in CHECKPOINTS:
@@ -478,6 +478,65 @@ def contract_check_tool_round(trip):
             'round2_finish': second['finish_reason']}
 
 
+# Error-path contract (mandate item 5: predictable error handling). The server
+# wraps every failure as {"error": {code, message, ...}} with the HTTP status
+# taken from error.code (examples/server/server.cpp:442-446 res_err).
+ERROR_OVERFLOW_WORDS = 12000  # > 8192 tokens after tokenization at ~1.5-2 tok/word
+
+
+def overflow_payload():
+    """A prompt that exceeds the default CTX=8192 window plus output."""
+    filler = 'overflow ' * ERROR_OVERFLOW_WORDS
+    return {'messages': [{'role': 'user', 'content': filler.strip()}],
+            'max_tokens': 64, 'temperature': 0.0, 'seed': 42,
+            'stream': False, 'cache_prompt': False}
+
+
+def bad_tool_choice_payload():
+    """An invalid tool_choice value the server must reject predictably:
+    an unknown string throws std::invalid_argument (common/chat.cpp:263)
+    and surfaces as a 4xx error envelope. (The OpenAI OBJECT form is NOT
+    an error in this build — it silently degrades to 'auto'; documented in
+    the tool-call gate review.)"""
+    return {'messages': [{'role': 'user', 'content': 'Check the weather in Ghent.'}],
+            'max_tokens': 64, 'temperature': 0.0, 'seed': 42, 'stream': False,
+            'cache_prompt': False,
+            'tools': [{'type': 'function', 'function': {
+                'name': 'get_weather', 'description': 'Get weather.',
+                'parameters': TOOL_SCHEMA}}],
+            'tool_choice': 'bogus-choice'}
+
+
+def missing_messages_payload():
+    """Chat completion without the required messages array."""
+    return {'max_tokens': 32, 'temperature': 0.0, 'seed': 42, 'stream': False}
+
+
+def contract_check_http_error(status, body):
+    """A failed request must return a JSON error envelope, not a 2xx body."""
+    if not isinstance(body, dict) or not isinstance(body.get('error'), dict):
+        raise RuntimeError('error response is not an {"error": {...}} envelope')
+    if not 400 <= status < 500:
+        raise RuntimeError(f'expected a 4xx client-error status, got {status}')
+    error = body['error']
+    message = error.get('message')
+    if not isinstance(message, str) or not message.strip():
+        raise RuntimeError('error envelope has no message')
+    return {'status': status, 'error_type': error.get('type'),
+            'message_head': message[:80]}
+
+
+def errors_verdict(results):
+    """PASS requires all three error paths to fail predictably (4xx envelope)."""
+    failures = []
+    for name in ('overflow', 'bad-tool-choice', 'missing-messages'):
+        entry = results.get(name)
+        if not isinstance(entry, dict) or not 400 <= entry.get('status', 0) < 500:
+            failures.append(f'{name}: no predictable 4xx error envelope')
+    return {'gate': 'PASS' if not failures else 'FAIL', 'failures': failures,
+            'paths': dict(results)}
+
+
 def validate_completion(data, nmax):
     """Fail closed on EOS, malformed metrics, absent MTP, or inconsistent totals."""
     if not isinstance(data, dict) or 'error' in data:
@@ -569,10 +628,13 @@ class Run:
             # mandate items 5-6: discovery, non-streaming, streaming plain,
             # streaming tool call, then a full tool round-trip
             self.sequence = ('models', 'plain', 'stream-plain', 'stream-tool', 'tool-round')
+        elif gate == 'errors':
+            # mandate item 5: predictable error handling on the happy-path server
+            self.sequence = ('overflow', 'bad-tool-choice', 'missing-messages')
         else:
             self.sequence = (startup_nmax, startup_nmax)
-        self.request_seconds = NEEDLE_REQUEST_SECONDS if gate in ('needle', 'contract') else REQUEST_SECONDS
-        self.work_seconds = NEEDLE_WORK_SECONDS if gate in ('needle', 'contract') else WORK_SECONDS
+        self.request_seconds = NEEDLE_REQUEST_SECONDS if gate in ('needle', 'contract', 'errors') else REQUEST_SECONDS
+        self.work_seconds = NEEDLE_WORK_SECONDS if gate in ('needle', 'contract', 'errors') else WORK_SECONDS
         self.scope = 'expertpin-test-' + uuid.uuid4().hex + '.scope'
         self.proc = self.request = self.server_log = None
         self.cgroup_path = None
@@ -729,7 +791,7 @@ class Run:
                     self.haystack_paragraphs = size_haystack(self.tokenize_post)
                 paragraphs, _ = insert_needle(self.haystack_paragraphs, step)
                 body = needle_payload(paragraphs)
-            elif self.gate == 'contract':
+            elif self.gate in ('contract', 'errors'):
                 label = f'{index:02d}-{step}'
                 remaining = min(self.request_seconds, self.start + self.work_seconds - time.monotonic())
                 if remaining <= 1:
@@ -868,6 +930,25 @@ class Run:
             trip = {'round1': round1, 'round2_request': round2_body, 'round2': round2}
             self.save('tool-round-trip.json', trip)
             return contract_check_tool_round(trip)
+        if step in ('overflow', 'bad-tool-choice', 'missing-messages'):
+            body = {'overflow': overflow_payload,
+                    'bad-tool-choice': bad_tool_choice_payload,
+                    'missing-messages': missing_messages_payload}[step]()
+            self.save(step + '-request.json', body)
+            self.sample()
+            began = time.monotonic()
+            request = urllib.request.Request('http://127.0.0.1:8102/v1/chat/completions',
+                data=json.dumps(body).encode(), headers={'Content-Type': 'application/json'})
+            try:
+                with urllib.request.urlopen(request, timeout=self.request_seconds) as response:
+                    status, payload = response.status, json.load(response)
+            except urllib.error.HTTPError as http_error:
+                status = http_error.code
+                payload = json.loads(http_error.read().decode('utf-8'))
+            self.save(step + '-response.json', {'http_status': status, 'body': payload})
+            result = contract_check_http_error(status, payload)
+            result['wall_seconds'] = round(time.monotonic() - began, 3)
+            return result
         raise RuntimeError('unknown contract step: ' + repr(step))
 
     def contract_post(self, label, body, check):
