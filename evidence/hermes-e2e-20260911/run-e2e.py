@@ -20,8 +20,14 @@ harness = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(harness)
 
 E2E_HOME = (HERE.parent.parent / '.hermes-work/e2e-home').resolve()
-TASK = ('Use the shell tool to run exactly this command: printf "hermes-e2e-ok"\n'
+TASK = ('Use the shell tool to run exactly this command: printf "hermes-e2e-ok" > /tmp/hermes-e2e-marker.txt && cat /tmp/hermes-e2e-marker.txt\n'
         'Then reply with exactly the output you saw and nothing else.')
+# Multi-turn variant: turn 2 must REUSE the turn-1 result (a file the agent
+# itself created) — proves tool-result persistence across turns, not just a
+# second independent query. Resume via `hermes chat -c`.
+TASK_TURN2 = ('Now use the shell tool to run exactly: cat /tmp/hermes-e2e-marker.txt\n'
+              'Reply with exactly what it printed and nothing else.')
+MULTI_TURN = os.environ.get('E2E_MULTI_TURN', '0') == '1'
 WORK_SECONDS = int(os.environ.get('E2E_WORK_SECONDS', '1800'))
 REQUEST_SECONDS = WORK_SECONDS - 120
 
@@ -126,9 +132,33 @@ def main():
         summary['hermes_stdout_has_marker'] = 'hermes-e2e-ok' in after_query
         summary['hermes_ran_shell_tool'] = ('shell' in stdout.lower() and
                                             ('printf' in stdout or 'command' in stdout.lower()))
-        summary['status'] = 'completed' if (client.returncode == 0
-                                           and summary['hermes_stdout_has_marker']
-                                           and summary['hermes_ran_shell_tool']) else 'client_failed'
+        ok_turn1 = (client.returncode == 0 and summary['hermes_stdout_has_marker']
+                    and summary['hermes_ran_shell_tool'])
+        if MULTI_TURN and ok_turn1:
+            import time as _t
+            _t.sleep(2)
+            began2 = time.monotonic()
+            run.label = 'hermes-e2e-turn2'
+            run.sample()
+            turn2 = subprocess.run(['hermes', 'chat', '--yolo', '-c', TASK_TURN2],
+                                   capture_output=True, text=True,
+                                   timeout=REQUEST_SECONDS, env=client_env, cwd=str(out))
+            wall2 = time.monotonic() - began2
+            run.sample()
+            (out / 'hermes-turn2-stdout.txt').write_text(turn2.stdout)
+            (out / 'hermes-turn2-stderr.txt').write_text(turn2.stderr)
+            summary['turn2_returncode'] = turn2.returncode
+            summary['turn2_wall_seconds'] = round(wall2, 1)
+            after_query2 = turn2.stdout.split('\n', 1)[1] if '\n' in turn2.stdout else ''
+            summary['turn2_stdout_has_marker'] = 'hermes-e2e-ok' in after_query2
+            summary['turn2_ran_shell_tool'] = 'cat /tmp/hermes-e2e-marker.txt' in turn2.stdout
+            summary['multi_turn'] = True
+            summary['status'] = 'completed' if (turn2.returncode == 0
+                                               and summary['turn2_stdout_has_marker']
+                                               and summary['turn2_ran_shell_tool']) else 'client_failed'
+        else:
+            summary['multi_turn'] = False
+            summary['status'] = 'completed' if ok_turn1 else 'client_failed'
         (out / 'e2e-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     except BaseException as error:
         summary['error'] = repr(error)
