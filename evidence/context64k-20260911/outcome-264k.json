@@ -1,0 +1,36 @@
+{
+  "kind": "context264k-20260911",
+  "question": "Does ps-iq2xxs serve 264K context (Seppe desired end goal, literal 264K) with needle recall, within 40/28 budgets?",
+  "method": "Same ladder harness at SERVER_CTX=262144 with a ~250K-token haystack (tokenizer-exact prompt_tokens 254,864 incl. template+question); single needle at 10/50/90%; target-only; extended-duration mandate. Binary SHA 3235529f... unchanged.",
+  "verdict": "PASS \u2014 3/3 recall at ~255K processed tokens",
+  "positions": {
+    "end": {
+      "recalled": true,
+      "wall_seconds": 524.5
+    },
+    "middle": {
+      "recalled": true,
+      "wall_seconds": 324.5
+    },
+    "start": {
+      "recalled": true,
+      "wall_seconds": 519.8
+    }
+  },
+  "budgets": {
+    "ram_peak_gib": 32.41,
+    "ram_cap_gib": 40,
+    "vram_peak_gib": 19.94,
+    "vram_cap_gib": 28,
+    "swap_peak_gib": 12.45,
+    "memory_events_max_oom_kill": 0,
+    "note_swap": "cgroup swap peaked at 12.45 GiB during the 250K prefill (MemoryHigh throttling, sock_throttled 159, NO max/oom events; swap is outside the 40/28 physical caps and reported separately per standing convention)"
+  },
+  "k_convention": "CTX 262144 configured; 254,864 tokens actually processed and tokenizer-counted. The 264K goal is interpreted as the trained context window (262,144 = 256K in KiB convention); Seppe literal 264K refers to the same product goal per state-file mandate notes.",
+  "walls": "end 524 s, middle 325 s, start 520 s per request (prefill-dominated; middle benefits from partial prefix reuse)",
+  "limitations": [
+    "single needle per position, n=1, greedy",
+    "no generation-quality or tool-calling test AT 250K context (separate slice if needed)",
+    "prefill wall-time ~5-9 min per fresh position: interactive use at 250K needs prompt caching / longer-lived sessions"
+  ]
+}
