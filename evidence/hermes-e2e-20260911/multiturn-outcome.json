@@ -1,0 +1,33 @@
+{
+  "kind": "hermes-multi-turn-e2e-20260911",
+  "question": "Does the local checkpoint sustain a MULTI-TURN agent session \u2014 turn 2 resuming the session and reusing an artifact only turn 1 created?",
+  "method": "run-e2e.py with E2E_MULTI_TURN=1 (0d306ff4 + e8147746): turn 1 creates /tmp/hermes-e2e-marker.txt via shell tool and answers the marker; turn 2 runs `hermes chat --resume latest` asking to cat that exact file. PASS requires marker-after-query-echo AND the exact cat command visible in the transcript, both turns.",
+  "verdict": "PASS \u2014 full multi-turn loop with session continuity",
+  "evidence": {
+    "session": "20260911_164157_a98121",
+    "turn1": {
+      "wall_s": 62.5,
+      "marker": true
+    },
+    "turn2": {
+      "wall_s": 4.4,
+      "rc": 0,
+      "marker": true,
+      "cat_command_seen": true,
+      "session_totals": "8 messages (2 user, 4 tool calls across both turns)"
+    }
+  },
+  "budgets": {
+    "ram_peak_gib": 32.413,
+    "vram_peak_gib": 19.276,
+    "samples": 20
+  },
+  "iterations": [
+    "run-162213: turn 2 used -c (continue-by-TITLE) -> \"No session found\"; fixed with --resume latest (e8147746)",
+    "run-163113/164008: EADDRINUSE port 8102 TIME-WAIT after the prior run (documented pattern); waited out",
+    "run-164123 (counted): full pass"
+  ],
+  "limitations": [
+    "two turns, one dependency artifact; no long trajectories or error-recovery loops yet"
+  ]
+}
