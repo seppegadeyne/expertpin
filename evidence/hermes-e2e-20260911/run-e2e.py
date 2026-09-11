@@ -56,6 +56,11 @@ def main():
     run = harness.Run(out, 4, 'ps-iq2xxs')
     run.work_seconds = WORK_SECONDS
     run.request_seconds = REQUEST_SECONDS
+    # The Run constructor stamps self.start at construction time; with the
+    # GPU idle-wait (up to 15 min) in between, the work deadline would be
+    # half-spent before the server is even ready. Re-arm the clock at the
+    # moment real work begins.
+    run.start = time.monotonic()
     summary = {'started': time.strftime('%Y-%m-%dT%H:%M:%S%z'),
                'kind': 'hermes-e2e-agent-run', 'task': TASK,
                'hermes_home': str(E2E_HOME), 'status': 'failed'}

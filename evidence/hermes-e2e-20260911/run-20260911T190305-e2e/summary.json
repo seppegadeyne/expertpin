@@ -1,0 +1,36 @@
+{
+  "started": "2026-09-11T19:03:05.344488+02:00",
+  "scope": "expertpin-test-fb50f04c5e254c7482757752717e4855.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ps-iq2xxs",
+  "cold_cache": false,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "qli_stop_requested": "2026-09-11T19:03:07+0200",
+  "guard": {
+    "mem_available_bytes": 49993662464,
+    "gpu_util_pct": 4,
+    "vram_mib": 1922,
+    "elapsed_s": 2.113961067982018
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T19:18:42.714713+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "e2e": {
+    "started": "2026-09-11T19:03:05+0200",
+    "kind": "hermes-e2e-agent-run",
+    "task": "Use the shell tool to run exactly this command: printf \"hermes-e2e-ok\" > /tmp/hermes-e2e-marker.txt && cat /tmp/hermes-e2e-marker.txt\nThen reply with exactly the output you saw and nothing else.",
+    "hermes_home": "/home/seppe/Projects/expertpin/.hermes-work/e2e-home",
+    "status": "failed",
+    "model_loaded": true,
+    "hermes_invocation": "hermes chat -q <shell-tool task>",
+    "error": "TimeoutError('work deadline; cleanup reserve begins')"
+  },
+  "finished": "2026-09-11T19:18:43+0200"
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "mem_available_bytes": 50432196608,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 0.05409967800369486
+  },
+  {
+    "mem_available_bytes": 50452480000,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 2.1190684650209732
+  },
+  {
+    "mem_available_bytes": 50448289792,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 4.177613975014538
+  },
+  {
+    "mem_available_bytes": 50465660928,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 6.236699938017409
+  },
+  {
+    "mem_available_bytes": 50474807296,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 8.294551427010447
+  },
+  {
+    "mem_available_bytes": 50484625408,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 10.3513873310294
+  },
+  {
+    "mem_available_bytes": 50487480320,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 12.409296435012948
+  },
+  {
+    "mem_available_bytes": 50498334720,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 14.468417493044399
+  },
+  {
+    "mem_available_bytes": 50477338624,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 16.52522571501322
+  },
+  {
+    "mem_available_bytes": 50461929472,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 18.58756540401373
+  },
+  {
+    "mem_available_bytes": 50432815104,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 20.643403691006824
+  },
+  {
+    "mem_available_bytes": 50458660864,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 22.70578362402739
+  },
+  {
+    "mem_available_bytes": 50471235584,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 24.76514454704011
+  },
+  {
+    "mem_available_bytes": 50486673408,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 26.83068487700075
+  },
+  {
+    "mem_available_bytes": 50471473152,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 28.891664432012476
+  },
+  {
+    "mem_available_bytes": 50486558720,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 30.954155157029163
+  },
+  {
+    "mem_available_bytes": 50486472704,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 33.013535286998376
+  },
+  {
+    "mem_available_bytes": 50473111552,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 35.0726140490151
+  },
+  {
+    "mem_available_bytes": 50439589888,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 37.13239901303314
+  },
+  {
+    "mem_available_bytes": 50461757440,
+    "gpu_util_pct": 100,
+    "vram_mib": 2897,
+    "elapsed_s": 39.19692593399668
+  },
+  {
+    "mem_available_bytes": 50266537984,
+    "gpu_util_pct": 100,
+    "vram_mib": 2985,
+    "elapsed_s": 41.275098798039835
+  },
+  {
+    "mem_available_bytes": 50274672640,
+    "gpu_util_pct": 100,
+    "vram_mib": 2985,
+    "elapsed_s": 43.342434320016764
+  },
+  {
+    "mem_available_bytes": 50356875264,
+    "gpu_util_pct": 100,
+    "vram_mib": 3239,
+    "elapsed_s": 45.40277116902871
+  },
+  {
+    "mem_available_bytes": 50401460224,
+    "gpu_util_pct": 100,
+    "vram_mib": 3275,
+    "elapsed_s": 47.46624530700501
+  },
+  {
+    "mem_available_bytes": 50450706432,
+    "gpu_util_pct": 100,
+    "vram_mib": 3286,
+    "elapsed_s": 49.532289218041115
+  },
+  {
+    "mem_available_bytes": 50457178112,
+    "gpu_util_pct": 100,
+    "vram_mib": 2990,
+    "elapsed_s": 51.59370351000689
+  },
+  {
+    "mem_available_bytes": 50455339008,
+    "gpu_util_pct": 100,
+    "vram_mib": 3003,
+    "elapsed_s": 53.657704495999496
+  },
+  {
+    "mem_available_bytes": 50509529088,
+    "gpu_util_pct": 100,
+    "vram_mib": 2966,
+    "elapsed_s": 55.71908335102489
+  },
+  {
+    "mem_available_bytes": 50535780352,
+    "gpu_util_pct": 100,
+    "vram_mib": 2983,
+    "elapsed_s": 57.78406369901495
+  },
+  {
+    "mem_available_bytes": 50558427136,
+    "gpu_util_pct": 100,
+    "vram_mib": 2987,
+    "elapsed_s": 59.851416260004044
+  }
+]

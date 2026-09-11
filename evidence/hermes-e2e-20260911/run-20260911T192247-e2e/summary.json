@@ -1,0 +1,27 @@
+{
+  "started": "2026-09-11T19:22:47.211210+02:00",
+  "scope": "expertpin-test-383beb4f44154f04ba9a12ac002d4a0f.scope",
+  "model_loaded": false,
+  "startup_n_max": 4,
+  "checkpoint": "ps-iq2xxs",
+  "cold_cache": false,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "qli_stop_requested": "2026-09-11T19:22:49+0200",
+  "qli_start_requested": "2026-09-11T19:23:49.554116+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "e2e": {
+    "started": "2026-09-11T19:22:47+0200",
+    "kind": "hermes-e2e-agent-run",
+    "task": "Use the shell tool to run exactly this command: printf \"hermes-e2e-ok\" > /tmp/hermes-e2e-marker.txt && cat /tmp/hermes-e2e-marker.txt\nThen reply with exactly the output you saw and nothing else.",
+    "hermes_home": "/home/seppe/Projects/expertpin/.hermes-work/e2e-home",
+    "status": "failed",
+    "error": "RuntimeError('GPU idle readiness deadline exceeded')"
+  },
+  "finished": "2026-09-11T19:23:51+0200"
+}

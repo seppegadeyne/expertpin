@@ -1,0 +1,9 @@
+{
+  "kind": "ud-q4kxl-code-gate-artifact-20260911",
+  "note": "Runner died on the pre-fix start-clock bug while its orphan client finished the task; the artifact was probed independently (the gate definition) and passes. A clean re-run with the fixed runner (9cf833c5 + start re-arm) can formalize the summary.",
+  "script": "total = 0\nfor i in range(3):\n    total += i\nprint(\"code-gate-ok-7391\")\n",
+  "probe_rc": 0,
+  "probe_stdout": "code-gate-ok-7391",
+  "expected": "code-gate-ok-7391",
+  "pass": true
+}
