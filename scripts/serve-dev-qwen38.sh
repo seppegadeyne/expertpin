@@ -71,9 +71,16 @@ if [ "$DRY" = "1" ]; then
   exit 0
 fi
 
+# Thinking off by default: the checkpoint author and our own long-code tests
+# (2026-09-11) show IQ2_XXS loops on code-precision tasks with thinking on;
+# --reasoning off is the server-side /no_think. Override with REASONING=auto.
+REASONING="${REASONING:-off}"
+
 exec "$BIN_DIR/llama-server" \
   -m "$MODEL" \
+  -a "Qwen3.8-Flash-Next-IQ2_XXS" \
   --jinja \
+  --reasoning "$REASONING" \
   -ngl "$NGL" \
   --n-cpu-moe "$NCMOE" \
   -c "$CTX" \

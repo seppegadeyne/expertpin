@@ -133,6 +133,7 @@ exec systemd-run --user --scope --unit="${EXPERTPIN_SCOPE_UNIT:-expertpin-test-$
   -p MemoryMax="${RAM_BUDGET_MIB}M" \
   "$BIN_DIR/llama-server" \
   -m "$MODEL" \
+  -a "Qwen3.8-Flash-Next-IQ2_XXS" \
   --jinja \
   -ngl "$NGL" \
   --n-cpu-moe "$NCMOE" \
