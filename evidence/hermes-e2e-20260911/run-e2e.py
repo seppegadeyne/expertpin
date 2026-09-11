@@ -73,6 +73,14 @@ def main():
         run.scope_launched = True
         run.proc = run.spawn(launch, env=env, stdout=run.server_log, stderr=subprocess.STDOUT)
         run.spawned()
+        for _ in range(20):
+            if run.command(['systemctl', '--user', 'is-active', run.scope], 'scope-ready', check=False) == 'active':
+                break
+            if run.proc.poll() is not None:
+                raise RuntimeError('launcher exited before scope readiness')
+            time.sleep(0.25)
+        else:
+            raise RuntimeError('own scope never became active')
         import urllib.request
         deadline = min(run.start + run.work_seconds, time.monotonic() + 900)
         while time.monotonic() < deadline:
@@ -109,6 +117,14 @@ def main():
         summary['hermes_stdout_has_marker'] = 'hermes-e2e-ok' in client.stdout
         summary['status'] = 'completed' if client.returncode == 0 and summary['hermes_stdout_has_marker'] else 'client_failed'
         (out / 'e2e-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+    except BaseException as error:
+        summary['error'] = repr(error)
+        summary['status'] = 'failed'
+        try:
+            (out / 'e2e-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+        except OSError:
+            pass
+        raise
     finally:
         try:
             run.cleanup()
