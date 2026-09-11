@@ -1,0 +1,42 @@
+{
+  "started": "2026-09-11T14:30:32.070452+02:00",
+  "scope": "expertpin-test-be7c47b0022c41a6a5a96e9fd7636aec.scope",
+  "model_loaded": true,
+  "startup_n_max": 0,
+  "gate": "multi",
+  "checkpoint": "ps-iq2xxs",
+  "sequence": [
+    "single"
+  ],
+  "requests": [
+    {
+      "recalled_codes": [
+        "4826",
+        "7391",
+        "9517"
+      ],
+      "all_recalled": true,
+      "content": "7391, 4826, 9517",
+      "label": "01-single",
+      "step": "single",
+      "wall_seconds": 125.46219533099793,
+      "prompt_tokens": 61478,
+      "completion_tokens": 128
+    }
+  ],
+  "status": "completed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T14:30:34.148094+02:00",
+  "guard": {
+    "mem_available_bytes": 46277849088,
+    "gpu_util_pct": 2,
+    "vram_mib": 2026,
+    "elapsed_s": 0.045709683996392414
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T14:33:24.563025+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-11T14:33:25.162800+02:00",
+  "elapsed_seconds": 173.09238419201574
+}

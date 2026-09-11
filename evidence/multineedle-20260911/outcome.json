@@ -1,0 +1,43 @@
+{
+  "kind": "multineedle-ruler-20260911",
+  "question": "Can ps-iq2xxs retrieve and aggregate THREE planted codes from one haystack in a single answer (RULER-style multi-fact retrieval), at 2K and at 64K?",
+  "method": "--gate multi (ad62de55): Aurora/Borealis/Cascade codes at 15%/45%/75% of the deterministic haystack, one aggregation question requiring all three codes; neutral wording; target-only; PASS requires all three codes in one clean stop answer. Binary SHA 3235529f... unchanged.",
+  "verdict": "PASS at both depths",
+  "runs": {
+    "2223": {
+      "run_dir": "run-20260911T142639-a0e03d0e96ca46578122e387a7992d0b",
+      "all_recalled": true,
+      "recalled_codes": [
+        "4826",
+        "7391",
+        "9517"
+      ],
+      "content": "7391, 4826, 9517",
+      "wall_seconds": 12.3,
+      "prompt_tokens": 2223,
+      "ram_peak_gib": 32.418,
+      "vram_peak_gib": 16.068,
+      "samples": 33
+    },
+    "61478": {
+      "run_dir": "run-20260911T143032-cfd384544ba744ff8533306a2d10778e",
+      "all_recalled": true,
+      "recalled_codes": [
+        "4826",
+        "7391",
+        "9517"
+      ],
+      "content": "7391, 4826, 9517",
+      "wall_seconds": 125.5,
+      "prompt_tokens": 61478,
+      "ram_peak_gib": 32.407,
+      "vram_peak_gib": 17.086,
+      "samples": 149
+    }
+  },
+  "limitations": [
+    "n=1 per depth, greedy decoding; single aggregation question shape",
+    "codes are 4-digit and distinct; no numeric-confusion adversarial variants (e.g. transposed digits)",
+    "no variable haystack density or RULER word-list tasks (only the multi-needle aggregation axis)"
+  ]
+}
