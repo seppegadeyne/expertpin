@@ -42,6 +42,8 @@ CHECKPOINTS = {
                   'Qwen3.8-Flash-Next-AD-4.27bpw-Q4_K_M-M64-00001-of-00033.gguf'),
     'ps-iq2xxs': ('/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs',
                   'Qwen3.8-Flash-Next-IQ2_XXS.gguf'),
+    'ud-q4kxl': ('/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL',
+                 'Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf'),
 }
 DEFAULT_CHECKPOINT = 'reference'
 
