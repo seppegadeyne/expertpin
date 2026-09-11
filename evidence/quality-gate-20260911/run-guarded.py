@@ -103,7 +103,7 @@ def clean_environment(inherited, scope, startup_nmax=4, checkpoint=DEFAULT_CHECK
     env.update(GGML_CUDA_NO_PINNED='1', DRAFT=str(int(startup_nmax != 0)), DRAFT_NMAX=str(startup_nmax),
                DRAFT_MODEL='/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf',
                MODEL_DIR=model_dir, MODEL=model_dir + '/' + model_name,
-               CTX='8192', NCMOE='36', NGL='99', THREADS='16', KVT='q8_0',
+               CTX='8192', NCMOE=os.environ.get('EXPERTPIN_NCMOE', '36'), NGL='99', THREADS='16', KVT='q8_0',
                RAM_BUDGET_GIB='36', GPU_NEED_GIB='24', CACHE_RAM_MIB='512',
                PORT='8102', BIN_DIR=str(ROOT / 'build-sm120/bin'), FORCE='0', PINNED='0',
                EXPERT_CACHE_SIM_MIB='0', EXPERT_STATS_FILE='', MANIFEST='', RESIDENT='0',
