@@ -1,0 +1,77 @@
+{
+  "kind": "toolcall-quality-gate-ab-20260911",
+  "question": "Does the PS IQ2_XXS checkpoint still produce schema-exact tool calls and a clean tool-result answer, within 40/28 budgets, compared to the reference checkpoint?",
+  "method": "Guarded harness copy with --gate toolcall (target-only DRAFT=0, forced single get_weather tool with enum schema, tool_choice string \"required\"; round2 feeds the canned tool result back). Same binary (SHA 3235529f...) and serving config as the 2026-09-11 03:00 checkpoint A/B; only MODEL/MODEL_DIR differ between arms.",
+  "verdict": "PASS",
+  "per_checkpoint": {
+    "ps-iq2xxs": {
+      "round1": {
+        "tool_name": "get_weather",
+        "arguments": {
+          "city": "Ghent",
+          "unit": "celsius"
+        },
+        "tool_call_id": "zvvAZAlRJOMZSRYTyW9GPYIjzTDJACwf",
+        "wall_seconds": 5.1150058649946,
+        "prompt_tokens": 411,
+        "completion_tokens": 71
+      },
+      "round2": {
+        "content": "The current weather in Ghent is **17.5\u00b0C** and cloudy.",
+        "wall_seconds": 2.065903901006095,
+        "prompt_tokens": 205,
+        "completion_tokens": 52
+      },
+      "verdict": "PASS",
+      "run_dir": "run-20260911T100044-d8443939af7b4e0ca94e4e99fe124dff"
+    },
+    "reference": {
+      "round1": {
+        "tool_name": "get_weather",
+        "arguments": {
+          "city": "Ghent",
+          "unit": "celsius"
+        },
+        "tool_call_id": "lHML7Tty23NhpvCQGHsZzzGnVVgBTJ3O",
+        "wall_seconds": 13.246238822001033,
+        "prompt_tokens": 411,
+        "completion_tokens": 80
+      },
+      "round2": {
+        "content": "The current weather in Ghent is cloudy, with a temperature of **17.5\u00b0C**.",
+        "wall_seconds": 5.110203243995784,
+        "prompt_tokens": 205,
+        "completion_tokens": 70
+      },
+      "verdict": "PASS",
+      "run_dir": "run-20260911T100516-089933bf7bdb42b79539f76d19ce0d49"
+    }
+  },
+  "budgets": {
+    "ps-iq2xxs": {
+      "ram_peak_gib": 32.405,
+      "ram_budget_gib": 40,
+      "vram_peak_gib": 16.184,
+      "vram_budget_gib": 28,
+      "swap_peak_gib": 637320.0,
+      "cgroup_memory_max_bytes": 38654705664,
+      "samples": 34
+    },
+    "reference": {
+      "ram_peak_gib": 32.405,
+      "ram_budget_gib": 40,
+      "vram_peak_gib": 20.087,
+      "vram_budget_gib": 28,
+      "swap_peak_gib": 954176.0,
+      "cgroup_memory_max_bytes": 38654705664,
+      "samples": 48
+    }
+  },
+  "limitations": [
+    "n=1 scenario (forced single tool, one tool round), greedy temp=0 seed=42",
+    "no multi-tool selection, parallel calls, streaming deltas, or long trajectories tested",
+    "needle-recall/long-context quality NOT tested (separate slice)",
+    "Hermes end-to-end NOT tested",
+    "reference arm needed one retry after EADDRINUSE (port 8102 TIME-WAIT), first attempt aborted before any host change"
+  ]
+}
