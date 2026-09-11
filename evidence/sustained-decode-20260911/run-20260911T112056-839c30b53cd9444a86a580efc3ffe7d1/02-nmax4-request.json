@@ -1,0 +1,15 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "Explain how a bounded expert cache handles RAM and NVMe misses in detail."
+    }
+  ],
+  "max_tokens": 512,
+  "temperature": 0.0,
+  "seed": 42,
+  "stream": false,
+  "cache_prompt": false,
+  "ignore_eos": true,
+  "speculative.n_max": 4
+}

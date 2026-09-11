@@ -1,0 +1,64 @@
+{
+  "kind": "sustained-decode-20260911",
+  "question": "Does ps-iq2xxs sustain >=20 tok/s decode over longer generations (2x512 and 2x1024 tokens) within 40/28 budgets?",
+  "method": "Clean-MTP harness copy with SUSTAINED_TOKENS env override (4d1039b9); same guarded lifecycle, config, prompt, seed42/temp0/ignore_eos/nmax4/DRAFT1; commit 4d1039b9, binary SHA 3235529f... unchanged.",
+  "verdict": "SUSTAINED >=20 tok/s at both depths",
+  "runs": {
+    "512": {
+      "run_dir": "run-20260911T112056-839c30b53cd9444a86a580efc3ffe7d1",
+      "requests": [
+        {
+          "label": "01-nmax4",
+          "predicted_n": 512,
+          "predicted_per_second": 37.773,
+          "predicted_ms": 13554.8,
+          "prompt_ms": 2106.2,
+          "acceptance_fraction": 0.6776
+        },
+        {
+          "label": "02-nmax4",
+          "predicted_n": 512,
+          "predicted_per_second": 51.668,
+          "predicted_ms": 9909.5,
+          "prompt_ms": 291.3,
+          "acceptance_fraction": 0.6776
+        }
+      ],
+      "ram_peak_gib": 32.407,
+      "vram_peak_gib": 18.642,
+      "swap_peak_gib": 1.192,
+      "samples": 48
+    },
+    "1024": {
+      "run_dir": "run-20260911T112455-98f934f7c3b04a14bcb7590763c7b7e2",
+      "requests": [
+        {
+          "label": "01-nmax4",
+          "predicted_n": 1024,
+          "predicted_per_second": 41.621,
+          "predicted_ms": 24603.1,
+          "prompt_ms": 1236.2,
+          "acceptance_fraction": 0.6474
+        },
+        {
+          "label": "02-nmax4",
+          "predicted_n": 1024,
+          "predicted_per_second": 48.509,
+          "predicted_ms": 21109.4,
+          "prompt_ms": 322.3,
+          "acceptance_fraction": 0.6474
+        }
+      ],
+      "ram_peak_gib": 32.411,
+      "vram_peak_gib": 18.828,
+      "swap_peak_gib": 0.547,
+      "samples": 69
+    }
+  },
+  "limitations": [
+    "single fixed prompt, 2 requests per depth; no prompt diversity",
+    "cache condition: files warm from earlier same-day runs; cold-cache behavior is a separate open item",
+    "same-day host state only; cross-day comparisons invalid without host-state control (state-file 03:00 note)",
+    "quality of the 512/1024-token outputs not assessed (length-forced ignore_eos decode)"
+  ]
+}
