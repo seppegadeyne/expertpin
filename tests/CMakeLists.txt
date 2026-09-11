@@ -6,6 +6,9 @@ if (Python3_Interpreter_FOUND)
     add_test(NAME test-analyze-verifier-trace
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-analyze-verifier-trace.py)
     set_tests_properties(test-analyze-verifier-trace PROPERTIES LABELS "main;python" TIMEOUT 60)
+    add_test(NAME test-quality-gate-20260911
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-quality-gate-20260911.py)
+    set_tests_properties(test-quality-gate-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
     add_test(NAME test-gpu-idle-readiness
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-gpu-idle-readiness.py)
     set_tests_properties(test-gpu-idle-readiness PROPERTIES LABELS "main;python" TIMEOUT 60)
