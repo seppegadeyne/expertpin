@@ -1,0 +1,50 @@
+{
+  "started": "2026-09-11T10:00:44.881864+02:00",
+  "scope": "expertpin-test-7d064eaf1ed64fd587b9ce4aaad3efa4.scope",
+  "model_loaded": true,
+  "startup_n_max": 0,
+  "gate": "toolcall",
+  "checkpoint": "ps-iq2xxs",
+  "sequence": [
+    "round1",
+    "round2"
+  ],
+  "requests": [
+    {
+      "tool_name": "get_weather",
+      "arguments": {
+        "city": "Ghent",
+        "unit": "celsius"
+      },
+      "tool_call_id": "zvvAZAlRJOMZSRYTyW9GPYIjzTDJACwf",
+      "label": "01-round1",
+      "step": "round1",
+      "wall_seconds": 5.1150058649946,
+      "prompt_tokens": 411,
+      "completion_tokens": 71
+    },
+    {
+      "content": "The current weather in Ghent is **17.5\u00b0C** and cloudy.",
+      "label": "02-round2",
+      "step": "round2",
+      "wall_seconds": 2.065903901006095,
+      "prompt_tokens": 205,
+      "completion_tokens": 52
+    }
+  ],
+  "status": "completed",
+  "verifier_trace": false,
+  "qli_stop_requested": "2026-09-11T10:00:46.964406+02:00",
+  "guard": {
+    "mem_available_bytes": 43324116992,
+    "gpu_util_pct": 2,
+    "vram_mib": 2096,
+    "elapsed_s": 0.042518349015153944
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T10:01:40.328297+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "finished": "2026-09-11T10:01:40.896927+02:00",
+  "elapsed_seconds": 56.01507942398894
+}

@@ -1,0 +1,13 @@
+{
+  "tool_name": "get_weather",
+  "arguments": {
+    "city": "Ghent",
+    "unit": "celsius"
+  },
+  "tool_call_id": "lHML7Tty23NhpvCQGHsZzzGnVVgBTJ3O",
+  "label": "01-round1",
+  "step": "round1",
+  "wall_seconds": 13.246238822001033,
+  "prompt_tokens": 411,
+  "completion_tokens": 80
+}
