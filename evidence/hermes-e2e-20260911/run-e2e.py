@@ -43,7 +43,10 @@ E2E_NCMOE = os.environ.get('E2E_NCMOE', '36')
 # Dev default is --reasoning off (IQ2_XXS code loops); the gate mirrors the
 # dev setting so we test the configuration users will actually run.
 E2E_REASONING = os.environ.get('E2E_REASONING', 'off')
-WORK_SECONDS = int(os.environ.get('E2E_WORK_SECONDS', '1800'))
+# Code tasks on UD-Q4_K_XL need >30 min (13-35 tok/s + long generation);
+# harden the default so an env mishap cannot cut the gate short.
+WORK_SECONDS = int(os.environ.get('E2E_WORK_SECONDS',
+                                  '2700' if os.environ.get('E2E_TASK') == 'code' else '1800'))
 REQUEST_SECONDS = WORK_SECONDS - 120
 
 
