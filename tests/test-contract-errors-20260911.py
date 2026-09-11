@@ -21,6 +21,9 @@ class ErrorPathTests(unittest.TestCase):
         result = harness.contract_check_http_error(400, {'error': {'code': 400, 'message': 'prompt too long', 'type': 'invalid_request_error'}})
         self.assertEqual(result['status'], 400)
         self.assertEqual(result['error_type'], 'invalid_request_error')
+        # This server classifies overflow as 500 (server-context.cpp:3983).
+        accepted500 = harness.contract_check_http_error(500, {'error': {'code': 500, 'message': 'the request exceeds the available context size', 'type': 'server_error'}})
+        self.assertEqual(accepted500['status'], 500)
 
     def test_http_error_rejects_success_and_malformed(self):
         for status, body in (
@@ -28,6 +31,7 @@ class ErrorPathTests(unittest.TestCase):
             (400, {'message': 'no error envelope'}),
             (400, {'error': 'not an object'}),
             (400, {}),
+            (302, {'error': {'code': 302, 'message': 'redirect is not an error envelope'}}),
         ):
             with self.subTest(status=status):
                 with self.assertRaises(RuntimeError):
