@@ -5,6 +5,8 @@ Two independent review attempts against the pinned reviewer
 
 - deleg_1901d667 (09:55): FAILED — HTTP 429 usage limit after 3 retries, 8.8s.
 - deleg_e1f13ec2 (09:59): FAILED — HTTP 429 usage limit after 3 retries, 9.5s.
+- deleg_a025517a (10:44, needle-gate addition): FAILED — HTTP 429 after 3
+  retries, 10.9s.
 
 Same failure mode as the 2026-09-11 03:00 run (deleg_31462b26, deleg_950dab5e).
 Not treated as a blocker; per standing protocol the parent self-verified the
@@ -33,3 +35,21 @@ core premises in the server/launcher sources before the GPU run:
    (server-chat.cpp:385-389).
 
 No second independent opinion this run; the review pin stays unchanged.
+
+## Needle-gate premises (self-verified 10:45, third 429-blocked review)
+
+7. /tokenize endpoint exists and returns {'tokens': [...]} (POST registered
+   at examples/server/server.cpp:2182; same shape capture_tokenizations
+   already uses).
+8. Question naming Aurora is intended single-needle NIAH design; filler
+   paragraphs contain no 'Aurora' and no digits beyond their index numbers,
+   so '7391' occurs exactly once per haystack (asserted by tests).
+9. Prefix-cache reuse end->middle->start is partial only — the inserted
+   needle breaks the common prefix at its insertion point. Optimization
+   note, not a correctness claim.
+10. Budgets: 2048-token prefill at measured cold ~38 tok/s (ps) and ~11 tok/s
+    (reference); request budget 300 s, work alarm 960 s — under the 30-min
+    GPU cap. NEEDLE_TOKENS 256->512 after the reference burned 256 tokens
+    reasoning; wording neutralized after a compliance-deliberation confound
+    (both iteration failures preserved as runs, code located in reasoning).
+
