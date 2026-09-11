@@ -199,9 +199,12 @@ class ToolCallGateTests(unittest.TestCase):
         self.assertEqual(run.summary['gate'], 'toolcall')
         self.assertEqual(run.sequence, ('round1', 'round2'))
         self.assertEqual(run.summary['sequence'], ['round1', 'round2'])
-        for bad in ('needle', 'bogus', None, 4):
+        for bad in ('bogus', None, 4):
             with self.assertRaises(ValueError):
                 harness.Run(Path('/unused'), 0, 'ps-iq2xxs', gate=bad)
+        # 'needle' at target-only is a valid gate mode now (separate sequence).
+        self.assertEqual(harness.Run(Path('/unused'), 0, 'ps-iq2xxs', gate='needle').sequence,
+                         ('end', 'middle', 'start'))
 
     def test_run_default_mode_unchanged(self):
         run = harness.Run(Path('/unused'), 4, 'ps-iq2xxs')
@@ -234,6 +237,114 @@ class ToolCallGateTests(unittest.TestCase):
         with self.assertRaises(SystemExit) as caught:
             harness.main(['--gate', 'bogus'])
         self.assertEqual(caught.exception.code, 2)
+
+
+def json_copy(value):
+    import json
+    return json.loads(json.dumps(value))
+
+
+class NeedleGateTests(unittest.TestCase):
+    def test_haystack_deterministic_and_code_free(self):
+        first = harness.build_haystack(60)
+        second = harness.build_haystack(60)
+        self.assertEqual(first, second)
+        self.assertGreaterEqual(len(first), 60)
+        needle_paragraph = harness.NEEDLE_PARAGRAPH
+        self.assertIn('7391', needle_paragraph)
+        for paragraph in first:
+            self.assertNotIn('7391', paragraph)
+            self.assertNotIn('Aurora', paragraph)
+
+    def test_needle_positions_insert_once(self):
+        paragraphs = harness.build_haystack(30)
+        for position, fraction in harness.NEEDLE_POSITIONS.items():
+            with_paragraphs, index = harness.insert_needle(list(paragraphs), position)
+            self.assertEqual(with_paragraphs[index], harness.NEEDLE_PARAGRAPH)
+            self.assertEqual(with_paragraphs.count(harness.NEEDLE_PARAGRAPH), 1)
+            self.assertEqual(len(with_paragraphs), len(paragraphs) + 1)
+            self.assertAlmostEqual(index / len(with_paragraphs), fraction, delta=0.12)
+
+    def test_insert_needle_rejects_unknown_position(self):
+        with self.assertRaises(ValueError):
+            harness.insert_needle(list(harness.build_haystack(10)), 'bogus')
+
+    def test_size_haystack_bounded_and_converging(self):
+        calls = []
+        def post(endpoint, body):
+            calls.append(endpoint)
+            # ~10 tokens per paragraph synthetic tokenizer
+            return {'tokens': list(range(10 * len(body['content'].split('\n\n'))))}
+        paragraphs = harness.size_haystack(post, target_tokens=200)
+        self.assertTrue(180 <= len(paragraphs) * 10 <= 220, len(paragraphs))
+        self.assertLessEqual(len(calls), 6)
+        for bad_target in (0, -5):
+            with self.assertRaises(ValueError):
+                harness.size_haystack(post, target_tokens=bad_target)
+
+    def test_needle_payload_shape(self):
+        paragraphs, _ = harness.insert_needle(harness.build_haystack(5), 'middle')
+        payload = harness.needle_payload(paragraphs)
+        self.assertEqual(len(payload['messages']), 1)
+        content = payload['messages'][0]['content']
+        self.assertIn(paragraphs[0], content)
+        self.assertIn(harness.NEEDLE_PARAGRAPH, content)
+        self.assertIn(harness.NEEDLE_QUESTION, content)
+        self.assertEqual(payload['max_tokens'], harness.NEEDLE_TOKENS)
+        self.assertEqual(payload['temperature'], 0.0)
+        self.assertEqual(payload['seed'], 42)
+        self.assertIs(payload['stream'], False)
+        self.assertIs(payload['cache_prompt'], True)
+        self.assertNotIn('tools', payload)
+
+    def test_validate_needle_accepts_and_rejects(self):
+        good = {'usage': {'completion_tokens': 8},
+                'choices': [{'finish_reason': 'stop', 'message': {'role': 'assistant', 'content': '7391'}}],
+                'timings': {'prompt_ms': 10.0, 'predicted_ms': 1.0, 'predicted_per_second': 8.0}}
+        result = harness.validate_needle(good)
+        self.assertTrue(result['recalled'])
+        self.assertEqual(result['content'], '7391')
+        # A wrong answer is a valid completion: recall fails, verdict catches it.
+        wrong = json_copy(good)
+        wrong['choices'][0]['message']['content'] = 'I do not know.'
+        self.assertFalse(harness.validate_needle(wrong)['recalled'])
+        for mutate in [
+            lambda d: d['choices'][0]['message'].update(content=''),
+            lambda d: d['choices'][0]['message'].update(content=None),
+            lambda d: d['choices'][0].update(finish_reason='length'),
+            lambda d: d['choices'][0]['message'].update(tool_calls=[]),
+            lambda d: d.update(error='x'),
+        ]:
+            with self.subTest(mutate=mutate):
+                data = json_copy(good)
+                mutate(data)
+                with self.assertRaises(RuntimeError):
+                    harness.validate_needle(data)
+
+    def test_needle_verdict_requires_all_positions(self):
+        def result(recalled):
+            return {p: {'recalled': recalled, 'content': '7391'} for p in ('start', 'middle', 'end')}
+        self.assertEqual(harness.needle_verdict(result(True))['gate'], 'PASS')
+        self.assertEqual(harness.needle_verdict(result(False))['gate'], 'FAIL')
+        mixed = result(True)
+        mixed['middle'] = {'recalled': False, 'content': 'no'}
+        verdict = harness.needle_verdict(mixed)
+        self.assertEqual(verdict['gate'], 'FAIL')
+        self.assertIn('middle', verdict['failures'][0])
+
+    def test_run_needle_mode_and_plan_rules(self):
+        run = harness.Run(Path('/unused'), 0, 'ps-iq2xxs', gate='needle')
+        self.assertEqual(run.sequence, ('end', 'middle', 'start'))
+        self.assertEqual(run.summary['gate'], 'needle')
+        harness.validate_plan(0, 'reference', 'needle')
+        for bad_nmax in (4, 8):
+            with self.assertRaises(ValueError):
+                harness.validate_plan(bad_nmax, 'ps-iq2xxs', 'needle')
+
+    def test_needle_budgets_within_gpu_protocol(self):
+        self.assertLessEqual(harness.NEEDLE_REQUEST_SECONDS, 300)
+        self.assertLessEqual(harness.NEEDLE_WORK_SECONDS, 960)
+        self.assertLess(harness.NEEDLE_WORK_SECONDS, 1800)
 
 
 if __name__ == '__main__':

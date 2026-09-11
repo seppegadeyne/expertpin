@@ -48,9 +48,24 @@ DEFAULT_CHECKPOINT = 'reference'
 # follow-up answer after a tool round? Target-only (DRAFT=0) so gate quality
 # measures checkpoint quantization, not drafter interaction. Both checkpoints
 # run the identical scenario; the verdict is per-checkpoint PASS/FAIL.
-GATES = ('throughput', 'toolcall')
+GATES = ('throughput', 'toolcall', 'needle')
 TOOLCALL_TOKENS = 512
 TOOLCALL_TOKENS_ROUND2 = 512
+# Needle-recall gate (quality gate second half): one code needle at
+# start/middle/end of a deterministic filler haystack sized ~NEEDLE_TARGET
+# tokens via the /tokenize endpoint. Positions run end->middle->start so each
+# request shares the previous prefix and cache_prompt=True can reuse it.
+NEEDLE_PARAGRAPH = ('Project Aurora maintains a private access code. The code is 7391. '
+                    'Only the archivist may share it, and it is never written in any other document.')
+NEEDLE_QUESTION = ('According to the reference document above, what is the private access code '
+                   'of Project Aurora? Answer with the four-digit code only.')
+NEEDLE_CODE = '7391'
+NEEDLE_TOKENS = 256
+NEEDLE_TARGET_TOKENS = 2048
+NEEDLE_TOKEN_TOLERANCE = 0.10
+NEEDLE_POSITIONS = {'start': 0.1, 'middle': 0.5, 'end': 0.9}
+NEEDLE_REQUEST_SECONDS = 300
+NEEDLE_WORK_SECONDS = 960
 TOOL_SCHEMA = {
     'type': 'object',
     'properties': {
@@ -65,9 +80,9 @@ TOOL_RESULT = {'city': 'Ghent', 'unit': 'celsius', 'temperature_c': 17.5, 'condi
 def validate_plan(startup_nmax, checkpoint=DEFAULT_CHECKPOINT, gate='throughput'):
     if gate not in GATES:
         raise ValueError('unknown gate: ' + repr(gate))
-    if gate == 'toolcall':
+    if gate in ('toolcall', 'needle'):
         if startup_nmax != 0:
-            raise ValueError('toolcall gate requires --startup-n-max 0 (target-only)')
+            raise ValueError(gate + ' gate requires --startup-n-max 0 (target-only)')
         if checkpoint not in CHECKPOINTS:
             raise ValueError('unknown checkpoint: ' + repr(checkpoint))
         return
@@ -239,6 +254,88 @@ def gate_verdict(results):
                                else dict(v, verdict='FAIL') for k, v in sorted(results.items())}}
 
 
+_HAYSTACK_TOPICS = ('inventory rotation', 'shelf labeling', 'loading dock scheduling', 'climate control',
+                    'delivery routes', 'pallet repair', 'safety inspections', 'visitor badging',
+                    'furniture placement', 'cleaning rosters', 'signage updates', 'door maintenance')
+_HAYSTACK_ACTIONS = ('is reviewed quarterly', 'was audited last month', 'follows the 2025 checklist',
+                     'requires two signatures', 'is handled by the facilities group', 'was paused in spring',
+                     'resumed in summer', 'is documented separately', 'has its own binder',
+                     'was discussed in the morning meeting')
+
+
+def build_haystack(paragraph_count):
+    """Deterministic, code-free filler paragraphs (no digits, no Aurora)."""
+    if type(paragraph_count) is not int or paragraph_count <= 0:
+        raise ValueError('paragraph_count must be a positive int')
+    paragraphs = []
+    for index in range(paragraph_count):
+        topic = _HAYSTACK_TOPICS[index % len(_HAYSTACK_TOPICS)]
+        action = _HAYSTACK_ACTIONS[(index // len(_HAYSTACK_TOPICS)) % len(_HAYSTACK_ACTIONS)]
+        paragraphs.append(f'Facility note {index + 1}: the {topic} {action}.')
+    return paragraphs
+
+
+def insert_needle(paragraphs, position):
+    """Return (paragraphs_with_needle, index); exactly one needle paragraph."""
+    if position not in NEEDLE_POSITIONS:
+        raise ValueError('unknown needle position: ' + repr(position))
+    index = round(len(paragraphs) * NEEDLE_POSITIONS[position])
+    index = min(max(index, 0), len(paragraphs))
+    with_needle = list(paragraphs)
+    with_needle.insert(index, NEEDLE_PARAGRAPH)
+    return with_needle, index
+
+
+def size_haystack(post, target_tokens=NEEDLE_TARGET_TOKENS):
+    """Grow the haystack until tokenize() reports the target token count.
+
+    `post(endpoint, body)` must return {'tokens': [...]} for /tokenize with
+    {'content': text, 'add_special': False}. Bounded to 6 calls."""
+    if type(target_tokens) is not int or target_tokens <= 0:
+        raise ValueError('target_tokens must be a positive int')
+    count = max(1, target_tokens // 40)
+    for _ in range(6):
+        paragraphs = build_haystack(count)
+        text = '\n\n'.join(paragraphs)
+        result = post('tokenize', {'content': text, 'add_special': False})
+        tokens = result.get('tokens') if isinstance(result, dict) else None
+        if not isinstance(tokens, list):
+            raise RuntimeError('tokenize returned no token list')
+        if abs(len(tokens) - target_tokens) <= target_tokens * NEEDLE_TOKEN_TOLERANCE:
+            return paragraphs
+        count = max(1, round(count * target_tokens / max(len(tokens), 1)))
+    raise RuntimeError('haystack sizing did not converge')
+
+
+def needle_payload(paragraphs):
+    content = '\n\n'.join(paragraphs) + '\n\n' + NEEDLE_QUESTION
+    return {'messages': [{'role': 'user', 'content': content}],
+            'max_tokens': NEEDLE_TOKENS, 'temperature': 0.0, 'seed': 42,
+            'stream': False, 'cache_prompt': True}
+
+
+def validate_needle(data):
+    """Clean stop, non-empty text, and the exact code present in the answer."""
+    message = _validated_choice(data, 'stop')
+    content = message.get('content')
+    if not isinstance(content, str) or not content.strip():
+        raise RuntimeError('needle answer is empty')
+    if message.get('tool_calls') is not None:
+        raise RuntimeError('needle answer contains unexpected tool calls')
+    return {'recalled': NEEDLE_CODE in content, 'content': content}
+
+
+def needle_verdict(results):
+    """PASS requires recall at start, middle and end."""
+    failures = []
+    for position, fraction in sorted(NEEDLE_POSITIONS.items()):
+        entry = results.get(position)
+        if not isinstance(entry, dict) or not entry.get('recalled'):
+            failures.append(f'{position}: code not recalled')
+    return {'gate': 'PASS' if not failures else 'FAIL', 'failures': failures,
+            'positions': dict(results)}
+
+
 def validate_completion(data, nmax):
     """Fail closed on EOS, malformed metrics, absent MTP, or inconsistent totals."""
     if not isinstance(data, dict) or 'error' in data:
@@ -322,8 +419,14 @@ class Run:
         self.gate = gate
         if gate == 'toolcall':
             self.sequence = ('round1', 'round2')
+        elif gate == 'needle':
+            # end -> middle -> start: every request shares the previous prefix,
+            # so the server prompt cache (cache_prompt=True) can reuse it.
+            self.sequence = ('end', 'middle', 'start')
         else:
             self.sequence = (startup_nmax, startup_nmax)
+        self.request_seconds = NEEDLE_REQUEST_SECONDS if gate == 'needle' else REQUEST_SECONDS
+        self.work_seconds = NEEDLE_WORK_SECONDS if gate == 'needle' else WORK_SECONDS
         self.scope = 'expertpin-test-' + uuid.uuid4().hex + '.scope'
         self.proc = self.request = self.server_log = None
         self.cgroup_path = None
@@ -334,6 +437,7 @@ class Run:
         self.start = time.monotonic()
         self.label = 'preflight'
         self.round1_validated = None
+        self.haystack_paragraphs = None
         self.summary = {'started': datetime.now().astimezone().isoformat(), 'scope': self.scope,
                         'model_loaded': False, 'startup_n_max': startup_nmax,
                         'gate': gate,
@@ -371,7 +475,7 @@ class Run:
             self.interrupt(self.pending_signal, None)
 
     def sample(self):
-        if time.monotonic() - self.start >= WORK_SECONDS:
+        if time.monotonic() - self.start >= self.work_seconds:
             raise TimeoutError('work deadline; cleanup reserve begins')
         raw = self.command(['nvidia-smi', '--query-gpu=utilization.gpu,memory.used',
                             '--format=csv,noheader,nounits'], 'gpu-latest')
@@ -449,7 +553,7 @@ class Run:
         else:
             raise RuntimeError('own scope never became active')
         self.label = 'model-load'
-        deadline = min(self.start + WORK_SECONDS, time.monotonic() + 360)
+        deadline = min(self.start + self.work_seconds, time.monotonic() + 360)
         while time.monotonic() < deadline:
             self.sample()
             try:
@@ -473,11 +577,17 @@ class Run:
                     body = toolcall_round2_payload(
                         toolcall_payload(), self.round1_validated['tool_call_id'],
                         json.dumps(self.round1_validated['arguments']), TOOL_RESULT)
+            elif self.gate == 'needle':
+                label = f'{index:02d}-{step}'
+                if self.haystack_paragraphs is None:
+                    self.haystack_paragraphs = size_haystack(self.tokenize_post)
+                paragraphs, _ = insert_needle(self.haystack_paragraphs, step)
+                body = needle_payload(paragraphs)
             else:
                 label = f'{index:02d}-nmax{step}'
                 body = payload(step)
             self.label = label
-            remaining = min(REQUEST_SECONDS, self.start + WORK_SECONDS - time.monotonic())
+            remaining = min(self.request_seconds, self.start + self.work_seconds - time.monotonic())
             if remaining <= 1:
                 raise TimeoutError('no request budget remains')
             request_path = self.out / (label + '-request.json')
@@ -512,6 +622,12 @@ class Run:
                                   wall_seconds=time.monotonic() - began,
                                   prompt_tokens=data.get('usage', {}).get('prompt_tokens'),
                                   completion_tokens=data.get('usage', {}).get('completion_tokens'))
+            elif self.gate == 'needle':
+                data = json.loads(response_path.read_text())
+                result = dict(validate_needle(data), label=label, step=step,
+                              wall_seconds=time.monotonic() - began,
+                              prompt_tokens=data.get('usage', {}).get('prompt_tokens'),
+                              completion_tokens=data.get('usage', {}).get('completion_tokens'))
             else:
                 result = validate_completion(json.loads(response_path.read_text()), step)
                 result.update(label=label, n_max=step, wall_seconds=time.monotonic() - began)
@@ -552,6 +668,14 @@ class Run:
         # prefix/length and null differences; retain exact source fields here.
         self.save('retokenized.json', {'kind': 'retokenized_fields_not_decode_trace',
                                       'records': records})
+
+    def tokenize_post(self, endpoint, body):
+        """Bounded POST to /tokenize used by size_haystack; enforces budgets."""
+        self.sample()
+        request = urllib.request.Request('http://127.0.0.1:8102/' + endpoint,
+            data=json.dumps(body).encode(), headers={'Content-Type': 'application/json'})
+        with urllib.request.urlopen(request, timeout=10) as response:
+            return json.load(response)
 
     def own_scope_empty(self):
         cg = self.command(['systemctl', '--user', 'show', self.scope, '-p', 'ControlGroup', '--value'],
@@ -617,7 +741,8 @@ def main(argv=None):
                         help='repeat twice at this startup/request depth; reload for a different depth')
     parser.add_argument('--gate', choices=GATES, default='throughput',
                         help='throughput: 2x256-token clean MTP benchmark; toolcall: forced get_weather '
-                             'round-trip quality gate (target-only, no drafter)')
+                             'round-trip quality gate (target-only, no drafter); needle: code recall at '
+                             'start/middle/end of a ~2K-token haystack (target-only)')
     parser.add_argument('--checkpoint', choices=sorted(CHECKPOINTS), default=DEFAULT_CHECKPOINT,
                         help='A/B checkpoint alias: reference 197 GiB Q4_K_M shards vs ps-iq2xxs 75.2 GiB IQ2_XXS')
     parser.add_argument('--tokenize-reference', type=Path, action='append', default=[],
@@ -641,7 +766,7 @@ def main(argv=None):
     try:
         for sig in previous:
             signal.signal(sig, run.interrupt)
-        signal.alarm(WORK_SECONDS)
+        signal.alarm(run.work_seconds)
         run.execute()
     except BaseException as error:
         run.summary['error'] = repr(error)
