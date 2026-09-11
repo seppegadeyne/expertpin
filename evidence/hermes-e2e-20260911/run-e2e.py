@@ -140,7 +140,7 @@ def main():
             began2 = time.monotonic()
             run.label = 'hermes-e2e-turn2'
             run.sample()
-            turn2 = subprocess.run(['hermes', 'chat', '--yolo', '-c', TASK_TURN2],
+            turn2 = subprocess.run(['hermes', 'chat', '--yolo', '--resume', 'latest', '-q', TASK_TURN2],
                                    capture_output=True, text=True,
                                    timeout=REQUEST_SECONDS, env=client_env, cwd=str(out))
             wall2 = time.monotonic() - began2
