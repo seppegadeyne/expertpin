@@ -24,7 +24,8 @@
   },
   "iterations": [
     "run-162213: turn 2 used -c (continue-by-TITLE) -> \"No session found\"; fixed with --resume latest (e8147746)",
-    "run-163113/164008: EADDRINUSE port 8102 TIME-WAIT after the prior run (documented pattern); waited out",
+    "run-163113: failed at the GPU idle-readiness gate (wait_gpu_idle deadline) \u2014 started 25 s after the prior run's server teardown; residual GPU activity, not EADDRINUSE",
+    "foreground repro + run-164008: EADDRINUSE port 8102 TIME-WAIT after the prior run (documented pattern); waited out",
     "run-164123 (counted): full pass"
   ],
   "limitations": [
