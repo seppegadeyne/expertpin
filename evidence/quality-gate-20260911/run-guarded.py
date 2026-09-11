@@ -55,8 +55,8 @@ TOOLCALL_TOKENS_ROUND2 = 512
 # start/middle/end of a deterministic filler haystack sized ~NEEDLE_TARGET
 # tokens via the /tokenize endpoint. Positions run end->middle->start so each
 # request shares the previous prefix and cache_prompt=True can reuse it.
-NEEDLE_PARAGRAPH = ('Project Aurora maintains a private access code. The code is 7391. '
-                    'Only the archivist may share it, and it is never written in any other document.')
+NEEDLE_PARAGRAPH = ('Project Aurora maintains a private access code for internal audits. '
+                    'The code is 7391. It is listed here for completeness of the records.')
 NEEDLE_QUESTION = ('According to the reference document above, what is the private access code '
                    'of Project Aurora? Answer with the four-digit code only.')
 NEEDLE_CODE = '7391'
