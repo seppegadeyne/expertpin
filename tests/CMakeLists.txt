@@ -21,6 +21,9 @@ if (Python3_Interpreter_FOUND)
     add_test(NAME test-contract-errors-20260911
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-contract-errors-20260911.py)
     set_tests_properties(test-contract-errors-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
+    add_test(NAME test-sse-midstream-error-20260911
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-sse-midstream-error-20260911.py)
+    set_tests_properties(test-sse-midstream-error-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
     add_test(NAME test-multineedle-20260911
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-multineedle-20260911.py)
     set_tests_properties(test-multineedle-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
