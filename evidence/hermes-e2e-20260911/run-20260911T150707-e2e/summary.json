@@ -1,0 +1,39 @@
+{
+  "started": "2026-09-11T15:07:07.522668+02:00",
+  "scope": "expertpin-test-b931f39df8fe414c8b5c4274c7eef8d7.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ps-iq2xxs",
+  "cold_cache": false,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "qli_stop_requested": "2026-09-11T15:07:09+0200",
+  "guard": {
+    "mem_available_bytes": 48440598528,
+    "gpu_util_pct": 0,
+    "vram_mib": 2346,
+    "elapsed_s": 0.040134443988790736
+  },
+  "scope_stopped_verified": true,
+  "qli_start_requested": "2026-09-11T15:07:43.751735+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [],
+  "e2e": {
+    "started": "2026-09-11T15:07:07+0200",
+    "kind": "hermes-e2e-agent-run",
+    "task": "Use the shell tool to run exactly this command: printf \"hermes-e2e-ok\"\nThen reply with exactly the output you saw and nothing else.",
+    "hermes_home": "/home/seppe/Projects/expertpin/.hermes-work/e2e-home",
+    "status": "client_failed",
+    "model_loaded": true,
+    "hermes_invocation": "hermes chat -q <shell-tool task>",
+    "hermes_returncode": 0,
+    "hermes_wall_seconds": 0.8,
+    "hermes_stdout_has_marker": false,
+    "hermes_ran_shell_tool": true
+  },
+  "finished": "2026-09-11T15:07:44+0200"
+}

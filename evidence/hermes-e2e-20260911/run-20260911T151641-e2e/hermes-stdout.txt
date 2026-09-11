@@ -1,0 +1,12 @@
+Query: Use the shell tool to run exactly this command: printf "hermes-e2e-ok"
+Then reply with exactly the output you saw and nothing else.
+Initializing agent...
+  ⚠ tirith security scanner enabled but not available — command scanning will use pattern matching only
+Failed to initialize agent: Model 
+/home/seppe/Models/qwen3.8-flash-next-ps-iq2xxs/Qwen3.8-Flash-Next-IQ2_XXS.gguf 
+has a context window of 8,192 tokens, which is below the minimum 64,000 required
+by Hermes Agent.  Choose a model with at least 64K context.  If your server 
+reports a window smaller than the model's true window, set model.context_length 
+in config.yaml to the real value (this must be at least 64K).
+
+Goodbye! ⚕

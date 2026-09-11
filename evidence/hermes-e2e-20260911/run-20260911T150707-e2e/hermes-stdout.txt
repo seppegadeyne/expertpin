@@ -1,0 +1,7 @@
+Query: Use the shell tool to run exactly this command: printf "hermes-e2e-ok"
+Then reply with exactly the output you saw and nothing else.
+
+⚠️  No API key found for provider 'custom'.
+   Run 'hermes model' to choose a provider, or 'hermes setup' for first-time setup.
+
+Goodbye! ⚕

@@ -1,0 +1,2 @@
+Use the shell tool to run exactly this command: printf "hermes-e2e-ok"
+Then reply with exactly the output you saw and nothing else.

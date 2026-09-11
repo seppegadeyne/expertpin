@@ -1,0 +1,37 @@
+{
+  "started": "2026-09-11T14:41:26.168174+02:00",
+  "scope": "expertpin-test-e4d33f77a4594773a88be97706fac14e.scope",
+  "model_loaded": false,
+  "startup_n_max": 4,
+  "checkpoint": "ps-iq2xxs",
+  "cold_cache": false,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "cleanup_failed",
+  "qli_stop_requested": "2026-09-11T14:41:28+0200",
+  "guard": {
+    "mem_available_bytes": 46823432192,
+    "gpu_util_pct": 0,
+    "vram_mib": 2247,
+    "elapsed_s": 0.029949276009574533
+  },
+  "qli_start_requested": "2026-09-11T14:41:28.381152+02:00",
+  "qli_status": "active",
+  "cleanup_errors": [
+    "scope-stop: scope-stop: rc=5: Failed to stop expertpin-test-e4d33f77a4594773a88be97706fac14e.scope: Unit expertpin-test-e4d33f77a4594773a88be97706fac14e.scope not loaded.\n",
+    "scope-empty: owned cgroup never observed; cannot prove emptiness",
+    "scope-kill: scope-kill: rc=1: Failed to kill unit expertpin-test-e4d33f77a4594773a88be97706fac14e.scope: Unit expertpin-test-e4d33f77a4594773a88be97706fac14e.scope not loaded.\n",
+    "scope-final-verification: owned cgroup never observed; cannot prove emptiness"
+  ],
+  "e2e": {
+    "started": "2026-09-11T14:41:26+0200",
+    "kind": "hermes-e2e-agent-run",
+    "task": "Use the shell tool to run exactly this command: printf \"hermes-e2e-ok\"\nThen reply with exactly the output you saw and nothing else.",
+    "hermes_home": "/home/seppe/Projects/expertpin/.hermes-work/e2e-home",
+    "status": "failed"
+  },
+  "finished": "2026-09-11T14:41:28+0200"
+}

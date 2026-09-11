@@ -1,0 +1,33 @@
+{
+  "kind": "hermes-agent-e2e-20260911",
+  "question": "Can a REAL Hermes agent run end-to-end (reasoning -> tool call -> tool result -> correct final answer) against the guarded local ps-iq2xxs endpoint?",
+  "method": "run-e2e.py (023a8259..3af940c7): guarded lifecycle with CTX=65536 (Hermes >=64K requirement; proven within budget), isolated HERMES_HOME (.hermes-work/e2e-home) with model.provider=custom, base_url=127.0.0.1:8102/v1, model name = GGUF path, context_length=262144; hermes chat --yolo -q with a shell-tool printf task; --yolo scoped to the isolated home and a harmless printf.",
+  "verdict": "PASS \u2014 full agent loop on the local checkpoint",
+  "evidence": {
+    "session": "20260911_152451_5f0772",
+    "messages": 4,
+    "tool_calls": 2,
+    "observed_loop": "reasoning -> terminal tool call (printf \"hermes-e2e-ok\", 0.1 s) -> tool result processed -> final answer exactly \"hermes-e2e-ok\"",
+    "hermes_returncode": 0,
+    "wall_seconds": 68.6,
+    "marker_after_query_echo": true,
+    "shell_tool_evidence": true
+  },
+  "budgets": {
+    "ram_peak_gib": 32.413,
+    "vram_peak_gib": 19.223,
+    "samples": 21,
+    "memory_events_zero": true
+  },
+  "iterations": [
+    "run-144126: mirrored lifecycle missed the scope-readiness wait -> sample() failed (fixed in 6b502480; also added exception recording)",
+    "run-145440/150049/150707: client exited 0.8 s \u2014 \"No API key for custom\": alias key_env not consulted on default-provider startup; root cause found in hermes_cli/runtime_provider.py (bare custom without explicit base_url falls through to OpenRouter). Fixed by configuring the classic custom provider (model.provider/base_url/api_key) + .env",
+    "run-151641: Hermes refused the 8,192 reported context (< 64K minimum). Fixed: CTX=65536 in the server env + model.context_length=262144 in the isolated home (3af940c7)",
+    "run-152411 (counted): full pass"
+  ],
+  "limitations": [
+    "single task, single session; no multi-turn tool loops or error-recovery scenarios",
+    "isolated HERMES_HOME is a minimal profile (no skills/memory) \u2014 validates the provider+tool loop, not the full skill stack",
+    "agent default sampling (not greedy seed-42); speed felt: ~69 s for a 2-turn tool task incl. client startup"
+  ]
+}
