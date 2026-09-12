@@ -14,7 +14,7 @@
 - Commits: Engels, conventional style (`feat:`, `fix:`, `docs:`, `test:`, `refactor:`).
 - Push naar `origin main`; nooit force-push op main (op eigen feature-branches mag geschiedenis herschreven worden).
 - Tests: bestaande unit tests (o.a. `test-expert-manifest`) moeten altijd groen blijven; nieuw gedrag krijgt eigen tests (TDD waar haalbaar).
-- GPU-werk op Aorus: qubic-miner is user-service `qli.service` (`systemctl --user stop/start qli.service`); vóór modelload guards uit `scripts/run-qwen38-flash-next.sh` respecteren (DRY=1 eerst; MemAvailable-check; cgroup MemoryMax); miner ná afloop altijd herstarten, ook bij falen.
+- GPU-werk op Aorus: qubic-miner is user-service `qli.service` — PAUZE sinds 2026-09-11 (Seppe): gemaskeerd, nooit (her)starten, ook niet na GPU-werk. Guards uit `scripts/run-qwen38-flash-next.sh` respecteren (DRY=1 eerst; MemAvailable-check; cgroup MemoryMax).
 - Budgetten (Seppe, 2026-09-04): run-footprint max 40 GiB systeemRAM én max 28 GiB VRAM — elke GPU-run tegen beide meten en rapporteren.
 - Modellen/assets staan buiten de repo in `/home/seppe/Models/qwen3.8-flash-next/` — nooit committen.
 

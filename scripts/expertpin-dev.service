@@ -1,8 +1,14 @@
 [Unit]
-Description=expertpin dev-serving: qwen3.8-flash-next ps-iq2xxs for Hermes
+Description=expertpin dev-serving: qwen3.8-flash-next (UD-Q4_K_XL default) for Hermes
 # Resident OpenAI-compatible endpoint on 127.0.0.1:8102/v1.
-# Guards live in the launcher (scripts/serve-dev-qwen38.sh): if the host is
-# too busy the unit exits 2 and Restart=always retries with backoff.
+# ALWAYS STARTED MANUALLY (never `systemctl --user enable` this unit):
+#   systemctl --user start expertpin-dev.service
+#   systemctl --user stop  expertpin-dev.service
+# Miner policy (Seppe, 2026-09-11): this unit NEVER stops or starts a miner.
+# qli.service is masked/paused — never start or restart it. Jetski keeps
+# running during the day; the launcher's own Tier A guard then correctly
+# refuses to start. To serve while Jetski runs, stop it manually first and
+# restart it manually afterwards (night-cron harnesses do this themselves).
 
 [Service]
 Type=simple
@@ -13,10 +19,10 @@ Environment=PORT=8102
 MemoryHigh=33G
 MemoryMax=36G
 MemorySwapMax=16G
-Restart=always
+Restart=on-failure
 RestartSec=30
-# The launcher's own guards refuse to start while the host is busy; the
-# backoff above turns that into "start when the host frees up".
+# The launcher's own guards refuse to start while the host is too busy;
+# on-failure restart then retries until the host frees up.
 
 [Install]
 WantedBy=default.target

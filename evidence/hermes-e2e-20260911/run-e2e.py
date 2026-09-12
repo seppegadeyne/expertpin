@@ -88,8 +88,7 @@ def main():
                                       if k not in os.environ or os.environ[k] != v})
         run.prepared = True
         run.command(['bash', harness.PREP], 'host-prep', timeout=45)
-        run.summary['qli_stop_requested'] = time.strftime('%Y-%m-%dT%H:%M:%S%z')
-        run.command(['systemctl', '--user', 'stop', 'qli.service'], 'qli-stop')
+        run.stop_miners()  # qli masked = no-op skip; Jetski stopped for GPU work
         run.command(['nvidia-smi'], 'nvidia-before')
         run.command(['free', '-g'], 'free-before')
         gate_spec = importlib.util.spec_from_file_location('gate', harness.ROOT / 'evidence/trace-matched-bandwidth/run-physical.py')

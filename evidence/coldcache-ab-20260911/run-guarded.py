@@ -360,8 +360,7 @@ class Run:
             raise RuntimeError('required draft model missing')
         self.prepared = True  # Restore even a partially failed preparation.
         self.command(['bash', PREP], 'host-prep', timeout=45)
-        self.summary['qli_stop_requested'] = datetime.now().astimezone().isoformat()
-        self.command(['systemctl', '--user', 'stop', 'qli.service'], 'qli-stop')
+        self.stop_miners()
         self.command(['nvidia-smi'], 'nvidia-before')
         self.command(['free', '-g'], 'free-before')
         spec = importlib.util.spec_from_file_location('clean_mtp_idle_gate', ROOT / 'evidence/trace-matched-bandwidth/run-physical.py')
@@ -492,6 +491,45 @@ class Run:
             raise RuntimeError('owned cgroup never observed; cannot prove emptiness')
         return not base.exists() or 'populated 0' in (base / 'cgroup.events').read_text()
 
+    # QLI-PAUSE (Seppe, 2026-09-11): qli.service is masked and must NEVER be
+    # started or restarted — not before GPU work (its stop line below is a
+    # harmless no-op on a masked unit), and not in cleanup. Jetski is the
+    # active miner: the night cron stops it before GPU work and restores it
+    # after (Seppe mandate 2026-09-11 ~20:45).
+    QLI_MASKED_HINT = 'not-found'   # systemctl is-enabled qli.service while masked
+
+    def _miner_stop_uses(self, service):
+        """Return the systemctl action used to stop a miner, or None when the
+        unit is masked/absent (qli) — stopping those is a documented no-op."""
+        enabled = self.command(['systemctl', '--user', 'is-enabled', service],
+                               service + '-enabled', check=False)
+        return None if enabled.strip() in ('not-found', 'masked') else 'stop'
+
+    def stop_miners(self):
+        stopped = {}
+        for service in ('qli.service', 'jetski.service'):
+            action = self._miner_stop_uses(service)
+            if action is None:
+                self.summary[service + '_skip'] = 'masked/not-found — not stopped (pause mandate)'
+                continue
+            self.summary[service + '_stop_requested'] = datetime.now().astimezone().isoformat()
+            self.command(['systemctl', '--user', action, service], service.replace('.', '-') + '-stop')
+            stopped[service] = True
+        self.summary['miners_stopped'] = list(stopped)
+
+    def restore_miners(self, errors, attempt):
+        """Pause-conform miner restoration: restart exactly what THIS run
+        stopped (Jetski), never qli (masked/paused)."""
+        for service in self.summary.get('miners_stopped') or []:
+            attempt(service.replace('.', '-') + '-start',
+                    lambda s=service: self.command(['systemctl', '--user', 'start', s],
+                                                   s.replace('.', '-') + '-start'))
+            state = attempt(service.replace('.', '-') + '-active',
+                            lambda s=service: self.command(['systemctl', '--user', 'is-active', s],
+                                                           s.replace('.', '-') + '-active', check=False))
+            if state != 'active':
+                errors.append(service + ' not verified active')
+
     def cleanup(self):
         """Each action bounded; failures never suppress mandatory restoration."""
         errors = []
@@ -522,12 +560,9 @@ class Run:
             attempt('scope-final-verification', verify)
         if self.server_log:
             attempt('server-log-close', self.server_log.close)
-        # Standing protocol: start qli even after a lifecycle preflight refusal.
-        self.summary['qli_start_requested'] = datetime.now().astimezone().isoformat()
-        attempt('qli-start', lambda: self.command(['systemctl', '--user', 'start', 'qli.service'], 'qli-start'))
-        self.summary['qli_status'] = attempt('qli-active', lambda: self.command(['systemctl', '--user', 'is-active', 'qli.service'], 'qli-active'))
-        if self.summary['qli_status'] != 'active':
-            errors.append('qli not verified active')
+        # Pause-conform restoration: only what this run stopped comes back
+        # (Jetski); qli stays masked/paused per the 2026-09-11 mandate.
+        self.restore_miners(errors, attempt)
         if self.prepared:
             attempt('host-restore', lambda: self.command(['bash', PREP, '--restore'], 'host-restore', timeout=30))
             state = attempt('headless-active', lambda: self.command(['systemctl', '--user', 'is-active', 'headless-chromium.service'], 'headless-active'))

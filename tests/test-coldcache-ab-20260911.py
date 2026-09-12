@@ -119,5 +119,90 @@ class ColdCacheTests(unittest.TestCase):
         self.assertFalse(run.scope_launched)
 
 
+class MinerPauseTests(unittest.TestCase):
+    """Seppe 2026-09-11: qli masked/paused — never start/restart; Jetski is
+    the day miner (night cron stops it for GPU work, restores after)."""
+
+    def setUp(self):
+        self.harness = load()
+
+    def _run(self):
+        run = self.harness.Run(Path('/unused'), 4, 'ps-iq2xxs')
+        run.prepared = False
+        return run
+
+    def test_qli_masked_is_never_stopped_or_started(self):
+        run = self._run()
+        calls = []
+        def command(args, name, **kwargs):
+            calls.append((name, tuple(args)))
+            if name.endswith('-enabled'):
+                return 'not-found'   # masked qli on this host
+            return 'ok'
+        with mock.patch.object(run, 'command', side_effect=command):
+            run.stop_miners()
+            errors = []
+            run.restore_miners(errors, lambda n, f: f())
+        started = [c for c in calls if 'start' in c[1]]
+        self.assertEqual(started, [])   # pause mandate: no qli start anywhere
+        self.assertEqual(run.summary['qli.service_skip'],
+                         'masked/not-found — not stopped (pause mandate)')
+        self.assertNotIn('qli.service', run.summary['miners_stopped'])
+        self.assertEqual(errors, [])
+
+    def test_jetski_active_is_stopped_then_restored_and_verified(self):
+        run = self._run()
+        calls = []
+        def command(args, name, **kwargs):
+            calls.append((name, tuple(args)))
+            if name == 'qli.service-enabled':
+                return 'not-found'
+            if name == 'jetski.service-enabled':
+                return 'enabled'
+            if name == 'jetski-service-active':
+                return 'active'
+            return 'ok'
+        with mock.patch.object(run, 'command', side_effect=command):
+            run.stop_miners()
+            self.assertEqual(run.summary['miners_stopped'], ['jetski.service'])
+            errors = []
+            run.restore_miners(errors, lambda n, f: f())
+        self.assertEqual(errors, [])
+        self.assertIn(('jetski-service-stop', ('systemctl', '--user', 'stop', 'jetski.service')), calls)
+        self.assertIn(('jetski-service-start', ('systemctl', '--user', 'start', 'jetski.service')), calls)
+
+    def test_jetski_restore_failure_is_reported_not_swallowed(self):
+        run = self._run()
+        def command(args, name, **kwargs):
+            if name == 'qli.service-enabled':
+                return 'not-found'
+            if name == 'jetski.service-enabled':
+                return 'enabled'
+            if name == 'jetski-service-active':
+                return 'failed'
+            return 'ok'
+        with mock.patch.object(run, 'command', side_effect=command):
+            run.stop_miners()
+            errors = []
+            run.restore_miners(errors, lambda n, f: f())
+        self.assertEqual(errors, ['jetski.service not verified active'])
+
+    def test_cleanup_masked_qli_no_longer_fails_the_run(self):
+        run = self._run()
+        def command(args, name, **kwargs):
+            if name.endswith('-enabled'):
+                return 'not-found'
+            if name in ('scope-state', 'scope-final-state'):
+                return 'inactive'
+            if name == 'cgroup':
+                return '/slice/' + run.scope
+            return 'ok'
+        with mock.patch.object(run, 'command', side_effect=command), \
+             mock.patch.object(run, 'own_scope_empty', return_value=True):
+            run.cleanup()
+        self.assertEqual(run.summary.get('cleanup_errors'), [])   # pre-fix this was ['qli not verified active', ...]
+        self.assertNotIn('qli_status', run.summary)
+
+
 if __name__ == '__main__':
     unittest.main()
