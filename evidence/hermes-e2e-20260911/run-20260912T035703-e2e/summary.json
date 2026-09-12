@@ -1,0 +1,48 @@
+{
+  "started": "2026-09-12T03:57:03.347603+02:00",
+  "scope": "expertpin-test-e3ab3112a4354fdbad8cd51cec1f9d1c.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ps-iq2xxs",
+  "cold_cache": false,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "qli.service_skip": "masked/not-found \u2014 not stopped (pause mandate)",
+  "jetski.service_stop_requested": "2026-09-12T03:57:05.518028+02:00",
+  "miners_stopped": [
+    "jetski.service"
+  ],
+  "guard": {
+    "mem_available_bytes": 50403307520,
+    "gpu_util_pct": 0,
+    "vram_mib": 2121,
+    "elapsed_s": 0.04001823702128604
+  },
+  "scope_stopped_verified": true,
+  "cleanup_errors": [],
+  "e2e": {
+    "started": "2026-09-12T03:57:03+0200",
+    "kind": "hermes-e2e-agent-run",
+    "task": "Use the shell tool to run exactly this command: printf \"hermes-e2e-ok\" > /tmp/hermes-e2e-marker.txt && cat /tmp/hermes-e2e-marker.txt\nThen reply with exactly the output you saw and nothing else.",
+    "hermes_home": "/home/seppe/Projects/expertpin/.hermes-work/e2e-home",
+    "status": "completed",
+    "model_loaded": true,
+    "hermes_invocation": "hermes chat -q <shell-tool task>",
+    "stale_removed_e2e-codegate.py": true,
+    "stale_removed_hermes-e2e-marker.txt": true,
+    "hermes_returncode": 0,
+    "hermes_wall_seconds": 853.5,
+    "hermes_stdout_has_marker": true,
+    "hermes_ran_shell_tool": true,
+    "codegate_script_rc": 0,
+    "codegate_script_output": "code-gate-ok-7391",
+    "codegate_script_expected": "code-gate-ok-7391",
+    "codegate_pass": true,
+    "multi_turn": false
+  },
+  "finished": "2026-09-12T04:12:32+0200"
+}
