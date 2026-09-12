@@ -1,0 +1,23 @@
+Query: Write a small Python script to /tmp/e2e-codegate.py that prints exactly:
+code-gate-ok-7391
+Requirements: use a for-loop over range(3) summing those iteration numbers, and 
+print the literal string above once at the end. Use the shell tool to write the 
+file, then run it with python3, and reply with exactly the output it printed.
+Initializing agent...
+────────────────────────────────────────
+
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cat <<'EOF' total = 0 for i in range(3): total += i print("code-gate-ok-7391") EOF python3 /tmp/e2e-codegate.py  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+code-gate-ok-7391
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Resume this session with:
+  hermes --resume 20260912_034154_5fc3fc
+  hermes -c "Write codegate Python script"
+
+Session:        20260912_034154_5fc3fc
+Title:          Write codegate Python script
+Duration:       12m 35s
+Messages:       4 (1 user, 2 tool calls)

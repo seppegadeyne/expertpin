@@ -50,6 +50,20 @@ WORK_SECONDS = int(os.environ.get('E2E_WORK_SECONDS',
 REQUEST_SECONDS = WORK_SECONDS - 120
 
 
+def turn1_checks(task_kind, stdout, after_query):
+    """Task-kind specific client-success criteria (2026-09-12 fix): the code
+    task must show its expected output after the query echo plus evidence the
+    script was written/run; the marker task keeps the printf-marker criteria.
+    Guards against the query-echo false positive in both cases."""
+    if task_kind == 'code':
+        return {'hermes_stdout_has_marker': 'code-gate-ok-7391' in after_query,
+                'hermes_ran_shell_tool': ('e2e-codegate.py' in stdout
+                                          and ('python3' in stdout or 'EOF' in stdout))}
+    return {'hermes_stdout_has_marker': 'hermes-e2e-ok' in after_query,
+            'hermes_ran_shell_tool': ('shell' in stdout.lower() and
+                                      ('printf' in stdout or 'command' in stdout.lower()))}
+
+
 def main():
     out = HERE / ('run-' + time.strftime('%Y%m%dT%H%M%S') + '-e2e')
     out.mkdir()
@@ -159,11 +173,10 @@ def main():
         stdout = client.stdout
         # Guard against the false positive where the marker only appears in
         # the echoed Query: require it AFTER the query echo, plus evidence of
-        # an actual tool execution (shell) in the transcript.
+        # an actual tool execution in the transcript. Criteria are task-kind
+        # specific (see turn1_checks; 2026-09-12 fix).
         after_query = stdout.split('\n', 1)[1] if '\n' in stdout else ''
-        summary['hermes_stdout_has_marker'] = 'hermes-e2e-ok' in after_query
-        summary['hermes_ran_shell_tool'] = ('shell' in stdout.lower() and
-                                            ('printf' in stdout or 'command' in stdout.lower()))
+        summary.update(turn1_checks(E2E_TASK_KIND, stdout, after_query))
         ok_turn1 = (client.returncode == 0 and summary['hermes_stdout_has_marker']
                     and summary['hermes_ran_shell_tool'])
         if E2E_TASK_KIND == 'code' and ok_turn1:
