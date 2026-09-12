@@ -135,6 +135,12 @@ def main():
         # --- the actual E2E step: a real hermes agent run against the model ---
         summary['hermes_invocation'] = 'hermes chat -q <shell-tool task>'
         (out / 'task.txt').write_text(TASK)
+        # Fail-closed against STALE artifacts from earlier runs: if a previous
+        # gate left /tmp/e2e-codegate.py (or the marker) behind, the probe
+        # below could pass without this run's agent ever writing anything.
+        for stale in ('/tmp/e2e-codegate.py', '/tmp/hermes-e2e-marker.txt'):
+            Path(stale).unlink(missing_ok=True)
+            summary['stale_removed_' + stale.rsplit('/', 1)[1]] = True
         client_env = dict(os.environ, HERMES_HOME=str(E2E_HOME),
                           EXPERTPIN_LOCAL_KEY='local-e2e-dummy')
         began = time.monotonic()
