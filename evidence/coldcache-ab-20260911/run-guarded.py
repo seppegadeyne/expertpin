@@ -312,8 +312,16 @@ class Run:
         if self.pending_signal is not None:
             self.interrupt(self.pending_signal, None)
 
+    def work_budget(self):
+        """Effective work deadline in seconds: the instance override when the
+        caller wired one (e2e runner), else the module constant. The 2026-09-12
+        incident: sample() checked only the module constant (660) while the
+        runner had set run.work_seconds=2700 — the deadline killed the runner
+        mid-agent-run."""
+        return getattr(self, 'work_seconds', None) or WORK_SECONDS
+
     def sample(self):
-        if time.monotonic() - self.start >= WORK_SECONDS:
+        if time.monotonic() - self.start >= self.work_budget():
             raise TimeoutError('work deadline; cleanup reserve begins')
         raw = self.command(['nvidia-smi', '--query-gpu=utilization.gpu,memory.used',
                             '--format=csv,noheader,nounits'], 'gpu-latest')
@@ -402,7 +410,7 @@ class Run:
         else:
             raise RuntimeError('own scope never became active')
         self.label = 'model-load'
-        deadline = min(self.start + WORK_SECONDS, time.monotonic() + 360)
+        deadline = min(self.start + self.work_budget(), time.monotonic() + 360)
         while time.monotonic() < deadline:
             self.sample()
             try:
