@@ -115,7 +115,13 @@ class ClientMonitorTests(unittest.TestCase):
         self.assertLess(time.monotonic() - began, 1.5)
 
     def test_both_turns_and_artifact_probe_are_wired_to_monitor(self):
-        tree = ast.parse(inspect.getsource(runner.main))
+        main_tree = ast.parse(inspect.getsource(runner.main))
+        second_turn_calls = [node for node in ast.walk(main_tree) if isinstance(node, ast.Call)
+                             and isinstance(node.func, ast.Name) and node.func.id == 'run_second_turn']
+        self.assertEqual(len(second_turn_calls), 1)
+        self.assertEqual(ast.unparse(second_turn_calls[0]),
+                         'run_second_turn(run, out, client_env, E2E_TASK_KIND)')
+        tree = ast.parse(inspect.getsource(runner.main) + '\n' + inspect.getsource(runner.run_second_turn))
         calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)
                  and isinstance(node.func, ast.Name) and node.func.id == 'run_client']
         prefixes = {kw.value.value for call in calls for kw in call.keywords

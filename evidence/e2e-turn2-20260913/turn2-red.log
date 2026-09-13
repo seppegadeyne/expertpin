@@ -1,0 +1,86 @@
+EEEEEEE
+======================================================================
+ERROR: test_code_reexecutes_code_artifact (__main__.Turn2Tests.test_code_reexecutes_code_artifact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 33, in test_code_reexecutes_code_artifact
+    checks, task = self.execute('code', 'Query: retry\nterminal python3 /tmp/e2e-codegate.py\ncode-gate-ok-7391\n')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 22, in execute
+    checks = runner.run_second_turn(run, out, env, kind)
+             ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_turn2' has no attribute 'run_second_turn'
+
+======================================================================
+ERROR: test_echoed_command_is_not_execution_evidence (__main__.Turn2Tests.test_echoed_command_is_not_execution_evidence) (kind='code')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 52, in test_echoed_command_is_not_execution_evidence
+    checks, _ = self.execute(kind, f'Query: {command}\n{marker}\n')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 22, in execute
+    checks = runner.run_second_turn(run, out, env, kind)
+             ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_turn2' has no attribute 'run_second_turn'
+
+======================================================================
+ERROR: test_echoed_command_is_not_execution_evidence (__main__.Turn2Tests.test_echoed_command_is_not_execution_evidence) (kind='marker')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 52, in test_echoed_command_is_not_execution_evidence
+    checks, _ = self.execute(kind, f'Query: {command}\n{marker}\n')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 22, in execute
+    checks = runner.run_second_turn(run, out, env, kind)
+             ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_turn2' has no attribute 'run_second_turn'
+
+======================================================================
+ERROR: test_failed_client_cannot_pass (__main__.Turn2Tests.test_failed_client_cannot_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 57, in test_failed_client_cannot_pass
+    checks, _ = self.execute('code', 'Query: retry\npython3 /tmp/e2e-codegate.py\ncode-gate-ok-7391\n', rc=1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 22, in execute
+    checks = runner.run_second_turn(run, out, env, kind)
+             ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_turn2' has no attribute 'run_second_turn'
+
+======================================================================
+ERROR: test_marker_still_reads_marker_artifact (__main__.Turn2Tests.test_marker_still_reads_marker_artifact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 40, in test_marker_still_reads_marker_artifact
+    checks, task = self.execute('marker', 'Query: retry\nterminal cat /tmp/hermes-e2e-marker.txt\nhermes-e2e-ok\n')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 22, in execute
+    checks = runner.run_second_turn(run, out, env, kind)
+             ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_turn2' has no attribute 'run_second_turn'
+
+======================================================================
+ERROR: test_unknown_task_rejected_before_client (__main__.Turn2Tests.test_unknown_task_rejected_before_client)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 63, in test_unknown_task_rejected_before_client
+    runner.run_second_turn(mock.Mock(), Path('/unused'), {}, 'typo')
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_turn2' has no attribute 'run_second_turn'
+
+======================================================================
+ERROR: test_wrong_artifact_cannot_pass_code_turn (__main__.Turn2Tests.test_wrong_artifact_cannot_pass_code_turn)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 45, in test_wrong_artifact_cannot_pass_code_turn
+    checks, _ = self.execute('code', 'Query: retry\nterminal cat /tmp/hermes-e2e-marker.txt\nhermes-e2e-ok\n')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-turn2-20260913.py", line 22, in execute
+    checks = runner.run_second_turn(run, out, env, kind)
+             ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_turn2' has no attribute 'run_second_turn'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.003s
+
+FAILED (errors=7)

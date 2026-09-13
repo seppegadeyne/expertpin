@@ -109,6 +109,41 @@ def run_client(run, args, *, out, prefix, env, timeout, poll_seconds=1.0):
                                        stdout_path.read_text(), stderr_path.read_text())
 
 
+def run_second_turn(run, out, client_env, task_kind):
+    """Resume the session and reuse the artifact produced by the first task.
+
+    Transcript checks are heuristics, not proof of tool execution: require
+    both the command and expected output after the first query-echo line.
+    Both prompts place the entire command on that line; their continuation
+    contains neither the command nor the expected output marker.
+    The existing monitored client preserves the shared deadline and logs.
+    """
+    if task_kind == 'code':
+        command, expected = 'python3 /tmp/e2e-codegate.py', 'code-gate-ok-7391'
+        task = ('Now use the shell tool to run exactly: ' + command + '\n'
+                'Reuse the existing script without rewriting it. '
+                'Reply with exactly what it printed and nothing else.')
+    elif task_kind == 'marker':
+        command, expected = 'cat /tmp/hermes-e2e-marker.txt', 'hermes-e2e-ok'
+        task = TASK_TURN2
+    else:
+        raise ValueError('unknown E2E task kind: ' + repr(task_kind))
+    began = time.monotonic()
+    run.label = 'hermes-e2e-turn2'
+    client = run_client(run, ['hermes', 'chat', '--yolo', '--resume', 'latest', '-q', task],
+                        out=out, prefix='hermes-turn2', timeout=REQUEST_SECONDS, env=client_env)
+    after_query = client.stdout.split('\n', 1)[1] if '\n' in client.stdout else ''
+    has_marker = expected in after_query
+    ran_tool = command in after_query
+    return {'turn2_returncode': client.returncode,
+            'turn2_wall_seconds': round(time.monotonic() - began, 1),
+            'turn2_task': task,
+            'turn2_stdout_has_marker': has_marker,
+            'turn2_ran_shell_tool': ran_tool,
+            'multi_turn': True,
+            'status': 'completed' if client.returncode == 0 and has_marker and ran_tool else 'client_failed'}
+
+
 def main():
     out = HERE / ('run-' + time.strftime('%Y%m%dT%H%M%S') + '-e2e')
     out.mkdir()
@@ -237,26 +272,7 @@ def main():
                                         and probe.stdout.strip() == 'code-gate-ok-7391')
             ok_turn1 = ok_turn1 and summary['codegate_pass']
         if MULTI_TURN and ok_turn1:
-            import time as _t
-            _t.sleep(2)
-            began2 = time.monotonic()
-            run.label = 'hermes-e2e-turn2'
-            run.sample()
-            turn2 = run_client(run, ['hermes', 'chat', '--yolo', '--resume', 'latest', '-q', TASK_TURN2],
-                               out=out, prefix='hermes-turn2', timeout=REQUEST_SECONDS, env=client_env)
-            wall2 = time.monotonic() - began2
-            run.sample()
-            (out / 'hermes-turn2-stdout.txt').write_text(turn2.stdout)
-            (out / 'hermes-turn2-stderr.txt').write_text(turn2.stderr)
-            summary['turn2_returncode'] = turn2.returncode
-            summary['turn2_wall_seconds'] = round(wall2, 1)
-            after_query2 = turn2.stdout.split('\n', 1)[1] if '\n' in turn2.stdout else ''
-            summary['turn2_stdout_has_marker'] = 'hermes-e2e-ok' in after_query2
-            summary['turn2_ran_shell_tool'] = 'cat /tmp/hermes-e2e-marker.txt' in turn2.stdout
-            summary['multi_turn'] = True
-            summary['status'] = 'completed' if (turn2.returncode == 0
-                                               and summary['turn2_stdout_has_marker']
-                                               and summary['turn2_ran_shell_tool']) else 'client_failed'
+            summary.update(run_second_turn(run, out, client_env, E2E_TASK_KIND))
         else:
             summary['multi_turn'] = False
             summary['status'] = 'completed' if ok_turn1 else 'client_failed'
