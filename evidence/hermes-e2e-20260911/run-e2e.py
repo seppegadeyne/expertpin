@@ -9,6 +9,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import signal
 import subprocess
 import sys
 import time
@@ -62,6 +63,50 @@ def turn1_checks(task_kind, stdout, after_query):
     return {'hermes_stdout_has_marker': 'hermes-e2e-ok' in after_query,
             'hermes_ran_shell_tool': ('shell' in stdout.lower() and
                                       ('printf' in stdout or 'command' in stdout.lower()))}
+
+
+def run_client(run, args, *, out, prefix, env, timeout, poll_seconds=1.0):
+    """Sample the existing RAM/VRAM guards while a client or probe runs.
+
+    File-backed output avoids pipe backpressure and preserves partial logs on
+    failure. Each invocation shares the run's deadline; later turns cannot
+    reset it. Kill the owned process group on every exit so ordinary shell
+    tool descendants cannot outlive an aborted client. Detached sessions are
+    not contained by this process-group boundary (this is not a sandbox).
+    """
+    if timeout <= 0 or poll_seconds <= 0:
+        raise ValueError('client timeout and poll interval must be positive')
+    deadline = min(time.monotonic() + timeout, run.start + run.work_budget())
+    stdout_path = out / (prefix + '-stdout.txt')
+    stderr_path = out / (prefix + '-stderr.txt')
+    if time.monotonic() >= deadline:
+        raise subprocess.TimeoutExpired(args, timeout)
+    run.sample()  # refuse a failing guard before spawning any client
+    with stdout_path.open('x') as stdout, stderr_path.open('x') as stderr:
+        client = run.spawn(args, stdout=stdout, stderr=stderr, env=env,
+                           cwd=str(out), start_new_session=True)
+        try:
+            run.spawned()  # a deferred signal must still pass through finally
+            while True:
+                run.sample()
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired(args, timeout)
+                try:
+                    client.wait(timeout=min(poll_seconds, remaining))
+                    break
+                except subprocess.TimeoutExpired:
+                    pass
+            run.sample()
+        finally:
+            try:
+                os.killpg(client.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            finally:
+                client.wait(timeout=5)
+    return subprocess.CompletedProcess(args, client.returncode,
+                                       stdout_path.read_text(), stderr_path.read_text())
 
 
 def main():
@@ -160,9 +205,9 @@ def main():
         began = time.monotonic()
         run.label = 'hermes-e2e'
         run.sample()
-        client = subprocess.run(['hermes', 'chat', '--yolo', '-q', CODE_TASK if E2E_TASK_KIND == 'code' else TASK],
-                                capture_output=True, text=True,
-                                timeout=REQUEST_SECONDS, env=client_env, cwd=str(out))
+        client = run_client(run, ['hermes', 'chat', '--yolo', '-q',
+                                 CODE_TASK if E2E_TASK_KIND == 'code' else TASK],
+                            out=out, prefix='hermes', timeout=REQUEST_SECONDS, env=client_env)
         wall = time.monotonic() - began
         run.sample()
         (out / 'hermes-stdout.txt').write_text(client.stdout)
@@ -183,8 +228,8 @@ def main():
             # Code-precision gate: verify the artifact independently of the
             # agent's self-report — the script must exist, run cleanly, and
             # print exactly the required line.
-            import subprocess as _sp
-            probe = _sp.run(['python3', '/tmp/e2e-codegate.py'], capture_output=True, text=True, timeout=30)
+            probe = run_client(run, ['python3', '/tmp/e2e-codegate.py'],
+                               out=out, prefix='codegate-probe', timeout=30, env=client_env)
             summary['codegate_script_rc'] = probe.returncode
             summary['codegate_script_output'] = probe.stdout.strip()
             summary['codegate_script_expected'] = 'code-gate-ok-7391'
@@ -197,9 +242,8 @@ def main():
             began2 = time.monotonic()
             run.label = 'hermes-e2e-turn2'
             run.sample()
-            turn2 = subprocess.run(['hermes', 'chat', '--yolo', '--resume', 'latest', '-q', TASK_TURN2],
-                                   capture_output=True, text=True,
-                                   timeout=REQUEST_SECONDS, env=client_env, cwd=str(out))
+            turn2 = run_client(run, ['hermes', 'chat', '--yolo', '--resume', 'latest', '-q', TASK_TURN2],
+                               out=out, prefix='hermes-turn2', timeout=REQUEST_SECONDS, env=client_env)
             wall2 = time.monotonic() - began2
             run.sample()
             (out / 'hermes-turn2-stdout.txt').write_text(turn2.stdout)

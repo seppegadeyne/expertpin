@@ -1,0 +1,13 @@
+test_both_turns_and_artifact_probe_are_wired_to_monitor (__main__.ClientMonitorTests.test_both_turns_and_artifact_probe_are_wired_to_monitor) ... ok
+test_failing_preflight_never_spawns (__main__.ClientMonitorTests.test_failing_preflight_never_spawns) ... ok
+test_guard_failure_kills_client_and_ordinary_descendant (__main__.ClientMonitorTests.test_guard_failure_kills_client_and_ordinary_descendant) ... ok
+test_pending_signal_after_spawn_still_reaps_client (__main__.ClientMonitorTests.test_pending_signal_after_spawn_still_reaps_client) ... ok
+test_running_client_uses_remaining_shared_budget (__main__.ClientMonitorTests.test_running_client_uses_remaining_shared_budget) ... ok
+test_samples_during_client_and_preserves_large_output_and_exit (__main__.ClientMonitorTests.test_samples_during_client_and_preserves_large_output_and_exit) ... ok
+test_shared_deadline_prevents_spawn (__main__.ClientMonitorTests.test_shared_deadline_prevents_spawn) ... ok
+test_timeout_preserves_partial_transcript (__main__.ClientMonitorTests.test_timeout_preserves_partial_transcript) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.633s
+
+OK

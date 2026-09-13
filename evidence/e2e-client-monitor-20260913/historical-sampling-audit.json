@@ -1,0 +1,10 @@
+{
+  "source": "evidence/hermes-e2e-20260911/run-20260912T035703-e2e/samples.jsonl",
+  "samples": 37,
+  "longest_gap_seconds": 853.5246962759993,
+  "gap_start_label": "hermes-e2e",
+  "gap_end_label": "hermes-e2e",
+  "cgroup_memory_peak_gib": 32.40522003173828,
+  "sampled_device_vram_max_gib": 24.2587890625,
+  "limitation": "Historical sampled VRAM maximum is not a continuous peak; no VRAM bound is proven inside the long client gap. RAM memory.peak is a kernel high-water mark for the server cgroup, not aggregate host/client RAM."
+}

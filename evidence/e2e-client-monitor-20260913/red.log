@@ -1,0 +1,61 @@
+EEEEE
+======================================================================
+ERROR: test_guard_failure_kills_client_and_ordinary_descendant (__main__.ClientMonitorTests.test_guard_failure_kills_client_and_ordinary_descendant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 69, in test_guard_failure_kills_client_and_ordinary_descendant
+    self.invoke(source)
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 32, in invoke
+    return runner.run_client(self.lifecycle, [sys.executable, str(script)],
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_monitor' has no attribute 'run_client'
+
+======================================================================
+ERROR: test_pending_signal_after_spawn_still_reaps_client (__main__.ClientMonitorTests.test_pending_signal_after_spawn_still_reaps_client)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 89, in test_pending_signal_after_spawn_still_reaps_client
+    self.invoke('import time\ntime.sleep(10)\n')
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 32, in invoke
+    return runner.run_client(self.lifecycle, [sys.executable, str(script)],
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_monitor' has no attribute 'run_client'
+
+======================================================================
+ERROR: test_samples_during_client_and_preserves_large_output_and_exit (__main__.ClientMonitorTests.test_samples_during_client_and_preserves_large_output_and_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 37, in test_samples_during_client_and_preserves_large_output_and_exit
+    result = self.invoke('import sys, time\nprint("x" * 200000, flush=True)\n'
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 32, in invoke
+    return runner.run_client(self.lifecycle, [sys.executable, str(script)],
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_monitor' has no attribute 'run_client'
+
+======================================================================
+ERROR: test_shared_deadline_prevents_spawn (__main__.ClientMonitorTests.test_shared_deadline_prevents_spawn)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 54, in test_shared_deadline_prevents_spawn
+    self.invoke('raise AssertionError("should not run")')
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 32, in invoke
+    return runner.run_client(self.lifecycle, [sys.executable, str(script)],
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_monitor' has no attribute 'run_client'
+
+======================================================================
+ERROR: test_timeout_preserves_partial_transcript (__main__.ClientMonitorTests.test_timeout_preserves_partial_transcript)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 47, in test_timeout_preserves_partial_transcript
+    self.invoke('import time\nprint("started", flush=True)\ntime.sleep(10)\n', timeout=.2)
+  File "/home/seppe/Projects/expertpin/tests/test-e2e-client-monitor-20260913.py", line 32, in invoke
+    return runner.run_client(self.lifecycle, [sys.executable, str(script)],
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'e2e_monitor' has no attribute 'run_client'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.003s
+
+FAILED (errors=5)
