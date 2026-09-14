@@ -1,0 +1,81 @@
+[
+  {
+    "name": "shards",
+    "command": [
+      "python3",
+      "tests/test-coldcache-shards-20260914.py"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "coldcache",
+    "command": [
+      "python3",
+      "tests/test-coldcache-ab-20260911.py"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "residency",
+    "command": [
+      "python3",
+      "tests/test-coldcache-residency-20260911.py"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "configure",
+    "command": [
+      "cmake",
+      "-S",
+      ".",
+      "-B",
+      "build-cpu-shadow",
+      "-DGGML_CUDA=OFF",
+      "-DGGML_VULKAN=OFF"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "build",
+    "command": [
+      "cmake",
+      "--build",
+      "build-cpu-shadow",
+      "-j",
+      "8"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "targeted",
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-cpu-shadow",
+      "-R",
+      "coldcache|e2e|expert-manifest",
+      "--output-on-failure"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "full",
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-cpu-shadow",
+      "--output-on-failure"
+    ],
+    "returncode": 8
+  },
+  {
+    "name": "diff-check",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "returncode": 0
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "verified_cold": true,
+  "verdict": "COLD",
+  "resident_ratio": 0.0,
+  "max_resident_ratio": 0.0,
+  "shard_verdicts": [
+    {
+      "verdict": "COLD",
+      "resident_ratio": 0.0
+    }
+  ],
+  "drop": {
+    "fadvise_completed": true,
+    "bytes": 1907151936,
+    "file": "/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf",
+    "files": [
+      {
+        "fadvise_completed": true,
+        "bytes": 1907151936,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf"
+      }
+    ],
+    "scope": "whole_checkpoint"
+  },
+  "snapshot": {
+    "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+    "pages": 465614,
+    "resident_pages": 0,
+    "error": null,
+    "page_size": 4096,
+    "file": "/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf",
+    "files": [
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 465614,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf"
+      }
+    ],
+    "scope": "whole_checkpoint"
+  }
+}

@@ -1,0 +1,26 @@
+Test project /home/seppe/Projects/expertpin/build-cpu-shadow
+    Start  3: test-coldcache-ab-20260911
+1/8 Test  #3: test-coldcache-ab-20260911 .........   Passed    0.14 sec
+    Start  4: test-coldcache-shards-20260914
+2/8 Test  #4: test-coldcache-shards-20260914 .....   Passed    0.12 sec
+    Start  6: test-hermes-e2e-20260911
+3/8 Test  #6: test-hermes-e2e-20260911 ...........   Passed    0.10 sec
+    Start  7: test-e2e-work-budget-20260912
+4/8 Test  #7: test-e2e-work-budget-20260912 ......   Passed    0.11 sec
+    Start  8: test-e2e-turn1-criteria-20260912
+5/8 Test  #8: test-e2e-turn1-criteria-20260912 ...   Passed    0.09 sec
+    Start  9: test-e2e-turn2-20260913
+6/8 Test  #9: test-e2e-turn2-20260913 ............   Passed    0.10 sec
+    Start 10: test-e2e-client-monitor-20260913
+7/8 Test #10: test-e2e-client-monitor-20260913 ...   Passed    0.72 sec
+    Start 41: test-expert-manifest
+8/8 Test #41: test-expert-manifest ...............   Passed    0.00 sec
+
+100% tests passed out of 8
+
+Label Time Summary:
+main        =   0.00 sec*proc (1 test)
+python      =   1.38 sec*proc (7 tests)
+targeted    =   1.38 sec*proc (7 tests)
+
+Total Test time (real) =   1.39 sec

@@ -1,0 +1,51 @@
+{
+  "run": "evidence/coldcache-ab-20260911/run-20260914T031217-94aa632ad93647908d62aded259f2cb7",
+  "code_commit": "5dfb25555f6dd02ab702229bc5423ef7bf67be5e",
+  "target_cold_pages": 27181314,
+  "target_resident_pages": 0,
+  "draft_cold_pages": 465614,
+  "draft_resident_pages": 0,
+  "target_bytes": 111334654784,
+  "target_first_shard_fraction": 9.832180304719594e-05,
+  "decode_tok_s": [
+    13.02009162889484,
+    27.94268387950547
+  ],
+  "prefill_tok_s": [
+    6.066112598646811,
+    25.0145949125464
+  ],
+  "acceptance": [
+    0.7784431137724551,
+    0.7784431137724551
+  ],
+  "goal_tok_s": 20,
+  "decode_goal_met": [
+    false,
+    true
+  ],
+  "server_kernel_peak_gib": 32.40437698364258,
+  "client_kernel_peak_gib": 0.055858612060546875,
+  "sum_kernel_peaks_upper_gib": 32.460235595703125,
+  "ram_cap_gib": 40,
+  "vram_sampled_peak_gib": 23.15625,
+  "vram_cap_gib": 28,
+  "server_swap_sampled_peak_gib": 2.0159950256347656,
+  "client_swap_final_gib": 0.0,
+  "samples": 78,
+  "max_sample_gap_seconds": 2.0589619100064738,
+  "first_sample_seconds": 4.854948773005162,
+  "last_sample_seconds": 109.682636551006,
+  "elapsed_seconds": 110.87118750900845,
+  "mem_available_before_gib": 43.31886672973633,
+  "cleanup_errors": [],
+  "full_ctest_passed": 54,
+  "full_ctest_total": 57,
+  "limitations": [
+    "n=1 prompt; 2x256 tokens; reasoning auto; not the reasoning-off Hermes code gate",
+    "Sequential pre-load mincore snapshots, not atomic; concurrent readers not continuously excluded",
+    "RAM sums server/client cgroup kernel peaks; unrelated scope readers/shared page charges remain an attribution caveat",
+    "VRAM sampled, no continuous peak guarantee; swap reported separately",
+    "No new long-context, toolcalling, API-contract or Hermes E2E validation"
+  ]
+}
