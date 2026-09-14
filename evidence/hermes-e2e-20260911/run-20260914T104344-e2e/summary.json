@@ -1,0 +1,59 @@
+{
+  "started": "2026-09-14T10:43:44.896238+02:00",
+  "scope": "expertpin-test-4b01a311172b422da88c34e34209b898.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ud-q4kxl",
+  "cold_cache": false,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "blocked_or_failed",
+  "qli.service_skip": "masked/not-found \u2014 not stopped (pause mandate)",
+  "jetski.service_stop_requested": "2026-09-14T10:43:46.981540+02:00",
+  "miners_stopped": [
+    "jetski.service"
+  ],
+  "guard": {
+    "mem_available_bytes": 44613128192,
+    "gpu_util_pct": 4,
+    "vram_mib": 1751,
+    "elapsed_s": 0.041651363993878476
+  },
+  "scope_stopped_verified": true,
+  "cleanup_errors": [],
+  "e2e": {
+    "started": "2026-09-14T10:43:44+0200",
+    "kind": "hermes-e2e-agent-run",
+    "task": "Write a small Python script to /tmp/e2e-codegate.py that prints exactly:\ncode-gate-ok-7391\nRequirements: use a for-loop over range(3) summing those iteration numbers, and print the literal string above once at the end. Use the shell tool to write the file, then run it with python3, and reply with exactly the output it printed.",
+    "task_kind": "code",
+    "checkpoint": "ud-q4kxl",
+    "startup_n_max": 4,
+    "work_seconds": 1800,
+    "client_unit": "expertpin-e2e-client-20260914T104344.scope",
+    "client_cap_gib": 4,
+    "hermes_home": "/home/seppe/Projects/expertpin/.hermes-work/e2e-home",
+    "status": "completed",
+    "model_loaded": true,
+    "hermes_invocation": "hermes chat -q <shell-tool task>",
+    "stale_removed_e2e-codegate.py": true,
+    "stale_removed_hermes-e2e-marker.txt": true,
+    "hermes_returncode": 0,
+    "hermes_wall_seconds": 799.5,
+    "hermes_stdout_has_marker": true,
+    "hermes_ran_shell_tool": true,
+    "codegate_script_rc": 0,
+    "codegate_script_output": "code-gate-ok-7391",
+    "codegate_script_expected": "code-gate-ok-7391",
+    "codegate_pass": true,
+    "turn2_returncode": 0,
+    "turn2_wall_seconds": 10.6,
+    "turn2_task": "Now use the shell tool to run exactly: python3 /tmp/e2e-codegate.py\nReuse the existing script without rewriting it. Reply with exactly what it printed and nothing else.",
+    "turn2_stdout_has_marker": true,
+    "turn2_ran_shell_tool": true,
+    "multi_turn": true
+  },
+  "finished": "2026-09-14T10:58:32+0200"
+}

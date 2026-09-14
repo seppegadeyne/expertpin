@@ -1,0 +1,3 @@
+Write a small Python script to /tmp/e2e-codegate.py that prints exactly:
+code-gate-ok-7391
+Requirements: use a for-loop over range(3) summing those iteration numbers, and print the literal string above once at the end. Use the shell tool to write the file, then run it with python3, and reply with exactly the output it printed.
