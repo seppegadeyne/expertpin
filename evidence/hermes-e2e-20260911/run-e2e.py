@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
-"""Hermes E2E: serve ps-iq2xxs under the guarded lifecycle, run a real
-`hermes chat -q` task (shell tool) against the local endpoint from an
+"""Hermes E2E: serve the selected checkpoint under the guarded lifecycle, run
+a real `hermes chat -q` task (shell tool) against the local endpoint from an
 ISOLATED HERMES_HOME, capture the transcript, then the standard cleanup.
-Seppe's active Hermes provider is never touched. Durations follow the
-extended mandate; RAM/VRAM caps and every guard unchanged.
+Seppe's active Hermes provider is never touched. RAM/VRAM caps and every
+guard unchanged. The runner itself must execute INSIDE a dedicated client
+cgroup scope (E2E_CLIENT_UNIT, 4 GiB MemoryMax) so harness + hermes client +
+curl RAM is kernel-accounted and every sample checks the combined
+server+client kernel peaks against the 40 GiB budget (pattern proven in
+.hermes-work/daily-20260914/run-ud.py). Total work deadline is hard-capped
+at 1800 s (Seppe 2026-09-13: the retired 2700 s code default stays retired).
 """
 import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import signal
 import subprocess
 import sys
@@ -40,15 +46,112 @@ TASK_TURN2 = ('Now use the shell tool to run exactly: cat /tmp/hermes-e2e-marker
 MULTI_TURN = os.environ.get('E2E_MULTI_TURN', '0') == '1'
 E2E_CHECKPOINT = os.environ.get('E2E_CHECKPOINT', 'ps-iq2xxs')
 E2E_TASK_KIND = os.environ.get('E2E_TASK', 'marker')  # marker | code
-E2E_NCMOE = os.environ.get('E2E_NCMOE', '36')
+if E2E_CHECKPOINT not in harness.CHECKPOINTS:
+    raise ValueError('unknown E2E_CHECKPOINT: ' + repr(E2E_CHECKPOINT))
+if E2E_TASK_KIND not in ('marker', 'code'):
+    raise ValueError('unknown E2E task kind: ' + repr(E2E_TASK_KIND))
+# Mirror the dev default per checkpoint: UD-Q4_K_XL serves with NCMOE 40
+# (dev-serving default), the A/B checkpoints ran NCMOE 36.
+E2E_NCMOE = os.environ.get('E2E_NCMOE', '40' if E2E_CHECKPOINT == 'ud-q4kxl' else '36')
 # Dev default is --reasoning off (IQ2_XXS code loops); the gate mirrors the
 # dev setting so we test the configuration users will actually run.
 E2E_REASONING = os.environ.get('E2E_REASONING', 'off')
-# Code tasks on UD-Q4_K_XL need >30 min (13-35 tok/s + long generation);
-# harden the default so an env mishap cannot cut the gate short.
-WORK_SECONDS = int(os.environ.get('E2E_WORK_SECONDS',
-                                  '2700' if os.environ.get('E2E_TASK') == 'code' else '1800'))
+# Seppe 2026-09-13 08:45: enforce an explicit <=1800 s TOTAL deadline for the
+# UD code/multi-turn rerun. The old 2700 s code default is retired: an env
+# override above the cap (or below the cleanup reserve) fails closed HERE, at
+# import, before any host change.
+WORK_CAP_SECONDS = 1800
+_requested = os.environ.get('E2E_WORK_SECONDS')
+WORK_SECONDS = int(_requested) if _requested else WORK_CAP_SECONDS
+if not 120 <= WORK_SECONDS <= WORK_CAP_SECONDS:
+    raise ValueError(f'E2E_WORK_SECONDS={WORK_SECONDS} outside 120..{WORK_CAP_SECONDS}; '
+                     'the 2700 s code default is retired, total run must stay <=1800 s')
 REQUEST_SECONDS = WORK_SECONDS - 120
+
+# Client-inclusive cgroup accounting (Seppe steering 2026-09-13 + the proven
+# 2026-09-14 nightly pattern): the runner — and with it the hermes client,
+# probes and curl — must run inside a dedicated systemd scope with a 4 GiB
+# MemoryMax, so the CLIENT side of the 40 GiB budget is kernel-accounted
+# rather than inferred. Sum of caps: 36G server + 4G client = 40G.
+CLIENT_CAP_GIB = 4
+CLIENT_UNIT = os.environ.get('E2E_CLIENT_UNIT', '')
+CLIENT_UNIT_PATTERN = re.compile(r'expertpin-e2e-client-[A-Za-z0-9_-]+[.]scope')
+
+
+def select_task(kind):
+    """The actual prompt for the configured task kind (summary must record
+    THIS, not the marker default, so metadata matches the executed run)."""
+    if kind == 'code':
+        return CODE_TASK
+    if kind == 'marker':
+        return TASK
+    raise ValueError('unknown E2E task kind: ' + repr(kind))
+
+
+def client_scope_point(unit=None, proc_cgroup=None, sys_base=Path('/sys/fs/cgroup')):
+    """Validate the runner's own client scope and read its memory counters.
+
+    Fail-closed: no unit configured, an unexpected unit name, a foreign
+    cgroup, a MemoryMax other than the agreed 4 GiB cap, peak above cap, or
+    any max/oom event all refuse BEFORE (or during) the run. Split
+    parameters keep this CPU-testable without touching /proc or /sys.
+    """
+    unit = CLIENT_UNIT if unit is None else unit
+    if not unit:
+        raise RuntimeError('E2E_CLIENT_UNIT required: launch via the guarded wrapper '
+                           '(dedicated 4G client scope); raw runs are refused')
+    if not CLIENT_UNIT_PATTERN.fullmatch(unit):
+        raise ValueError('unexpected client unit name: ' + repr(unit))
+    if proc_cgroup is None:
+        proc_cgroup = Path('/proc/self/cgroup').read_text()
+    cgroup = next(s[3:] for s in proc_cgroup.splitlines() if s.startswith('0::'))
+    if not cgroup.endswith('/' + unit):
+        raise RuntimeError('runner must be inside the dedicated client scope: ' + unit)
+    base = Path(sys_base) / cgroup.lstrip('/')
+    point = {k: (base / k).read_text().strip() for k in
+             ('memory.current', 'memory.peak', 'memory.max', 'memory.swap.current', 'memory.events')}
+    cap = CLIENT_CAP_GIB * 1024**3
+    if int(point['memory.max']) != cap:
+        raise RuntimeError('client MemoryMax must be exactly %dG' % CLIENT_CAP_GIB)
+    if not 0 <= int(point['memory.current']) <= int(point['memory.peak']) <= cap:
+        raise RuntimeError('client RAM cap exceeded')
+    events = dict(line.split() for line in point['memory.events'].splitlines())
+    if any(int(events.get(k, 0)) for k in ('max', 'oom', 'oom_kill', 'oom_group_kill')):
+        raise RuntimeError('client cap pressure/OOM event')
+    point['cgroup'] = cgroup
+    return point
+
+
+class E2ERun(harness.Run):
+    """Guarded Run + client-inclusive accounting + the qli pause guard."""
+
+    def command(self, args, *rest, **kwargs):
+        if (args[:2] == ['systemctl', '--user'] and 'qli.service' in args
+                and any(a in args for a in ('start', 'restart', 'stop'))):
+            raise RuntimeError('qli pause: no qli.service mutations permitted')
+        return super().command(args, *rest, **kwargs)
+
+    def client_scope_point(self):
+        return client_scope_point()
+
+    def sample(self):
+        super().sample()
+        assert self.cgroup_path is not None
+        server = {k: (self.cgroup_path / k).read_text().strip() for k in
+                  ('memory.current', 'memory.peak', 'memory.max')}
+        if int(server['memory.max']) != harness.RAM_BUDGET_GIB * 1024**3:
+            raise RuntimeError('server MemoryMax mismatch')
+        client = self.client_scope_point()
+        # Conservative upper bound for the client-inclusive footprint: the two
+        # kernel peaks need not have occurred simultaneously, so their sum can
+        # overstate the true concurrent peak. Never present it as exact.
+        upper = int(server['memory.peak']) + int(client['memory.peak'])
+        record = dict(elapsed_s=time.monotonic() - self.start, client=client, server=server,
+                      sum_of_kernel_peaks_bytes=upper)
+        with (self.out / 'inclusive-ram.jsonl').open('a') as output:
+            output.write(json.dumps(record) + '\n')
+        if upper > 40 * 1024**3:
+            raise RuntimeError('combined server+client RAM cap exceeded')
 
 
 def turn1_checks(task_kind, stdout, after_query):
@@ -145,9 +248,14 @@ def run_second_turn(run, out, client_env, task_kind):
 
 
 def main():
+    # Fail closed BEFORE creating artifacts or touching any service: the
+    # runner (and with it the hermes client/probes/curl) must live inside
+    # the dedicated 4G client scope so client RAM is kernel-accounted.
+    client_scope_point()
+    task = select_task(E2E_TASK_KIND)
     out = HERE / ('run-' + time.strftime('%Y%m%dT%H%M%S') + '-e2e')
     out.mkdir()
-    run = harness.Run(out, 4, 'ps-iq2xxs')
+    run = E2ERun(out, 4, E2E_CHECKPOINT)
     run.work_seconds = WORK_SECONDS
     run.request_seconds = REQUEST_SECONDS
     # The Run constructor stamps self.start at construction time; with the
@@ -156,7 +264,10 @@ def main():
     # moment real work begins.
     run.start = time.monotonic()
     summary = {'started': time.strftime('%Y-%m-%dT%H:%M:%S%z'),
-               'kind': 'hermes-e2e-agent-run', 'task': TASK,
+               'kind': 'hermes-e2e-agent-run', 'task': task,
+               'task_kind': E2E_TASK_KIND, 'checkpoint': E2E_CHECKPOINT,
+               'startup_n_max': 4, 'work_seconds': WORK_SECONDS,
+               'client_unit': CLIENT_UNIT, 'client_cap_gib': CLIENT_CAP_GIB,
                'hermes_home': str(E2E_HOME), 'status': 'failed'}
     (out / 'e2e-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     try:
@@ -228,7 +339,7 @@ def main():
 
         # --- the actual E2E step: a real hermes agent run against the model ---
         summary['hermes_invocation'] = 'hermes chat -q <shell-tool task>'
-        (out / 'task.txt').write_text(TASK)
+        (out / 'task.txt').write_text(task)
         # Fail-closed against STALE artifacts from earlier runs: if a previous
         # gate left /tmp/e2e-codegate.py (or the marker) behind, the probe
         # below could pass without this run's agent ever writing anything.
@@ -240,8 +351,7 @@ def main():
         began = time.monotonic()
         run.label = 'hermes-e2e'
         run.sample()
-        client = run_client(run, ['hermes', 'chat', '--yolo', '-q',
-                                 CODE_TASK if E2E_TASK_KIND == 'code' else TASK],
+        client = run_client(run, ['hermes', 'chat', '--yolo', '-q', task],
                             out=out, prefix='hermes', timeout=REQUEST_SECONDS, env=client_env)
         wall = time.monotonic() - began
         run.sample()
@@ -289,6 +399,11 @@ def main():
         try:
             run.cleanup()
         finally:
+            try:
+                (out / 'client-final.json').write_text(
+                    json.dumps(client_scope_point(), indent=2) + '\n')
+            except (OSError, RuntimeError, ValueError) as error:
+                summary['client_final_read_error'] = repr(error)
             run.summary['e2e'] = summary
             run.summary['finished'] = time.strftime('%Y-%m-%dT%H:%M:%S%z')
             run.save('summary.json', run.summary)
