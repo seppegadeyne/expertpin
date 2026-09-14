@@ -211,6 +211,10 @@ endif ()
 
 if (NOT WIN32)
     # these tests are disabled on Windows because they use internal functions not exported with LLAMA_API
+    llama_build_and_test(test-qwen4exp-mtp-io.cpp)
+    target_include_directories(test-qwen4exp-mtp-io PRIVATE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/ggml/src)
+    # Optional real loader coverage: test-qwen4exp-mtp-io --tied-companion path.gguf (not part of default CTest).
+
     #llama_target_and_test(test-sampling.cpp)
     #llama_target_and_test(test-grammar-parser.cpp)
     #llama_target_and_test(test-grammar-integration.cpp)

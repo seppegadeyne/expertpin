@@ -2475,6 +2475,9 @@ bool llama_model_share_qwen4exp_mtp_tensors(llama_model * draft_model, const lla
     if (draft_model->arch != LLM_ARCH_QWEN4EXP) {
         return true;
     }
+    if (draft_model->tok_embd && draft_model->output) {
+        return true;
+    }
     // only a qwen4exp target can provide matching IO tensors
     if (target_model->arch != LLM_ARCH_QWEN4EXP) {
         return false;
@@ -2492,7 +2495,8 @@ bool llama_model_share_qwen4exp_mtp_tensors(llama_model * draft_model, const lla
                 tok_embd->ne[0] != n_embd || tok_embd->ne[1] != n_vocab) {
             return false;
         }
-        if (llama_model_qwen4exp_io_needs_clone(tok_embd, draft_model->buft_input.buft)) {
+        if (llama_model_qwen4exp_io_needs_clone(tok_embd, draft_model->buft_input.buft) &&
+                !ggml_backend_buffer_is_host(tok_embd->buffer)) {
             tok_embd = llama_model_clone_qwen4exp_io_tensor(
                     draft_model, tok_embd, draft_model->buft_input.buft,
                     draft_model->qwen4exp_tok_embd_ptr, "qwen4exp_tok_embd");
