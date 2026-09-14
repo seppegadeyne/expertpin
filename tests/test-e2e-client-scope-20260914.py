@@ -203,6 +203,25 @@ class InclusiveSampleTests(unittest.TestCase):
             run.sample()
 
 
+class HarnessStatusTests(unittest.TestCase):
+    """The harness summary default 'blocked_or_failed' must not survive a
+    completed E2E run (observed on run-20260914T104344-e2e: e2e.status was
+    'completed' while the harness summary kept the default)."""
+
+    def test_completed_e2e_marks_harness_completed(self):
+        module = load_runner(name='e2e_status_mod')
+        run_summary = {'status': 'blocked_or_failed'}
+        module.sync_run_status(run_summary, {'status': 'completed'})
+        self.assertEqual(run_summary['status'], 'completed')
+
+    def test_failed_e2e_never_marks_harness_completed(self):
+        module = load_runner(name='e2e_status_mod2')
+        for verdict in ('client_failed', 'failed'):
+            run_summary = {'status': 'blocked_or_failed'}
+            module.sync_run_status(run_summary, {'status': verdict})
+            self.assertEqual(run_summary['status'], 'blocked_or_failed')
+
+
 class QliGuardTests(unittest.TestCase):
     def test_qli_mutations_blocked_before_subprocess(self):
         module = load_runner(name='e2e_qli_mod')

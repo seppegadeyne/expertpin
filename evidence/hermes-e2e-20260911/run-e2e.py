@@ -88,6 +88,18 @@ def select_task(kind):
     raise ValueError('unknown E2E task kind: ' + repr(kind))
 
 
+def sync_run_status(run_summary, e2e_summary):
+    """Mirror a completed E2E verdict into the harness summary.
+
+    The harness default 'blocked_or_failed' is accurate for every failure
+    path but must not survive a completed run (observed misleading on
+    run-20260914T104344-e2e). Only an explicit 'completed' propagates;
+    cleanup() may still override to cleanup_failed afterwards.
+    """
+    if e2e_summary.get('status') == 'completed':
+        run_summary['status'] = 'completed'
+
+
 def client_scope_point(unit=None, proc_cgroup=None, sys_base=Path('/sys/fs/cgroup')):
     """Validate the runner's own client scope and read its memory counters.
 
@@ -386,6 +398,7 @@ def main():
         else:
             summary['multi_turn'] = False
             summary['status'] = 'completed' if ok_turn1 else 'client_failed'
+        sync_run_status(run.summary, summary)
         (out / 'e2e-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     except BaseException as error:
         summary['error'] = repr(error)
