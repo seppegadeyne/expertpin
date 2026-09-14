@@ -12,6 +12,9 @@ if (Python3_Interpreter_FOUND)
     add_test(NAME test-coldcache-ab-20260911
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-coldcache-ab-20260911.py)
     set_tests_properties(test-coldcache-ab-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
+    add_test(NAME test-coldcache-shards-20260914
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-coldcache-shards-20260914.py)
+    set_tests_properties(test-coldcache-shards-20260914 PROPERTIES LABELS "targeted;python" TIMEOUT 60)
     add_test(NAME test-context64k-20260911
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test-context64k-20260911.py)
     set_tests_properties(test-context64k-20260911 PROPERTIES LABELS "targeted;python" TIMEOUT 60)

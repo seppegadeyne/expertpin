@@ -157,7 +157,7 @@ def drop_model_cache(path):
     the following load reads from storage. DONTNEED is advisory only: the
     cold state is NOT verified (see the mincore discussion in
     scripts/expert_bw_calib.py). Fails closed on a missing/irregular file;
-    the caller must abort before host changes on any OSError."""
+    the caller must abort before model launch on any OSError."""
     path = Path(path)
     if not path.is_file():
         raise ValueError('model file missing for cache drop: ' + str(path))
@@ -229,20 +229,56 @@ def classify_residency(resident_pages, pages, max_resident_ratio):
             'resident_ratio': round(ratio, 6)}
 
 
+def model_files(path):
+    """Enumerate a conventional GGUF split from its first shard, or one file.
+
+    Validate the entire set before any advisory eviction. This checks the
+    loader's filename convention, not GGUF metadata/content integrity.
+    """
+    import re
+    path = Path(path)
+    match = re.fullmatch(r'(.+)-(\d{5})-of-(\d{5})\.gguf', path.name)
+    if match:
+        stem, index, total = match.groups()
+        if int(index) != 1 or int(total) < 1:
+            raise ValueError('cold-cache split requires the first shard and positive count')
+        paths = [path.with_name(f'{stem}-{i:05d}-of-{total}.gguf')
+                 for i in range(1, int(total) + 1)]
+    else:
+        paths = [path]
+    for candidate in paths:
+        if not candidate.is_file() or candidate.stat().st_size <= 0:
+            raise ValueError('model shard missing, irregular or empty: ' + str(candidate))
+    return paths
+
+
 def verified_cold_report(path, max_resident_ratio=0.10):
-    """Drop + snapshot + classify: converts an advisory DONTNEED into a
-    measured cold-state report. NEVER silently claims coldness: the verdict
-    reflects the measured ratio against the threshold."""
-    dropped = drop_model_cache(path)
-    snapshot = residency_snapshot(path)
-    if snapshot['error'] is not None:
+    """Evict ALL checkpoint shards, then snapshot ALL of them sequentially.
+
+    Every shard must meet the threshold: a small warm shard cannot hide in
+    a low aggregate ratio. Snapshots are not atomic and exclude the drafter;
+    another reader can repopulate any file after it was measured.
+    """
+    paths = model_files(path)
+    drops = [drop_model_cache(p) for p in paths]
+    snapshots = [residency_snapshot(p) for p in paths]
+    # Legacy `file` identifies the entrypoint; totals cover `files`, not just it.
+    dropped = dict(drops[0], bytes=sum(d['bytes'] for d in drops), files=drops,
+                   scope='whole_checkpoint')
+    snapshot: dict[str, Any] = dict(snapshots[0], files=snapshots, scope='whole_checkpoint')
+    if any(s['error'] is not None for s in snapshots):
+        snapshot.update(error='one or more shard snapshots failed', pages=None, resident_pages=None)
         return {'verified_cold': False, 'verdict': 'UNKNOWN', 'drop': dropped,
                 'snapshot': snapshot}
-    verdict = classify_residency(snapshot['resident_pages'], snapshot['pages'],
-                                 max_resident_ratio)
-    return {'verified_cold': verdict['verdict'] == 'COLD', 'verdict': verdict['verdict'],
-            'resident_ratio': verdict['resident_ratio'], 'drop': dropped,
-            'snapshot': snapshot}
+    snapshot.update(pages=sum(s['pages'] for s in snapshots),
+                    resident_pages=sum(s['resident_pages'] for s in snapshots))
+    verdicts = [classify_residency(s['resident_pages'], s['pages'], max_resident_ratio)
+                for s in snapshots]
+    cold = all(v['verdict'] == 'COLD' for v in verdicts)
+    aggregate = classify_residency(snapshot['resident_pages'], snapshot['pages'], max_resident_ratio)
+    return {'verified_cold': cold, 'verdict': 'COLD' if cold else 'NOT_COLD',
+            'resident_ratio': aggregate['resident_ratio'], 'max_resident_ratio': max_resident_ratio,
+            'shard_verdicts': verdicts, 'drop': dropped, 'snapshot': snapshot}
 
 
 def terminate(child):
@@ -366,6 +402,8 @@ class Run:
             raise RuntimeError('checkpoint model file missing: ' + env['MODEL'])
         if self.startup_nmax and not Path(env['DRAFT_MODEL']).is_file():
             raise RuntimeError('required draft model missing')
+        if self.cold_cache:
+            model_files(env['MODEL'])  # refuse incomplete splits before host changes
         self.prepared = True  # Restore even a partially failed preparation.
         self.command(['bash', PREP], 'host-prep', timeout=45)
         self.stop_miners()
@@ -385,13 +423,15 @@ class Run:
             # launch: drop the model file from the page cache so the model
             # load below reads from storage, then MEASURE the residency so
             # the coldness claim is verified rather than advisory.
-            self.summary['cache_drop'] = drop_model_cache(env['MODEL'])
-            snapshot = residency_snapshot(env['MODEL'])
-            self.summary['residency'] = snapshot
-            verdict = classify_residency(snapshot['resident_pages'], snapshot['pages'],
-                                         max_resident_ratio=0.10)
-            self.summary['residency_verdict'] = verdict
+            report = verified_cold_report(env['MODEL'])
+            self.summary['cold_cache_report'] = report
+            self.summary['cache_drop'] = report['drop']
+            self.summary['residency'] = report['snapshot']
+            self.summary['residency_verdict'] = {
+                'verdict': report['verdict'], 'resident_ratio': report.get('resident_ratio')}
             self.save('summary.json', self.summary)
+            if not report['verified_cold']:
+                raise RuntimeError('whole-checkpoint cold-cache verification failed')
         launch = ['bash', str(ROOT / 'scripts/run-qwen38-flash-next.sh')]
         dry = subprocess.run(launch, env=dict(env, DRY='1'), capture_output=True, text=True, timeout=30)
         (self.out / 'dry.log').write_text(dry.stdout + dry.stderr)
@@ -588,8 +628,8 @@ def main(argv=None):
     parser.add_argument('--checkpoint', choices=sorted(CHECKPOINTS), default=DEFAULT_CHECKPOINT,
                         help='A/B checkpoint alias: reference 197 GiB Q4_K_M shards vs ps-iq2xxs 75.2 GiB IQ2_XXS')
     parser.add_argument('--cold-cache', action='store_true',
-                        help='request POSIX_FADV_DONTNEED on the model file after the GPU guard, '
-                             'before launch (advisory; cold state NOT verified)')
+                        help='evict and measure every model shard before launch; refuse if any '
+                             'shard has more than 10%% resident pages (drafter excluded)')
     parser.add_argument('--tokenize-reference', type=Path, action='append', default=[],
                         help='retokenize saved response fields after generation; not a decode trace')
     # Explicit opt-in only: clean baselines must not inherit diagnostic tracing.

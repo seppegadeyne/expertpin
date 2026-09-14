@@ -73,7 +73,8 @@ class ColdCacheTests(unittest.TestCase):
             order.append('drop')
             if isinstance(drop_result, Exception):
                 raise drop_result
-            return drop_result
+            return {'drop': drop_result, 'snapshot': {'pages': 1, 'resident_pages': 0},
+                    'verified_cold': True, 'verdict': 'COLD', 'resident_ratio': 0.0}
         def command(args, name, **kwargs):
             order.append('command:' + name)
             if name == 'preexisting-scopes':
@@ -91,19 +92,20 @@ class ColdCacheTests(unittest.TestCase):
         return order, (
             mock.patch.object(run, 'command', side_effect=command),
             mock.patch.object(run, 'save'),
-            mock.patch.object(self.harness, 'drop_model_cache', side_effect=drop_effect),
+            mock.patch.object(self.harness, 'verified_cold_report', side_effect=drop_effect),
             mock.patch.object(self.harness.subprocess, 'run', side_effect=sub_run),
             mock.patch.object(self.harness.subprocess, 'Popen', side_effect=AssertionError('no spawn in test')),
             mock.patch.object(self.harness.Path, 'is_file', return_value=True),
             mock.patch.object(self.harness.socket, 'socket'),
             mock.patch.object(run, 'sample'),
             mock.patch.object(self.harness.importlib.util, 'spec_from_file_location', return_value=fake_spec),
-            mock.patch.object(self.harness.importlib.util, 'module_from_spec', return_value=types.ModuleType('gate-mock')))
+            mock.patch.object(self.harness.importlib.util, 'module_from_spec', return_value=types.ModuleType('gate-mock')),
+            mock.patch.object(self.harness, 'model_files', return_value=[Path('/fake.gguf')]))
 
     def test_execute_calls_drop_between_guard_and_launch(self):
         run = self.harness.Run(Path('/unused'), 4, 'ps-iq2xxs', cold_cache=True)
         order, stack = self._mock_execute_stack(run, {'fadvise_completed': True, 'bytes': 1, 'file': 'x'})
-        with stack[0], stack[1], stack[2], stack[3], stack[4], stack[5], stack[6], stack[7], stack[8], stack[9]:
+        with stack[0], stack[1], stack[2], stack[3], stack[4], stack[5], stack[6], stack[7], stack[8], stack[9], stack[10]:
             with self.assertRaises(AssertionError):
                 run.execute()
         self.assertEqual(order[-2:], ['drop', 'dry-launch'])
@@ -111,12 +113,44 @@ class ColdCacheTests(unittest.TestCase):
     def test_drop_failure_never_launches_or_spawns(self):
         run = self.harness.Run(Path('/unused'), 4, 'ps-iq2xxs', cold_cache=True)
         order, stack = self._mock_execute_stack(run, OSError('injected'))
-        with stack[0], stack[1], stack[2], stack[3], stack[4], stack[5], stack[6], stack[7], stack[8], stack[9]:
+        with stack[0], stack[1], stack[2], stack[3], stack[4], stack[5], stack[6], stack[7], stack[8], stack[9], stack[10]:
             with self.assertRaises(OSError):
                 run.execute()
         self.assertIn('drop', order)
         self.assertNotIn('dry-launch', order)
         self.assertFalse(run.scope_launched)
+
+
+    def test_not_cold_or_unknown_verdict_never_launches(self):
+        from contextlib import ExitStack
+        for verdict in ('NOT_COLD', 'UNKNOWN'):
+            run = self.harness.Run(Path('/unused'), 4, 'ps-iq2xxs', cold_cache=True)
+            order, patches = self._mock_execute_stack(run, {})
+            with self.subTest(verdict=verdict), ExitStack() as stack:
+                for patch in patches:
+                    stack.enter_context(patch)
+                self.harness.verified_cold_report.side_effect = None
+                self.harness.verified_cold_report.return_value = {
+                    'verified_cold': False, 'verdict': verdict, 'drop': {}, 'snapshot': {}}
+                with self.assertRaisesRegex(RuntimeError, 'cold-cache verification failed'):
+                    run.execute()
+            self.assertNotIn('dry-launch', order)
+            self.assertFalse(run.scope_launched)
+            self.assertEqual(run.summary['residency_verdict']['verdict'], verdict)
+
+    def test_missing_shard_refused_before_host_preparation(self):
+        from contextlib import ExitStack
+        run = self.harness.Run(Path('/unused'), 4, 'ps-iq2xxs', cold_cache=True)
+        order, patches = self._mock_execute_stack(run, {})
+        with ExitStack() as stack:
+            for patch in patches:
+                stack.enter_context(patch)
+            self.harness.model_files.side_effect = ValueError('missing shard')
+            with self.assertRaisesRegex(ValueError, 'missing shard'):
+                run.execute()
+        self.assertNotIn('command:host-prep', order)
+        self.assertNotIn('drop', order)
+        self.assertFalse(run.prepared)
 
 
 class MinerPauseTests(unittest.TestCase):
