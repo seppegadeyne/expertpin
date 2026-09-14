@@ -14,7 +14,15 @@ Description=expertpin dev-serving: qwen3.8-flash-next (UD-Q4_K_XL default) for H
 Type=simple
 WorkingDirectory=%h/Projects/expertpin
 ExecStart=%h/Projects/expertpin/scripts/serve-dev-qwen38.sh
-Environment=CTX=65536
+# Full trained window (>=250K, Seppe 2026-09-14): KV at q4_0 keeps the 262144
+# context within the 28 GiB VRAM budget at NCMOE 40 (measured 64K peak was
+# 24.05 GiB with q8_0 KV; q4_0 at 262144 lands lower). Needle-recall at 250K
+# on UD with q4 KV is NOT yet verified — context CAPACITY only.
+Environment=CTX=262144
+Environment=KVT=q4_0
+# MTP drafter on (Qwen4Exp MTP I/O preservation fixed in c821c8d2): ~2x decode,
+# target-side acceptance keeps output quality. Dev sessions stay prefill-bound.
+Environment=DRAFT=1
 Environment=PORT=8102
 MemoryHigh=33G
 MemoryMax=36G
