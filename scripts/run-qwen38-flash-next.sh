@@ -47,6 +47,11 @@ CTX="${CTX:-32768}"
 NCMOE="${NCMOE:-36}"
 NGL="${NGL:-99}"
 THREADS="${THREADS:-16}"
+# Physical batch: prefill throughput knob for CPU-MoE offload. Each ubatch
+# pass streams the routed experts of the CPU MoE layers; larger ubatches
+# amortize that per-pass cost over more tokens (community consensus: 1024-
+# 2048 sweet spot; measured ladder in evidence/prefill-ubatch-20260915).
+UBATCH="${UBATCH:-512}"
 PORT="${PORT:-8101}"
 KVT="${KVT:-q8_0}"
 RAM_BUDGET_GIB="${RAM_BUDGET_GIB:-40}"
@@ -119,7 +124,7 @@ if [ "$DRY" = "1" ]; then
   echo "DRY-RUN plan:"
   echo "  binary      : $BIN_DIR/llama-server (expertpin)"
   echo "  model       : $MODEL"
-  echo "  ctx=$CTX ncmoe=$NCMOE ngl=$NGL kv=$KVT threads=$THREADS port=$PORT"
+  echo "  ctx=$CTX ncmoe=$NCMOE ngl=$NGL ubatch=$UBATCH kv=$KVT threads=$THREADS port=$PORT"
   echo "  draft       : ${DRAFT:-0}"
   echo "  manifest    : ${MANIFEST:-none} (resident=$RESIDENT)"
   echo "  cache-shadow: ${EXPERT_CACHE_SIM_MIB} MiB (telemetry only; no eviction)"
@@ -143,6 +148,7 @@ exec systemd-run --user --scope --unit="${EXPERTPIN_SCOPE_UNIT:-expertpin-test-$
   -ngl "$NGL" \
   --n-cpu-moe "$NCMOE" \
   -c "$CTX" \
+  -ub "$UBATCH" \
   --cache-type-k "$KVT" --cache-type-v "$KVT" \
   -fa on \
   -t "$THREADS" \
