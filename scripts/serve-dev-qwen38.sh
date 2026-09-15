@@ -35,6 +35,15 @@ DRAFT_NMAX="${DRAFT_NMAX:-4}"
 DRAFT_MODEL="${DRAFT_MODEL:-$HOME/Models/qwen3.8-flash-next/mtp-drafter/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf}"
 DRY="${DRY:-0}"
 
+# expertpin residency + telemetry knobs (same contract as the benchmark
+# launcher): MANIFEST/RESIDENT pin hot experts, EXPERT_CACHE_SIM_MIB arms the
+# advisory shadow, EXPERT_STATS_FILE dumps engine counters (+ the advisory
+# GGML_MOE_HISTOGRAM lane) at context teardown.
+MANIFEST="${MANIFEST:-}"
+RESIDENT="${RESIDENT:-0}"
+EXPERT_CACHE_SIM_MIB="${EXPERT_CACHE_SIM_MIB:-0}"
+EXPERT_STATS_FILE="${EXPERT_STATS_FILE:-}"
+
 BIN_DIR="${BIN_DIR:-$(cd "$(dirname "$0")/.." && pwd)/build-sm120/bin}"
 [ -x "$BIN_DIR/llama-server" ] || { echo "No llama-server build in $BIN_DIR"; exit 1; }
 [ -f "$MODEL" ] || { echo "Model not found: $MODEL"; exit 1; }
@@ -63,6 +72,15 @@ DRAFT_ARGS=()
 if [ "$DRAFT" = "1" ] && [ -f "$DRAFT_MODEL" ]; then
   DRAFT_ARGS=(-md "$DRAFT_MODEL" -ngld 99 --spec-type "mtp:n_max=${DRAFT_NMAX}")
 fi
+
+EXPERT_ARGS=()
+if [ -n "$MANIFEST" ]; then
+  [ -f "$MANIFEST" ] || { echo "Manifest not found: $MANIFEST"; exit 1; }
+  EXPERT_ARGS+=(--expert-manifest "$MANIFEST")
+  [ "$RESIDENT" != "0" ] && EXPERT_ARGS+=(--resident-experts "$RESIDENT" --prefetch-experts)
+fi
+[ "$EXPERT_CACHE_SIM_MIB" != "0" ] && EXPERT_ARGS+=(--expert-cache-sim-mib "$EXPERT_CACHE_SIM_MIB")
+[ -n "$EXPERT_STATS_FILE" ] && EXPERT_ARGS+=(--expert-stats-file "$EXPERT_STATS_FILE")
 
 export GGML_CUDA_NO_PINNED=1
 cd "$(dirname "$0")/.."
@@ -93,4 +111,5 @@ exec "$BIN_DIR/llama-server" \
   --cache-ram "$CACHE_RAM_MIB" \
   --host 127.0.0.1 --port "$PORT" \
   "${DRAFT_ARGS[@]+"${DRAFT_ARGS[@]}"}" \
+  "${EXPERT_ARGS[@]+"${EXPERT_ARGS[@]}"}" \
   "$@"

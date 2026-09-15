@@ -807,6 +807,7 @@ struct ggml_backend_cpu_context {
 
     bool moe_expert_prefetch;
     bool moe_expert_cache_sim;
+    bool moe_expert_histogram;
 };
 
 GGML_CALL static const char * ggml_backend_cpu_name(ggml_backend_t backend) {
@@ -853,6 +854,7 @@ GGML_CALL static ggml_backend_graph_plan_t ggml_backend_cpu_graph_plan_create(gg
     cpu_plan->cplan.abort_callback_data = cpu_ctx->abort_callback_data;
     cpu_plan->cplan.moe_expert_prefetch = cpu_ctx->moe_expert_prefetch;
     cpu_plan->cplan.moe_expert_cache_sim = cpu_ctx->moe_expert_cache_sim;
+    cpu_plan->cplan.moe_expert_histogram = cpu_ctx->moe_expert_histogram;
 
     return cpu_plan;
 }
@@ -894,6 +896,7 @@ GGML_CALL static enum ggml_status ggml_backend_cpu_graph_compute(ggml_backend_t 
     cplan.abort_callback_data = cpu_ctx->abort_callback_data;
     cplan.moe_expert_prefetch = cpu_ctx->moe_expert_prefetch;
     cplan.moe_expert_cache_sim = cpu_ctx->moe_expert_cache_sim;
+    cplan.moe_expert_histogram = cpu_ctx->moe_expert_histogram;
 
     return ggml_graph_compute(cgraph, &cplan);
 }
@@ -974,6 +977,7 @@ ggml_backend_t ggml_backend_cpu_init(void) {
     ctx->abort_callback_data = NULL;
     ctx->moe_expert_prefetch = false;
     ctx->moe_expert_cache_sim = false;
+    ctx->moe_expert_histogram = false;
 
     ggml_backend_t cpu_backend = (ggml_backend_t)malloc(sizeof(struct ggml_backend));
     if (cpu_backend == NULL) {
@@ -1005,6 +1009,13 @@ void ggml_backend_cpu_set_moe_expert_prefetch(ggml_backend_t backend_cpu, bool e
 
     struct ggml_backend_cpu_context * ctx = (struct ggml_backend_cpu_context *)backend_cpu->context;
     ctx->moe_expert_prefetch = enable;
+}
+
+void ggml_backend_cpu_set_moe_expert_histogram(ggml_backend_t backend_cpu, bool enable) {
+    GGML_ASSERT(ggml_backend_is_cpu(backend_cpu));
+
+    struct ggml_backend_cpu_context * ctx = (struct ggml_backend_cpu_context *)backend_cpu->context;
+    ctx->moe_expert_histogram = enable;
 }
 
 void ggml_backend_cpu_set_moe_expert_cache_sim(ggml_backend_t backend_cpu, bool enable) {

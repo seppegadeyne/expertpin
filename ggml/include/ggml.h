@@ -846,6 +846,9 @@ extern "C" {
         bool moe_expert_prefetch;
         // observe selected expert slices without residency probes or read-ahead
         bool moe_expert_cache_sim;
+        // count distinct routed expert ids per kernel entry (advisory-only
+        // histogram telemetry; no probes, no read-ahead, no reorders)
+        bool moe_expert_histogram;
     };
 
     enum ggml_cgraph_eval_order {

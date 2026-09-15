@@ -1,12 +1,12 @@
 #pragma once
 
+#include "ggml-moe-stats.h"
+
 #include <cstddef>
 #include <cstdint>
 #include <map>
 #include <string>
 #include <vector>
-
-struct ggml_moe_prefetch_stats;
 
 // Per-layer counters following the colibri `ColiExpertStoreStats` contract
 // (requests / hits / misses / prefetched / prefetch_hits per layer), plus the
@@ -70,5 +70,9 @@ std::string llama_expert_stats_to_json(
         const llama_expert_stats_advisory & advisory);
 
 // Serialize the live ggml prefetch counters, including the advisory bounded-LRU
-// shadow, for --expert-stats-file.
-std::string llama_moe_prefetch_stats_to_json(const ggml_moe_prefetch_stats & stats);
+// shadow, for --expert-stats-file. The advisory per-expert access histogram
+// (GGML_MOE_HISTOGRAM lane) is included only when it recorded data, so the
+// default dump stays bit-identical.
+std::string llama_moe_prefetch_stats_to_json(
+        const ggml_moe_prefetch_stats & stats,
+        const ggml_moe_histogram_snapshot & histogram = {});

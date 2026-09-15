@@ -276,6 +276,37 @@ void test_runtime_json_dump() {
             "runtime json: shadow hit rate");
 }
 
+// Advisory per-expert access histogram (GGML_MOE_HISTOGRAM): serialized only
+// when non-empty so the default dump stays bit-identical. Keys are tensor
+// names; values are per-expert-id distinct kernel-entry counts in ID order.
+// This is the measurement input for building residency manifests.
+void test_runtime_json_histogram() {
+    ggml_moe_prefetch_stats stats = {};
+    stats.requests = 3;
+    stats.hits = 1;
+
+    const auto bare = nlohmann::json::parse(llama_moe_prefetch_stats_to_json(stats));
+    require(!bare.contains("expert_histogram"), "histogram json: key absent when snapshot empty");
+
+    ggml_moe_histogram_snapshot snapshot;
+    snapshot.kernel_entries = 3;
+    snapshot.token_rows = 5;
+    snapshot.tensors["blk.8.ffn_up_exps.weight"]   = {2, 1, 0, 3};
+    snapshot.tensors["blk.8.ffn_down_exps.weight"] = {0, 1, 1, 0};
+
+    const auto root = nlohmann::json::parse(llama_moe_prefetch_stats_to_json(stats, snapshot));
+    require(root.at("requests") == 3 && root.at("hit_rate") > 0.3 && root.at("hit_rate") < 0.4,
+            "histogram json: existing counters intact");
+    const auto & hist = root.at("expert_histogram");
+    require(hist.at("kernel_entries") == 3, "histogram json: kernel entries total");
+    require(hist.at("token_rows") == 5, "histogram json: token rows total");
+    const auto & up = hist.at("tensors").at("blk.8.ffn_up_exps.weight");
+    require(up.size() == 4 && up.at(0) == 2 && up.at(1) == 1 && up.at(2) == 0 && up.at(3) == 3,
+            "histogram json: exact per-expert counts in expert-id order");
+    require(hist.at("tensors").at("blk.8.ffn_down_exps.weight").at(1) == 1,
+            "histogram json: second tensor keyed separately");
+}
+
 // reset() returns the store to a pristine state (used between benchmark runs).
 void test_reset() {
     llama_expert_store_stats stats;
@@ -309,6 +340,7 @@ int main() {
         test_empty();
         test_json_dump();
         test_runtime_json_dump();
+        test_runtime_json_histogram();
         test_reset();
         std::cout << "expert stats tests passed\n";
         return 0;

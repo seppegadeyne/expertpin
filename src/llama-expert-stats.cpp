@@ -163,7 +163,9 @@ std::string llama_expert_stats_to_json(
     return root.dump();
 }
 
-std::string llama_moe_prefetch_stats_to_json(const ggml_moe_prefetch_stats & stats) {
+std::string llama_moe_prefetch_stats_to_json(
+        const ggml_moe_prefetch_stats & stats,
+        const ggml_moe_histogram_snapshot & histogram) {
     using json = nlohmann::json;
 
     json root = {
@@ -192,5 +194,16 @@ std::string llama_moe_prefetch_stats_to_json(const ggml_moe_prefetch_stats & sta
                 ? static_cast<double>(stats.cache_sim_hits) / stats.cache_sim_requests
                 : 0.0},
     };
+    if (!histogram.tensors.empty() || histogram.kernel_entries > 0) {
+        json tensors = json::object();
+        for (const auto & entry : histogram.tensors) {
+            tensors[entry.first] = entry.second;
+        }
+        root["expert_histogram"] = {
+            {"kernel_entries", histogram.kernel_entries},
+            {"token_rows", histogram.token_rows},
+            {"tensors", tensors},
+        };
+    }
     return root.dump(2) + "\n";
 }

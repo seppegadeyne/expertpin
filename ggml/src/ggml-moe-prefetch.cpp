@@ -217,6 +217,15 @@ struct prefetch_state {
     std::unique_ptr<ggml_moe_trace> trace;
     uint64_t trace_entry = 0;
 
+    // Advisory per-expert access histogram (wired via cplan->moe_expert_histogram,
+    // GGML_MOE_HISTOGRAM at llama level): distinct routed expert ids per kernel
+    // entry, keyed by tensor name. Purely additive counting on its own lane:
+    // no residency probes, no read-ahead, no cache-shadow or prefetch feed.
+    std::mutex hist_mtx;
+    std::map<std::string, std::vector<uint64_t>> histogram;
+    uint64_t histogram_entries = 0;
+    uint64_t histogram_token_rows = 0;
+
     std::mutex                     pool_mtx;
     std::shared_ptr<prefetch_pool> pool;
 };
@@ -736,7 +745,7 @@ static bool stats_enabled() {
 
 static void attribute_kernel_entry(
         const ggml_tensor * w, const ggml_tensor * ids,
-        bool include_cache_sim, bool include_residency) {
+        bool include_cache_sim, bool include_residency, bool include_histogram = false) {
     if (!w || !w->data || !ids || !ids->data) return;
     const int64_t n_as = w->ne[2];
     if (n_as <= 1) return; // dense fallback path; no expert granularity here
@@ -751,6 +760,19 @@ static void attribute_kernel_entry(
             if (id < 0 || id >= n_as) continue;
             seen[id] = 1;
         }
+    }
+
+    // Advisory histogram lane: count the distinct expert stream under the
+    // tensor name. Additive only; independent of the sim/residency lanes.
+    if (include_histogram) {
+        std::lock_guard<std::mutex> lock(s.hist_mtx);
+        auto & counts = s.histogram[w->name];
+        if (counts.size() < static_cast<size_t>(n_as)) counts.resize(n_as, 0);
+        for (int64_t id = 0; id < n_as; ++id) {
+            if (seen[id]) ++counts[static_cast<size_t>(id)];
+        }
+        ++s.histogram_entries;
+        s.histogram_token_rows += static_cast<uint64_t>(ids->ne[1]);
     }
 
     // Feed the exact distinct expert stream into the advisory byte-bounded
@@ -841,6 +863,16 @@ void ggml_moe_cache_sim_kernel_hook(const struct ggml_tensor * node, int ith) {
     if (w1) attribute_kernel_entry(w1, ids, true, false);
 }
 
+void ggml_moe_histogram_kernel_hook(const struct ggml_tensor * node, int ith) {
+    if (ith != 0) return;
+    const ggml_tensor * w0; const ggml_tensor * w1; const ggml_tensor * ids;
+    node_weights_and_ids(node, w0, w1, ids);
+    if (!w0 || !ids || !ids->data) return;
+
+    attribute_kernel_entry(w0, ids, false, false, true);
+    if (w1) attribute_kernel_entry(w1, ids, false, false, true);
+}
+
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith) {
     if (ith != 0) return;
     const ggml_tensor * w0; const ggml_tensor * w1; const ggml_tensor * ids;
@@ -903,8 +935,24 @@ void ggml_moe_prefetch_reset_stats(void) {
     s.capacity_bytes.store(0, std::memory_order_relaxed);
 
     auto & global = state();
+    {
+        std::lock_guard<std::mutex> lock(global.hist_mtx);
+        global.histogram.clear();
+        global.histogram_entries = 0;
+        global.histogram_token_rows = 0;
+    }
     std::lock_guard<std::mutex> lock(global.cache_sim_mtx);
     global.cache_sim.reset(global.cache_sim.stats().capacity_bytes);
+}
+
+ggml_moe_histogram_snapshot ggml_moe_prefetch_get_histogram() {
+    auto & s = state();
+    std::lock_guard<std::mutex> lock(s.hist_mtx);
+    ggml_moe_histogram_snapshot out;
+    out.tensors = s.histogram;
+    out.kernel_entries = s.histogram_entries;
+    out.token_rows = s.histogram_token_rows;
+    return out;
 }
 
 #else // !__linux__
@@ -928,8 +976,10 @@ bool ggml_moe_prefetch_experts(const struct ggml_tensor *, const uint32_t *, siz
 void ggml_moe_prefetch_wait(const struct ggml_tensor *) {}
 void ggml_moe_cache_sim_kernel_hook(const struct ggml_tensor *, int) {}
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor *, int) {}
+void ggml_moe_histogram_kernel_hook(const struct ggml_tensor *, int) {}
 void ggml_moe_prefetch_cold(const struct ggml_tensor *) {}
 void ggml_moe_prefetch_get_stats(struct ggml_moe_prefetch_stats * out) { if (out) *out = {}; }
 void ggml_moe_prefetch_reset_stats(void) {}
+ggml_moe_histogram_snapshot ggml_moe_prefetch_get_histogram() { return {}; }
 
 #endif

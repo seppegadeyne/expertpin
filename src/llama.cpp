@@ -6414,6 +6414,17 @@ static size_t llama_output_reserve(llama_context & lctx, size_t n_outputs) {
 }
 
 
+// Advisory per-expert access histogram: opt-in via GGML_MOE_HISTOGRAM=1.
+// Wires its own cplan lane only — never enables prefetch/read-ahead, the
+// shadow, or residency probes, so the default path stays bit-identical.
+static bool llama_moe_histogram_enabled() {
+    static const bool enabled = [] {
+        const char * env = getenv("GGML_MOE_HISTOGRAM");
+        return env != nullptr && atoi(env) != 0;
+    }();
+    return enabled;
+}
+
 static void llama_graph_compute(
         llama_context & lctx,
           ggml_cgraph * gf,
@@ -6429,6 +6440,7 @@ static void llama_graph_compute(
         ggml_backend_cpu_set_abort_callback(lctx.backend_cpu, lctx.abort_callback, lctx.abort_callback_data);
         ggml_backend_cpu_set_moe_expert_prefetch(lctx.backend_cpu, lctx.cparams.prefetch_experts);
         ggml_backend_cpu_set_moe_expert_cache_sim(lctx.backend_cpu, lctx.cparams.expert_cache_sim_bytes > 0);
+        ggml_backend_cpu_set_moe_expert_histogram(lctx.backend_cpu, llama_moe_histogram_enabled());
     }
 
     ggml_backend_sched_graph_compute_async(lctx.sched, gf);
@@ -6452,6 +6464,7 @@ static void llama_graph_compute_sched(
         ggml_backend_cpu_set_abort_callback(lctx.backend_cpu, lctx.abort_callback, lctx.abort_callback_data);
         ggml_backend_cpu_set_moe_expert_prefetch(lctx.backend_cpu, lctx.cparams.prefetch_experts);
         ggml_backend_cpu_set_moe_expert_cache_sim(lctx.backend_cpu, lctx.cparams.expert_cache_sim_bytes > 0);
+        ggml_backend_cpu_set_moe_expert_histogram(lctx.backend_cpu, llama_moe_histogram_enabled());
     }
 
     ggml_backend_sched_graph_compute_async(sched, gf);
@@ -9297,7 +9310,7 @@ static void llama_dump_expert_stats(const std::string & path) {
     struct ggml_moe_prefetch_stats g;
     ggml_moe_prefetch_get_stats(&g);
 
-    const std::string text = llama_moe_prefetch_stats_to_json(g);
+    const std::string text = llama_moe_prefetch_stats_to_json(g, ggml_moe_prefetch_get_histogram());
 
     std::ofstream out(path, std::ios::binary);
     if (!out) {

@@ -18249,6 +18249,9 @@ static void ggml_compute_forward_mul_mat_id(
     if (params->shared->cplan && params->shared->cplan->moe_expert_prefetch) {
         ggml_moe_prefetch_kernel_hook(dst, ith);
     }
+    if (params->shared->cplan && params->shared->cplan->moe_expert_histogram) {
+        ggml_moe_histogram_kernel_hook(dst, ith);
+    }
 
     char * wdata_src1_end = (src1->type == vec_dot_type) ?
             (char *) params->wdata :
@@ -18577,6 +18580,9 @@ static void ggml_compute_forward_mul_mat_id_up_gate(
     }
     if (params->shared->cplan && params->shared->cplan->moe_expert_prefetch) {
         ggml_moe_prefetch_kernel_hook(dst, ith);
+    }
+    if (params->shared->cplan && params->shared->cplan->moe_expert_histogram) {
+        ggml_moe_histogram_kernel_hook(dst, ith);
     }
 
     char * wdata_src1_end = (src1->type == vec_dot_type) ?

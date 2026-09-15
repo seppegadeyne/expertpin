@@ -488,6 +488,113 @@ void test_trace_hook() {
 #endif
 }
 
+// Advisory per-expert access histogram (GGML_MOE_HISTOGRAM wiring): the
+// dedicated hook counts distinct expert ids per kernel entry, keyed by tensor
+// name, and stays disjoint from the prefetch/residency and shadow lanes.
+void test_histogram_hook() {
+#ifdef __linux__
+    ggml_moe_prefetch_reset_stats();
+
+    test_weights tw(4, 128);
+    require(tw.mapping != nullptr, "histogram: anonymous mmap for weights");
+    ggml_set_name(tw.w, "blk.8.ffn_up_exps.weight");
+    ids_ctx ic(tw.w);
+
+    // A) pristine after reset
+    const auto empty = ggml_moe_prefetch_get_histogram();
+    require(empty.tensors.empty() && empty.kernel_entries == 0 && empty.token_rows == 0,
+            "histogram: pristine after reset");
+
+    // B) distinct experts counted once per kernel entry; duplicate ids deduped
+    ic.set_ids({1, 1, 2});
+    ggml_moe_histogram_kernel_hook(ic.node, 0);
+    ic.set_ids({2, 3});
+    ggml_moe_histogram_kernel_hook(ic.node, 0);
+    const auto hist = ggml_moe_prefetch_get_histogram();
+    require(hist.kernel_entries == 2, "histogram: two kernel entries recorded");
+    require(hist.token_rows == 2, "histogram: one token row per synthetic entry");
+    const auto it = hist.tensors.find("blk.8.ffn_up_exps.weight");
+    require(it != hist.tensors.end(), "histogram: tensor keyed by name");
+    if (it != hist.tensors.end()) {
+        require(it->second.size() == 4, "histogram: one count slot per expert");
+        require(it->second[0] == 0 && it->second[1] == 1 && it->second[2] == 2 && it->second[3] == 1,
+                "histogram: exact distinct counts per expert id");
+    }
+
+    // C) the prefetch/residency hook does NOT feed the histogram (disjoint lanes)
+    ic.set_ids({0});
+    ggml_moe_prefetch_kernel_hook(ic.node, 0);
+    const auto after = ggml_moe_prefetch_get_histogram();
+    require(after.kernel_entries == 2 && after.tensors.at("blk.8.ffn_up_exps.weight")[0] == 0,
+            "histogram: prefetch hook leaves histogram untouched");
+
+    // D) worker threads stay silent (thread 0 records once per entry)
+    ic.set_ids({1});
+    ggml_moe_histogram_kernel_hook(ic.node, 1);
+    require(ggml_moe_prefetch_get_histogram().kernel_entries == 2,
+            "histogram: non-zero thread index does not record");
+
+    // E) reset clears the histogram together with the other counters
+    ggml_moe_prefetch_reset_stats();
+    const auto cleared = ggml_moe_prefetch_get_histogram();
+    require(cleared.tensors.empty() && cleared.kernel_entries == 0 && cleared.token_rows == 0,
+            "histogram: reset clears recorded counts");
+#endif
+}
+
+// cplan routing: the histogram observes real graph compute only when its own
+// plan bit is set, and never enables the residency/prefetch or shadow lanes.
+void test_cpu_cplan_routes_histogram() {
+#ifdef __linux__
+    ggml_moe_prefetch_set_cache_sim_capacity(0);
+    ggml_moe_prefetch_reset_stats();
+
+    ggml_context * ctx = ggml_init({1024 * 1024, nullptr, false});
+    require(ctx != nullptr, "cplan histogram: context allocation");
+    if (!ctx) return;
+
+    ggml_tensor * weights = ggml_new_tensor_3d(ctx, GGML_TYPE_F32, 4, 4, 2);
+    ggml_tensor * input = ggml_new_tensor_3d(ctx, GGML_TYPE_F32, 4, 1, 1);
+    ggml_set_name(weights, "blk.0.ffn_up_exps.weight");
+    ggml_tensor * ids = ggml_new_tensor_2d(ctx, GGML_TYPE_I32, 1, 1);
+    *(int32_t *) ids->data = 0;
+    ggml_tensor * output = ggml_mul_mat_id(ctx, weights, input, ids);
+    ggml_cgraph * graph = ggml_new_graph(ctx);
+    ggml_build_forward_expand(graph, output);
+
+    ggml_backend_t backend = ggml_backend_cpu_init();
+    require(backend != nullptr, "cplan histogram: CPU backend allocation");
+    if (!backend) {
+        ggml_free(ctx);
+        return;
+    }
+    ggml_backend_cpu_set_n_threads(backend, 1);
+    ggml_backend_cpu_set_moe_expert_histogram(backend, false);
+    require(ggml_backend_graph_compute(backend, graph) == GGML_STATUS_SUCCESS,
+            "cplan histogram: baseline graph compute");
+    require(ggml_moe_prefetch_get_histogram().tensors.empty(),
+            "cplan histogram: disabled plan bit stays silent");
+
+    ggml_backend_cpu_set_moe_expert_histogram(backend, true);
+    require(ggml_backend_graph_compute(backend, graph) == GGML_STATUS_SUCCESS,
+            "cplan histogram: instrumented graph compute");
+    const auto hist = ggml_moe_prefetch_get_histogram();
+    require(hist.kernel_entries == 1 && hist.token_rows == 1,
+            "cplan histogram: enabled plan bit routes one kernel entry");
+    require(hist.tensors.count("blk.0.ffn_up_exps.weight") == 1 &&
+            hist.tensors.at("blk.0.ffn_up_exps.weight").size() == 2 &&
+            hist.tensors.at("blk.0.ffn_up_exps.weight")[0] == 1,
+            "cplan histogram: selected expert recorded under tensor name");
+    const auto counters = snapshot();
+    require(counters.requests == 0 && counters.prefetched == 0 && counters.cache_sim_requests == 0,
+            "cplan histogram: no residency, prefetch or shadow cross-talk");
+
+    ggml_backend_free(backend);
+    ggml_free(ctx);
+    ggml_moe_prefetch_reset_stats();
+#endif
+}
+
 int main() {
     test_trace_hook();
     // GGML_MOE_STATS=0 disables mmap-residency attribution; the explicitly
@@ -500,6 +607,8 @@ int main() {
     test_shadow_accounts_exact_last_slice_bytes();
     test_prefetch_hook_does_not_implicitly_feed_shadow();
     test_shadow_only_hook_does_not_prefetch_or_touch_residency_stats();
+    test_histogram_hook();
+    test_cpu_cplan_routes_histogram();
     if (failures == 0) {
         printf("test-moe-prefetch-stats: OK\n");
         return 0;

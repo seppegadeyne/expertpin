@@ -77,4 +77,20 @@ void ggml_moe_prefetch_reset_stats(void);
 
 #ifdef __cplusplus
 }
+
+#include <map>
+#include <string>
+#include <vector>
+
+// Advisory per-expert access histogram (GGML_MOE_HISTOGRAM): distinct routed
+// expert ids per MoE kernel entry, keyed by tensor name, in expert-id order.
+// Advisory-only: collecting it never probes residency or reorders execution.
+struct ggml_moe_histogram_snapshot {
+    std::map<std::string, std::vector<uint64_t>> tensors;
+    uint64_t kernel_entries = 0;
+    uint64_t token_rows     = 0;
+};
+
+// Copy out a consistent snapshot of the histogram (empty when never wired).
+ggml_moe_histogram_snapshot ggml_moe_prefetch_get_histogram();
 #endif

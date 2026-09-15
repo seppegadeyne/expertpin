@@ -66,6 +66,11 @@ void ggml_moe_cache_sim_kernel_hook(const struct ggml_tensor * node, int ith);
 // madvise(MADV_WILLNEED) when the engine is off.
 void ggml_moe_prefetch_kernel_hook(const struct ggml_tensor * node, int ith);
 
+// Histogram-only kernel-entry hook, wired when cplan->moe_expert_histogram is
+// enabled. Counts distinct routed expert ids per kernel entry; never probes
+// residency, never read-aheads, never feeds the shadow or prefetch lanes.
+void ggml_moe_histogram_kernel_hook(const struct ggml_tensor * node, int ith);
+
 #ifdef __cplusplus
 }
 #endif

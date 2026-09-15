@@ -24,6 +24,11 @@ Environment=KVT=q4_0
 # target-side acceptance keeps output quality. Dev sessions stay prefill-bound.
 Environment=DRAFT=1
 Environment=PORT=8102
+# Measurement mode (2026-09-15 residency slice): advisory per-expert access
+# histogram (GGML_MOE_HISTOGRAM lane) + engine-stats dump at teardown, written
+# to EXPERT_STATS_FILE. Back out both lines once the residency manifest lands.
+Environment=GGML_MOE_HISTOGRAM=1
+Environment=EXPERT_STATS_FILE=%h/Projects/expertpin/.hermes-work/residency-20260915/expert-stats.json
 MemoryHigh=33G
 MemoryMax=36G
 MemorySwapMax=16G
