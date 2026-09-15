@@ -1,0 +1,253 @@
+{
+  "started": "2026-09-15T03:42:19.302112+02:00",
+  "scope": "expertpin-test-56a4437173844ae085c60936766c9817.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ud-q4kxl",
+  "cold_cache": true,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [
+    {
+      "usage": {
+        "completion_tokens": 32,
+        "prompt_tokens": 13847,
+        "total_tokens": 13879,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 13847,
+        "prompt_ms": 118425.855,
+        "prompt_per_token_ms": 8.552455766592042,
+        "prompt_per_second": 116.92548050423619,
+        "predicted_n": 32,
+        "predicted_ms": 15860.404,
+        "predicted_per_token_ms": 495.637625,
+        "predicted_per_second": 2.0176030824939892,
+        "n_ctx": 65536,
+        "n_past": 13878,
+        "draft_n": 22,
+        "draft_n_accepted": 16,
+        "draft_by_depth": [
+          {
+            "depth": 1,
+            "draft_n": 15,
+            "draft_n_accepted": 9
+          },
+          {
+            "depth": 2,
+            "draft_n": 5,
+            "draft_n_accepted": 5
+          },
+          {
+            "depth": 3,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          {
+            "depth": 4,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          }
+        ]
+      },
+      "ubatch": 512,
+      "prompt_tokens": 13835,
+      "wall_seconds": 135.16884779802058
+    }
+  ],
+  "status": "completed",
+  "ubatch": 512,
+  "harness": "prefill-ubatch-20260915",
+  "qli.service_stop_requested": "2026-09-15T03:42:21.458657+02:00",
+  "jetski.service_skip": "masked/not-found \u2014 not stopped (pause mandate)",
+  "miners_stopped": [
+    "qli.service"
+  ],
+  "guard": {
+    "mem_available_bytes": 49496678400,
+    "gpu_util_pct": 3,
+    "vram_mib": 2100,
+    "elapsed_s": 0.025510599982226267
+  },
+  "cold_cache_report": {
+    "verified_cold": true,
+    "verdict": "COLD",
+    "resident_ratio": 0.0,
+    "max_resident_ratio": 0.1,
+    "shard_verdicts": [
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      },
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      },
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      },
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      }
+    ],
+    "drop": {
+      "fadvise_completed": true,
+      "bytes": 111334654784,
+      "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+      "files": [
+        {
+          "fadvise_completed": true,
+          "bytes": 10946624,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+        },
+        {
+          "fadvise_completed": true,
+          "bytes": 49859583136,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+        },
+        {
+          "fadvise_completed": true,
+          "bytes": 49376141504,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+        },
+        {
+          "fadvise_completed": true,
+          "bytes": 12087983520,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+        }
+      ],
+      "scope": "whole_checkpoint"
+    },
+    "snapshot": {
+      "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+      "pages": 27181314,
+      "resident_pages": 0,
+      "error": null,
+      "page_size": 4096,
+      "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+      "files": [
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 2673,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+        },
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 12172750,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+        },
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 12054723,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+        },
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 2951168,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+        }
+      ],
+      "scope": "whole_checkpoint"
+    }
+  },
+  "cache_drop": {
+    "fadvise_completed": true,
+    "bytes": 111334654784,
+    "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+    "files": [
+      {
+        "fadvise_completed": true,
+        "bytes": 10946624,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+      },
+      {
+        "fadvise_completed": true,
+        "bytes": 49859583136,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+      },
+      {
+        "fadvise_completed": true,
+        "bytes": 49376141504,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+      },
+      {
+        "fadvise_completed": true,
+        "bytes": 12087983520,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+      }
+    ],
+    "scope": "whole_checkpoint"
+  },
+  "residency": {
+    "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+    "pages": 27181314,
+    "resident_pages": 0,
+    "error": null,
+    "page_size": 4096,
+    "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+    "files": [
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 2673,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+      },
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 12172750,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+      },
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 12054723,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+      },
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 2951168,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+      }
+    ],
+    "scope": "whole_checkpoint"
+  },
+  "residency_verdict": {
+    "verdict": "COLD",
+    "resident_ratio": 0.0
+  },
+  "prompt_filler_paragraphs": 141,
+  "prompt_tokens": 13835,
+  "scope_stopped_verified": true,
+  "cleanup_errors": [],
+  "finished": "2026-09-15T03:45:37.405702+02:00",
+  "elapsed_seconds": 198.10363773698919
+}

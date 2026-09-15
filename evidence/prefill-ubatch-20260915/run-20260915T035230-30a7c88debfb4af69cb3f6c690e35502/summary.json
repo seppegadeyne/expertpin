@@ -1,0 +1,206 @@
+{
+  "started": "2026-09-15T03:52:30.032420+02:00",
+  "scope": "expertpin-test-97cce7a3d7344bd8aefe3424bde1aeca.scope",
+  "model_loaded": true,
+  "startup_n_max": 4,
+  "checkpoint": "ud-q4kxl",
+  "cold_cache": true,
+  "sequence": [
+    4,
+    4
+  ],
+  "requests": [],
+  "status": "cleanup_failed",
+  "ubatch": 2048,
+  "harness": "prefill-ubatch-20260915",
+  "qli.service_stop_requested": "2026-09-15T03:52:32.201922+02:00",
+  "jetski.service_skip": "masked/not-found \u2014 not stopped (pause mandate)",
+  "miners_stopped": [
+    "qli.service"
+  ],
+  "guard": {
+    "mem_available_bytes": 50288152576,
+    "gpu_util_pct": 0,
+    "vram_mib": 2100,
+    "elapsed_s": 0.024668884987477213
+  },
+  "cold_cache_report": {
+    "verified_cold": true,
+    "verdict": "COLD",
+    "resident_ratio": 0.0,
+    "max_resident_ratio": 0.1,
+    "shard_verdicts": [
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      },
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      },
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      },
+      {
+        "verdict": "COLD",
+        "resident_ratio": 0.0
+      }
+    ],
+    "drop": {
+      "fadvise_completed": true,
+      "bytes": 111334654784,
+      "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+      "files": [
+        {
+          "fadvise_completed": true,
+          "bytes": 10946624,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+        },
+        {
+          "fadvise_completed": true,
+          "bytes": 49859583136,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+        },
+        {
+          "fadvise_completed": true,
+          "bytes": 49376141504,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+        },
+        {
+          "fadvise_completed": true,
+          "bytes": 12087983520,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+        }
+      ],
+      "scope": "whole_checkpoint"
+    },
+    "snapshot": {
+      "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+      "pages": 27181314,
+      "resident_pages": 0,
+      "error": null,
+      "page_size": 4096,
+      "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+      "files": [
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 2673,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+        },
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 12172750,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+        },
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 12054723,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+        },
+        {
+          "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+          "pages": 2951168,
+          "resident_pages": 0,
+          "error": null,
+          "page_size": 4096,
+          "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+        }
+      ],
+      "scope": "whole_checkpoint"
+    }
+  },
+  "cache_drop": {
+    "fadvise_completed": true,
+    "bytes": 111334654784,
+    "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+    "files": [
+      {
+        "fadvise_completed": true,
+        "bytes": 10946624,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+      },
+      {
+        "fadvise_completed": true,
+        "bytes": 49859583136,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+      },
+      {
+        "fadvise_completed": true,
+        "bytes": 49376141504,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+      },
+      {
+        "fadvise_completed": true,
+        "bytes": 12087983520,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+      }
+    ],
+    "scope": "whole_checkpoint"
+  },
+  "residency": {
+    "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+    "pages": 27181314,
+    "resident_pages": 0,
+    "error": null,
+    "page_size": 4096,
+    "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+    "files": [
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 2673,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf"
+      },
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 12172750,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf"
+      },
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 12054723,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf"
+      },
+      {
+        "method": "mincore PROT_NONE MAP_SHARED (whole file, batched)",
+        "pages": 2951168,
+        "resident_pages": 0,
+        "error": null,
+        "page_size": 4096,
+        "file": "/home/seppe/Models/qwen3.8-flash-next/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf"
+      }
+    ],
+    "scope": "whole_checkpoint"
+  },
+  "residency_verdict": {
+    "verdict": "COLD",
+    "resident_ratio": 0.0
+  },
+  "prompt_filler_paragraphs": 141,
+  "prompt_tokens": 13835,
+  "error": "RuntimeError('VRAM cap exceeded/invalid')",
+  "scope_stopped_verified": true,
+  "cleanup_errors": [
+    "scope-stop: Command '['systemctl', '--user', 'stop', 'expertpin-test-97cce7a3d7344bd8aefe3424bde1aeca.scope']' timed out after 10 seconds"
+  ],
+  "finished": "2026-09-15T03:56:26.197424+02:00",
+  "elapsed_seconds": 236.16504548801458
+}
